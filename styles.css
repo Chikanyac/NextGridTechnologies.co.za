@@ -1,3 +1,6 @@
+/* =========================
+   GLOBAL
+========================= */
 * {
   margin: 0;
   padding: 0;
@@ -16,17 +19,26 @@ body {
   margin: auto;
 }
 
+/* =========================
+   HEADER WITH BACKGROUND IMAGE
+========================= */
 header {
   background: linear-gradient(
       rgba(13, 27, 42, 0.85),
       rgba(13, 27, 42, 0.85)
     ),
-    url("City Backbackground.jpg");
+    url("header-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
-  padding: 20px 0;
+  padding: 25px 0;
+  position: relative;
+}
+
+/* Optional taller header */
+header {
+  min-height: 120px;
 }
 
 .header-flex {
@@ -35,24 +47,57 @@ header {
   align-items: center;
 }
 
-header img.logo {
-  width: 40px;
-  margin-right: 10px;
+/* Logo sizing */
+.logo {
+  height: 55px;
+  width: auto;
   vertical-align: middle;
 }
 
+/* Navigation */
 nav a {
   color: white;
   text-decoration: none;
-  margin-left: 20px;
+  margin-left: 25px;
+  font-weight: 500;
+  opacity: 0.9;
+  transition: 0.3s ease;
 }
 
+nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Small Button in Nav */
 .btn-small {
-  background: #0077ff;
-  padding: 8px 15px;
-  border-radius: 4px;
+  background: #00b4ff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
 }
 
+.btn-small:hover {
+  background: #0094d6;
+}
+
+/* Glow line effect under header */
+header::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  margin-top: 20px;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
 .hero {
   background: linear-gradient(to right, #0d1b2a, #1b263b);
   color: white;
@@ -75,8 +120,16 @@ nav a {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
+.btn-primary:hover {
+  background: #005fd1;
+}
+
+/* =========================
+   SECTIONS
+========================= */
 .section {
   padding: 60px 20px;
   text-align: center;
@@ -92,13 +145,15 @@ nav a {
   gap: 20px;
 }
 
+/* Cards */
 .card {
   background: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Pricing */
 .pricing ul {
   list-style: none;
   margin-top: 15px;
@@ -111,6 +166,9 @@ nav a {
   color: #0077ff;
 }
 
+/* =========================
+   FORM
+========================= */
 form {
   max-width: 500px;
   margin: auto;
@@ -118,39 +176,28 @@ form {
   flex-direction: column;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   padding: 12px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  color: white;
-  font-size: 24px;
-  padding: 15px;
-  border-radius: 50%;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-footer {
-  background: #0d1b2a;
-  color: white;
-  text-align: center;
-  padding: 20px;
   font-size: 14px;
 }
 
+form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* =========================
+   BLOG
+========================= */
 .blog-card {
   background: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
@@ -162,8 +209,44 @@ footer {
   text-decoration: none;
 }
 
+.read-more:hover {
+  text-decoration: underline;
+}
+
 .blog-content {
   max-width: 800px;
   margin: auto;
   text-align: left;
+}
+
+/* =========================
+   WHATSAPP FLOAT BUTTON
+========================= */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  font-size: 24px;
+  padding: 15px;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease;
+}
+
+.whatsapp:hover {
+  transform: scale(1.1);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: #0d1b2a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
 }
