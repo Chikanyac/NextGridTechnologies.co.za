@@ -82,7 +82,14 @@ header::after {
   );
   margin-top: 20px;
 }
+header h1 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
 
+nav a {
+  font-weight: 500;
+}
 /* =========================
    HERO SECTION
 ========================= */
@@ -100,7 +107,11 @@ header::after {
   padding: 180px 20px 120px 20px;
   position: relative;
 }
-
+.hero h2 {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
 /* =========================
    SECTIONS
 ========================= */
