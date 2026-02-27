@@ -160,3 +160,7 @@ footer {
   margin: auto;
   text-align: left;
 }
+.logo {
+    height: 50px;
+    width: auto;
+}
