@@ -40,7 +40,9 @@ header img.logo {
   margin-right: 10px;
   vertical-align: middle;
 }
-
+header {
+  min-height: 160px;
+}
 nav a {
   color: white;
   text-decoration: none;
