@@ -36,12 +36,12 @@ header {
 }
 
 header img.logo {
-  width: 200px;
+  width: 100px;
   margin-right: 10px;
   vertical-align: middle;
 }
 header {
-  min-height: 200px;
+  min-height: 160px;
 }
 header::after {
   content: "";
