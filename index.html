@@ -103,16 +103,25 @@
 </section>
 
 <section id="contact" class="section">
-<div class="container">
-<h2>Request Free Microsoft 365 Security Check</h2>
-<form action="https://formspree.io/f/maqdkqyg" method="POST">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Business Email" required>
-<input type="text" name="company" placeholder="Company Name" required>
-<textarea name="message" placeholder="How can we help?" required></textarea>
-<button type="submit" class="btn-primary">Submit</button>
-</form>
-</div>
+  <div class="container">
+    <h2>Request Free Microsoft 365 Security Check</h2>
+
+    <!-- Formspree Contact Form -->
+    <form action="https://formspree.io/f/maqdkqyg" method="POST">
+      <!-- Honeypot for spam prevention -->
+      <input type="text" name="_gotcha" style="display:none">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Business Email" required>
+      <input type="text" name="company" placeholder="Company Name" required>
+      <textarea name="message" placeholder="How can we help?" required></textarea>
+
+      <!-- Redirect after successful submission -->
+      <input type="hidden" name="_next" value="thank-you.html">
+
+      <button type="submit" class="btn-primary">Submit</button>
+    </form>
+  </div>
 </section>
 
 <footer>
