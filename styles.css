@@ -17,7 +17,14 @@ body {
 }
 
 header {
-  background: #0d1b2a;
+  background: linear-gradient(
+      rgba(13, 27, 42, 0.85),
+      rgba(13, 27, 42, 0.85)
+    ),
+    url("City Backbackground.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   padding: 20px 0;
 }
