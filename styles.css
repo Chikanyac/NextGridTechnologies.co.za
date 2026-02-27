@@ -36,8 +36,8 @@ header {
 }
 
 header img.logo {
-  width: 160px;
-  margin-right: 200px;
+  width: 200px;
+  margin-right: 10px;
   vertical-align: middle;
 }
 header {
