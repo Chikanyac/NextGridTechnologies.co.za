@@ -43,6 +43,18 @@ header img.logo {
 header {
   min-height: 160px;
 }
+header::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  margin-top: 15px;
+}
 nav a {
   color: white;
   text-decoration: none;
@@ -172,4 +184,13 @@ footer {
 .logo {
     height: 50px;
     width: auto;
+}
+header nav a {
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+header nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
 }
