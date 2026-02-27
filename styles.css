@@ -5,28 +5,32 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-/* =========================
-   HEADER WITH BACKGROUND IMAGE
-========================= */
-header {
-  background: linear-gradient(
-      rgba(13, 27, 42, 0.85),
-      rgba(13, 27, 42, 0.85)
-    ),
-    url("header-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
-  padding: 25px 0;
-  position: relative;
 }
 
-/* Optional taller header */
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* =========================
+   HEADER (Transparent Over Hero)
+========================= */
 header {
-  min-height: 120px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 25px 0;
+  background: transparent;
+  color: white;
 }
 
 .header-flex {
@@ -35,11 +39,18 @@ header {
   align-items: center;
 }
 
-/* Logo sizing */
 .logo {
   height: 55px;
   width: auto;
-  vertical-align: middle;
+}
+
+header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
 }
 
 /* Navigation */
@@ -48,16 +59,14 @@ nav a {
   text-decoration: none;
   margin-left: 25px;
   font-weight: 500;
-  opacity: 0.9;
   transition: 0.3s ease;
 }
 
 nav a:hover {
-  opacity: 1;
-  text-decoration: underline;
+  opacity: 0.8;
 }
 
-/* Small Button in Nav */
+/* Nav Button */
 .btn-small {
   background: #00b4ff;
   padding: 8px 16px;
@@ -69,29 +78,8 @@ nav a:hover {
   background: #0094d6;
 }
 
-/* Glow line effect under header */
-header::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.6),
-    transparent
-  );
-  margin-top: 20px;
-}
-header h1 {
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-nav a {
-  font-weight: 500;
-}
 /* =========================
-   HERO SECTION
+   HERO SECTION (With Background Image)
 ========================= */
 .hero {
   background: linear-gradient(
@@ -104,14 +92,36 @@ nav a {
   background-repeat: no-repeat;
   color: white;
   text-align: center;
-  padding: 180px 20px 120px 20px;
-  position: relative;
+  padding: 200px 20px 120px 20px;
 }
+
 .hero h2 {
-  font-size: 46px;
+  font-size: 42px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  margin-bottom: 20px;
 }
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #0077ff;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #005fd1;
+}
+
 /* =========================
    SECTIONS
 ========================= */
@@ -130,12 +140,11 @@ nav a {
   gap: 20px;
 }
 
-/* Cards */
 .card {
   background: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 /* Pricing */
@@ -146,7 +155,7 @@ nav a {
 
 .price {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 700;
   margin: 15px 0;
   color: #0077ff;
 }
@@ -182,7 +191,7 @@ form textarea {
   background: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   text-align: left;
 }
 
@@ -190,7 +199,7 @@ form textarea {
   display: inline-block;
   margin-top: 15px;
   color: #0077ff;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -213,7 +222,7 @@ form textarea {
   right: 20px;
   background: #25d366;
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   padding: 15px;
   border-radius: 50%;
   text-decoration: none;
