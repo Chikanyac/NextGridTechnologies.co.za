@@ -1,1 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
+body {
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+header {
+  background: #0d1b2a;
+  color: white;
+  padding: 20px 0;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.btn-small {
+  background: #0077ff;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+.hero {
+  background: linear-gradient(to right, #0d1b2a, #1b263b);
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #0077ff;
+  color: white;
+  padding: 12px 25px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.alt {
+  background: #f4f6f8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.features {
+  list-style: none;
+  font-size: 18px;
+}
+
+.features li {
+  margin: 15px 0;
+}
+
+.cta {
+  background: #0077ff;
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
+
+form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+form input, form textarea {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.blog-card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 15px;
+  color: #0077ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.blog-content {
+  max-width: 800px;
+  margin: auto;
+  text-align: left;
+}
+
+footer {
+  background: #0d1b2a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
