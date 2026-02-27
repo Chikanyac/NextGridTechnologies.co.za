@@ -28,6 +28,12 @@ header {
   align-items: center;
 }
 
+header img.logo {
+  width: 40px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
 nav a {
   color: white;
   text-decoration: none;
@@ -86,20 +92,16 @@ nav a {
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.features {
+.pricing ul {
   list-style: none;
-  font-size: 18px;
+  margin-top: 15px;
 }
 
-.features li {
+.price {
+  font-size: 22px;
+  font-weight: bold;
   margin: 15px 0;
-}
-
-.cta {
-  background: #0077ff;
-  color: white;
-  text-align: center;
-  padding: 70px 20px;
+  color: #0077ff;
 }
 
 form {
@@ -114,18 +116,6 @@ form input, form textarea {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.pricing ul {
-  list-style: none;
-  margin-top: 15px;
-}
-
-.price {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #0077ff;
 }
 
 .whatsapp {
@@ -147,4 +137,26 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 14px;
+}
+
+.blog-card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 15px;
+  color: #0077ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.blog-content {
+  max-width: 800px;
+  margin: auto;
+  text-align: left;
 }
