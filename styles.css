@@ -215,3 +215,60 @@ header nav a:hover {
 .cta-support {
   margin-top: 40px;
 }
+/* =========================
+   DARK TECH SUPPORT SECTION
+========================= */
+
+.support-section {
+  background: linear-gradient(to right, #0d1b2a, #1b263b);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.support-section .section-intro {
+  max-width: 750px;
+  margin: 15px auto 50px auto;
+  font-size: 17px;
+  opacity: 0.85;
+}
+
+.tech-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 183, 255, 0.15);
+  border-color: rgba(0, 183, 255, 0.4);
+}
+
+.tech-card .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.tech-card h3 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.price-tag {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #00b4ff;
+}
+
+.highlight {
+  border: 1px solid #00b4ff;
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.25);
+}
+
+.cta-support {
+  margin-top: 50px;
+}
