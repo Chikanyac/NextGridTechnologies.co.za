@@ -339,3 +339,18 @@ header nav a:hover {
   background: white;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
+.nav-cta {
+  background: #00b4ff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-cta:hover {
+  background: #0096d6;
+  transform: translateY(-2px);
+}
