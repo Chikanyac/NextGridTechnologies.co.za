@@ -205,3 +205,13 @@ header nav a:hover {
   opacity: 1;
   text-decoration: underline;
 }
+.section-intro {
+  max-width: 750px;
+  margin: 15px auto 40px auto;
+  font-size: 17px;
+  opacity: 0.9;
+}
+
+.cta-support {
+  margin-top: 40px;
+}
