@@ -220,17 +220,17 @@ header nav a:hover {
 ========================= */
 
 .support-section {
-  background: linear-gradient(to right, #0d1b2a, #1b263b);
-  color: white;
-  padding: 80px 20px;
+  background: #f8fafc;
+  padding: 90px 20px;
   text-align: center;
 }
 
+.support-section h2 {
+  color: #0d1b2a;
+}
+
 .support-section .section-intro {
-  max-width: 750px;
-  margin: 15px auto 50px auto;
-  font-size: 17px;
-  opacity: 0.85;
+  color: #475569;
 }
 
 .tech-card {
