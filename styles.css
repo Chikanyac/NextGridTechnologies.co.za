@@ -421,3 +421,10 @@ header nav a:hover {
 .blog-category { margin-bottom: 30px; }
 .blog-category ul { list-style-type: disc; padding-left: 20px; }
 .blog-category li { margin-bottom: 10px; }
+
+
+.contact-subtext {
+  font-size: 0.9rem;  /* slightly smaller */
+  font-style: italic; /* italics */
+  margin-bottom: 20px; /* optional spacing from the form */
+}
