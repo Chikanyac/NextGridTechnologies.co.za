@@ -361,14 +361,25 @@ header nav a:hover {
 
 .top-bar {
   background: #0d1b2a;
-  color: white;
-  font-size: 14px;
   padding: 8px 0;
-  text-align: right;
 }
 
-.top-bar .container {
+.top-bar-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  justify-content: flex-end; /* Pushes to right */
+}
+
+.top-phone {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.top-phone:hover {
+  opacity: 0.8;
 }
