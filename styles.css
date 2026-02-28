@@ -300,3 +300,21 @@ header nav a:hover {
   border-radius: 20px;
   display: inline-block;
 }
+.contact-section {
+  background: white;
+  padding: 90px 20px;
+  text-align: center;
+}
+
+.contact-section input,
+.contact-section textarea {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+  border-color: #00b4ff;
+  outline: none;
+}
