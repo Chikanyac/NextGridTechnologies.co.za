@@ -264,9 +264,17 @@ header nav a:hover {
   color: #00b4ff;
 }
 
-.highlight {
+/* Highlight inside DARK sections */
+.security-section .highlight {
   border: 1px solid #00b4ff;
   box-shadow: 0 0 20px rgba(0, 183, 255, 0.25);
+}
+
+/* Highlight inside LIGHT sections */
+.support-section .highlight {
+  border: 2px solid #00b4ff;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .cta-support {
@@ -317,4 +325,17 @@ header nav a:hover {
 .contact-section textarea:focus {
   border-color: #00b4ff;
   outline: none;
+}
+
+/* Highlight inside DARK sections */
+.security-section .highlight {
+  border: 1px solid #00b4ff;
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.25);
+}
+
+/* Highlight inside LIGHT sections */
+.support-section .highlight {
+  border: 2px solid #00b4ff;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
