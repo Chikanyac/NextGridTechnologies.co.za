@@ -354,3 +354,21 @@ header nav a:hover {
   background: #0096d6;
   transform: translateY(-2px);
 }
+
+/* =========================
+   TOP CONTACT BAR
+========================= */
+
+.top-bar {
+  background: #0d1b2a;
+  color: white;
+  font-size: 14px;
+  padding: 8px 0;
+  text-align: right;
+}
+
+.top-bar .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
