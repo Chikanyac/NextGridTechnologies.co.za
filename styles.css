@@ -479,3 +479,96 @@ header nav a:hover {
   font-style: italic; /* italics */
   margin-bottom: 20px; /* optional spacing from the form */
 }
+/* Support Section Background & Text */
+.support-section {
+  background-color: #1f3a5f; /* light bluish-dark background (same as contact) */
+  color: #ffffff;            /* white text */
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 12px;       /* optional rounded edges */
+}
+
+/* Section Intro Paragraph */
+.support-section .section-intro {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 40px;
+  color: #cce0ff; /* lighter bluish text */
+}
+
+/* Grid of cards */
+.support-section .grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Individual card styling */
+.support-section .card.tech-card {
+  background-color: #2c4a7b; /* slightly lighter bluish */
+  color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-align: left; /* text left-aligned inside card */
+}
+
+.support-section .card.tech-card h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.support-section .card.tech-card p {
+  margin-bottom: 15px;
+}
+
+.support-section .card.tech-card .price-tag {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #cce0ff;
+}
+
+/* Badge styling */
+.support-section .card.tech-card .badge {
+  background-color: #4da6ff;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Highlighted card */
+.support-section .card.tech-card.highlight {
+  border: 2px solid #4da6ff;
+}
+
+/* CTA Button */
+.support-section .cta-support .btn-primary {
+  background-color: #4da6ff; /* bright bluish */
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.support-section .cta-support .btn-primary:hover {
+  background-color: #3399ff; /* darker on hover */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .support-section .grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .support-section .card.tech-card {
+    width: 90%;
+  }
+}
