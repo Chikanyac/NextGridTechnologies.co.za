@@ -272,3 +272,31 @@ header nav a:hover {
 .cta-support {
   margin-top: 50px;
 }
+
+/* =========================
+   SECURITY PACKAGES SECTION
+========================= */
+
+.security-section {
+  background: linear-gradient(to right, #111827, #0f172a);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.security-section .section-intro {
+  max-width: 750px;
+  margin: 15px auto 50px auto;
+  font-size: 17px;
+  opacity: 0.85;
+}
+
+.security-section .popular-badge {
+  margin-top: 15px;
+  font-size: 13px;
+  background: #00b4ff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
