@@ -7,34 +7,66 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="blog-page">
+
 <header>
 <div class="container header-flex">
-<h1>NextGrid Technologies</h1>
+<h1><img src="favicon.ico" alt="NextGrid Logo" class="logo"> NextGrid Technologies</h1>
 <nav>
 <a href="index.html">Home</a>
 <a href="blog.html">Blog</a>
-<a href="index.html#contact" class="btn-small">Free Security Check</a>
+<a href="#contact" class="btn-small">Free Security Check</a>
 </nav>
 </div>
 </header>
 
-<section class="section">
+<!-- Hero Section -->
+<section class="hero services-hero">
+  <div class="container">
+    <h1>Common Computer Problems and How to Fix Them</h1>
+    <p class="section-intro">
+      Slow computers, startup errors, and unexpected crashes are common issues for both home and business users. This guide covers practical troubleshooting tips for everyday problems.
+    </p>
+  </div>
+</section>
+
+<!-- Blog Content -->
+<section class="support-section">
 <div class="container">
 
- <h2>Common Computer Problems and How to Fix Them</h2>
-  <p>Slow computers, startup errors, and unexpected crashes are common issues for both home and business users. This guide covers practical troubleshooting tips for everyday problems.</p>
-
-  <ul>
+  <h2>Typical Computer Issues</h2>
+  <ul class="tech-list">
     <li>Computer running slowly: clear cache, uninstall unused programs, check startup items</li>
     <li>Frequent crashes: check for hardware or driver issues</li>
     <li>Software errors: reinstall or update programs</li>
     <li>Network connectivity issues: restart router, check settings, update drivers</li>
   </ul>
 
-  <p>Following these steps can save time and avoid unnecessary IT calls.</p>
+  <p class="section-intro">
+    Following these steps can save time and avoid unnecessary IT calls.
+  </p>
 
-  <p><a href="blog.html" class="btn-small">← Back to Blog</a></p>
+  <!-- Back to Blog CTA -->
+  <div class="cta-support">
+    <a href="blog.html" class="btn-primary">← Back to Blog</a>
+  </div>
 
+</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+<div class="container contact-wrapper" style="text-align: center;">
+<h2>Contact Us</h2>
+<p class="contact-subtext">
+Get in touch with us for IT support, security checks, or inquiries.
+</p>
+<form action="https://formspree.io/f/xjgezydg" method="POST">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Business Email" required>
+<input type="text" name="company" placeholder="Company Name" required>
+<textarea name="message" placeholder="How can we help?" required></textarea>
+<button type="submit" class="btn-primary">Submit</button>
+</form>
 </div>
 </section>
 
@@ -43,6 +75,8 @@
 <p>© 2026 NextGrid Technologies | Microsoft 365 Security Specialists</p>
 </div>
 </footer>
+
+<a href="https://wa.me/27680330794" class="whatsapp" target="_blank">💬</a>
 
 </body>
 </html>
