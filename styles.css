@@ -1,6 +1,6 @@
-/* ===================================
-GLOBAL RESET & FONTS
-=================================== */
+/* =========================
+   GLOBAL RESET
+========================= */
 
 *{
 margin:0;
@@ -17,9 +17,9 @@ h1,h2,h3{
 font-family:'Poppins',sans-serif;
 }
 
-/* ===================================
-CONTAINER
-=================================== */
+/* =========================
+   GLOBAL CONTAINER
+========================= */
 
 .container{
 max-width:1200px;
@@ -27,9 +27,9 @@ margin:0 auto;
 padding:0 20px;
 }
 
-/* ===================================
-HEADER
-=================================== */
+/* =========================
+   HEADER
+========================= */
 
 header{
 background:linear-gradient(rgba(13,27,42,0.85),rgba(13,27,42,0.85)),url("header-bg.jpg");
@@ -38,6 +38,14 @@ background-position:center;
 color:white;
 padding:20px 0;
 min-height:160px;
+}
+
+header::after{
+content:"";
+display:block;
+height:2px;
+background:linear-gradient(to right,transparent,rgba(255,255,255,0.6),transparent);
+margin-top:15px;
 }
 
 .header-flex{
@@ -52,12 +60,9 @@ margin-right:10px;
 vertical-align:middle;
 }
 
-header::after{
-content:"";
-display:block;
-height:2px;
-background:linear-gradient(to right,transparent,rgba(255,255,255,.6),transparent);
-margin-top:15px;
+.logo{
+height:50px;
+width:auto;
 }
 
 nav a{
@@ -65,7 +70,7 @@ color:white;
 text-decoration:none;
 margin-left:20px;
 font-weight:500;
-opacity:.95;
+opacity:0.95;
 }
 
 nav a:hover{
@@ -73,14 +78,222 @@ opacity:1;
 text-decoration:underline;
 }
 
-.logo{
-height:50px;
-width:auto;
+.btn-small{
+background:#0077ff;
+padding:8px 15px;
+border-radius:4px;
+color:white;
+text-decoration:none;
 }
 
-/* ===================================
-TOP BAR
-=================================== */
+/* =========================
+   HERO
+========================= */
+
+.hero{
+background:linear-gradient(rgba(13,27,42,0.85),rgba(13,27,42,0.85)),url("header-bg.jpg");
+background-size:cover;
+background-position:center;
+color:white;
+text-align:center;
+padding:180px 20px 120px;
+}
+
+.hero h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-primary{
+display:inline-block;
+background:#0077ff;
+color:white;
+padding:12px 25px;
+margin-top:20px;
+border-radius:5px;
+text-decoration:none;
+border:none;
+cursor:pointer;
+}
+
+.nav-cta{
+background:#00b4ff;
+color:white;
+padding:10px 18px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+margin-left:20px;
+transition:.3s;
+}
+
+.nav-cta:hover{
+background:#0096d6;
+transform:translateY(-2px);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+padding:60px 20px;
+text-align:center;
+}
+
+.alt{
+background:#f4f6f8;
+}
+
+.section-intro{
+max-width:750px;
+margin:15px auto 40px;
+font-size:17px;
+opacity:0.9;
+}
+
+/* =========================
+   GRID + CARDS
+========================= */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   CONTACT SECTION
+========================= */
+
+#contact{
+background:#1f3a5f;
+color:white;
+padding:60px 20px;
+text-align:center;
+border-radius:12px;
+}
+
+.contact-subtext{
+font-size:.9rem;
+font-style:italic;
+margin-bottom:30px;
+color:#cce0ff;
+}
+
+.contact-wrapper form.contact-form{
+display:inline-block;
+text-align:left;
+max-width:400px;
+width:100%;
+}
+
+.contact-wrapper input,
+.contact-wrapper textarea{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+border-radius:6px;
+border:none;
+font-size:1rem;
+}
+
+.contact-wrapper button{
+background:#4da6ff;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+transition:.3s;
+}
+
+.contact-wrapper button:hover{
+background:#3399ff;
+}
+
+/* =========================
+   SUPPORT SECTION
+========================= */
+
+.support-section{
+background:#1f3a5f;
+color:white;
+padding:60px 20px;
+text-align:center;
+border-radius:12px;
+}
+
+.support-section .section-intro{
+font-size:.9rem;
+font-style:italic;
+margin-bottom:40px;
+color:#cce0ff;
+}
+
+.support-section .grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-bottom:40px;
+}
+
+.support-section .tech-card{
+background:#2c4a7b;
+padding:25px;
+border-radius:12px;
+width:300px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+text-align:left;
+}
+
+.price-tag{
+font-weight:bold;
+color:#cce0ff;
+margin-top:10px;
+}
+
+.support-section .highlight{
+border:2px solid #4da6ff;
+}
+
+/* =========================
+   SECURITY SECTION
+========================= */
+
+.security-section{
+background:linear-gradient(to right,#111827,#0f172a);
+color:white;
+padding:80px 20px;
+text-align:center;
+}
+
+.security-section .popular-badge{
+margin-top:15px;
+font-size:13px;
+background:#00b4ff;
+color:white;
+padding:6px 12px;
+border-radius:20px;
+display:inline-block;
+}
+
+/* =========================
+   NAVBAR
+========================= */
 
 .top-bar{
 background:#0d1b2a;
@@ -97,10 +310,6 @@ color:white;
 text-decoration:none;
 font-size:14px;
 }
-
-/* ===================================
-NAVBAR
-=================================== */
 
 .navbar{
 background:white;
@@ -119,313 +328,133 @@ display:flex;
 gap:25px;
 }
 
-.nav-links a{
-text-decoration:none;
-color:#0f172a;
-font-weight:500;
-}
+/* =========================
+   ABOUT SECTION
+========================= */
 
-.nav-cta{
-background:#00b4ff;
-color:white;
-padding:10px 18px;
-border-radius:6px;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.nav-cta:hover{
-background:#0096d6;
-transform:translateY(-2px);
-}
-
-/* ===================================
-BUTTONS
-=================================== */
-
-.btn-primary{
-display:inline-block;
-background:#0077ff;
-color:white;
-padding:12px 25px;
-border-radius:5px;
-text-decoration:none;
-cursor:pointer;
-}
-
-.btn-small{
-background:#0077ff;
-padding:8px 15px;
-border-radius:4px;
-color:white;
-text-decoration:none;
-}
-
-/* ===================================
-HERO
-=================================== */
-
-.hero{
-background:linear-gradient(rgba(13,27,42,0.85),rgba(13,27,42,0.85)),url("header-bg.jpg");
-background-size:cover;
-background-position:center;
-color:white;
-text-align:center;
-padding:180px 20px 120px;
-}
-
-.hero h2{
-font-size:36px;
-margin-bottom:20px;
-}
-
-/* ===================================
-GENERAL SECTIONS
-=================================== */
-
-.section{
-padding:60px 20px;
-text-align:center;
-}
-
-.section-intro{
-max-width:750px;
-margin:15px auto 40px;
-font-size:17px;
-opacity:.9;
-}
-
-.alt{
-background:#f4f6f8;
-}
-
-/* ===================================
-GRID / CARDS
-=================================== */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
+.about-section{
 background:white;
-padding:25px;
-border-radius:8px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
-}
-
-/* ===================================
-CONTACT SECTION
-=================================== */
-
-#contact{
-background:#1f3a5f;
-color:white;
-padding:60px 20px;
-text-align:center;
-border-radius:12px;
-}
-
-.contact-subtext{
-font-size:.9rem;
-font-style:italic;
-margin-bottom:30px;
-color:#cce0ff;
-}
-
-.contact-wrapper form{
-display:inline-block;
-text-align:left;
-max-width:400px;
-width:100%;
-}
-
-.contact-wrapper input,
-.contact-wrapper textarea{
-width:100%;
-margin:10px 0;
-padding:12px;
-border-radius:6px;
-border:none;
-}
-
-.contact-wrapper button{
-background:#4da6ff;
-color:white;
-padding:12px 20px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-transition:.3s;
-}
-
-.contact-wrapper button:hover{
-background:#3399ff;
-}
-
-/* ===================================
-SUPPORT SECTION
-=================================== */
-
-.support-section{
-background:#1f3a5f;
-color:white;
-padding:60px 20px;
-text-align:center;
-border-radius:12px;
-}
-
-.support-section .grid{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
-.support-section .card{
-background:#2c4a7b;
-color:white;
-width:300px;
-border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,.2);
-text-align:left;
-}
-
-.price-tag{
-font-weight:bold;
-color:#cce0ff;
-}
-
-/* ===================================
-SECURITY SECTION
-=================================== */
-
-.security-section{
-background:linear-gradient(to right,#111827,#0f172a);
-color:white;
 padding:80px 20px;
 text-align:center;
 }
 
-/* ===================================
-BLOG PAGE
-=================================== */
-
-body.blog-page{
-background:#1f3a5f;
-color:white;
-line-height:1.8;
+.about-intro{
+max-width:750px;
+margin:20px auto 50px;
+color:#475569;
+font-size:17px;
+line-height:1.6;
 }
 
-.blog-content{
-max-width:800px;
-margin:auto;
-text-align:left;
-}
-
-.blog-grid{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:30px;
-}
-
-.blog-card{
-background:#2c4a7b;
-color:white;
-padding:20px;
-border-radius:12px;
-width:300px;
-box-shadow:0 4px 12px rgba(0,0,0,.2);
-text-align:left;
-transition:.3s;
-}
-
-.blog-card:hover{
-transform:translateY(-5px);
-background:#3a5a87;
-}
-
-.blog-card p{
-color:#cce0ff;
-}
-
-.read-more{
-color:#4da6ff;
-text-decoration:none;
-font-weight:bold;
-}
-
-.read-more:hover{
-color:#3399ff;
-text-decoration:underline;
-}
-
-/* ===================================
-BLOG LIST STYLING
-=================================== */
-
-body.blog-page ul,
-body.blog-page ol{
-padding-left:40px;
-margin-bottom:18px;
-text-align:left;
-color:#cce0ff;
-}
-
-body.blog-page li{
-margin-bottom:12px;
-line-height:1.7;
-}
-
-body.blog-page li::marker{
-color:#4da6ff;
-font-weight:bold;
-}
-
-body.blog-page ul ul{
-list-style:circle;
-padding-left:20px;
-}
-
-/* ===================================
-ABOUT / WHY / TRUST
-=================================== */
-
-.about-section,
-.trust-section{
-padding:80px 20px;
-text-align:center;
-}
-
-.about-grid,
-.trust-grid{
+.about-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 }
 
-.about-card,
-.trust-card{
+.about-card{
 background:#f8fafc;
 padding:30px;
 border-radius:10px;
 transition:.3s;
 }
 
-.about-card:hover,
-.trust-card:hover{
-transform:translateY(-6px);
-box-shadow:0 10px 25px rgba(0,0,0,.08);
+.about-card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* ===================================
-CTA SECTION
-=================================== */
+/* =========================
+   WHY CHOOSE US
+========================= */
+
+.why-section{
+background:#0f172a;
+color:white;
+padding:80px 20px;
+text-align:center;
+}
+
+.why-grid{
+margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:30px;
+}
+
+.why-card{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+transition:.3s;
+}
+
+.why-card:hover{
+transform:translateY(-5px);
+}
+
+/* =========================
+   TRUST SECTION
+========================= */
+
+.trust-section{
+background:#020617;
+padding:80px 20px;
+color:white;
+text-align:center;
+}
+
+.trust-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:30px;
+}
+
+.trust-card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:10px;
+padding:30px;
+transition:.3s;
+}
+
+.trust-card:hover{
+transform:translateY(-6px);
+background:rgba(255,255,255,0.08);
+}
+
+/* =========================
+   MISSION SECTION
+========================= */
+
+.mission-section{
+background:linear-gradient(135deg,#0f172a,#020617);
+padding:80px 20px;
+color:white;
+}
+
+.mission-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.mission-card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:10px;
+padding:30px;
+transition:.3s;
+}
+
+.mission-card:hover{
+transform:translateY(-5px);
+background:rgba(255,255,255,0.08);
+}
+
+/* =========================
+   CALL TO ACTION
+========================= */
 
 .cta-section{
 background:linear-gradient(135deg,#020617,#0f172a);
@@ -448,19 +477,100 @@ padding:14px 28px;
 border-radius:6px;
 font-weight:bold;
 text-decoration:none;
+transition:.3s;
 }
 
-.cta-phone{
-border:1px solid #38bdf8;
-padding:14px 28px;
-border-radius:6px;
-color:#38bdf8;
+.cta-btn:hover{
+background:#0ea5e9;
+}
+
+/* =========================
+   BLOG PAGE
+========================= */
+
+body.blog-page{
+background:#1f3a5f;
+color:white;
+line-height:1.8;
+}
+
+body.blog-page .blog-content{
+max-width:800px;
+margin:auto;
+padding:40px 20px;
+text-align:left;
+}
+
+body.blog-page p{
+color:#cce0ff;
+margin-bottom:16px;
+}
+
+body.blog-page h1,
+body.blog-page h2,
+body.blog-page h3{
+margin-bottom:20px;
+}
+
+/* Blog Cards */
+
+.blog-grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+}
+
+.blog-card{
+background:#2c4a7b;
+color:white;
+padding:20px;
+border-radius:12px;
+width:300px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+text-align:left;
+transition:.3s;
+}
+
+.blog-card:hover{
+transform:translateY(-5px);
+background:#3a5a87;
+}
+
+.read-more{
+display:inline-block;
+margin-top:10px;
+color:#4da6ff;
+font-weight:bold;
 text-decoration:none;
 }
 
-/* ===================================
-WHATSAPP BUTTON
-=================================== */
+/* =========================
+   BLOG LIST STYLING
+========================= */
+
+body.blog-page ul,
+body.blog-page ol{
+list-style-position:outside;
+padding-left:40px;
+margin-bottom:16px;
+text-align:left;
+color:#cce0ff;
+}
+
+body.blog-page li{
+margin-bottom:12px;
+line-height:1.6;
+}
+
+body.blog-page ul ul{
+list-style-type:circle;
+}
+
+/* =========================
+   WHATSAPP BUTTON
+========================= */
 
 .whatsapp{
 position:fixed;
@@ -471,12 +581,13 @@ color:white;
 font-size:24px;
 padding:15px;
 border-radius:50%;
-box-shadow:0 4px 10px rgba(0,0,0,.3);
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* ===================================
-FOOTER
-=================================== */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
 background:#0d1b2a;
@@ -486,11 +597,20 @@ padding:20px;
 font-size:14px;
 }
 
-/* ===================================
-RESPONSIVE
-=================================== */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:768px){
+
+.support-section .grid{
+flex-direction:column;
+align-items:center;
+}
+
+.support-section .tech-card{
+width:90%;
+}
 
 .blog-grid{
 flex-direction:column;
@@ -499,11 +619,6 @@ align-items:center;
 
 .blog-card{
 width:90%;
-}
-
-.support-section .grid{
-flex-direction:column;
-align-items:center;
 }
 
 }
