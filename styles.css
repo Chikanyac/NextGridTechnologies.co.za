@@ -1519,14 +1519,3 @@ grid-template-columns: 1fr;
 }
 }
 
-.card:hover{
-transform:translateY(-4px);
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-@media (max-width:768px){
-
-.benefits-grid{
-grid-template-columns:1fr;
-}
-
-}
