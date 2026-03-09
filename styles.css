@@ -268,8 +268,9 @@ header nav a:hover {
   opacity: 0.9;
 }
 
-.cta-support {
-  margin-top: 40px;
+.cta-support{
+text-align:center;
+margin-top:30px;
 }
 /* =========================
    DARK TECH SUPPORT SECTION
@@ -333,10 +334,10 @@ header nav a:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.cta-support {
-  margin-top: 50px;
+.cta-support{
+text-align:center;
+margin-top:30px;
 }
-
 /* =========================
    SECURITY PACKAGES SECTION
 ========================= */
