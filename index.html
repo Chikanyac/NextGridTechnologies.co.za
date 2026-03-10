@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
+  
 <body>
 
 <header>
@@ -325,6 +326,14 @@ function scrollToTop() {
     behavior: "smooth"
   });
 }
+</script>
+  <script>
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+
+hamburger.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
 </script>
 </body>
 </html>
