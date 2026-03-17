@@ -3,41 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Backup Strategies</title>
+  <title>Data Backup Strategies | NextGrid Technologies</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <aside class="sidebar">
-    <h3>Topics</h3>
-    <ul>
-      <li><a href="microsoft-365-security.html">Microsoft 365 Security</a></li>
-      <li><a href="cybersecurity-tips.html">Cybersecurity Tips</a></li>
-      <li><a href="phishing-protection.html">Phishing Protection</a></li>
-      <li><a href="business-it-support.html">Business IT Support</a></li>
-      <li><a href="data-backup-strategies.html">Data Backup Strategies</a></li>
-      <li><a href="cloud-security.html">Cloud Security</a></li>
-      <li><a href="network-security.html">Network Security</a></li>
-    </ul>
-  </aside>
+<!-- HEADER -->
+<header>
+  <div class="container header-flex">
 
-  <main>
-    <header>
-      <h1>Data Backup Strategies</h1>
-    </header>
+    <div class="logo-area">
+      <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
+      <span class="logo-text">NextGrid Technologies</span>
+    </div>
 
-    <section>
-      <h2>Backup Options</h2>
-      <p>
-        Protect your critical business data with effective backup strategies. Explore cloud, on-premise, and hybrid backup methods, 
-        along with disaster recovery planning to ensure data is safe and recoverable.
-      </p>
-    </section>
+    <nav id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Our Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="services.html#contact" class="btn-small">Contact Us</a>
+      <a href="services.html#contact" class="btn-small">Free Security Check</a>
+    </nav>
 
-    <footer>
-      <p>&copy; 2026 NextGrid Technologies</p>
-    </footer>
-  </main>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <section class="content-section">
+    <div class="container content-wrapper" style="display:flex; gap:40px;">
+
+      <!-- LEFT: SIDEBAR -->
+      <aside class="sidebar" style="width:260px; min-width:260px;">
+        <h3>Topics</h3>
+        <ul>
+          <li><a href="microsoft-365-security.html">Microsoft 365 Security</a></li>
+          <li><a href="cybersecurity-tips.html">Cybersecurity Tips</a></li>
+          <li><a href="phishing-protection.html">Phishing Protection</a></li>
+          <li><a href="business-it-support.html">Business IT Support</a></li>
+          <li><a href="data-backup-strategies.html" class="active">Data Backup Strategies</a></li>
+          <li><a href="cloud-security.html">Cloud Security</a></li>
+          <li><a href="network-security.html">Network Security</a></li>
+        </ul>
+      </aside>
+
+      <!-- RIGHT: CONTENT -->
+      <div class="content-area" style="flex:1;">
+
+        <h1>Data Backup Strategies</h1>
+
+        <h2>Backup Options</h2>
+        <p>
+          Protect your critical business data with effective backup strategies. 
+        </p>
+        <p>Explore cloud, on-premise, and hybrid backup methods, 
+          along with disaster recovery planning to ensure data is safe and recoverable.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 NextGrid Technologies</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/27680330794" class="whatsapp" target="_blank">💬</a>
+
+<!-- BACK TO TOP -->
+<button id="backToTopBtn" onclick="scrollToTop()">↑</button>
+
+<script>
+const btn = document.getElementById("backToTopBtn");
+
+window.addEventListener("scroll", function() {
+  if (window.scrollY > 200) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+</script>
 
 </body>
 </html>
