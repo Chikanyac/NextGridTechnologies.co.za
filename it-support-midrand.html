@@ -214,18 +214,35 @@ Remote IT support services are also available across South Africa.
 </div>
 </section>
   
-<footer>
-
-<div class="container">
-
-<p>© 2026 NextGrid Technologies | Microsoft 365 Security Specialists</p>
-
-</div>
-
-</footer>
-
-
 <a href="https://wa.me/27680330794" class="whatsapp" target="_blank">💬</a>
+<button id="backToTopBtn" onclick="scrollToTop()">↑</button>
 
+<script>
+const btn = document.getElementById("backToTopBtn");
+
+window.addEventListener("scroll", function() {
+  if (window.scrollY > 200) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+</script>
+  <script>
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+
+hamburger.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
+</script>
+>
 </body>
 </html>
