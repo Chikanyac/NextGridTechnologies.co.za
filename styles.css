@@ -17,12 +17,6 @@ h1, h2, h3 {
    GLOBAL CONTAINER
 ========================= */
 
-.container {
-  width: 85%;
-  max-width: 100px; /* controls how wide content can go */
-  margin: 0 auto; /* centers everything */
-}
-
 header {
   background: linear-gradient(
       rgba(13, 27, 42, 0.85),
