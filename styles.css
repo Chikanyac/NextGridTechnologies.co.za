@@ -1217,15 +1217,14 @@ font-size:15px;
 }
 
 /* =========================
-   COMMON PROBLEMS SECTION - ROW LAYOUT
+   COMMON PROBLEMS SECTION - 4 COLUMNS, 2 ROWS
 ========================= */
-
 .problem-list {
-  display: flex;              /* use flexbox */
-  flex-wrap: wrap;            /* wrap to next line if needed */
-  justify-content: center;    /* center horizontally */
-  gap: 20px;                  /* spacing between items */
-  max-width: 1000px;          /* optional max width */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-template-rows: repeat(2, auto);   /* 2 rows */
+  gap: 20px;                             /* spacing between items */
+  max-width: 1200px;                     /* optional container width */
   margin: 40px auto 0 auto;
   padding: 0;
   list-style: none;
@@ -1233,14 +1232,26 @@ font-size:15px;
 }
 
 .problem-list li {
-  flex: 1 1 250px;            /* grow/shrink, min width 250px */
   padding: 12px 16px;
   background: #f8fbff;
   border-left: 4px solid #0078d4;
   border-radius: 4px;
-  margin-bottom: 0;           /* spacing handled by gap */
   font-size: 16px;
   color: #475569;
+}
+
+/* Responsive: 2 columns on tablets, 1 on mobile */
+@media (max-width: 992px) {
+  .problem-list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto; /* let rows adjust automatically */
+  }
+}
+
+@media (max-width: 576px) {
+  .problem-list {
+    grid-template-columns: 1fr;
+  }
 }
 /* =========================
    MICROSOFT 365 SERVICES
