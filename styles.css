@@ -1180,40 +1180,43 @@ body.blog-page ol li:hover::marker {
    WHO WE HELP SECTION
 ========================= */
 
-.who-section{
-background:#f8fafc;
-padding:80px 20px;
-text-align:center;
+.who-section {
+  background: #dbeeff; /* light blue background */
+  padding: 30px 20px;  /* further reduced vertical space */
+  text-align: center;
 }
 
-.who-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:30px;
-margin-top:40px;
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; /* spacing between cards */
+  margin-top: 20px;
 }
 
-.who-card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.06);
-transition:all .3s ease;
+.who-card {
+  background: white;
+  padding: 15px 20px; /* reduced padding inside cards */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* smaller shadow for compact feel */
+  transition: all 0.3s ease;
+  text-align: left; /* optional: left-align text for compactness */
 }
 
-.who-card:hover{
-transform:translateY(-5px);
-box-shadow:0 15px 35px rgba(0,0,0,0.08);
+.who-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.who-card h3{
-color:#0f172a;
-margin-bottom:10px;
+.who-card h3 {
+  color: #0f172a;
+  margin-bottom: 6px; /* tighter spacing */
+  font-size: 18px;    /* slightly smaller heading */
 }
 
-.who-card p{
-color:#475569;
-font-size:15px;
+.who-card p {
+  color: #475569;
+  font-size: 14px;   /* slightly smaller text */
+  margin-bottom: 6px; /* less spacing under paragraph */
 }
 
 /* =========================
