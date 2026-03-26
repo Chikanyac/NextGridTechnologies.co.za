@@ -2133,6 +2133,29 @@ header {
 }
 
 /* =========================
+   Testimonials Floating Animation
+========================= */
+@keyframes floatLeftRight {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); } /* adjust distance */
+  100% { transform: translateX(0); }
+}
+
+@keyframes floatRightLeft {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); } /* adjust distance */
+  100% { transform: translateX(0); }
+}
+
+/* Apply floating animation to each testimonial card */
+.testimonials-grid > .testimonial-card:nth-child(odd) {
+  animation: floatLeftRight 6s ease-in-out infinite;
+}
+
+.testimonials-grid > .testimonial-card:nth-child(even) {
+  animation: floatRightLeft 6s ease-in-out infinite;
+}
+/* =========================
    Responsive Adjustments
 ========================= */
 @media (max-width: 768px) {
