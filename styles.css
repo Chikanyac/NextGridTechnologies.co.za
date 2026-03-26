@@ -2133,6 +2133,50 @@ header {
 }
 
 /* =========================
+   Testimonials Continuous Scroll
+========================= */
+
+/* Wrap the grid in a container with overflow hidden */
+.testimonials-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Make the grid inline-flex for horizontal scrolling */
+.testimonials-grid {
+  display: inline-flex;
+  gap: 30px;
+  animation: scrollLeft 15s linear infinite; /* adjust speed */
+}
+
+/* Keyframes for continuous left scroll */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(100%); /* start off-screen right */
+  }
+  100% {
+    transform: translateX(-100%); /* move off-screen left */
+  }
+}
+
+/* Card styling stays the same */
+.testimonial-card {
+  background: #e0f0ff; /* subtle blue shade */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  min-width: 300px; /* ensures proper spacing for scroll */
+  flex-shrink: 0;   /* prevents shrinking */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+/* =========================
    Testimonials Floating Animation
 ========================= */
 @keyframes floatLeftRight {
