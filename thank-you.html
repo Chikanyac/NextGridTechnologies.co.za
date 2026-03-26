@@ -1,163 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | NextGrid Technologies</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | NextGrid Technologies</title>
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
+<style>
+  body {font-family: Arial,sans-serif; background:#0f172a; color:white; padding:50px;}
+  h2 {text-align:center; margin-bottom:20px;}
+  .form-container {max-width:500px; margin:auto;}
+  form {display:flex; flex-direction:column; gap:15px; background:rgba(255,255,255,0.05); padding:30px; border-radius:12px;}
+  input, textarea, button {padding:12px; border-radius:6px; border:none; font-size:14px;}
+  textarea {min-height:100px; resize:vertical;}
+  button {background:#3b82f6; color:white; cursor:pointer;}
+  button:hover {background:#2563eb;}
+  .success {display:none; text-align:center; background:rgba(0,0,0,0.3); padding:30px; border-radius:12px;}
+  .success a {display:inline-block; margin-top:15px; padding:10px 15px; background:#25D366; color:white; border-radius:6px; text-decoration:none;}
+  .error {display:none; color:red; text-align:center; margin-top:10px;}
+</style>
 
-  <style>
-    /* ===== Elite AJAX Form Styling ===== */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 900px;
-      margin: auto;
-      padding: 50px 20px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    input, textarea, button {
-      padding: 12px;
-      border-radius: 6px;
-      border: none;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input, textarea {
-      width: 100%;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    button {
-      background: #3b82f6;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #2563eb;
-    }
-
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 40px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 12px;
-    }
-
-    .success-message a {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 15px;
-      background: #25D366;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-    }
-
-    .error-message {
-      display: none;
-      color: red;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-  </style>
 </head>
-
 <body>
 
-  <div class="container">
-    <h2>Get Your Free Security Check</h2>
-    <p>Fill in the form below and one of our specialists will contact you shortly.</p>
+<div class="form-container">
 
-    <!-- AJAX Form -->
-    <form id="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="text" name="company" placeholder="Company Name">
-      <textarea name="message" placeholder="Tell us about your IT environment..." required></textarea>
-      <button type="submit">Request Free Check</button>
-      <p class="error-message" id="errorMsg">Oops! Something went wrong. Try again.</p>
-    </form>
+  <h2>Get Your Free Security Check</h2>
 
-    <!-- Success message -->
-    <div class="success-message" id="successMsg">
-      <h2>✅ You're All Set!</h2>
-      <p>Your request has been received successfully.</p>
-      <p>We will contact you shortly.</p>
-      <a href="https://wa.me/27680330794?text=Hi%20I%20just%20submitted%20a%20request" target="_blank">
-        💬 Chat With Us Now
-      </a>
-    </div>
+  <!-- FORM -->
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="company" placeholder="Company Name">
+    <textarea name="message" placeholder="Tell us about your IT environment..." required></textarea>
+    <button type="submit">Submit</button>
+    <p class="error" id="errorMsg">Oops! Something went wrong. Try again.</p>
+  </form>
 
+  <!-- SUCCESS MESSAGE -->
+  <div class="success" id="successMsg">
+    <h2>✅ You're All Set!</h2>
+    <p>Your request has been received.</p>
+    <p>We’ll contact you shortly.</p>
+    <a href="https://wa.me/27680330794?text=Hi%20I%20just%20submitted%20a%20request" target="_blank">
+      💬 Chat With Us Now
+    </a>
   </div>
 
-  <!-- AJAX Script -->
-  <script>
-    const form = document.getElementById("contact-form");
-    const successMsg = document.getElementById("successMsg");
-    const errorMsg = document.getElementById("errorMsg");
+</div>
 
-    // 🔴 Replace with your Formspree ID
-    const endpoint = "https://formspree.io/f/maqdkqyg";
+<script>
+  const form = document.getElementById("contact-form");
+  const successMsg = document.getElementById("successMsg");
+  const errorMsg = document.getElementById("errorMsg");
 
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault(); // prevent default redirect
+  // Replace with your Formspree form endpoint
+  const endpoint = "https://formspree.io/f/maqdkqyg";
 
-      const formData = new FormData(form);
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault(); // STOP default form submission (no redirect)
 
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
+    errorMsg.style.display = "none"; // reset error
 
-        if (response.ok) {
-          form.style.display = "none";
-          successMsg.style.display = "block";
-        } else {
-          errorMsg.style.display = "block";
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
         }
-      } catch (error) {
+      });
+
+      if (response.ok) {
+        form.style.display = "none";
+        successMsg.style.display = "block";
+      } else {
         errorMsg.style.display = "block";
       }
-    });
-  </script>
+
+    } catch (err) {
+      errorMsg.style.display = "block";
+    }
+  });
+</script>
 
 </body>
 </html>
