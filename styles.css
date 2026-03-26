@@ -1,3 +1,37 @@
+/* Reduce spacing for main sections */
+.hero {
+  padding: 120px 20px 80px 20px; /* smaller top and bottom padding */
+}
+
+.who-section,
+.problems-section,
+.areas-section,
+.support-section,
+.m365-section,
+.trust-section,
+.cta-section,
+.about-section {
+  padding: 60px 20px; /* less vertical padding */
+}
+
+/* Optional: reduce margin between headings and content */
+.section-intro,
+.hero-content h1,
+.hero-content p,
+.hero-content .btn-primary {
+  margin-bottom: 20px; /* default may be larger in some sections */
+}
+
+/* Reduce gaps in grids */
+.who-grid,
+.why-grid,
+.mission-grid,
+.trust-grid,
+.support-section .grid,
+.m365-grid {
+  gap: 20px; /* default is 30px, reduce for tighter spacing */
+}
+
 * {
   margin: 0;
   padding: 0;
