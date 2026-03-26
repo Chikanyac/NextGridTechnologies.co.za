@@ -2151,3 +2151,149 @@ header {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
+
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 50vh; /* smaller hero */
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  padding: 120px 20px 80px 20px; /* tighter padding */
+  background: linear-gradient(
+      rgba(13, 27, 42, 0.85),
+      rgba(13, 27, 42, 0.85)
+    ),
+    url("header-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+.hero-content h1,
+.hero-content p,
+.hero-content .btn-primary {
+  opacity: 0;
+  transform: translateY(20px);
+  animation-fill-mode: forwards;
+}
+
+.hero-content h1.fade-in {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-content p.fade-in {
+  animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+.btn-primary.slide-up {
+  animation: fadeInUp 1s ease 1s forwards;
+}
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+section {
+  padding: 60px 20px; /* smaller top/bottom padding */
+}
+
+section h2 {
+  margin-bottom: 20px;
+}
+
+section p {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   GRIDS
+========================= */
+.who-grid,
+.why-grid,
+.mission-grid,
+.trust-grid,
+.support-section .grid,
+.m365-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; /* tighter spacing */
+}
+
+/* =========================
+   SPECIFIC SECTIONS
+========================= */
+.who-section,
+.problems-section,
+.areas-section,
+.support-section,
+.m365-section,
+.trust-section,
+.cta-section,
+.about-section {
+  padding: 60px 20px;
+}
+
+.testimonials-section .testimonials-grid {
+  gap: 20px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* reduce space between buttons */
+}
+
+/* =========================
+   RESPONSIVE TWEAKS
+========================= */
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 20px 60px 20px;
+  }
+
+  section {
+    padding: 40px 20px;
+  }
+
+  .hero-content {
+    padding: 20px 10px;
+  }
+}
