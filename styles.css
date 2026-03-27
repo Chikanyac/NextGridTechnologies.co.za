@@ -184,15 +184,15 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 .support-illustration {
   flex: 1;
   min-width: 0;
-  display: flex;          /* was missing → lets video fill the column */
+  max-height: 300px;      /* ← this is the key */
+  overflow: hidden;       /* hides cropped part */
+  border-radius: 12px;
 }
 
 .support-illustration .support-media {
   width: 100%;
-  height: 100%;           /* was 100% but without stretch it overflows */
-  max-height: 300px;      /* drop 320px → 300px (or 280px) */
-  object-fit: cover;      /* crops instead of stretching */
-  border-radius: 12px;
+  height: 100%;
+  object-fit: cover;      /* crops, no squish */
   display: block;
 }
 /* ========= BLOG VALUE SECTION ========= */
