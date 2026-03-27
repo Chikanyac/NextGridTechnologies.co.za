@@ -16,27 +16,22 @@
 <header>
 <div class="container header-flex">
   <div class="logo-area">
-  <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
-  <span class="logo-text">NextGrid Technologies</span>
-</div>
-
-<nav id="navMenu">
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="blog.html">Blog</a>
-</nav>
-
-<div class="hamburger" id="hamburger">
-☰
-</div>
-
+    <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
+    <span class="logo-text">NextGrid Technologies</span>
+  </div>
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
 </div>
 </header>
 
 <section class="hero">
   <!-- Background Video -->
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="hero-video.mp4" type="video/mp4">
+  <video class="hero-video" autoplay muted loop playsinline loading="lazy">
+    <source src="small-server-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
@@ -77,11 +72,11 @@
   </div>
 </section>
   
-  <section class="results">
+<section class="results">
   <div class="container">
     <div class="results-grid">
       <div><h3>50+</h3><p>Businesses Supported</p></div>
-      <div><h3>< 1hr</h3><p>Response Time</p></div>
+      <div><h3>&lt; 1hr</h3><p>Response Time</p></div>
       <div><h3>99.9%</h3><p>System Uptime</p></div>
       <div><h3>0</h3><p>Breaches After Setup</p></div>
     </div>
@@ -89,51 +84,37 @@
 </section>
   
 <section class="who-section">
-<div class="container narrow">  
-<div class="container">
-<h2>Who We Help</h2>
-<p class="section-intro">
-NextGrid Technologies provides IT support and Microsoft 365 security
-services designed specifically for small and growing businesses.
-</p>
+  <div class="container">
+    <h2>Who We Help</h2>
+    <p class="section-intro">
+      NextGrid Technologies provides IT support and Microsoft 365 security
+      services designed specifically for small and growing businesses.
+    </p>
 
-<div class="who-grid">
+    <div class="who-grid">
 
-<div class="who-card">
-<h3>Small Businesses</h3>
-<p>
-We support businesses that rely on technology but do not have an
-internal IT department.
-</p>
-</div>
+      <div class="who-card">
+        <h3>Small Businesses</h3>
+        <p>We support businesses that rely on technology but do not have an internal IT department.</p>
+      </div>
 
-<div class="who-card">
-<h3>Professional Offices</h3>
-<p>
-Law firms, accountants, consultants and service businesses that
-require secure email and reliable systems.
-</p>
-</div>
+      <div class="who-card">
+        <h3>Professional Offices</h3>
+        <p>Law firms, accountants, consultants and service businesses that require secure email and reliable systems.</p>
+      </div>
 
-<div class="who-card">
-<h3>Startups & Growing Companies</h3>
-<p>
-Businesses that need scalable cloud solutions and Microsoft 365
-security from the start.
-</p>
-</div>
+      <div class="who-card">
+        <h3>Startups & Growing Companies</h3>
+        <p>Businesses that need scalable cloud solutions and Microsoft 365 security from the start.</p>
+      </div>
 
-<div class="who-card">
-<h3>Home Offices</h3>
-<p>
-Professionals working remotely who need secure devices,
-email protection and stable connectivity.
-</p>
-</div>
+      <div class="who-card">
+        <h3>Home Offices</h3>
+        <p>Professionals working remotely who need secure devices, email protection and stable connectivity.</p>
+      </div>
 
-</div>
-</div>
-</div>
+    </div>
+  </div>
 </section>
   
 <section class="why-section">
@@ -164,14 +145,12 @@ email protection and stable connectivity.
   </div>
 </section>
 
-
-  <section class="problem-solution">
+<section class="problem-solution">
   <div class="container">
 
     <!-- PROBLEM -->
     <div class="problem-block">
       <h2>Your Business Might Already Be at Risk</h2>
-
       <p class="section-intro">
         Most cyber attacks target small businesses with weak Microsoft 365 security.
       </p>
@@ -193,7 +172,6 @@ email protection and stable connectivity.
     <!-- SOLUTION -->
     <div class="solution-block">
       <h2>We Secure Your Business — Fast</h2>
-
       <p class="section-intro">
         NextGrid Technologies protects your Microsoft 365 environment, devices, and users using proven security strategies.
       </p>
@@ -374,27 +352,12 @@ best practice security configurations.
 </section>
   
 <div class="bottom-nav">
-<a href="index.html">
-<span>🏠</span>
-<p>Home</p>
-</a>
-
-<a href="services.html">
-<span>🛠</span>
-<p>Services</p>
-</a>
-
-<a href="blog.html">
-<span>📰</span>
-<p>Blog</p>
-</a>
-
-<a href="#contact">
-<span>📞</span>
-<p>Contact</p>
-</a>
-
+<a href="index.html"><span>🏠</span><p>Home</p></a>
+<a href="services.html"><span>🛠</span><p>Services</p></a>
+<a href="blog.html"><span>📰</span><p>Blog</p></a>
+<a href="#contact"><span>📞</span><p>Contact</p></a>
 </div>
+
 <footer>
 <div class="container">
 <p>© 2026 NextGrid Technologies</p>
@@ -428,9 +391,9 @@ best practice security configurations.
 </div>
 
 <!-- Back to Top -->
-<button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
+<button id="backToTopBtn" onclick="scrollToTop()">↑</button>
 
-  <script>
+<script>
 // Toggle Chat
 function toggleChat() {
   const box = document.getElementById("chatBox");
