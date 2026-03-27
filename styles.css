@@ -413,6 +413,7 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   font-weight:700;
 }
 .cta-center { text-align:center; margin-top:2rem; }
+
 .service-icon {
   width:48px; height:48px; margin-bottom:.75rem;
   filter: invert(46%) sepia(88%) saturate(1475%) hue-rotate(176deg) brightness(98%) contrast(92%);
