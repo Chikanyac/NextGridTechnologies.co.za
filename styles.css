@@ -175,6 +175,11 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 .m365-card p, .trust-card p, .process-card p, .security-section .card.tech-card p, .support-section .card.tech-card p { color: var(--text-light); }
 .security-section .card.tech-card ul li, .support-section .card.tech-card ul li { border-bottom: 1px solid rgba(16,185,129,0.2); }
 
+.support-illustration .support-media {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+}
 /* ========= BLOG VALUE SECTION ========= */
 .blog-value {
   background: var(--bg-light);
