@@ -183,25 +183,21 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   font-size: 1.1rem;
   color: var(--muted);
 }
-/* Blog article readability */
-.blog-article h2 { 
-  color:#111; 
-  margin-top: 2rem; 
-}
-.blog-article p,
-.blog-article li { 
-  color:#333; 
-  line-height:1.6; 
-}
-.blog-article .tech-list { 
-  margin:1.5rem 0; 
-  padding-left:1.2rem; 
+/* Blog article readability — applies to all posts */
+.blog-article,
+.blog-article * {
+  color: #333 !important;
 }
 
-/* Hero text stays white on the dark video */
+.blog-article h2 {
+  color:#111 !important;
+  margin-top: 2rem;
+}
+
+/* Keep hero text white */
 .hero-content h1,
 .hero-content p { 
-  color:#fff; 
+  color:#fff !important; 
 }
 /* ========= PROBLEM / SOLUTION ========= */
 .problems-section, .problem-solution { background: white; }
