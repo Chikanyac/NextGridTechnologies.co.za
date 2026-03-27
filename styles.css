@@ -195,6 +195,13 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   object-fit: cover;      /* crops, no squish */
   display: block;
 }
+.support-illustration {
+  flex: 1;
+  min-width: 0;
+  max-height: 300px;   /* or 260px */
+  overflow: hidden;
+  border: 2px solid lime;  /* remove after you see it */
+}
 /* ========= BLOG VALUE SECTION ========= */
 .blog-value {
   background: var(--bg-light);
