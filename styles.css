@@ -836,3 +836,15 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 .services-snapshot .service-card:hover {
   transform: translateY(-8px) rotate(0deg);
 }
+/* ========= SERVICES CARD COLOR ========= */
+.services-snapshot .service-card {
+  background: #ecfdf5 !important;   /* light green */
+  color: #0f172a !important;
+  border: 1px solid #bbf7d0 !important;  /* softer green border */
+}
+
+/* Keep the icon circle readable on the light green */
+.services-snapshot .service-card .service-icon {
+  background: #10b981 !important;  /* solid green */
+  color: #fff !important;
+}
