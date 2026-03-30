@@ -187,7 +187,7 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   min-width: 0;
   overflow: hidden;
   border-radius: 12px;
-  max-height: 80%;           /* <-- video will be 80% of text height */
+  max-height: 20%;           /* <-- video will be 80% of text height */
 }
 
 .support-illustration .support-media {
