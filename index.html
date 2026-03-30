@@ -345,6 +345,7 @@
   document.getElementById('signupForm').addEventListener('submit', async (e) => {
     e.preventDefault()
 
+    console.log('signUp called')   // ← add this
     const name = document.getElementById('name').value
     const company = document.getElementById('company').value
     const email = document.getElementById('email').value
