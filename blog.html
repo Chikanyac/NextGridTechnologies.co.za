@@ -72,12 +72,14 @@
 <div class="container contact-wrapper">
 <h2>Request Services</h2>
 <p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
-<form action="https://formspree.io/f/xjgezydg" method="POST" class="contact-form">
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="text" name="company" placeholder="Company Name" required>
-  <input type="email" name="email" placeholder="Business Email" required>
-  <textarea name="need" placeholder="What do you need?" required></textarea>
+<form id="signupForm" class="contact-form">
+  <input type="text" id="name" name="name" placeholder="Your Name" required>
+  <input type="text" id="company" name="company" placeholder="Company Name" required>
+  <input type="email" id="email" name="email" placeholder="Business Email" required>
+  <input type="password" id="password" placeholder="Create Password" required>
+  <textarea id="need" name="need" placeholder="What do you need?" required></textarea>
   <button type="submit" class="btn-primary">Send Request</button>
+  <p id="message" style="margin-top:12px;"></p>
 </form>
 </div>
 </section>
@@ -99,7 +101,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// Create Supabase client
+// Create Supabase client (use a different name!)
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
@@ -141,14 +143,14 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
   }
 })
 
-  // Hamburger menu
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.getElementById("navMenu");
-  if (hamburger && navMenu) {
-    hamburger.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-    });
-  }
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+if (hamburger && navMenu) {
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
+}
 </script>
 </body>
 </html>
