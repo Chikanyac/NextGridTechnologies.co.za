@@ -306,15 +306,62 @@
 <div class="container contact-wrapper" style="text-align: center;">
     <h2>Request IT Support</h2>
     <p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
-    <form action="https://formspree.io/f/xjgezydg" method="POST" class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="text" name="company" placeholder="Company Name" required>
-      <input type="email" name="email" placeholder="Business Email" required>
-      <textarea name="need" placeholder="What do you need?" required></textarea>
+
+    <form id="signupForm" class="contact-form">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="text" id="company" name="company" placeholder="Company Name" required>
+      <input type="email" id="email" name="email" placeholder="Business Email" required>
+      <input type="password" id="password" placeholder="Create Password" required>
+      <textarea id="need" name="need" placeholder="What do you need?" required></textarea>
       <button type="submit" class="btn-primary">Send Request</button>
+      <p id="message" style="margin-top:12px;"></p>
     </form>
 </div>
 </section>
+
+<!-- Supabase library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // 1. Create the client
+  const supabase = supabase.createClient(
+    'https://tirkqybcedxfusifslim.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
+  )
+
+  // 2. Handle submit
+  document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const name = document.getElementById('name').value
+    const company = document.getElementById('company').value
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+    const need = document.getElementById('need').value
+    const msg = document.getElementById('message')
+
+    msg.textContent = 'Creating account...'
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+          company: company,
+          need: need
+        }
+      }
+    })
+
+    if (error) {
+      msg.textContent = error.message
+    } else {
+      msg.textContent = 'Check your email to confirm your account!'
+      e.target.reset()
+    }
+  })
+</script>
   
 <div class="bottom-nav">
 <a href="index.html"><span>🏠</span><p>Home</p></a>
