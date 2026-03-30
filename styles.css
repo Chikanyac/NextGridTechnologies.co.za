@@ -179,22 +179,27 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 .why-us-wrap {
   display: flex;
   gap: 40px;
-  align-items: stretch;   /* both columns match height */
+  align-items: flex-start;   /* <-- don't stretch, align tops */
 }
 
 .support-illustration {
-  flex: 1;
+  flex: 0 0 40%;             /* video takes 40% of row width */
   min-width: 0;
   overflow: hidden;
   border-radius: 12px;
-  align-self: stretch;    /* ensure this item stretches */
+  max-height: 80%;           /* <-- video will be 80% of text height */
 }
 
 .support-illustration .support-media {
   width: 100%;
-  height: 100%;
-  object-fit: cover;      /* fills container, crops excess */
+  height: auto;              /* keep natural aspect ratio */
+  object-fit: cover;
   display: block;
+}
+
+.why-us-text {
+  flex: 1;
+  min-width: 0;
 }
 
 /* If your text column is short, give it a min-height so the video grows */
