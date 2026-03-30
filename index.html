@@ -335,7 +335,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// Create Supabase client
+// Create Supabase client (use a different name!)
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
@@ -377,14 +377,14 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
   }
 })
 
-  // Hamburger menu
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.getElementById("navMenu");
-  if (hamburger && navMenu) {
-    hamburger.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-    });
-  }
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+if (hamburger && navMenu) {
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
+}
 </script>
 
 </body>
