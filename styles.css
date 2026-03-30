@@ -88,7 +88,7 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9)), url("small-server-room.jpg") center/cover no-repeat;
   color: white; overflow: hidden;
 }
-.services-hero { min-height: 40vh; padding: 80px 20px 50px; background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9)), url("security-screen.jpg") center/cover no-repeat; }
+.services-hero { min-height: 45vh; padding: 90px 20px 60px; background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9)), url("security-screen.jpg") center/cover no-repeat; }
 .hero-video {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   object-fit: cover; z-index: 1; will-change: transform;
@@ -673,10 +673,83 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   margin-bottom: 6px;
 }
 
-/* Services snapshot */
-.services-snapshot { padding: 4rem 1rem; background: #f8fafc; }
+/* ========= SERVICES PAGE ========= */
+.services-snapshot {
+  padding: 4rem 1rem;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.services-snapshot .section-intro {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  color: var(--muted);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 12px;
+  border: 1px solid #e2f5ef;
+  box-shadow: 0 10px 25px rgba(2,6,23,0.06);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(2,6,23,0.1);
+  border-color: var(--accent-2);
+}
+
+.service-card h3 {
+  color: var(--text);
+  margin: 10px 0 8px;
+  font-size: 1.25rem;
+}
+
+.service-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.service-features li {
+  padding: 6px 0 6px 1.4rem;
+  position: relative;
+}
+
+.service-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent-2);
+  font-weight: 700;
+}
 
 .service-icon {
-  width:48px; height:48px; margin-bottom:.75rem;
-  filter: invert(46%) sepia(88%) saturate(1475%) hue-rotate(176deg) brightness(98%) contrast(92%);
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.cta-center {
+  text-align: center;
+  margin-top: 2.5rem;
 }
