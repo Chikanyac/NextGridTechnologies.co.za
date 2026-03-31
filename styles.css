@@ -646,6 +646,81 @@ input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
   border: 1px solid #FFA500;
 }
 
+/* ========= ACCOUNT PAGE SPECIFICS ========= */
+.account-wrapper {
+  background-color: #e0f2f7; /* A nice light blue */
+  color: var(--text); /* Use your primary dark text color */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(2,6,23,0.1);
+  text-align: left; /* Align content to the left inside the wrapper */
+}
+
+.account-wrapper h2 {
+  color: var(--accent); /* Your accent blue for headings */
+  margin-bottom: 20px;
+  text-align: center; /* Center the main heading */
+}
+
+.account-info p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: var(--text); /* Ensure good contrast for info text */
+}
+
+.account-info strong {
+  color: var(--accent-2); /* Use your green accent for labels */
+  min-width: 100px; /* Give labels some consistent width */
+  display: inline-block;
+}
+
+/* Styles for the Update Profile form */
+.update-profile-form {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(16,185,129,0.25);
+}
+
+.update-profile-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95em;
+}
+
+.update-profile-form input[type="text"],
+.update-profile-form input[type="email"] { /* Use input[type="text"] for name/company */
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #a7f3d0;
+  background: #ffffff; /* White background for inputs */
+  color: var(--text); /* Dark text color for input values */
+  font-size: 1rem;
+}
+
+.update-profile-form input[type="text"]:focus,
+.update-profile-form input[type="email"]:focus {
+  border-color: var(--accent-2);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
+
+/* Ensure placeholder text is visible on the light input backgrounds */
+.update-profile-form input::placeholder {
+  color: #888;
+}
+.update-profile-form input::-webkit-input-placeholder { color: #888; }
+.update-profile-form input:-moz-placeholder { color: #888; }
+.update-profile-form input:-ms-input-placeholder { color: #888; }
+
+.update-profile-form .btn-primary {
+  width: auto; /* Make button size dynamic */
+  display: inline-block; /* Ensure padding works correctly */
+}
+
 /* ========= BOTTOM NAV ========= */
 .bottom-nav {
   width: 100%; background: var(--bg-dark); display: flex; justify-content: center; gap: 60px;
