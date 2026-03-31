@@ -53,6 +53,7 @@
     <p><strong>Name:</strong> <span id="accountName">Loading...</span></p>
     <p><strong>Company:</strong> <span id="accountCompany">Loading...</span></p>
     <p><strong>Your Request:</strong> <span id="accountNeed">Loading...</span></p>
+    <p><strong>Information:</strong> <span id="accountInformation">Loading...</span></p> <!-- New display field -->
     <p><strong>Email:</strong> <span id="accountEmail">Loading...</span></p>
   </div>
 
@@ -64,6 +65,9 @@
 
       <label for="updateCompany">Company:</label>
       <input type="text" id="updateCompany" placeholder="Your Company">
+      
+      <label for="updateInformation">Information:</label> <!-- New input field -->
+      <textarea id="updateInformation" placeholder="Any additional information"></textarea>
       
       <button type="submit" class="btn-primary">Save Changes</button>
       <p id="updateMessage" class="message-text"></p>
@@ -83,28 +87,27 @@ const supabaseClient = supabase.createClient(
 // Function to fetch and display user data
 async function fetchUserData(user) {
   if (!user) {
-    // If no user is passed, it means we are not authenticated.
-    // This state should be handled by onAuthStateChange.
     return;
   }
 
   // Fetch profile row from 'profiles' table
   const { data: profile, error: profileError } = await supabaseClient
     .from('profiles')
-    .select('full_name, company, need')
+    .select('full_name, company, need, information') // Fetch 'information' column
     .eq('id', user.id)
     .single();
 
   if (profileError) {
     console.error('Error fetching profile:', profileError.message);
-    // Handle case where profile might not exist (e.g., new user or error)
     document.getElementById('accountName').textContent = user.user_metadata.full_name || 'N/A';
     document.getElementById('accountCompany').textContent = user.user_metadata.company || 'N/A';
     document.getElementById('accountNeed').textContent = 'N/A';
+    document.getElementById('accountInformation').textContent = 'N/A'; // Default for new field
   } else {
     document.getElementById('accountName').textContent = profile.full_name || user.user_metadata.full_name || 'N/A';
     document.getElementById('accountCompany').textContent = profile.company || user.user_metadata.company || 'N/A';
     document.getElementById('accountNeed').textContent = profile.need || 'N/A';
+    document.getElementById('accountInformation').textContent = profile.information || 'N/A'; // Display new field
   }
   
   document.getElementById('accountEmail').textContent = user.email;
@@ -112,6 +115,7 @@ async function fetchUserData(user) {
   // Pre-fill update form with current data
   document.getElementById('updateName').value = profile?.full_name || user.user_metadata.full_name || '';
   document.getElementById('updateCompany').value = profile?.company || user.user_metadata.company || '';
+  document.getElementById('updateInformation').value = profile?.information || ''; // Pre-fill new input
 }
 
 // Handle profile update form submission
@@ -119,6 +123,7 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
   e.preventDefault();
   const updateName = document.getElementById('updateName').value;
   const updateCompany = document.getElementById('updateCompany').value;
+  const updateInformation = document.getElementById('updateInformation').value; // Get new field value
   const updateMessage = document.getElementById('updateMessage');
   const { data: { user } } = await supabaseClient.auth.getUser();
 
@@ -142,7 +147,11 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
   // For 'profiles' table update
   const { error: profileError } = await supabaseClient
     .from('profiles')
-    .update({ full_name: updateName, company: updateCompany })
+    .update({ 
+      full_name: updateName, 
+      company: updateCompany,
+      information: updateInformation // Update new field
+    })
     .eq('id', user.id); // Update the row where 'id' matches the user's ID
 
   if (authError || profileError) {
@@ -153,7 +162,6 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
     updateMessage.textContent = 'Profile updated successfully!';
     updateMessage.classList.remove('warning', 'error');
     updateMessage.classList.add('success');
-    // After update, refresh data displayed
     fetchUserData(user); 
   }
 });
@@ -178,11 +186,8 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
       window.location.href = 'login.html';
     }
   } else if (event === 'SIGNED_OUT') {
-    // Already handled by signOutButton
-    // If user signs out from another tab, this will redirect.
     window.location.href = 'login.html';
   } else if (event === 'INITIAL_SESSION') {
-    // Handle the initial session load
     if (session && session.user) {
       fetchUserData(session.user);
     } else {
