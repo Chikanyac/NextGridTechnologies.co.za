@@ -52,7 +52,7 @@
   <div class="account-info">
     <p><strong>Name:</strong> <span id="accountName">Loading...</span></p>
     <p><strong>Company:</strong> <span id="accountCompany">Loading...</span></p>
-    <p><strong>Your Request:</strong> <span id="accountNeed">Loading...</span></p> <!-- Added Your Request -->
+    <p><strong>Your Request:</strong> <span id="accountNeed">Loading...</span></p>
     <p><strong>Email:</strong> <span id="accountEmail">Loading...</span></p>
   </div>
 
@@ -64,10 +64,6 @@
 
       <label for="updateCompany">Company:</label>
       <input type="text" id="updateCompany" placeholder="Your Company">
-      
-      <!-- We are not making "Your Request" directly editable here,
-           as it seems like a field that might be set once during signup or by an admin.
-           If you want it editable, add another input and update the updateProfileForm listener. -->
       
       <button type="submit" class="btn-primary">Save Changes</button>
       <p id="updateMessage" class="message-text"></p>
@@ -81,15 +77,14 @@
 <script>
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImexA:MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
 );
 
 // Function to fetch and display user data
-async function fetchUserData() {
-  const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-
-  if (userError || !user) {
-    window.location.href = 'login.html'; // Redirect to login if not authenticated
+async function fetchUserData(user) {
+  if (!user) {
+    // If no user is passed, it means we are not authenticated.
+    // This state should be handled by onAuthStateChange.
     return;
   }
 
@@ -158,7 +153,8 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
     updateMessage.textContent = 'Profile updated successfully!';
     updateMessage.classList.remove('warning', 'error');
     updateMessage.classList.add('success');
-    fetchUserData(); // Re-fetch data to update display
+    // After update, refresh data displayed
+    fetchUserData(user); 
   }
 });
 
@@ -172,8 +168,29 @@ document.getElementById('signOutButton').addEventListener('click', async () => {
   }
 });
 
-// Initial load of user data
-document.addEventListener('DOMContentLoaded', fetchUserData);
+// IMPORTANT: Use onAuthStateChange to handle session changes
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+    if (session && session.user) {
+      fetchUserData(session.user);
+    } else {
+      console.warn('Session found but no user object, redirecting to login.');
+      window.location.href = 'login.html';
+    }
+  } else if (event === 'SIGNED_OUT') {
+    // Already handled by signOutButton
+    // If user signs out from another tab, this will redirect.
+    window.location.href = 'login.html';
+  } else if (event === 'INITIAL_SESSION') {
+    // Handle the initial session load
+    if (session && session.user) {
+      fetchUserData(session.user);
+    } else {
+      console.log('No active session on initial load, redirecting to login.');
+      window.location.href = 'login.html';
+    }
+  }
+});
 
 // Hamburger menu (assuming this is present on your site-wide header)
 const hamburger = document.getElementById("hamburger");
