@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - NextGrid Technologies</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0,0,0,.15);
+            font-size: 14px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+        .header .logo {
+            max-width: 150px; /* Adjust as needed for your logo size */
+            height: auto;
+        }
+        .header .company-info {
+            text-align: right;
+        }
+        .header .company-info h1 {
+            color: #007bff; /* Primary brand color */
+            font-size: 26px;
+            margin: 0;
+        }
+        .header .company-info p {
+            margin: 0;
+            font-size: 13px;
+        }
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .invoice-details .bill-to,
+        .invoice-details .details {
+            width: 48%;
+        }
+        .invoice-details h3 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .invoice-details p {
+            margin: 0;
+            font-size: 13px;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #eee;
+            padding: 10px;
+            text-align: left;
+        }
+        .invoice-table th {
+            background-color: #007bff; /* Primary brand color */
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .invoice-table td {
+            font-size: 13px;
+        }
+        .invoice-table .text-right {
+            text-align: right;
+        }
+        .totals {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .totals td {
+            border: none;
+            padding: 8px 10px;
+            text-align: right;
+            font-size: 14px;
+        }
+        .totals .label {
+            font-weight: bold;
+            width: 70%; /* Adjust to push value to the right */
+        }
+        .totals .total-amount {
+            background-color: #f0f0f0; /* Light background for total */
+            font-weight: bold;
+            font-size: 16px;
+            border-top: 2px solid #007bff; /* Primary brand color line */
+            padding-top: 15px;
+        }
+        .payment-info {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-bottom: 30px;
+        }
+        .payment-info h3 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .payment-info p {
+            margin: 0;
+            font-size: 13px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        /* Responsive adjustments (optional, but good for viewing on different devices) */
+        @media (max-width: 600px) {
+            .invoice-container {
+                padding: 20px;
+            }
+            .header, .invoice-details {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .header .company-info, .invoice-details .bill-to, .invoice-details .details {
+                width: 100%;
+                text-align: center;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="logo-area">
+                <!-- Replace with your actual logo path -->
+                <!-- <img src="https://www.nextgridtechnologies.co.za/assets/images/logo.png" alt="NextGrid Technologies Logo" class="logo"> -->
+                <!-- Or just use text if no image is available -->
+                <h1 style="color: #007bff; margin:0;">NextGrid Technologies</h1>
+            </div>
+            <div class="company-info">
+                <h1>INVOICE</h1>
+                <p>123 Tech Lane, Pretoria</p>
+                <p>Gauteng, South Africa</p>
+                <p>Email: info@nextgridtechnologies.co.za</p>
+                <p>Phone: +27 12 345 6789</p>
+            </div>
+        </div>
+
+        <div class="invoice-details">
+            <div class="bill-to">
+                <h3>Bill To:</h3>
+                <p><strong>[Client Company Name]</strong></p>
+                <p>[Client Contact Person]</p>
+                <p>[Client Street Address]</p>
+                <p>[Client City, Postal Code]</p>
+                <p>[Client Country]</p>
+                <p>[Client Email]</p>
+            </div>
+            <div class="details">
+                <h3>Invoice Details:</h3>
+                <p><strong>Invoice #:</strong> NG-2026-001</p>
+                <p><strong>Date:</strong> April 1, 2026</p>
+                <p><strong>Due Date:</strong> April 15, 2026</p>
+                <p><strong>Payment Terms:</strong> Net 15</p>
+                <p><strong>Purchase Order:</strong> PO-XYZ-1234 (Optional)</p>
+            </div>
+        </div>
+
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th class="text-right">Qty</th>
+                    <th class="text-right">Rate</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Line Item 1 -->
+                <tr>
+                    <td>Website Development - Frontend</td>
+                    <td class="text-right">40 hrs</td>
+                    <td class="text-right">R 250.00</td>
+                    <td class="text-right">R 10,000.00</td>
+                </tr>
+                <!-- Example Line Item 2 -->
+                <tr>
+                    <td>Backend API Integration</td>
+                    <td class="text-right">20 hrs</td>
+                    <td class="text-right">R 300.00</td>
+                    <td class="text-right">R 6,000.00</td>
+                </tr>
+                <!-- Example Line Item 3 -->
+                <tr>
+                    <td>Cloud Infrastructure Consultation</td>
+                    <td class="text-right">5 hrs</td>
+                    <td class="text-right">R 350.00</td>
+                    <td class="text-right">R 1,750.00</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <table class="totals">
+            <tr>
+                <td class="label">Subtotal:</td>
+                <td>R 17,750.00</td>
+            </tr>
+            <tr>
+                <td class="label">Discount (5%):</td>
+                <td>-R 887.50</td>
+            </tr>
+            <tr>
+                <td class="label">VAT (15%):</td>
+                <td>R 2,529.38</td>
+            </tr>
+            <tr class="total-amount">
+                <td class="label">Total Amount Due:</td>
+                <td>R 19,391.88</td>
+            </tr>
+        </table>
+
+        <div class="payment-info">
+            <h3>Payment Instructions:</h3>
+            <p>Please make payment to the following account:</p>
+            <p><strong>Bank Name:</strong> [Your Bank Name]</p>
+            <p><strong>Account Name:</strong> NextGrid Technologies</p>
+            <p><strong>Account Number:</strong> [Your Account Number]</p>
+            <p><strong>Branch Code:</strong> [Your Branch Code]</p>
+            <p><strong>SWIFT/BIC:</strong> [Your SWIFT/BIC Code]</p>
+            <p><strong>Reference:</strong> [Invoice #]</p>
+            <p style="margin-top: 15px;">Thank you for your business!</p>
+        </div>
+
+        <div class="footer">
+            <p>NextGrid Technologies | info@nextgridtechnologies.co.za | +27 12 345 6789</p>
+        </div>
+    </div>
+</body>
+</html>
