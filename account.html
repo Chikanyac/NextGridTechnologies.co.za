@@ -25,6 +25,58 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css"> <!-- Link to your main stylesheet -->
+<style>
+  /* Basic styling for the invoice list */
+  .invoice-list {
+    margin-top: 40px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .invoice-list h3 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  .invoice-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .invoice-item:last-child {
+    border-bottom: none;
+  }
+  .invoice-item .invoice-details-text {
+    flex-grow: 1;
+  }
+  .invoice-item .invoice-details-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .invoice-item .invoice-details-text strong {
+    color: #333;
+  }
+  .invoice-item .invoice-actions a {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background-color 0.2s;
+  }
+  .invoice-item .invoice-actions a:hover {
+    background-color: #0056b3;
+  }
+  .no-invoices {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+  }
+</style>
 </head>
 <body>
 
@@ -46,14 +98,14 @@
   </div>
 </header>
 
-<section id="my-account" class="contact-wrapper account-wrapper" style="max-width:550px;margin:80px auto;">
+<section id="my-account" class="contact-wrapper account-wrapper" style="max-width:800px;margin:80px auto;"> <!-- Increased max-width -->
   <h2>My Account</h2>
   
   <div class="account-info">
     <p><strong>Name:</strong> <span id="accountName">Loading...</span></p>
     <p><strong>Company:</strong> <span id="accountCompany">Loading...</span></p>
     <p><strong>Your Request:</strong> <span id="accountNeed">Loading...</span></p>
-    <p><strong>Information:</strong> <span id="accountInformation">Loading...</span></p> <!-- New display field -->
+    <p><strong>Information:</strong> <span id="accountInformation">Loading...</span></p>
     <p><strong>Email:</strong> <span id="accountEmail">Loading...</span></p>
   </div>
 
@@ -66,7 +118,7 @@
       <label for="updateCompany">Company:</label>
       <input type="text" id="updateCompany" placeholder="Your Company">
       
-      <label for="updateInformation">Information:</label> <!-- New input field -->
+      <label for="updateInformation">Information:</label>
       <textarea id="updateInformation" placeholder="Any additional information"></textarea>
       
       <button type="submit" class="btn-primary">Save Changes</button>
@@ -75,25 +127,35 @@
     <button id="signOutButton" class="btn-secondary" style="margin-top: 20px;">Sign Out</button>
   </div>
 
+  <!-- NEW INVOICES SECTION -->
+  <div class="invoice-list">
+    <h3>Your Invoices</h3>
+    <div id="invoicesContainer">
+      <p class="no-invoices">Loading invoices...</p>
+      <!-- Invoices will be loaded here by JavaScript -->
+    </div>
+  </div>
+  <!-- END NEW INVOICES SECTION -->
+
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// Supabase client initialization (keep as is)
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
 );
 
-// Function to fetch and display user data
+// Function to fetch and display user data (keep as is, no changes needed here)
 async function fetchUserData(user) {
   if (!user) {
     return;
   }
 
-  // Fetch profile row from 'profiles' table
   const { data: profile, error: profileError } = await supabaseClient
     .from('profiles')
-    .select('full_name, company, need, information') // Fetch 'information' column
+    .select('full_name, company, need, information')
     .eq('id', user.id)
     .single();
 
@@ -102,28 +164,73 @@ async function fetchUserData(user) {
     document.getElementById('accountName').textContent = user.user_metadata.full_name || 'N/A';
     document.getElementById('accountCompany').textContent = user.user_metadata.company || 'N/A';
     document.getElementById('accountNeed').textContent = 'N/A';
-    document.getElementById('accountInformation').textContent = 'N/A'; // Default for new field
+    document.getElementById('accountInformation').textContent = 'N/A';
   } else {
     document.getElementById('accountName').textContent = profile.full_name || user.user_metadata.full_name || 'N/A';
     document.getElementById('accountCompany').textContent = profile.company || user.user_metadata.company || 'N/A';
     document.getElementById('accountNeed').textContent = profile.need || 'N/A';
-    document.getElementById('accountInformation').textContent = profile.information || 'N/A'; // Display new field
+    document.getElementById('accountInformation').textContent = profile.information || 'N/A';
   }
   
   document.getElementById('accountEmail').textContent = user.email;
 
-  // Pre-fill update form with current data
   document.getElementById('updateName').value = profile?.full_name || user.user_metadata.full_name || '';
   document.getElementById('updateCompany').value = profile?.company || user.user_metadata.company || '';
-  document.getElementById('updateInformation').value = profile?.information || ''; // Pre-fill new input
+  document.getElementById('updateInformation').value = profile?.information || '';
 }
 
-// Handle profile update form submission
+// NEW FUNCTION: Fetch and display invoices
+async function fetchUserInvoices(user) {
+  const invoicesContainer = document.getElementById('invoicesContainer');
+  invoicesContainer.innerHTML = '<p class="no-invoices">Loading invoices...</p>'; // Show loading state
+
+  if (!user) {
+    invoicesContainer.innerHTML = '<p class="no-invoices">Please sign in to view your invoices.</p>';
+    return;
+  }
+
+  const { data: invoices, error } = await supabaseClient
+    .from('invoices')
+    .select('*') // Select all columns from your invoices table
+    .eq('user_id', user.id) // Filter by the current user's ID
+    .order('issue_date', { ascending: false }); // Order by newest first
+
+  if (error) {
+    console.error('Error fetching invoices:', error.message);
+    invoicesContainer.innerHTML = `<p class="no-invoices">Error loading invoices: ${error.message}</p>`;
+    return;
+  }
+
+  if (invoices.length === 0) {
+    invoicesContainer.innerHTML = '<p class="no-invoices">No invoices found for your account.</p>';
+  } else {
+    invoicesContainer.innerHTML = ''; // Clear loading message
+    invoices.forEach(invoice => {
+      const invoiceItem = document.createElement('div');
+      invoiceItem.classList.add('invoice-item');
+      invoiceItem.innerHTML = `
+        <div class="invoice-details-text">
+          <p><strong>Invoice #:</strong> ${invoice.invoice_number}</p>
+          <p><strong>Client:</strong> ${invoice.client_name}</p>
+          <p><strong>Total:</strong> ${invoice.currency} ${parseFloat(invoice.total_amount).toFixed(2)}</p>
+          <p><strong>Status:</strong> ${invoice.status}</p>
+          <p><strong>Due:</strong> ${new Date(invoice.due_date).toLocaleDateString()}</p>
+        </div>
+        <div class="invoice-actions">
+          ${invoice.pdf_url ? `<a href="${invoice.pdf_url}" target="_blank">View PDF</a>` : 'PDF N/A'}
+        </div>
+      `;
+      invoicesContainer.appendChild(invoiceItem);
+    });
+  }
+}
+
+// Handle profile update form submission (keep as is)
 document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const updateName = document.getElementById('updateName').value;
   const updateCompany = document.getElementById('updateCompany').value;
-  const updateInformation = document.getElementById('updateInformation').value; // Get new field value
+  const updateInformation = document.getElementById('updateInformation').value;
   const updateMessage = document.getElementById('updateMessage');
   const { data: { user } } = await supabaseClient.auth.getUser();
 
@@ -136,23 +243,20 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
   updateMessage.textContent = 'Saving changes...';
   updateMessage.className = 'message-text warning';
 
-  // Update both auth.users (user_metadata) and the 'profiles' table
-  // For user_metadata update (e.g., full_name if you also store it there)
   const { error: authError } = await supabaseClient.auth.updateUser({
     data: {
-      full_name: updateName // Assuming 'full_name' is a user_metadata field
+      full_name: updateName
     }
   });
 
-  // For 'profiles' table update
   const { error: profileError } = await supabaseClient
     .from('profiles')
     .update({ 
       full_name: updateName, 
       company: updateCompany,
-      information: updateInformation // Update new field
+      information: updateInformation
     })
-    .eq('id', user.id); // Update the row where 'id' matches the user's ID
+    .eq('id', user.id);
 
   if (authError || profileError) {
     updateMessage.textContent = (authError?.message || '') + (profileError?.message || '');
@@ -166,21 +270,22 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
   }
 });
 
-// Handle Sign Out
+// Handle Sign Out (keep as is)
 document.getElementById('signOutButton').addEventListener('click', async () => {
   const { error } = await supabaseClient.auth.signOut();
   if (!error) {
-    window.location.href = 'login.html'; // Redirect to login after sign out
+    window.location.href = 'login.html';
   } else {
     alert('Error signing out: ' + error.message);
   }
 });
 
 // IMPORTANT: Use onAuthStateChange to handle session changes
-supabaseClient.auth.onAuthStateChange((event, session) => {
+supabaseClient.auth.onAuthStateChange(async (event, session) => { // Added 'async' keyword here
   if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
     if (session && session.user) {
-      fetchUserData(session.user);
+      await fetchUserData(session.user); // Await profile data
+      await fetchUserInvoices(session.user); // NEW: Fetch invoices after user is signed in
     } else {
       console.warn('Session found but no user object, redirecting to login.');
       window.location.href = 'login.html';
@@ -189,7 +294,8 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     window.location.href = 'login.html';
   } else if (event === 'INITIAL_SESSION') {
     if (session && session.user) {
-      fetchUserData(session.user);
+      await fetchUserData(session.user); // Await profile data
+      await fetchUserInvoices(session.user); // NEW: Fetch invoices on initial load
     } else {
       console.log('No active session on initial load, redirecting to login.');
       window.location.href = 'login.html';
