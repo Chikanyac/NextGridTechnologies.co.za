@@ -102,18 +102,18 @@
 
 <script src="js/supabase.min.js"></script>
 <script>
-    // Supabase client setup using your credentials
-    const supabase = supabase.createClient(
-        'https://tirkqybcedxfusifslim.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
-        { // <--- THIS IS THE IMPORTANT PART YOU NEED TO ADD
-            auth: {
-                autoRefreshToken: true,
-                persistSession: true,
-                detectSessionInUrl: true
-            }
-        }
-    );
+// Supabase client setup using your credentials
+const supabase = supabase.createClient( // <-- Make sure 'supabase' here is spelled correctly if you changed it to 'supabaseClient' in login.html
+  'https://tirkqybcedxfusifslim.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true
+    }
+  }
+);
 
     const authUi = document.getElementById('auth-ui');
     const invoicesList = document.getElementById('invoices-list');
