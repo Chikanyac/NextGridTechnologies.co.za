@@ -57,6 +57,10 @@
         li { flex-direction: column; align-items: flex-start; }
         .invoice-status { margin-left: 0; margin-top: 5px; }
     }
+    /* ADDED FOR FLICKER FIX */
+    .nav-hidden {
+        display: none !important; /* !important to override other display properties */
+    }
 </style>
 </head>
 <body>
@@ -75,11 +79,13 @@
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="blog.html">Blog</a>
-      <!-- Placeholder for admin link - will be populated by JS if user is admin -->
-      <div id="adminLinkContainer"></div>
-      <!-- Login/Logout Link - ID for JS to target -->
-      <!-- This will be "Client Login" or "Logout" based on auth status -->
-      <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
+      <!-- New wrapper div with nav-hidden class -->
+      <div id="authNavWrapper" class="nav-hidden">
+          <!-- Placeholder for admin link - will be populated by JS if user is admin -->
+          <div id="adminLinkContainer"></div>
+          <!-- Login/Logout Link - ID for JS to target -->
+          <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
+      </div>
     </nav>
 
     <div class="header-contact">
@@ -124,6 +130,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const adminLinkContainer = document.getElementById('adminLinkContainer');
             const loginLogoutLink = document.getElementById('loginLogoutLink');
+            const authNavWrapper = document.getElementById('authNavWrapper'); // Get the new wrapper
 
             // Check user session
             const { data: { user }, error } = await supabaseClient.auth.getUser();
@@ -159,7 +166,14 @@
                 adminLinkContainer.innerHTML = ''; // Hide admin link
                 // If on client_dashboard and not logged in, redirect to login page
                 window.location.href = 'login.html';
+                // IMPORTANT: If we redirect, we don't want to show the nav at all, so return early
                 return;
+            }
+
+            // After all checks and updates, make the navigation wrapper visible
+            // This ensures the "Client Login" or "Logout" only shows after its state is determined
+            if (authNavWrapper) {
+                authNavWrapper.classList.remove('nav-hidden');
             }
 
             // Hamburger menu functionality (your existing code)
@@ -176,4 +190,3 @@
           
 </body>
 </html>
-
