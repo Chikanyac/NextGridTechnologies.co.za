@@ -81,130 +81,117 @@
   </form>
 </section>
 
-<script src="js/supabase.min.js"></script>
-<script>
-const supabaseClient = supabase.createClient(
-  'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
-  { // <--- THIS IS THE IMPORTANT PART YOU NEED TO ADD
-            auth: {
-                autoRefreshToken: true,
-                persistSession: true,
-                detectSessionInUrl: true
+    <script src="js/supabase.min.js"></script>
+    <script>
+        // Initialize Supabase Client
+        const supabaseClient = supabase.createClient(
+            'https://tirkqybcedxfusifslim.supabase.co', // <-- REPLACE WITH YOUR SUPABASE URL
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8', // <-- REPLACE WITH YOUR SUPABASE ANON KEY
+            { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+        );
+
+        const loginForm = document.getElementById('loginForm');
+        const messageDiv = document.getElementById('message');
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = 'message';
+            }, 5000);
+        }
+
+        async function signInUser(email, password) {
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                // Fetch user's profile to get their role
+                const { data: profileData, error: profileError } = await supabaseClient
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', data.user.id) // Use the ID from the logged-in user
+                    .single(); // Expect only one profile
+
+                if (profileError) {
+                    console.error('Error fetching user role:', profileError.message);
+                    // Even if role fetch fails, we might still want to let them into a default client dashboard
+                    window.location.href = 'client_dashboard.html'; // Default safe redirection
+                    return;
+                }
+
+                if (profileData && profileData.role === 'admin') {
+                    window.location.href = 'admin_dashboard.html';
+                } else {
+                    // Default to client dashboard for regular users or if role is not found/admin
+                    window.location.href = 'client_dashboard.html';
+                }
+
+            } catch (error) {
+                console.error('Login error:', error.message);
+                showMessage(`Login failed: ${error.message}`, 'error');
             }
-    }
-);
+        }
 
-// --- Login Form Submission ---
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const msg = document.getElementById('message');
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                await signInUser(email, password);
+            });
+        }
 
-  msg.textContent = 'Signing in...';
-  msg.className = 'message-text warning'; // Use class for initial styling
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Dynamic Navigation Link Display (for the header)
+            const adminLinkContainer = document.getElementById('adminLinkContainer');
+            const loginLogoutLink = document.getElementById('loginLogoutLink');
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            // On the login page, we specifically check if a user is *already* logged in.
+            // If they are, we should probably redirect them away from the login page.
+            const { data: { user }, error } = await supabaseClient.auth.getUser();
 
-  if (error) {
-    msg.textContent = error.message;
-    msg.classList.remove('warning', 'success');
-    msg.classList.add('error');
-  } else {
-    msg.textContent = 'Success! Redirecting…';
-    msg.classList.remove('warning', 'error');
-    msg.classList.add('success');
-    window.location.href = 'client_dashboard.html'; // Ensure this is the correct post-login page
-  }
-});
+            if (user) {
+                // If user is already logged in, fetch their role and redirect them
+                const { data: profileData, error: profileError } = await supabaseClient
+                   .from('profiles')
+                   .select('role')
+                   .eq('id', user.id)
+                   .single();
 
-// --- Forgot Password Link Click ---
-document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
-  e.preventDefault();
-  const emailInput = document.getElementById('email');
-  const email = emailInput.value;
-  const msg = document.getElementById('message'); // Using the same message area
+                if (!profileError && profileData) {
+                    if (profileData.role === 'admin') {
+                        window.location.href = 'admin_dashboard.html';
+                    } else {
+                        window.location.href = 'client_dashboard.html';
+                    }
+                } else {
+                    window.location.href = 'client_dashboard.html'; // Default if role fetch fails
+                }
+                return; // Stop further execution on login page if already logged in
+            } else {
+                // User is NOT logged in. Ensure login link is visible and admin link is hidden.
+                loginLogoutLink.textContent = 'Client Login';
+                loginLogoutLink.href = 'login.html'; // It's already login.html, but ensures consistency
+                adminLinkContainer.innerHTML = ''; // Hide admin link
+            }
 
-  // Clear any previous messages
-  msg.textContent = '';
-  msg.className = 'message-text'; // Reset classes
-
-  if (!email) {
-    msg.textContent = 'Please enter your email address in the field above.';
-    msg.classList.add('warning');
-    return;
-  }
-
-  msg.textContent = 'Sending password reset email...';
-  msg.classList.add('warning');
-
-  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://nextgridtechnologies.co.za/reset-password.html', // <<< CHANGE THIS TO YOUR ACTUAL RESET PAGE URL
-  });
-
-  if (error) {
-    msg.textContent = error.message;
-    msg.classList.remove('warning', 'success');
-    msg.classList.add('error');
-  } else {
-    msg.textContent = 'Password reset email sent! Check your inbox.';
-    msg.classList.remove('warning', 'error');
-    msg.classList.add('success');
-    emailInput.value = ''; // Clear email field after sending
-  }
-});
-
-// Hamburger menu (assuming this is present on your site-wide header)
-const hamburger = document.getElementById("hamburger");
-const navMenu = document.getElementById("navMenu");
-if (hamburger && navMenu) {
-  hamburger.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-  });
-}
-  // ... Admin Login ...
-
-async function signInUser(email, password) {
-    try {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password,
+            // Hamburger menu functionality
+            const hamburger = document.getElementById("hamburger");
+            const navMenu = document.getElementById("navMenu");
+            if (hamburger && navMenu) {
+                hamburger.addEventListener("click", () => {
+                    navMenu.classList.toggle("active");
+                });
+            }
         });
-
-        if (error) {
-            throw error;
-        }
-
-        // --- NEW CODE START ---
-        // Fetch user's profile to get their role
-        const { data: profileData, error: profileError } = await supabaseClient
-            .from('profiles')
-            .select('role')
-            .eq('id', data.user.id) // Use the ID from the logged-in user
-            .single(); // Expect only one profile
-
-        if (profileError) {
-            console.error('Error fetching user role:', profileError.message);
-            // Even if role fetch fails, we might still want to let them into a default client dashboard
-            window.location.href = 'client_dashboard.html'; // Default safe redirection
-            return;
-        }
-
-        if (profileData && profileData.role === 'admin') {
-            window.location.href = 'admin_dashboard.html';
-        } else {
-            // Default to client dashboard for regular users or if role is not found/admin
-            window.location.href = 'client_dashboard.html';
-        }
-        // --- NEW CODE END ---
-
-    } catch (error) {
-        console.error('Login error:', error.message);
-        showMessage(`Login failed: ${error.message}`, 'error');
-    }
-}
-
-</script>
+    </script>
 </body>
 </html>
