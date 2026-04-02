@@ -28,27 +28,34 @@
 </head>
 <body>
 
-<!-- ============================================== -->
-<!-- START: ADDED HEADER FROM YOUR EXISTING SITE -->
-<!-- This entire block should be copied from your main site's header -->
-<!-- I'm using a generic structure based on your CSS -->
+<!-- ====================HEADER========================== -->
 <header>
   <div class="container header-flex">
     <div class="logo-area">
       <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
+      <!-- Changed span to an anchor to make the logo clickable to home -->
       <a href="index.html" class="logo-text">NextGrid Technologies</a>
     </div>
+
     <nav id="navMenu">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="blog.html">Blog</a>
-      <!-- Add any other main navigation links here -->
-      <a href="login.html" class="nav-cta">Client Login</a>
+      <!-- Placeholder for admin link - will be populated by JS if user is admin -->
+      <div id="adminLinkContainer"></div>
+      <!-- Login/Logout Link - ID for JS to target -->
+      <!-- This will be "Client Login" or "Logout" based on auth status -->
+      <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
     </nav>
-    <button class="hamburger" id="hamburger">&#9776;</button>
+
+    <div class="header-contact">
+      <a href="tel:+27680330794" class="btn-phone">📞 Call</a>
+      <a href="https://wa.me/27680330794" target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
   </div>
 </header>
-<!-- END: ADDED HEADER -->
 <!-- ============================================== -->
 
 <!-- Adjusted margin-top for the login section to account for the header -->
