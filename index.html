@@ -353,61 +353,63 @@
 </footer>
 
 <!-- Supabase library -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.min.js"></script>
+    <script>
+        // Initialize Supabase Client
+        const supabaseClient = supabase.createClient(
+            'https://tirkqybcedxfusifslim.supabase.co', // <-- REPLACE WITH YOUR SUPABASE URL
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8', // <-- REPLACE WITH YOUR SUPABASE ANON KEY
+            { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+        );
 
-<script>
-// Create Supabase client (use a different name!)
-const supabaseClient = supabase.createClient(
-  'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
-)
+        document.addEventListener('DOMContentLoaded', async () => {
+            const adminLinkContainer = document.getElementById('adminLinkContainer');
+            const loginLogoutLink = document.getElementById('loginLogoutLink');
 
-// Handle form submit
-document.getElementById('signupForm').addEventListener('submit', async (e) => {
-  e.preventDefault()
+            // Check user session
+            const { data: { user }, error } = await supabaseClient.auth.getUser();
 
-  const name = document.getElementById('name').value
-  const company = document.getElementById('company').value
-  const email = document.getElementById('email').value // CORRECTED LINE: Get the email value from the input field
-  const password = document.getElementById('password').value
-  const need = document.getElementById('need').value
-  const msg = document.getElementById('message')
+            if (user) {
+                // User is logged in
+                loginLogoutLink.textContent = 'Logout';
+                loginLogoutLink.href = '#'; // Make it a button to trigger logout
 
-  msg.textContent = 'Creating account...'
-  msg.style.color = 'inherit'
+                loginLogoutLink.onclick = async (e) => {
+                    e.preventDefault();
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'login.html'; // Redirect to login after logout
+                };
 
-  const { data, error } = await supabaseClient.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: name,
-        company: company,
-        need: need
-      }
-    }
-  })
+                // Fetch user role
+                const { data: profileData, error: profileError } = await supabaseClient
+                   .from('profiles')
+                   .select('role')
+                   .eq('id', user.id)
+                   .single();
 
-  if (error) {
-    msg.textContent = error.message
-    msg.style.color = 'red'
-  } else {
-    msg.textContent = 'Account created! You can log in now.'
-    msg.style.color = 'green'
-    e.target.reset()
-  }
-})
+                if (!profileError && profileData && profileData.role === 'admin') {
+                    // If admin, show the admin link
+                    adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
+                } else {
+                    adminLinkContainer.innerHTML = ''; // Hide admin link for non-admins
+                }
+            } else {
+                // User is not logged in, ensure login link is shown and admin link is hidden
+                loginLogoutLink.textContent = 'Client Login';
+                loginLogoutLink.href = 'login.html';
+                adminLinkContainer.innerHTML = ''; // Hide admin link
+            }
 
-// Hamburger menu
-const hamburger = document.getElementById("hamburger");
-const navMenu = document.getElementById("navMenu");
-if (hamburger && navMenu) {
-  hamburger.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-  });
-}
-</script>
-
+            // Hamburger menu functionality (your existing code)
+            const hamburger = document.getElementById("hamburger");
+            const navMenu = document.getElementById("navMenu");
+            if (hamburger && navMenu) {
+                hamburger.addEventListener("click", () => {
+                    navMenu.classList.toggle("active");
+                });
+            }
+        });
+    </script>
 </body>
 </html>
 
