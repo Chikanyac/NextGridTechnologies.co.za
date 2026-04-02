@@ -143,7 +143,7 @@
                 const { data: profileData, error: profileError } = await supabaseClient
                    .from('profiles')
                    .select('role')
-                   .eq('id', user.id)
+                  .eq('id::uuid', user.id) // Explicitly cast 'id' to uuid for the filter
                    .single();
 
                 if (!profileError && profileData && profileData.role === 'admin') {
