@@ -156,6 +156,48 @@ if (hamburger && navMenu) {
     navMenu.classList.toggle("active");
   });
 }
+  // ... Admin Login ...
+
+async function signInUser(email, password) {
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+
+        if (error) {
+            throw error;
+        }
+
+        // --- NEW CODE START ---
+        // Fetch user's profile to get their role
+        const { data: profileData, error: profileError } = await supabaseClient
+            .from('profiles')
+            .select('role')
+            .eq('id', data.user.id) // Use the ID from the logged-in user
+            .single(); // Expect only one profile
+
+        if (profileError) {
+            console.error('Error fetching user role:', profileError.message);
+            // Even if role fetch fails, we might still want to let them into a default client dashboard
+            window.location.href = 'client_dashboard.html'; // Default safe redirection
+            return;
+        }
+
+        if (profileData && profileData.role === 'admin') {
+            window.location.href = 'admin_dashboard.html';
+        } else {
+            // Default to client dashboard for regular users or if role is not found/admin
+            window.location.href = 'client_dashboard.html';
+        }
+        // --- NEW CODE END ---
+
+    } catch (error) {
+        console.error('Login error:', error.message);
+        showMessage(`Login failed: ${error.message}`, 'error');
+    }
+}
+
 </script>
 </body>
 </html>
