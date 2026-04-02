@@ -1,0 +1,125 @@
+/* admin.css */
+
+.admin-container {
+    padding: 40px;
+    background-color: #f8f9fa; /* Light background for the admin area */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.admin-container h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.admin-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.admin-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.admin-menu-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes coming soon to bottom */
+    text-align: left; /* Align text inside cards to left */
+    min-height: 150px; /* Ensure consistent card height */
+    position: relative;
+    overflow: hidden; /* For coming soon badge */
+}
+
+.admin-menu-item:hover:not(.disabled) {
+    border-color: #007bff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.admin-menu-item h3 {
+    color: #007bff;
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: left; /* Override general h3 centering */
+}
+
+.admin-menu-item p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    flex-grow: 1; /* Allows paragraph to take up available space */
+}
+
+.admin-menu-item.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+.admin-menu-item.disabled:hover {
+    border-color: #e0e0e0; /* No change on hover for disabled */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* No change on hover for disabled */
+    transform: none; /* No transform on hover for disabled */
+}
+
+.coming-soon {
+    position: absolute;
+    top: 15px;
+    right: -30px; /* Adjust to show fully on card */
+    background-color: #ffc107; /* Yellow badge */
+    color: #343a40; /* Dark text */
+    padding: 5px 30px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 5px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 20px;
+    }
+    .admin-menu-item {
+        min-height: 120px;
+    }
+    .admin-menu-item h3 {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-menu {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    .admin-menu-item {
+        padding: 20px;
+        text-align: center;
+    }
+    .admin-menu-item h3 {
+        text-align: center;
+    }
+}
+
+/* You'll also need your general styles.css for header, footer, etc. */
