@@ -1,0 +1,296 @@
+/* General Form Styling (Can be part of your main styles.css or create_invoice.css) */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+h3 {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block; /* Make labels take full width */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't increase width */
+    font-size: 1em;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Primary Button Style */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Message Styles */
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #d4edda; /* Light Green */
+    color: #155724; /* Dark Green */
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da; /* Light Red */
+    color: #721c24; /* Dark Red */
+    border: 1px solid #f5c6cb;
+}
+
+.message.info {
+    background-color: #d1ecf1; /* Light Blue */
+    color: #0c5460; /* Dark Blue */
+    border: 1px solid #bee5eb;
+}
+
+/* Line Item Specific Styles */
+.line-item-section {
+    border: 1px dashed #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}
+
+.line-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.line-item-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Button for adding line items */
+.add-line-item-btn {
+    background-color: #28a745; /* Green */
+    margin-top: 10px;
+    display: block; /* Make it take full width below line items */
+    width: fit-content; /* Adjust width to content */
+    margin-left: auto;
+    margin-right: auto;
+}
+.add-line-item-btn:hover {
+    background-color: #218838;
+}
+
+/* Button for removing line items */
+.remove-line-item-btn {
+    background-color: #dc3545; /* Red */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+.remove-line-item-btn:hover {
+    background-color: #c82333;
+}
+
+/* Grid layout for line item fields */
+.line-item-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr; /* Description, Qty, Rate, Amount */
+    gap: 15px; /* Spacing between grid items */
+    align-items: center;
+}
+.line-item-fields.form-group {
+    margin-bottom: 0; /* Remove extra margin from form-groups inside grid */
+}
+.line-item-fields label {
+    font-weight: normal; /* Labels within line items can be less bold */
+    font-size: 0.9em;
+    margin-bottom: 3px;
+}
+
+/* Responsive adjustments for line items */
+@media (max-width: 600px) {
+   .line-item-fields {
+        grid-template-columns: 1fr; /* Stack fields vertically on smaller screens */
+    }
+   .line-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* Header Specific Styles (from your original code) */
+/* You'll likely have this in your main styles.css already, but including for completeness */
+header {
+  background-color: #ffffff;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+header.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+}
+
+.logo-area.logo {
+  height: 40px; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.logo-area.logo-text {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #007bff;
+  text-decoration: none;
+}
+
+nav a {
+  color: #555;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+
+.nav-cta {
+  background-color: #007bff;
+  color: white!important;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-cta:hover {
+  background-color: #0056b3;
+}
+
+.hamburger {
+  display: none; /* Hidden by default on larger screens */
+  font-size: 1.8em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+}
+
+/* Responsive Navigation (example, adjust as per your styles.css) */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding-bottom: 10px;
+  }
+
+  nav.active {
+    display: flex;
+  }
+
+  nav a {
+    margin: 10px 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+
+  nav a:last-child {
+    border-bottom: none;
+  }
+
+ .hamburger {
+    display: block;
+  }
+}
