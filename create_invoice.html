@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Invoice - NextGrid Technologies</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Your main stylesheet -->
+    <link rel="stylesheet" href="create_invoice.css"> <!-- New stylesheet for this page -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C9DS2C71G6');
+    </script>
+</head>
+<body>
+
+    <!-- ============================================== -->
+    <!-- START: ADDED HEADER FROM YOUR EXISTING SITE -->
+    <header>
+      <div class="container header-flex">
+        <div class="logo-area">
+          <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
+          <a href="index.html" class="logo-text">NextGrid Technologies</a>
+        </div>
+        <nav id="navMenu">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="blog.html">Blog</a>
+          <a href="login.html" class="nav-cta">Client Login</a>
+        </nav>
+        <button class="hamburger" id="hamburger">&#9776;</button>
+      </div>
+    </header>
+    <!-- END: ADDED HEADER -->
+    <!-- ============================================== -->
+
+    <div class="container">
+        <h1>Create New Invoice</h1>
+
+        <form id="invoiceForm">
+            <div class="form-group">
+                <label for="user_id">Client User ID (from Supabase auth):</label>
+                <input type="text" id="user_id" placeholder="e.g., 81234567-abcd-abcd-abcd-1234567890ab" required>
+            </div>
+
+            <div class="form-group">
+                <label for="clientName">Client Name:</label> <!-- RENAMED -->
+                <input type="text" id="clientName" placeholder="e.g., Acme Corp" required> <!-- RENAMED -->
+            </div>
+
+            <div class="form-group">
+                <label for="invoiceNumber">Invoice Number:</label>
+                <input type="text" id="invoiceNumber" placeholder="e.g., NG-2026-001" required>
+            </div>
+
+            <div class="form-group">
+                <label for="invoiceDate">Invoice Date:</label>
+                <input type="date" id="invoiceDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="issueDate">Issue Date:</label> <!-- NEW FIELD -->
+                <input type="date" id="issueDate" required> <!-- NEW FIELD -->
+            </div>
+
+            <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" required>
+                    <option value="draft">Draft</option>
+                    <option value="sent">Sent</option>
+                    <option value="paid">Paid</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentTerms">Payment Terms:</label>
+                <input type="text" id="paymentTerms" value="Net 15" placeholder="e.g., Net 15">
+            </div>
+
+            <div class="form-group">
+                <label for="purchaseOrder">Purchase Order (Optional):</label>
+                <input type="text" id="purchaseOrder" placeholder="e.g., PO-XYZ-1234">
+            </div>
+
+            <div class="form-group">
+                <label for="paymentInstructions">Payment Instructions:</label> <!-- NEW FIELD -->
+                <textarea id="paymentInstructions" rows="4" placeholder="e.g., Bank Name: [Your Bank Name]..."></textarea> <!-- NEW FIELD -->
+            </div>
+
+            <div class="form-group">
+                <label for="subtotal">Subtotal (calculated):</label>
+                <input type="number" id="subtotal" step="0.01" value="0.00" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="discountRate">Discount Rate (%):</label>
+                <input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100">
+            </div>
+            <!-- Displaying calculated discount_amount -->
+            <div class="form-group">
+                <label for="discountAmount">Discount Amount (R):</label>
+                <input type="number" id="discountAmount" step="0.01" value="0.00" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="vatRate">VAT Rate (%):</label>
+                <input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100">
+            </div>
+            <!-- Displaying calculated vat_amount -->
+            <div class="form-group">
+                <label for="vatAmount">VAT Amount (R):</label>
+                <input type="number" id="vatAmount" step="0.01" value="0.00" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="totalAmountDue">Total Amount Due (calculated):</label>
+                <input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly>
+            </div>
+
+            <h2>Line Items</h2>
+            <div id="lineItemsContainer">
+                <!-- Line items will be added here -->
+                <div class="line-item-section" data-item-id="0">
+                    <div class="line-item-header">
+                        <h3>Line Item #1</h3>
+                        <button type="button" class="remove-line-item-btn" onclick="removeLineItem(this)">Remove</button>
+                    </div>
+                    <div class="line-item-fields">
+                        <div class="form-group">
+                            <label for="itemDescription_0">Description:</label>
+                            <input type="text" id="itemDescription_0" placeholder="e.g., Website Design" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemQty_0">Qty:</label>
+                            <input type="number" id="itemQty_0" step="0.01" value="1" min="0" oninput="calculateTotals()">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemRate_0">Rate (R):</label>
+                            <input type="number" id="itemRate_0" step="0.01" value="0.00" min="0" oninput="calculateTotals()">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemAmount_0">Amount (R):</label>
+                            <input type="number" id="itemAmount_0" step="0.01" value="0.00" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn-primary add-line-item-btn" onclick="addLineItem()">Add Line Item</button>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary">Create Invoice</button>
+            </div>
+            <div id="message" class="message"></div>
+        </form>
+    </div>
+
+    <script src="js/supabase.min.js"></script>
+    <script>
+        const supabaseClient = supabase.createClient(
+            'https://tirkqybcedxfusifslim.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXalDBfsCpbj2FUS60e5-8',
+            { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+        );
+
+        const invoiceForm = document.getElementById('invoiceForm');
+        const messageDiv = document.getElementById('message');
+        const lineItemsContainer = document.getElementById('lineItemsContainer');
+        let lineItemCount = 1; // Keep track of line items for unique IDs
+
+        // --- Helper to show messages ---
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = 'message';
+            }, 5000);
+        }
+
+        // --- Line Item Management ---
+        function addLineItem() {
+            const newItemId = lineItemCount++;
+            const lineItemHtml = `
+                <div class="line-item-section" data-item-id="${newItemId}">
+                    <div class="line-item-header">
+                        <h3>Line Item #${newItemId + 1}</h3>
+                        <button type="button" class="remove-line-item-btn" onclick="removeLineItem(this)">Remove</button>
+                    </div>
+                    <div class="line-item-fields">
+                        <div class="form-group">
+                            <label for="itemDescription_${newItemId}">Description:</label>
+                            <input type="text" id="itemDescription_${newItemId}" placeholder="e.g., Service or Product" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemQty_${newItemId}">Qty:</label>
+                            <input type="number" id="itemQty_${newItemId}" step="0.01" value="1" min="0" oninput="calculateTotals()">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemRate_${newItemId}">Rate (R):</label>
+                            <input type="number" id="itemRate_${newItemId}" step="0.01" value="0.00" min="0" oninput="calculateTotals()">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemAmount_${newItemId}">Amount (R):</label>
+                            <input type="number" id="itemAmount_${newItemId}" step="0.01" value="0.00" readonly>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lineItemsContainer.insertAdjacentHTML('beforeend', lineItemHtml);
+            calculateTotals(); // Recalculate totals after adding an item
+        }
+
+        function removeLineItem(button) {
+            const itemSection = button.closest('.line-item-section');
+            if (lineItemsContainer.children.length > 1) { // Don't remove the last item
+                itemSection.remove();
+                calculateTotals(); // Recalculate totals after removing an item
+                // Re-index line item headers for better UX
+                Array.from(lineItemsContainer.children).forEach((section, index) => {
+                    section.querySelector('h3').textContent = `Line Item #${index + 1}`;
+                    // Update data-item-id and input IDs/for attributes for consistency after removal
+                    section.dataset.itemId = index;
+                    section.querySelectorAll('[id^="item"]').forEach(input => {
+                        const baseId = input.id.split('_')[0];
+                        input.id = `${baseId}_${index}`;
+                        const label = section.querySelector(`label[for^="${baseId}_"]`);
+                        if (label) label.htmlFor = `${baseId}_${index}`;
+                    });
+                });
+
+            } else {
+                showMessage("Cannot remove the last line item.", "error");
+            }
+        }
+
+        // --- Calculation Logic ---
+        function calculateTotals() {
+            let subtotal = 0;
+            const lineItemSections = lineItemsContainer.querySelectorAll('.line-item-section');
+
+            lineItemSections.forEach((section) => {
+                const itemId = section.dataset.itemId;
+                const qty = parseFloat(section.querySelector(`#itemQty_${itemId}`).value) || 0;
+                const rate = parseFloat(section.querySelector(`#itemRate_${itemId}`).value) || 0;
+                const itemAmount = qty * rate;
+                section.querySelector(`#itemAmount_${itemId}`).value = itemAmount.toFixed(2);
+                subtotal += itemAmount;
+            });
+
+            document.getElementById('subtotal').value = subtotal.toFixed(2);
+
+            const discountRate = parseFloat(document.getElementById('discountRate').value) || 0;
+            const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+
+            const discountAmount = subtotal * (discountRate / 100);
+            const subtotalAfterDiscount = subtotal - discountAmount;
+            const vatAmount = subtotalAfterDiscount * (vatRate / 100);
+            const totalAmountDue = subtotalAfterDiscount + vatAmount;
+
+            document.getElementById('discountAmount').value = discountAmount.toFixed(2); // Set discount amount
+            document.getElementById('vatAmount').value = vatAmount.toFixed(2); // Set VAT amount
+            document.getElementById('totalAmountDue').value = totalAmountDue.toFixed(2);
+        }
+
+        // Add event listeners for calculation on rate/qty change
+        document.getElementById('lineItemsContainer').addEventListener('input', (event) => {
+            if (event.target.id.startsWith('itemQty_') || event.target.id.startsWith('itemRate_')) {
+                calculateTotals();
+            }
+        });
+        document.getElementById('discountRate').addEventListener('input', calculateTotals);
+        document.getElementById('vatRate').addEventListener('input', calculateTotals);
+
+        // --- Form Submission ---
+        invoiceForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showMessage('Saving invoice...', 'info');
+
+            // Ensure all calculations are up-to-date before submission
+            calculateTotals();
+
+            const userId = document.getElementById('user_id').value;
+            const clientName = document.getElementById('clientName').value; // RENAMED
+            const invoiceNumber = document.getElementById('invoiceNumber').value;
+            const invoiceDate = document.getElementById('invoiceDate').value;
+            const issueDate = document.getElementById('issueDate').value; // NEW FIELD
+            const dueDate = document.getElementById('dueDate').value;
+            const status = document.getElementById('status').value;
+            const paymentTerms = document.getElementById('paymentTerms').value;
+            const purchaseOrder = document.getElementById('purchaseOrder').value;
+            const paymentInstructions = document.getElementById('paymentInstructions').value; // NEW FIELD
+
+            const subtotal = parseFloat(document.getElementById('subtotal').value);
+            const discountAmount = parseFloat(document.getElementById('discountAmount').value); // Use calculated value
+            const vatPercentage = parseFloat(document.getElementById('vatRate').value); // Rename from vatRate
+            const vatAmount = parseFloat(document.getElementById('vatAmount').value); // Use calculated value
+            const totalAmountDue = parseFloat(document.getElementById('totalAmountDue').value);
+
+            // Basic validation
+            if (!userId ||!clientName ||!invoiceNumber ||!invoiceDate ||!issueDate ||!dueDate || isNaN(totalAmountDue)) {
+                showMessage('Please fill in all required fields and ensure totals are calculated.', 'error');
+                return;
+            }
+
+            try {
+                // 1. Insert into 'invoices' table
+                const { data: invoiceData, error: invoiceError } = await supabaseClient
+                 .from('invoices')
+                 .insert([
+                        {
+                            user_id: userId,
+                            client_name: clientName, // RENAMED
+                            invoice_number: invoiceNumber,
+                            invoice_date: invoiceDate,
+                            issue_date: issueDate, // NEW FIELD
+                            due_date: dueDate,
+                            status: status,
+                            payment_terms: paymentTerms,
+                            purchase_order: purchaseOrder,
+                            payment_instructions: paymentInstructions, // NEW FIELD
+
+                            subtotal: subtotal,
+                            discount_amount: discountAmount, // NEW FIELD
+                            vat_percentage: vatPercentage, // NEW FIELD
+                            vat_amount: vatAmount, // NEW FIELD
+                            total_amount_due: totalAmountDue,
+                        }
+                    ])
+                 .select(); // Select the newly inserted row to get its ID
+
+                if (invoiceError) {
+                    throw invoiceError;
+                }
+
+                const newInvoiceId = invoiceData[0].id;
+                console.log('Invoice created with ID:', newInvoiceId);
+
+                // 2. Prepare and insert line items into a 'line_items' table (you'll need to create this table in Supabase)
+                const lineItemsToInsert = [];
+                const lineItemSections = lineItemsContainer.querySelectorAll('.line-item-section');
+
+                lineItemSections.forEach(section => {
+                    const itemId = section.dataset.itemId;
+                    const description = section.querySelector(`#itemDescription_${itemId}`).value;
+                    const qty = parseFloat(section.querySelector(`#itemQty_${itemId}`).value);
+                    const rate = parseFloat(section.querySelector(`#itemRate_${itemId}`).value);
+                    const amount = parseFloat(section.querySelector(`#itemAmount_${itemId}`).value);
+
+                    if (description &&!isNaN(qty) &&!isNaN(rate)) { // Ensure quantity and rate are valid numbers
+                        lineItemsToInsert.push({
+                            invoice_id: newInvoiceId,
+                            description: description,
+                            quantity: qty,
+                            rate: rate,
+                            amount: amount
+                        });
+                    }
+                });
+
+                if (lineItemsToInsert.length > 0) {
+                    const { error: lineItemError } = await supabaseClient
+                     .from('line_items') // Assuming you have a 'line_items' table
+                     .insert(lineItemsToInsert);
+
+                    if (lineItemError) {
+                        throw lineItemError;
+                    }
+                    console.log('Line items inserted successfully.');
+                }
+
+                showMessage('Invoice created successfully!', 'success');
+                invoiceForm.reset(); // Clear the form
+                // Re-initialize a single line item after form reset
+                lineItemsContainer.innerHTML = '';
+                lineItemCount = 0; // Reset count
+                addLineItem(); // Add a fresh first line item
+                calculateTotals(); // Ensure totals are reset too
+
+            } catch (error) {
+                console.error('Error creating invoice:', error.message);
+                showMessage(`Error creating invoice: ${error.message}`, 'error');
+            }
+        });
+
+        // Initialize with one line item and calculate totals on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set issueDate and invoiceDate to today's date by default
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+            document.getElementById('invoiceDate').value = formattedDate;
+            document.getElementById('issueDate').value = formattedDate; // Pre-fill issue_date
+
+            // Add the initial line item if the container is empty (e.g., after a reset or first load)
+            if (lineItemsContainer.children.length === 0) {
+                addLineItem(); // This will add the first one with ID 0
+            }
+            calculateTotals();
+            // Hamburger menu functionality from your login.html
+            const hamburger = document.getElementById("hamburger");
+            const navMenu = document.getElementById("navMenu");
+            if (hamburger && navMenu) {
+              hamburger.addEventListener("click", () => {
+                navMenu.classList.toggle("active");
+              });
+            }
+        });
+
+    </script>
+</body>
+</html>
