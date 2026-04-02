@@ -141,7 +141,7 @@ const supabaseClient = supabase.createClient(
     async function fetchUserInvoices(userId) {
         invoicesList.innerHTML = '<li>Fetching your invoices...</li>';
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('invoices')
                 .select('id, invoice_number, invoice_date, total_amount_due, status')
                 .eq('user_id', userId)
@@ -179,7 +179,7 @@ const supabaseClient = supabase.createClient(
     }
 
     async function logout() {
-        const { error } = await supabase.auth.signOut();
+        const { error } = await supabaseClient.auth.signOut();
         if (error) {
             console.error('Error logging out:', error.message);
             alert('Error logging out: ' + error.message);
