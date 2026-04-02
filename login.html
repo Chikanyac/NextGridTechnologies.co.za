@@ -117,7 +117,7 @@
                 const { data: profileData, error: profileError } = await supabaseClient
                     .from('profiles')
                     .select('role')
-                    .eq('id', data.user.id) // Use the ID from the logged-in user
+                    .eq('user_id::uuid', user.id)// Use the ID from the logged-in user
                     .single(); // Expect only one profile
 
                 if (profileError) {
@@ -163,7 +163,7 @@
                 const { data: profileData, error: profileError } = await supabaseClient
                    .from('profiles')
                    .select('role')
-                  .eq('id::uuid', user.id) // Explicitly cast 'id' to uuid for the filter
+                  .eq('user_id::uuid', user.id) // Explicitly cast 'id' to uuid for the filter
                    .single();
 
                 if (!profileError && profileData) {
