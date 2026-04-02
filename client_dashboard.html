@@ -113,6 +113,7 @@
 
     async function initApp() {
         const { data: { user } } = await supabase.auth.getUser();
+        console.log('User object:', user);
 
         if (user) {
             console.log('Logged in user ID:', user.id); 
@@ -122,7 +123,8 @@
             `;
             fetchUserInvoices(user.id);
         } else {
-            authUi.innerHTML = `
+          console.log('No user logged in.');  
+          authUi.innerHTML = `
                 <p>You need to log in to view your dashboard.</p>
                 <button class="btn" onclick="redirectToLogin()">Login / Sign Up</button>
             `;
