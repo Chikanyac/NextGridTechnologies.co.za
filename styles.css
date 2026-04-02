@@ -979,3 +979,8 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   background: #10b981 !important;  /* solid green */
   color: #fff !important;
 }
+
+/* Add this to styles.css or similar */
+.nav-hidden {
+    display: none !important; /* !important to override other display properties */
+}
