@@ -1,3 +1,28 @@
+/* invoice.css additions */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px; /* Space it out from the invoice content */
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+}
+
+/* You might want to wrap your invoice-container in a div with a max-width and margin: auto
+   if you want the back button to align with the container, e.g.:*/
+   <div style="max-width: 900px; margin: 20px auto;">
+       <a href="client_dashboard.html" class="back-link">&larr; Back to Invoices</a>
+       <div class="invoice-container">
+           ...
+       </div>
+   </div>
+
 body {
     font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
     margin: 0;
