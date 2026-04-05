@@ -369,27 +369,25 @@
 
             try {
                 // --- 1. GATHER INVOICE DATA ---
-                const invoiceData = {
-                    user_id: document.getElementById('selectedUserId').value,
-                    client_name: document.getElementById('clientName').value,
-                    client_email: document.getElementById('clientEmail').value,
-                    client_address: document.getElementById('clientAddress').value,
-                    client_phone: document.getElementById('clientPhone').value,
-                    invoice_number: document.getElementById('invoiceNumber').value,
-                    invoice_date: document.getElementById('invoiceDate').value,
-                    issue_date: document.getElementById('issueDate').value,
-                    due_date: document.getElementById('dueDate').value,
-                    status: document.getElementById('status').value,
-                    payment_terms: document.getElementById('paymentTerms').value,
-                    purchase_order: document.getElementById('purchaseOrder').value || null,
-                    payment_instructions: document.getElementById('paymentInstructions').value,
-                    subtotal: parseFloat(document.getElementById('subtotal').value),
-                    discount_rate: parseFloat(document.getElementById('discountRate').value),
-                    discount_amount: parseFloat(document.getElementById('discountAmount').value),
-                    vat_rate: parseFloat(document.getElementById('vatRate').value),
-                    vat_amount: parseFloat(document.getElementById('vatAmount').value),
-                    total_amount_due: parseFloat(document.getElementById('totalAmountDue').value),
-                };
+                 // --- THIS IS THE NEW, CORRECTED CODE ---
+    const invoiceData = {
+        user_id: document.getElementById('selectedUserId').value,
+        // The four client_* lines below have been removed
+        invoice_number: document.getElementById('invoiceNumber').value,
+        invoice_date: document.getElementById('invoiceDate').value,
+        issue_date: document.getElementById('issueDate').value,
+        due_date: document.getElementById('dueDate').value,
+        status: document.getElementById('status').value,
+        payment_terms: document.getElementById('paymentTerms').value,
+        purchase_order: document.getElementById('purchaseOrder').value || null,
+        payment_instructions: document.getElementById('paymentInstructions').value,
+        subtotal: parseFloat(document.getElementById('subtotal').value),
+        discount_rate: parseFloat(document.getElementById('discountRate').value),
+        discount_amount: parseFloat(document.getElementById('discountAmount').value),
+        vat_rate: parseFloat(document.getElementById('vatRate').value),
+        vat_amount: parseFloat(document.getElementById('vatAmount').value),
+        total_amount_due: parseFloat(document.getElementById('totalAmountDue').value),
+    };
 
                 // Basic validation
                 if (!invoiceData.user_id) {
