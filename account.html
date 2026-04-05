@@ -7,6 +7,23 @@
         <script src="js/supabase.min.js"></script>
     </head>
     <body>
+     <!-- Your standard header content -->
+<header>
+  <div class="container header-flex">
+    <div class="logo-area">
+      <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
+      <a href="index.html" class="logo-text">NextGrid Technologies</a>
+    </div>
+    <nav id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <div id="adminLinkContainer"></div> <!-- Admin link dynamically populated -->
+      <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a> <!-- Login/Logout link dynamically updated -->
+    </nav>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+</header>
         <h1>Bare Minimum Logout Test</h1>
         <p id="status">Status: Initializing...</p>
         <button id="logoutButton">Logout</button>
