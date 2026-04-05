@@ -127,6 +127,8 @@
             const loginLogoutLink = document.getElementById('loginLogoutLink');
             const authUiDiv = document.getElementById('auth-ui');
 
+            console.log('onAuthStateChange fired:', event, session); // Added: See what event fired
+
             if (session && session.user) {
                 // --- User is Logged In ---
                 console.log('onAuthStateChange: User is signed in:', session.user.id);
@@ -138,17 +140,26 @@
                     <p>You are logged in as <strong>${session.user.email}</strong>.</p>
                     <button id="logoutButton" class="btn">Logout</button>
                 `;
+                console.log('auth-ui populated with logoutButton'); // Added: Confirm HTML update
 
                 // Attach event listener to the newly created logoutButton
-                document.getElementById('logoutButton').addEventListener('click', async () => {
-                    console.log('Logout button clicked from auth-ui!');
-                    const { error } = await supabaseClient.auth.signOut();
-                    if (error) {
-                        console.error('Error signing out:', error.message);
-                        alert('Error signing out: ' + error.message);
-                    }
-                    // Redirection is handled by the 'SIGNED_OUT' event below
-                });
+                const logoutButton = document.getElementById('logoutButton');
+                if (logoutButton) { // Added: Check if button exists before attaching listener
+                    logoutButton.addEventListener('click', async () => {
+                        console.log('Logout button clicked from auth-ui!'); // Added: Confirm click detected
+                        const { error } = await supabaseClient.auth.signOut();
+                        if (error) {
+                            console.error('Error signing out:', error.message);
+                            alert('Error signing out: ' + error.message);
+                        } else {
+                            console.log('signOut() called successfully, awaiting redirect...'); // Added: Confirm signOut called
+                        }
+                        // Redirection is handled by the 'SIGNED_OUT' event below
+                    });
+                    console.log('Logout button event listener attached.'); // Added: Confirm listener attached
+                } else {
+                    console.error('Logout button not found after populating auth-ui.'); // Added: Error if button missing
+                }
 
                 // Fetch user role for admin link
                 const { data: profileData, error: profileError } = await supabaseClient
@@ -174,7 +185,10 @@
                 adminLinkContainer.innerHTML = ''; // Hide admin link
 
                 // If user logs out or is not authenticated, redirect to login page
-                if (!window.location.pathname.endsWith('login.html')) { // Avoid redirect loop if already on login
+                // We prevent redirect if already on login.html to avoid infinite loops,
+                // but client_dashboard.html should always redirect if not logged in.
+                if (!window.location.pathname.endsWith('login.html')) {
+                     console.log('Redirecting to login.html due to SIGNED_OUT or no session.'); // Added: Confirm redirect
                      window.location.href = 'login.html';
                 }
             }
@@ -189,8 +203,6 @@
                     navMenu.classList.toggle("active");
                 });
             }
-            // You can add loadUserInvoices() call here if needed, but the onAuthStateChange is better
-            // for dynamically loading content based on auth state.
         });
 
         // Placeholder for future invoice loading function
