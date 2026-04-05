@@ -423,25 +423,46 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 // Attach a single click listener to a static parent element (e.g., authStatusDisplay)
 // --- Event Delegation for Logout Button ---
 authStatusDisplay.addEventListener('click', async (e) => {
-    // Check if the clicked element (or its closest ancestor) has the ID 'logoutButton'
     if (e.target && e.target.id === 'logoutButton') {
         console.log('Delegated click: Logout button clicked!'); // Diagnostic log
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) {
-            console.error('Delegated click: Error signing out:', error.message);
-            alert('Error signing out: ' + error.message);
+
+        // Add a log right before the signOut call
+        console.log('Attempting to call supabaseClient.auth.signOut()...');
+
+        let signOutError = null;
+        let signOutSuccessful = false;
+
+        try {
+            // Add a timeout to catch hanging calls
+            const signOutPromise = supabaseClient.auth.signOut();
+            const timeoutPromise = new Promise((resolve, reject) =>
+                setTimeout(() => reject(new Error('Sign out operation timed out after 10 seconds.')), 10000)
+            );
+
+            // Wait for either signOut to complete or timeout
+            const result = await Promise.race([signOutPromise, timeoutPromise]);
+            
+            // If it reached here, it means signOutPromise resolved successfully (or timeout rejected)
+            if (result && 'error' in result) { // Supabase signOut always returns { error } even if null
+                 signOutError = result.error;
+            } else {
+                 signOutSuccessful = true; // SignOut resolved without error object, or timeout resolved early (unlikely)
+            }
+
+        } catch (error) {
+            // Catch any explicit rejections from the promise, including our timeout
+            signOutError = error;
+        }
+
+        if (signOutError) {
+            console.error('Delegated click: Error signing out or timeout:', signOutError.message || signOutError);
+            alert('Error signing out: ' + (signOutError.message || signOutError));
         } else {
             console.log('Delegated click: signOut() called successfully. Forcing redirect...'); // Diagnostic log
-            // --- MODIFIED REDIRECT HERE ---
-            // Use replace() for a cleaner history (prevents back button to previous state)
-            // And force a full reload by replacing the current URL
             window.location.replace('login.html');
         }
-        // Removed the onAuthStateChange redirect logic for SIGNED_OUT from the main listener
-        // This direct redirect ensures it happens immediately after a successful signOut() call from this button.
     }
 });
-
 // Hamburger menu functionality (keep as is)
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById("hamburger");
