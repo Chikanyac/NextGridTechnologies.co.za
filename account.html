@@ -1,454 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bare Minimum Supabase Logout Test</title>
+        <script src="js/supabase.min.js"></script>
+    </head>
+    <body>
+        <h1>Bare Minimum Logout Test</h1>
+        <p id="status">Status: Initializing...</p>
+        <button id="logoutButton">Logout</button>
 
-  gtag('config', 'G-C9DS2C71G6');
-</script>
+        <script>
+            // Supabase client initialization - VERIFY THESE ARE 100% CORRECT
+            const supabaseClient = supabase.createClient(
+                'https://tirkqybcedxfusifslim.supabase.co',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
+                { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+            );
 
-<!-- Refined Title Tag -->
-<title>My Account & Dashboard | NextGrid Technologies</title>
+            const statusParagraph = document.getElementById('status');
+            const logoutButton = document.getElementById('logoutButton');
 
-<!-- Refined Meta Description -->
-<meta name="description" content="Manage your NextGrid Technologies account, view invoices, update profile details, and access client services.">
+            // Initial check for session
+            supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    statusParagraph.textContent = `Status: Logged in as ${session.user.email}`;
+                    logoutButton.style.display = 'block';
+                } else {
+                    statusParagraph.textContent = 'Status: Not logged in.';
+                    logoutButton.style.display = 'none';
+                    window.location.replace('login.html'); // Redirect if not logged in
+                }
+            }).catch(e => {
+                console.error("Error getting session:", e);
+                statusParagraph.textContent = `Status: Error getting session: ${e.message}`;
+            });
 
-<meta name="keywords" content="account settings, profile, Microsoft 365, IT support, client dashboard, invoices">
-<meta name="author" content="NextGrid Technologies">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"> <!-- Your main stylesheet -->
-<style>
-  /* Basic styling for the invoice list */
-  .container { max-width: 1200px; margin: auto; padding: 20px; }
-  .dashboard-content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 30px; }
-  h1, h2 { color: #007bff; margin-top: 0; }
-  .account-info, .invoice-list, .update-profile-form {
-    margin-top: 40px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-  .invoice-list h3, .update-profile-form h3 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  .invoice-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  }
-  .invoice-item:last-child {
-    border-bottom: none;
-  }
-  .invoice-item .invoice-details-text {
-    flex-grow: 1;
-    margin-right: 15px; /* Spacing for actions */
-  }
-  .invoice-item .invoice-details-text p {
-    margin: 0;
-    font-size: 14px;
-    color: #555;
-  }
-  .invoice-item .invoice-details-text strong {
-    color: #333;
-  }
-  .invoice-item .invoice-actions a {
-    background-color: #007bff;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 13px;
-    transition: background-color 0.2s;
-    white-space: nowrap; /* Prevent button text from wrapping */
-  }
-  .invoice-item .invoice-actions a:hover {
-    background-color: #0056b3;
-  }
-  .no-invoices {
-    text-align: center;
-    color: #777;
-    padding: 20px;
-  }
-  #auth-ui {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    text-align: center;
-  }
-  .btn {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  .btn:hover { background-color: #0056b3; }
-  .btn-secondary {
-    background-color: #6c757d;
-  }
-  .btn-secondary:hover {
-    background-color: #5a6268;
-  }
-  .message-text {
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  .message-text.success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-  }
-  .message-text.error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-  }
-  .message-text.warning {
-    color: #856404;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-  }
+            logoutButton.addEventListener('click', async () => {
+                statusParagraph.textContent = 'Status: Attempting to log out...';
+                console.log('Logout button clicked - attempting signOut...');
 
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .invoice-item { flex-direction: column; align-items: flex-start; }
-    .invoice-item .invoice-details-text { margin-right: 0; margin-bottom: 10px; }
-  }
-</style>
-</head>
-<body>
+                try {
+                    const { error } = await supabaseClient.auth.signOut();
+                    if (error) {
+                        console.error('Error signing out:', error.message);
+                        statusParagraph.textContent = `Status: Error signing out: ${error.message}`;
+                        alert('Error signing out: ' + error.message);
+                    } else {
+                        console.log('Sign out successful.');
+                        statusParagraph.textContent = 'Status: Logged out successfully!';
+                        // The onAuthStateChange listener would normally handle redirection,
+                        // but since this is bare minimum, we'll force it after success.
+                        window.location.replace('login.html');
+                    }
+                } catch (e) {
+                    console.error('An unexpected error occurred during signOut:', e);
+                    statusParagraph.textContent = `Status: Unexpected error: ${e.message}`;
+                }
+            });
 
-<!-- Your standard header content -->
-<header>
-  <div class="container header-flex">
-    <div class="logo-area">
-      <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
-      <a href="index.html" class="logo-text">NextGrid Technologies</a>
-    </div>
-    <nav id="navMenu">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="blog.html">Blog</a>
-      <div id="adminLinkContainer"></div> <!-- Admin link dynamically populated -->
-      <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a> <!-- Login/Logout link dynamically updated -->
-    </nav>
-    <button class="hamburger" id="hamburger">&#9776;</button>
-  </div>
-</header>
-
-<section id="main-account-dashboard" class="contact-wrapper account-wrapper" style="max-width:900px;margin:80px auto;">
-  <div class="dashboard-content">
-    <h1>Welcome to your Client Dashboard!</h1>
-    <p>Here you can view all your invoices, update your profile, and access other important information.</p>
-
-    <div id="auth-status-display">
-      <!-- This area will dynamically show "checking auth status..." or "Logged in as..." -->
-      <p>Checking authentication status...</p>
-    </div>
-
-    <div class="account-info">
-      <h2>Your Profile</h2>
-      <p><strong>Name:</strong> <span id="accountName">Loading...</span></p>
-      <p><strong>Company:</strong> <span id="accountCompany">Loading...</span></p>
-      <p><strong>Your Request:</strong> <span id="accountNeed">Loading...</span></p>
-      <p><strong>Information:</strong> <span id="accountInformation">Loading...</span></p>
-      <p><strong>Email:</strong> <span id="accountEmail">Loading...</span></p>
-    </div>
-
-    <div class="invoice-list">
-      <h2>Your Invoices</h2>
-      <div id="invoicesContainer">
-        <p class="no-invoices">Loading invoices...</p>
-      </div>
-    </div>
-
-    <div class="update-profile-form">
-      <h2>Update Your Information</h2>
-      <form id="updateProfileForm">
-        <label for="updateName">Name:</label>
-        <input type="text" id="updateName" placeholder="Your Name">
-
-        <label for="updateCompany">Company:</label>
-        <input type="text" id="updateCompany" placeholder="Your Company">
-        
-        <label for="updateInformation">Information:</label>
-        <textarea id="updateInformation" placeholder="Any additional information"></textarea>
-        
-        <button type="submit" class="btn">Save Changes</button>
-        <p id="updateMessage" class="message-text"></p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<script src="js/supabase.min.js"></script>
-<script>
-// Supabase client initialization
-const supabaseClient = supabase.createClient(
-  'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
-  { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
-);
-
-console.log('ACCOUNT PAGE Supabase Client Object:', supabaseClient); // <-- ADDED FOR DIAGNOSIS
-
-// Function to fetch and display user data
-async function fetchUserData(user) {
-  console.log('Fetching user data for:', user ? user.id : 'no user');
-  if (!user) {
-    // Clear display if no user
-    document.getElementById('accountName').textContent = 'N/A';
-    document.getElementById('accountCompany').textContent = 'N/A';
-    document.getElementById('accountNeed').textContent = 'N/A';
-    document.getElementById('accountInformation').textContent = 'N/A';
-    document.getElementById('accountEmail').textContent = 'N/A';
-    document.getElementById('updateName').value = '';
-    document.getElementById('updateCompany').value = '';
-    document.getElementById('updateInformation').value = '';
-    return;
-  }
-
-  const { data: profile, error: profileError } = await supabaseClient
-    .from('profiles')
-    .select('full_name, company, need, information, role') // Also fetch role for potential future use
-    .eq('user_id', user.id) // Using 'user_id' as column name
-    .single();
-
-  if (profileError) {
-    console.error('Error fetching profile:', profileError.message);
-    document.getElementById('accountName').textContent = user.user_metadata.full_name || 'N/A';
-    document.getElementById('accountCompany').textContent = user.user_metadata.company || 'N/A';
-    document.getElementById('accountNeed').textContent = 'N/A';
-    document.getElementById('accountInformation').textContent = 'N/A';
-  } else {
-    document.getElementById('accountName').textContent = profile.full_name || user.user_metadata.full_name || 'N/A';
-    document.getElementById('accountCompany').textContent = profile.company || user.user_metadata.company || 'N/A';
-    document.getElementById('accountNeed').textContent = profile.need || 'N/A';
-    document.getElementById('accountInformation').textContent = profile.information || 'N/A';
-  }
-  
-  document.getElementById('accountEmail').textContent = user.email;
-
-  // Populate update form
-  document.getElementById('updateName').value = profile?.full_name || user.user_metadata.full_name || '';
-  document.getElementById('updateCompany').value = profile?.company || user.user_metadata.company || '';
-  document.getElementById('updateInformation').value = profile?.information || '';
-}
-
-// Function to fetch and display invoices
-async function fetchUserInvoices(user) {
-  console.log('Fetching user invoices for:', user ? user.id : 'no user');
-  const invoicesContainer = document.getElementById('invoicesContainer');
-  invoicesContainer.innerHTML = '<p class="no-invoices">Loading invoices...</p>'; // Show loading state
-
-  if (!user) {
-    invoicesContainer.innerHTML = '<p class="no-invoices">Please sign in to view your invoices.</p>';
-    return;
-  }
-
-  const { data: invoices, error } = await supabaseClient
-    .from('invoices')
-    .select('*') // Select all columns from your invoices table
-    .eq('user_id', user.id) // Filter by the current user's ID
-    .order('issue_date', { ascending: false }); // Order by newest first
-
-  if (error) {
-    console.error('Error fetching invoices:', error.message);
-    invoicesContainer.innerHTML = `<p class="no-invoices">Error loading invoices: ${error.message}</p>`;
-    return;
-  }
-
-  if (invoices.length === 0) {
-    invoicesContainer.innerHTML = '<p class="no-invoices">No invoices found for your account.</p>';
-  } else {
-    invoicesContainer.innerHTML = ''; // Clear loading message
-    invoices.forEach(invoice => {
-      const invoiceItem = document.createElement('div');
-      invoiceItem.classList.add('invoice-item');
-      invoiceItem.innerHTML = `
-        <div class="invoice-details-text">
-          <p><strong>Invoice #:</strong> ${invoice.invoice_number}</p>
-          <p><strong>Client:</strong> ${invoice.client_name || 'N/A'}</p>
-          <p><strong>Total:</strong> ${invoice.currency || 'R'} ${parseFloat(invoice.total_amount).toFixed(2)}</p>
-          <p><strong>Status:</strong> ${invoice.status}</p>
-          <p><strong>Due:</strong> ${invoice.due_date ? new Date(invoice.due_date).toLocaleDateString() : 'N/A'}</p>
-        </div>
-        <div class="invoice-actions">
-          ${invoice.pdf_url ? `<a href="${invoice.pdf_url}" target="_blank">View PDF</a>` : 'PDF N/A'}
-        </div>
-      `;
-      invoicesContainer.appendChild(invoiceItem);
-    });
-  }
-}
-
-// Handle profile update form submission
-document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const updateName = document.getElementById('updateName').value;
-  const updateCompany = document.getElementById('updateCompany').value;
-  const updateInformation = document.getElementById('updateInformation').value;
-  const updateMessage = document.getElementById('updateMessage');
-  
-  const { data: { user } } = await supabaseClient.auth.getUser();
-
-  if (!user) {
-    updateMessage.textContent = 'You must be logged in to update your profile.';
-    updateMessage.classList.add('error');
-    return;
-  }
-
-  updateMessage.textContent = 'Saving changes...';
-  updateMessage.className = 'message-text warning';
-  console.log('Attempting to update profile for user:', user.id);
-
-  const { error: profileError } = await supabaseClient
-    .from('profiles')
-    .update({ 
-      full_name: updateName, 
-      company: updateCompany,
-      information: updateInformation
-    })
-    .eq('user_id', user.id); // Using 'user_id' as column name
-
-  if (profileError) {
-    updateMessage.textContent = profileError.message;
-    updateMessage.classList.remove('warning', 'success');
-    updateMessage.classList.add('error');
-    console.error('Profile update error:', profileError.message);
-  } else {
-    updateMessage.textContent = 'Profile updated successfully!';
-    updateMessage.classList.remove('warning', 'error');
-    updateMessage.classList.add('success');
-    console.log('Profile updated successfully!');
-    // Re-fetch data to update displayed info
-    fetchUserData(user); 
-  }
-});
-
-// --- Supabase Auth State Change Listener (Centralized) ---
-const adminLinkContainer = document.getElementById('adminLinkContainer');
-const loginLogoutLink = document.getElementById('loginLogoutLink');
-const authStatusDisplay = document.getElementById('auth-status-display');
-const invoicesContainer = document.getElementById('invoicesContainer');
-const accountInfoDiv = document.querySelector('.account-info');
-const updateProfileFormDiv = document.querySelector('.update-profile-form');
-
-supabaseClient.auth.onAuthStateChange(async (event, session) => {
-  console.log('onAuthStateChange fired:', event, session); // Diagnostic log
-
-  if (session && session.user) {
-    // --- User is Logged In ---
-    console.log('User is signed in. Session event:', event);
-    loginLogoutLink.textContent = 'My Account';
-    loginLogoutLink.href = 'account.html'; // Link to this page
-
-    // Update main status display
-    const logoutButton = document.createElement('button');
-    logoutButton.id = 'logoutButton';
-    logoutButton.className = 'btn btn-secondary';
-    logoutButton.textContent = 'Logout';
-
-    // *** Attaching the admin.html style onclick handler directly ***
-    logoutButton.onclick = async (e) => {
-        e.preventDefault();
-        console.log('Logout button clicked - attempting signOut...'); // Diagnostic log
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) {
-            console.error('Error signing out:', error.message);
-            alert('Error signing out: ' + error.message);
-        } else {
-            console.log('Sign out successful, redirecting to login.html'); // Diagnostic log
-            window.location.href = 'login.html'; // Use href for simplicity, or replace if preferred
-        }
-    };
-
-    authStatusDisplay.innerHTML = `<p>You are logged in as <strong>${session.user.email}</strong>.</p>`;
-    authStatusDisplay.appendChild(logoutButton); // Append the button after setting innerHTML
-    
-    console.log('Auth status display updated.');
-
-    // Fetch profile and invoice data
-    await fetchUserData(session.user);
-    await fetchUserInvoices(session.user);
-
-    // Show authenticated content sections
-    accountInfoDiv.style.display = 'block';
-    updateProfileFormDiv.style.display = 'block';
-    if (invoicesContainer.parentElement) { // Ensure parent exists
-        invoicesContainer.parentElement.style.display = 'block'; 
-    }
-
-    // Check for admin role to show admin link
-    const { data: profileData, error: profileError } = await supabaseClient
-        .from('profiles')
-        .select('role')
-        .eq('user_id', session.user.id) // Using 'user_id' as column name
-        .single();
-
-    if (!profileError && profileData && profileData.role === 'admin') {
-        adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
-    } else {
-        adminLinkContainer.innerHTML = ''; // Hide admin link for non-admins
-    }
-
-  } else {
-    // --- User is Not Logged In (or has just logged out) ---
-    console.log('User is not signed in or signed out. Session event:', event);
-    loginLogoutLink.textContent = 'Client Login';
-    loginLogoutLink.href = 'login.html';
-    adminLinkContainer.innerHTML = ''; // Hide admin link
-
-    // Update main status display
-    authStatusDisplay.innerHTML = '<p>You are not logged in. Please <a href="login.html">log in</a> to access your dashboard.</p>';
-    
-    // Hide authenticated content sections
-    accountInfoDiv.style.display = 'none';
-    updateProfileFormDiv.style.display = 'none';
-    if (invoicesContainer.parentElement) { // Ensure parent exists
-        invoicesContainer.parentElement.style.display = 'none'; 
-    }
-
-    // Only redirect for initial sessions without a user.
-    // The SIGNED_OUT event is handled by the logout button's direct redirect.
-    if (event === 'INITIAL_SESSION' && !session) {
-      console.log('Redirecting to login.html due to no initial session.'); // Diagnostic log
-      window.location.href = 'login.html';
-    }
-  }
-});
-
-// Hamburger menu functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById("hamburger");
-    const navMenu = document.getElementById("navMenu");
-    if (hamburger && navMenu) {
-        hamburger.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-        });
-    }
-});
-</script>
-</body>
-</html>
+            // Keep the onAuthStateChange listener for completeness, but it's not the primary focus here
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                console.log('onAuthStateChange fired in bare minimum test:', event, session);
+                if (event === 'SIGNED_OUT') {
+                    console.log('SIGNED_OUT event detected. Redirecting.');
+                    window.location.replace('login.html');
+                }
+            });
+        </script>
+    </body>
+    </html>
