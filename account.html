@@ -203,15 +203,16 @@
 </section>
 
 <script src="js/supabase.min.js"></script>
+
 <script>
-// Supabase client initialization
+// Supabase client initialization (keep as is)
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
   { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
 );
 
-// Function to fetch and display user data
+// Function to fetch and display user data (keep as is)
 async function fetchUserData(user) {
   console.log('Fetching user data for:', user ? user.id : 'no user');
   if (!user) {
@@ -254,7 +255,7 @@ async function fetchUserData(user) {
   document.getElementById('updateInformation').value = profile?.information || '';
 }
 
-// Function to fetch and display invoices
+// Function to fetch and display invoices (keep as is)
 async function fetchUserInvoices(user) {
   console.log('Fetching user invoices for:', user ? user.id : 'no user');
   const invoicesContainer = document.getElementById('invoicesContainer');
@@ -273,7 +274,7 @@ async function fetchUserInvoices(user) {
 
   if (error) {
     console.error('Error fetching invoices:', error.message);
-    invoicesContainer.innerHTML = `<p class="no-invoices">Error loading invoices: ${error.message}</p>`;
+    invoicesContainer.innerHTML = `<p class="no-invoices">Error loading invoices: ${error.message}</p`;
     return;
   }
 
@@ -301,7 +302,7 @@ async function fetchUserInvoices(user) {
   }
 }
 
-// Handle profile update form submission
+// Handle profile update form submission (keep as is)
 document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const updateName = document.getElementById('updateName').value;
@@ -321,14 +322,6 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
   updateMessage.className = 'message-text warning';
   console.log('Attempting to update profile for user:', user.id);
 
-  // Attempt to update user_metadata in auth table (if you still use it)
-  // Note: Supabase recommends storing custom profile data in a separate 'profiles' table.
-  // const { error: authError } = await supabaseClient.auth.updateUser({
-  //   data: {
-  //     full_name: updateName // Example for user_metadata
-  //   }
-  // });
-
   const { error: profileError } = await supabaseClient
     .from('profiles')
     .update({ 
@@ -338,7 +331,7 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
     })
     .eq('user_id', user.id); // Using 'user_id' as column name
 
-  if (profileError) { // Simplified error check assuming profile update is primary
+  if (profileError) {
     updateMessage.textContent = profileError.message;
     updateMessage.classList.remove('warning', 'success');
     updateMessage.classList.add('error');
@@ -354,14 +347,14 @@ document.getElementById('updateProfileForm').addEventListener('submit', async (e
 });
 
 // --- Supabase Auth State Change Listener (Centralized) ---
-supabaseClient.auth.onAuthStateChange(async (event, session) => {
-  const adminLinkContainer = document.getElementById('adminLinkContainer');
-  const loginLogoutLink = document.getElementById('loginLogoutLink');
-  const authStatusDisplay = document.getElementById('auth-status-display'); // Using this new div
-  const invoicesContainer = document.getElementById('invoicesContainer'); // Reference to invoices list
-  const accountInfoDiv = document.querySelector('.account-info'); // Reference to account info section
-  const updateProfileFormDiv = document.querySelector('.update-profile-form'); // Reference to update profile form
+const adminLinkContainer = document.getElementById('adminLinkContainer');
+const loginLogoutLink = document.getElementById('loginLogoutLink');
+const authStatusDisplay = document.getElementById('auth-status-display');
+const invoicesContainer = document.getElementById('invoicesContainer');
+const accountInfoDiv = document.querySelector('.account-info');
+const updateProfileFormDiv = document.querySelector('.update-profile-form');
 
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
   console.log('onAuthStateChange fired:', event, session); // Diagnostic log
 
   if (session && session.user) {
@@ -377,25 +370,6 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     `;
     console.log('Auth status display updated.');
 
-    // Attach event listener to the dynamically created logoutButton
-    const logoutButton = document.getElementById('logoutButton');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', async () => {
-            console.log('Logout button clicked!'); // Diagnostic log
-            const { error } = await supabaseClient.auth.signOut();
-            if (error) {
-                console.error('Error signing out:', error.message);
-                alert('Error signing out: ' + error.message);
-            } else {
-                console.log('signOut() called, waiting for SIGNED_OUT event...'); // Diagnostic log
-            }
-            // Redirection will be handled by the 'SIGNED_OUT' event below
-        });
-        console.log('Logout button event listener attached.');
-    } else {
-        console.error('Logout button not found after dynamic creation!'); // Diagnostic error
-    }
-
     // Fetch profile and invoice data
     await fetchUserData(session.user);
     await fetchUserInvoices(session.user);
@@ -403,7 +377,9 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     // Show authenticated content sections
     accountInfoDiv.style.display = 'block';
     updateProfileFormDiv.style.display = 'block';
-    invoicesContainer.parentElement.style.display = 'block'; // Show the parent div of invoicesContainer
+    if (invoicesContainer.parentElement) { // Ensure parent exists
+        invoicesContainer.parentElement.style.display = 'block'; 
+    }
 
     // Check for admin role to show admin link
     const { data: profileData, error: profileError } = await supabaseClient
@@ -431,7 +407,9 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     // Hide authenticated content sections
     accountInfoDiv.style.display = 'none';
     updateProfileFormDiv.style.display = 'none';
-    invoicesContainer.parentElement.style.display = 'none'; // Hide the parent div of invoicesContainer
+    if (invoicesContainer.parentElement) { // Ensure parent exists
+        invoicesContainer.parentElement.style.display = 'none'; 
+    }
 
     // Redirect to login page if not on login.html (and not an initial session where no user exists)
     if (event === 'SIGNED_OUT' || (event === 'INITIAL_SESSION' && !session)) {
@@ -441,7 +419,25 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   }
 });
 
-// Hamburger menu functionality
+// --- Event Delegation for Logout Button ---
+// Attach a single click listener to a static parent element (e.g., authStatusDisplay)
+// This listener will then check if the clicked element is our logout button.
+authStatusDisplay.addEventListener('click', async (e) => {
+    // Check if the clicked element (or its closest ancestor) has the ID 'logoutButton'
+    if (e.target && e.target.id === 'logoutButton') {
+        console.log('Delegated click: Logout button clicked!'); // Diagnostic log
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) {
+            console.error('Delegated click: Error signing out:', error.message);
+            alert('Error signing out: ' + error.message);
+        } else {
+            console.log('Delegated click: signOut() called, waiting for SIGNED_OUT event...'); // Diagnostic log
+        }
+        // Redirection will be handled by the 'SIGNED_OUT' event in onAuthStateChange
+    }
+});
+
+// Hamburger menu functionality (keep as is)
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById("hamburger");
     const navMenu = document.getElementById("navMenu");
