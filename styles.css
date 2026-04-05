@@ -66,9 +66,9 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   padding: 10px 18px; border-radius: 6px; font-weight: 600; margin-left: 20px;
   transition: all 0.3s ease;
 }
-.nav-cta:hover, .btn-small:hover { 
+.nav-cta:hover, .btn-small:hover {
   background: linear-gradient(135deg, var(--accent-hover), var(--accent-2-hover));
-  transform: translateY(-2px); 
+  transform: translateY(-2px);
 }
 
 .hamburger {
@@ -95,10 +95,10 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2,6,23,0.6), rgba(16,185,129,0.25)); z-index: 2; }
 .hero-content { position: relative; z-index: 3; max-width: 800px; }
-.hero-content h1 { 
-  font-size: 2.8rem; 
-  animation: fadeInUp 1s ease forwards; 
-  color:#fff; 
+.hero-content h1 {
+  font-size: 2.8rem;
+  animation: fadeInUp 1s ease forwards;
+  color:#fff;
   margin-bottom: 12px;
 }
 .hero-sub {
@@ -135,26 +135,26 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   opacity: 0.9;
   animation: fadeInUp 1s ease 0.6s forwards;
 }
-.hero-buttons { 
-  margin-top: 10px; 
-  display: flex; 
-  justify-content: center; 
-  gap: 15px; 
-  flex-wrap: wrap; 
-  animation: fadeInUp 1s ease 0.8s forwards; 
+.hero-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  animation: fadeInUp 1s ease 0.8s forwards;
 }
 
 .btn-primary, .btn-secondary, .cta-btn, .cta-phone {
   padding: 12px 28px; border-radius: 6px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;
 }
-.btn-primary, .cta-btn { 
+.btn-primary, .cta-btn {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: var(--bg-dark); 
-  animation: fadeInUp 1s ease 0.8s forwards; 
+  color: var(--bg-dark);
+  animation: fadeInUp 1s ease 0.8s forwards;
 }
-.btn-primary:hover, .cta-btn:hover { 
+.btn-primary:hover, .cta-btn:hover {
   background: linear-gradient(135deg, var(--accent-hover), var(--accent-2-hover));
-  transform: translateY(-2px); 
+  transform: translateY(-2px);
 }
 .btn-secondary, .cta-phone { border: 2px solid var(--accent-2); color: var(--accent-2); }
 .btn-secondary:hover, .cta-phone:hover { background: var(--accent-2); color: var(--bg-dark); }
@@ -179,7 +179,7 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
   text-align: left;
 }
 .who-card:hover, .why-card:hover, .m365-card:hover, .trust-card:hover, .cert-card:hover, .process-card:hover, .card.tech-card:hover {
-  transform: translateY(-6px); 
+  transform: translateY(-6px);
   box-shadow: 0 15px 35px rgba(2,6,23,0.1);
   border-color: var(--accent-2);
 }
@@ -543,9 +543,9 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 }
 
 /* ========= RESULTS ========= */
-.results { 
+.results {
   background: linear-gradient(135deg, var(--bg-dark), #042f2e);
-  color: white; padding: 40px 20px; 
+  color: white; padding: 40px 20px;
 }
 .results-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -578,9 +578,9 @@ nav a:hover { color: var(--accent-2); text-decoration: underline; }
 .topics-list li:hover a { color: white; }
 
 /* ========= CONTACT ========= */
-#contact { 
+#contact {
   background: linear-gradient(135deg, #1f3a5f, #064e3b);
-  color: white; border-radius: 12px; 
+  color: white; border-radius: 12px;
 }
 .contact-subtext { font-size: 0.9rem; font-style: italic; margin-bottom: 30px; color: #ccfbf1; }
 .contact-form { max-width: 400px; margin: 0 auto; text-align: left; }
@@ -646,7 +646,92 @@ input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
   border: 1px solid #FFA500;
 }
 
-/* ========= ACCOUNT PAGE SPECIFICS ========= */
+/* ========= ACCOUNT PAGE SPECIFICS (Previously inline, now here) ========= */
+/* Basic styling for the invoice list */
+/* These were previously in account.html's <style> block, now moved here. */
+.dashboard-content { max-width:900px; margin:auto; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 30px; background: white; } /* Adjusted max-width */
+.dashboard-content h1, .dashboard-content h2 { color: #007bff; margin-top: 0; }
+
+.account-info, .invoice-list, .update-profile-form {
+  margin-top: 40px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.invoice-list h3, .update-profile-form h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+.invoice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+.invoice-item:last-child {
+  border-bottom: none;
+}
+.invoice-item .invoice-details-text {
+  flex-grow: 1;
+  margin-right: 15px; /* Spacing for actions */
+}
+.invoice-item .invoice-details-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+.invoice-item .invoice-details-text strong {
+  color: #333;
+}
+.invoice-item .invoice-actions a {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+.invoice-item .invoice-actions a:hover {
+  background-color: #0056b3;
+}
+.no-invoices {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+#auth-ui { /* This ID seems to be from an older auth setup, might not be used anymore */
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+.btn { /* General button style, ensure it doesn't conflict with .btn-primary etc. */
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { background-color: #0056b3; }
+.btn-secondary { /* Specific style for secondary buttons, like logout */
+  background-color: #6c757d;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* This is the content from your previous `account_specific.css` */
 .account-wrapper {
   background-color: #e0f2f7; /* A nice light blue */
   color: var(--text); /* Use your primary dark text color */
@@ -674,7 +759,6 @@ input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
   display: inline-block;
 }
 
-/* Styles for the Update Profile form */
 .update-profile-form {
   margin-top: 30px;
   padding-top: 20px;
@@ -690,7 +774,8 @@ input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
 }
 
 .update-profile-form input[type="text"],
-.update-profile-form input[type="email"] { /* Use input[type="text"] for name/company */
+.update-profile-form input[type="email"],
+.update-profile-form textarea { /* Added textarea to this selector for consistent styling */
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
@@ -702,23 +787,36 @@ input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
 }
 
 .update-profile-form input[type="text"]:focus,
-.update-profile-form input[type="email"]:focus {
+.update-profile-form input[type="email"]:focus,
+.update-profile-form textarea:focus {
   border-color: var(--accent-2);
   outline: none;
   box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
 }
 
 /* Ensure placeholder text is visible on the light input backgrounds */
-.update-profile-form input::placeholder {
+.update-profile-form input::placeholder,
+.update-profile-form textarea::placeholder { /* Added textarea */
   color: #888;
 }
-.update-profile-form input::-webkit-input-placeholder { color: #888; }
-.update-profile-form input:-moz-placeholder { color: #888; }
-.update-profile-form input:-ms-input-placeholder { color: #888; }
+.update-profile-form input::-webkit-input-placeholder,
+.update-profile-form textarea::-webkit-input-placeholder { color: #888; }
+.update-profile-form input:-moz-placeholder,
+.update-profile-form textarea:-moz-placeholder { color: #888; }
+.update-profile-form input:-ms-input-placeholder,
+.update-profile-form textarea:-ms-input-placeholder { color: #888; }
 
 .update-profile-form .btn-primary {
   width: auto; /* Make button size dynamic */
   display: inline-block; /* Ensure padding works correctly */
+}
+
+/* Responsive adjustments for account page specific items */
+@media (max-width: 600px) {
+  .invoice-item { flex-direction: column; align-items: flex-start; }
+  .invoice-item .invoice-details-text { margin-right: 0; margin-bottom: 10px; }
+  .dashboard-content { padding: 10px; } /* More padding on small screens */
+  .account-wrapper { padding: 20px; }
 }
 
 /* ========= BOTTOM NAV ========= */
@@ -876,11 +974,17 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 
 /* Icon */
 .services-snapshot .service-icon {
-  font-size: 32px !important;
-  line-height: 1 !important;
-  margin-bottom: 0.75rem !important;
-  display: block !important;
-  filter: none !important;  /* emojis don't need filter */
+  width: 60px;
+  height: 60px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-size: 28px !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0 6px 18px rgba(16,185,129,0.25);
 }
 
 /* CTA */
