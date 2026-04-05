@@ -142,32 +142,51 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     const loginLogoutLink = document.getElementById('loginLogoutLink');
     const adminLinkContainer = document.getElementById('adminLinkContainer');
 
+    // This part handles what happens when a user is logged in
     if (session && session.user) {
-        loginLogoutLink.textContent = 'My Account';
-        loginLogoutLink.href = 'account.html';
-
+        // Fetch the user's profile to determine their role
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
             .select('role')
             .eq('user_id', session.user.id)
             .single();
 
-        if (profileError) {
-            console.error('Error fetching user role:', profileError.message);
-        } else if (profileData && profileData.role === 'admin') {
-            adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>'; // Added class for consistent styling
+        console.log('--- Login Redirect Check ---');
+        console.log('User authenticated:', session.user.email);
+        console.log('Profile data fetched:', profileData);
+        console.log('Profile fetch error:', profileError);
+
+        // First, set up the nav links based on login status
+        loginLogoutLink.textContent = 'My Account';
+        loginLogoutLink.href = 'account.html'; // Default for clients
+
+        // Check if the user is an admin
+        if (profileData && profileData.role === 'admin') {
+            console.log("User is an ADMIN. Setting up admin links.");
+            adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
+            
+            // If they are on the login page, redirect them to the admin dashboard
             if (window.location.pathname.endsWith('login.html')) {
+                console.log("Redirecting admin to admin_dashboard.html...");
                 window.location.href = 'admin_dashboard.html';
-                return;
+                return; // Stop further execution
+            }
+        } 
+        // This 'else' block runs for non-admins (clients)
+        else {
+            console.log("User is a CLIENT or role not found. Setting up client view.");
+            adminLinkContainer.innerHTML = ''; // Ensure admin link is not visible
+            
+            // If a non-admin is on the login page, redirect them to their account page
+            if (window.location.pathname.endsWith('login.html')) {
+                console.log("Redirecting client to account.html...");
+                window.location.href = 'account.html';
+                return; // Stop further execution
             }
         }
-        
-        if (window.location.pathname.endsWith('login.html')) {
-            window.location.href = 'account.html';
-            return;
-        }
-
-    } else {
+    } 
+    // This 'else' handles the logged-out state
+    else {
         loginLogoutLink.textContent = 'Client Login';
         loginLogoutLink.href = 'login.html';
         adminLinkContainer.innerHTML = '';
@@ -218,55 +237,32 @@ if (loginForm) {
         if (error) {
             displayMessage(messageDiv, `Login failed: ${error.message}`, 'error');
             console.error('Login error:', error.message);
-        } else if (data && data.user) {
-            displayMessage(messageDiv, 'Signed in successfully! Redirecting…', 'success');
-        } else {
-            displayMessage(messageDiv, 'Login attempt processed. If successful, you will be redirected.', 'warning');
-        }
+        } 
+        // A successful login will trigger the onAuthStateChange listener,
+        // which handles the success message and redirect. No need to add more here.
     });
 }
 
-// --- NEW: Sign Up Form Submission ---
+// --- Sign Up Form Submission ---
 const signupForm = document.getElementById('signupForm');
 if (signupForm) {
     signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('signupEmail').value;
         const password = document.getElementById('signupPassword').value;
-        // Optional: const confirmPassword = document.getElementById('signupConfirmPassword').value;
-
-        // Optional: Password confirmation check
-        // if (password !== confirmPassword) {
-        //     displayMessage(signupMessageDiv, 'Passwords do not match!', 'error');
-        //     return;
-        // }
         
         displayMessage(signupMessageDiv, 'Creating account...', 'warning');
 
-        // Call Supabase signUp method
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
-            // You can add user_metadata here if you want to store additional data immediately
-            // options: {
-            //     data: {
-            //         full_name: 'New User',
-            //         company: 'New Company'
-            //     }
-            // }
         });
 
         if (error) {
             displayMessage(signupMessageDiv, `Sign up failed: ${error.message}`, 'error');
             console.error('Sign up error:', error.message);
-        } else if (data && data.user) {
-            // User successfully created but might need email confirmation
-            displayMessage(signupMessageDiv, 'Account created successfully! Please check your email to confirm your account.', 'success');
-            signupForm.reset(); // Clear the form
-            console.log('User signed up:', data.user);
         } else {
-            // This might happen if email confirmation is required and no user object is returned immediately
-            displayMessage(signupMessageDiv, 'Sign up processed. Please check your email to confirm your account.', 'warning');
+            displayMessage(signupMessageDiv, 'Account created! Please check your email to confirm.', 'success');
             signupForm.reset();
         }
     });
@@ -281,7 +277,7 @@ document.getElementById('forgotPasswordLink').addEventListener('click', async (e
   displayMessage(messageDiv, '', ''); // Clear previous messages
 
   if (!email) {
-    displayMessage(messageDiv, 'Please enter your email address in the field above.', 'warning');
+    displayMessage(messageDiv, 'Please enter your email address.', 'warning');
     return;
   }
 
