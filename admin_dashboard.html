@@ -84,6 +84,8 @@
             { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
         );
 
+        console.log('ADMIN PAGE Supabase Client Object:', supabaseClient); // <-- ADDED FOR DIAGNOSIS
+
         document.addEventListener('DOMContentLoaded', async () => {
             // --- 1. Page-level protection for admin pages ---
             const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
