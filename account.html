@@ -363,10 +363,28 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     loginLogoutLink.href = 'account.html'; // Link to this page
 
     // Update main status display
-    authStatusDisplay.innerHTML = `
-        <p>You are logged in as <strong>${session.user.email}</strong>.</p>
-        <button id="logoutButton" class="btn btn-secondary">Logout</button>
-    `;
+    const logoutButton = document.createElement('button');
+    logoutButton.id = 'logoutButton';
+    logoutButton.className = 'btn btn-secondary';
+    logoutButton.textContent = 'Logout';
+
+    // *** Attaching the admin.html style onclick handler directly ***
+    logoutButton.onclick = async (e) => {
+        e.preventDefault();
+        console.log('Logout button clicked - attempting signOut...'); // Diagnostic log
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) {
+            console.error('Error signing out:', error.message);
+            alert('Error signing out: ' + error.message);
+        } else {
+            console.log('Sign out successful, redirecting to login.html'); // Diagnostic log
+            window.location.href = 'login.html'; // Use href for simplicity, or replace if preferred
+        }
+    };
+
+    authStatusDisplay.innerHTML = `<p>You are logged in as <strong>${session.user.email}</strong>.</p>`;
+    authStatusDisplay.appendChild(logoutButton); // Append the button after setting innerHTML
+    
     console.log('Auth status display updated.');
 
     // Fetch profile and invoice data
@@ -417,57 +435,6 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
       window.location.href = 'login.html';
     }
   }
-});
-
-// --- Event Delegation for Logout Button ---
-// Attach a single click listener to a static parent element (e.g., authStatusDisplay)
-// This listener will then check if the clicked element is our logout button.
-authStatusDisplay.addEventListener('click', async (e) => {
-    // Check if the clicked element (or its closest ancestor) has the ID 'logoutButton'
-    if (e.target && e.target.id === 'logoutButton') {
-        console.log('Delegated click: Logout button clicked!'); // Diagnostic log
-
-        // Add a log right before the signOut call
-        console.log('Attempting to call supabaseClient.auth.signOut()...');
-        // Inspect the supabaseClient.auth object
-        console.log('Supabase client auth object:', supabaseClient.auth); 
-
-        let signOutError = null;
-        let signOutSuccessful = false;
-
-        try {
-            // Add a timeout to catch hanging calls
-            const signOutPromise = supabaseClient.auth.signOut();
-            const timeoutPromise = new Promise((resolve, reject) =>
-                setTimeout(() => reject(new Error('Sign out operation timed out after 10 seconds.')), 10000)
-            );
-
-            // Wait for either signOut to complete or timeout
-            const result = await Promise.race([signOutPromise, timeoutPromise]);
-            
-            // If it reached here, it means signOutPromise resolved successfully (or timeout rejected)
-            // Supabase signOut always returns { error } even if null. We check for a non-null error.
-            if (result && result.error) { 
-                 signOutError = result.error;
-            } else {
-                 signOutSuccessful = true; // SignOut resolved without error object
-            }
-
-        } catch (error) {
-            // Catch any explicit rejections from the promise, including our timeout
-            signOutError = error;
-        }
-
-        if (signOutError) {
-            console.error('Delegated click: Error signing out or timeout:', signOutError.message || signOutError);
-            alert('Error signing out: ' + (signOutError.message || signOutError));
-        } else {
-            console.log('Delegated click: signOut() called successfully. Forcing redirect...'); // Diagnostic log
-            // Use replace() for a cleaner history (prevents back button to previous state)
-            // And force a full reload by replacing the current URL
-            window.location.replace('login.html');
-        }
-    }
 });
 
 // Hamburger menu functionality
