@@ -10,55 +10,39 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-C9DS2C71G6');
 </script>
   
-<!-- Refined Title Tag -->
 <title>NextGrid Technologies: Client Login / Sign Up</title>
-
-<!-- Refined Meta Description -->
 <meta name="description" content="Securely log in or sign up for your NextGrid Technologies client account. Manage services, access support, and view your profile.">
-
 <meta name="keywords" content="client login, secure login, IT support login, Microsoft 365 access, NextGrid Technologies, sign up, register">
 <meta name="author" content="NextGrid Technologies">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css"> <!-- Your main stylesheet -->
 <style>
-    /* Basic styling for toggling forms */
     .form-toggle-buttons {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        gap: 10px;
+        display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;
     }
     .form-toggle-buttons button {
-        background: var(--bg-dark-2);
-        color: white;
-        border: 1px solid var(--accent-2);
-        padding: 8px 15px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        background: var(--bg-dark-2); color: white; border: 1px solid var(--accent-2);
+        padding: 8px 15px; border-radius: 6px; cursor: pointer; transition: all 0.3s ease;
     }
-    .form-toggle-buttons button.active,
-    .form-toggle-buttons button:hover {
-        background: var(--accent-2);
-        color: var(--bg-dark);
+    .form-toggle-buttons button.active, .form-toggle-buttons button:hover {
+        background: var(--accent-2); color: var(--bg-dark);
     }
+    /* Simple styling for better spacing in the sign-up form */
+    #signupForm input { margin-bottom: 12px; }
 </style>
 </head>
 <body>
 
-<!-- ====================HEADER========================== -->
 <header>
   <div class="container header-flex">
     <div class="logo-area">
       <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
       <a href="index.html" class="logo-text">NextGrid Technologies</a>
     </div>
-
     <nav id="navMenu">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
@@ -66,16 +50,13 @@
       <div id="adminLinkContainer"></div>
       <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
     </nav>
-
     <div class="header-contact">
       <a href="tel:+27680330794" class="btn-phone">📞 Call</a>
       <a href="https://wa.me/27680330794" target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
     </div>
-
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
   </div>
 </header>
-<!-- ============================================== -->
 
 <section id="auth-section" class="contact-wrapper" style="max-width:420px;margin:30px auto;text-align:center; padding-top: 20px;">
   <div class="form-toggle-buttons">
@@ -89,16 +70,10 @@
       <form id="loginForm" class="contact-form">
         <input type="email" id="email" placeholder="Business Email" required autocomplete="email">
         <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
-
-        <div class="form-actions">
-          <a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot password?</a>
-        </div>
-
+        <div class="form-actions"><a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot password?</a></div>
         <button type="submit" class="btn-primary">Sign In</button>
         <p id="message" class="message-text"></p>
-        <p style="margin-top:10px;font-size:14px;">
-          Don’t have an account? <span id="switchToSignup">Sign Up Here</span>
-        </p>
+        <p style="margin-top:10px;font-size:14px;">Don’t have an account? <span id="switchToSignup" style="color:var(--accent-1); cursor:pointer;">Sign Up Here</span></p>
       </form>
   </div>
 
@@ -106,16 +81,17 @@
       <h2>Client Sign Up</h2>
       <p class="contact-subtext">Create a new account</p>
       <form id="signupForm" class="contact-form">
+        <!-- ==== NEW FIELDS ADDED HERE ==== -->
+        <input type="text" id="signupFullName" placeholder="Your Full Name" required autocomplete="name">
+        <input type="text" id="signupCompany" placeholder="Business/Company Name (Optional)" autocomplete="organization">
         <input type="email" id="signupEmail" placeholder="Business Email" required autocomplete="email">
+        <input type="tel" id="signupPhone" placeholder="Phone Number (Optional)" autocomplete="tel">
         <input type="password" id="signupPassword" placeholder="Create Password" required autocomplete="new-password">
-        <!-- Optional: Add a confirmation password field -->
-        <!-- <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required autocomplete="new-password"> -->
+        <!-- ============================== -->
 
-        <button type="submit" class="btn-primary">Sign Up</button>
+        <button type="submit" class="btn-primary">Create Account</button>
         <p id="signupMessage" class="message-text"></p>
-        <p style="margin-top:10px;font-size:14px;">
-          Already have an account? <span id="switchToLogin">Sign In Here</span>
-        </p>
+        <p style="margin-top:10px;font-size:14px;">Already have an account? <span id="switchToLogin" style="color:var(--accent-1); cursor:pointer;">Sign In Here</span></p>
       </form>
   </div>
 </section>
@@ -124,72 +100,34 @@
 <script>
 // Initialize Supabase Client
 const supabaseClient = supabase.createClient(
-    'https://tirkqybcedxfusifslim.supabase.co', // <-- REPLACE WITH YOUR SUPABASE URL
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8', // <-- REPLACE WITH YOUR SUPABASE ANON KEY
+    'https://tirkqybcedxfusifslim.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
     { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
 );
 
-const messageDiv = document.getElementById('message'); // For login form
-const signupMessageDiv = document.getElementById('signupMessage'); // For signup form
+const messageDiv = document.getElementById('message');
+const signupMessageDiv = document.getElementById('signupMessage');
 
 function displayMessage(divElement, text, type) {
     divElement.textContent = text;
     divElement.className = `message-text ${type}`;
 }
 
-// --- Global Supabase Auth State Change Listener ---
+// --- Global Auth State Listener (Handles redirects after successful login) ---
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
     const loginLogoutLink = document.getElementById('loginLogoutLink');
-    const adminLinkContainer = document.getElementById('adminLinkContainer');
-
-    // This part handles what happens when a user is logged in
     if (session && session.user) {
-        // Fetch the user's profile to determine their role
-        const { data: profileData, error: profileError } = await supabaseClient
-            .from('profiles')
-            .select('role')
-            .eq('user_id', session.user.id)
-            .single();
-
-        console.log('--- Login Redirect Check ---');
-        console.log('User authenticated:', session.user.email);
-        console.log('Profile data fetched:', profileData);
-        console.log('Profile fetch error:', profileError);
-
-        // First, set up the nav links based on login status
-        loginLogoutLink.textContent = 'My Account';
-        loginLogoutLink.href = 'account.html'; // Default for clients
-
-        // Check if the user is an admin
-        if (profileData && profileData.role === 'admin') {
-            console.log("User is an ADMIN. Setting up admin links.");
-            adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
-            
-            // If they are on the login page, redirect them to the admin dashboard
-            if (window.location.pathname.endsWith('login.html')) {
-                console.log("Redirecting admin to admin_dashboard.html...");
+        if (window.location.pathname.endsWith('login.html')) {
+            const { data: profile } = await supabaseClient.from('profiles').select('role').eq('user_id', session.user.id).single();
+            if (profile && profile.role === 'admin') {
                 window.location.href = 'admin_dashboard.html';
-                return; // Stop further execution
-            }
-        } 
-        // This 'else' block runs for non-admins (clients)
-        else {
-            console.log("User is a CLIENT or role not found. Setting up client view.");
-            adminLinkContainer.innerHTML = ''; // Ensure admin link is not visible
-            
-            // If a non-admin is on the login page, redirect them to their account page
-            if (window.location.pathname.endsWith('login.html')) {
-                console.log("Redirecting client to account.html...");
+            } else {
                 window.location.href = 'account.html';
-                return; // Stop further execution
             }
         }
-    } 
-    // This 'else' handles the logged-out state
-    else {
+    } else {
         loginLogoutLink.textContent = 'Client Login';
         loginLogoutLink.href = 'login.html';
-        adminLinkContainer.innerHTML = '';
     }
 });
 
@@ -202,106 +140,99 @@ const switchToSignupSpan = document.getElementById('switchToSignup');
 const switchToLoginSpan = document.getElementById('switchToLogin');
 
 function showLoginForm() {
-    loginContainer.style.display = 'block';
-    signupContainer.style.display = 'none';
-    showLoginBtn.classList.add('active');
-    showSignupBtn.classList.remove('active');
-    document.title = "NextGrid Technologies: Client Login"; // Update title
+    loginContainer.style.display = 'block'; signupContainer.style.display = 'none';
+    showLoginBtn.classList.add('active'); showSignupBtn.classList.remove('active');
+    document.title = "NextGrid Technologies: Client Login";
 }
-
 function showSignupForm() {
-    loginContainer.style.display = 'none';
-    signupContainer.style.display = 'block';
-    showLoginBtn.classList.remove('active');
-    showSignupBtn.classList.add('active');
-    document.title = "NextGrid Technologies: Client Sign Up"; // Update title
+    loginContainer.style.display = 'none'; signupContainer.style.display = 'block';
+    showLoginBtn.classList.remove('active'); showSignupBtn.classList.add('active');
+    document.title = "NextGrid Technologies: Client Sign Up";
 }
-
 showLoginBtn.addEventListener('click', showLoginForm);
 showSignupBtn.addEventListener('click', showSignupForm);
 switchToSignupSpan.addEventListener('click', showSignupForm);
 switchToLoginSpan.addEventListener('click', showLoginForm);
 
 // --- Login Form Submission ---
-const loginForm = document.getElementById('loginForm');
-if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        displayMessage(messageDiv, 'Signing in...', 'warning');
-
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-        if (error) {
-            displayMessage(messageDiv, `Login failed: ${error.message}`, 'error');
-            console.error('Login error:', error.message);
-        } 
-        // A successful login will trigger the onAuthStateChange listener,
-        // which handles the success message and redirect. No need to add more here.
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    displayMessage(messageDiv, 'Signing in...', 'warning');
+    const { error } = await supabaseClient.auth.signInWithPassword({
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
     });
-}
+    if (error) displayMessage(messageDiv, `Login failed: ${error.message}`, 'error');
+    // Success is handled by the onAuthStateChange listener
+});
 
-// --- Sign Up Form Submission ---
-const signupForm = document.getElementById('signupForm');
-if (signupForm) {
-    signupForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('signupEmail').value;
-        const password = document.getElementById('signupPassword').value;
-        
-        displayMessage(signupMessageDiv, 'Creating account...', 'warning');
+// --- Sign Up Form Submission (UPDATED) ---
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    displayMessage(signupMessageDiv, 'Creating account...', 'warning');
 
-        const { data, error } = await supabaseClient.auth.signUp({
-            email: email,
-            password: password,
+    // --- Gather all form data ---
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const fullName = document.getElementById('signupFullName').value;
+    const company = document.getElementById('signupCompany').value;
+    const phone = document.getElementById('signupPhone').value;
+
+    // --- Step 1: Create the user in the 'auth' schema ---
+    const { data: authData, error: authError } = await supabaseClient.auth.signUp({ email, password });
+
+    if (authError) {
+        displayMessage(signupMessageDiv, `Sign up failed: ${authError.message}`, 'error');
+        return;
+    }
+    if (!authData.user) {
+        displayMessage(signupMessageDiv, 'Account created! Please check your email to verify.', 'success');
+        return;
+    }
+    
+    // --- Step 2: Insert the user's details into the 'profiles' table ---
+    const { error: profileError } = await supabaseClient
+        .from('profiles')
+        .insert({
+            user_id: authData.user.id, // Link to the new auth user
+            full_name: fullName,
+            company: company,
+            phone_number: phone,
+            email: email, // Also store email in profiles for convenience
+            role: 'client' // Set default role for all new sign-ups
         });
 
-        if (error) {
-            displayMessage(signupMessageDiv, `Sign up failed: ${error.message}`, 'error');
-            console.error('Sign up error:', error.message);
-        } else {
-            displayMessage(signupMessageDiv, 'Account created! Please check your email to confirm.', 'success');
-            signupForm.reset();
-        }
-    });
-}
+    if (profileError) {
+        // This is a critical error. The auth user was created but the profile failed.
+        displayMessage(signupMessageDiv, `Account created, but profile failed: ${profileError.message}. Please contact support.`, 'error');
+    } else {
+        displayMessage(signupMessageDiv, 'Account created! Please check your email to confirm, then you can log in.', 'success');
+        signupForm.reset();
+        // Switch back to login form for a better user experience
+        showLoginForm();
+    }
+});
 
 // --- Forgot Password Link Click ---
 document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
   e.preventDefault();
-  const emailInput = document.getElementById('email');
-  const email = emailInput.value;
-
-  displayMessage(messageDiv, '', ''); // Clear previous messages
-
-  if (!email) {
-    displayMessage(messageDiv, 'Please enter your email address.', 'warning');
-    return;
-  }
+  const email = document.getElementById('email').value;
+  if (!email) { displayMessage(messageDiv, 'Please enter your email address first.', 'warning'); return; }
 
   displayMessage(messageDiv, 'Sending password reset email...', 'warning');
-
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://nextgridtechnologies.co.za/reset-password.html',
+    redirectTo: 'https://nextgridtechnologies.co.za/reset-password.html', // Make sure this page exists
   });
-
-  if (error) {
-    displayMessage(messageDiv, error.message, 'error');
-  } else {
-    displayMessage(messageDiv, 'Password reset email sent! Check your inbox.', 'success');
-    emailInput.value = '';
-  }
+  if (error) { displayMessage(messageDiv, error.message, 'error'); } 
+  else { displayMessage(messageDiv, 'Password reset email sent! Check your inbox.', 'success'); }
 });
 
 // Hamburger menu functionality
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById("hamburger");
-    const navMenu = document.getElementById("navMenu");
-    if (hamburger && navMenu) {
+    if (hamburger) {
         hamburger.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
+            document.getElementById("navMenu").classList.toggle("active");
         });
     }
 });
