@@ -180,6 +180,7 @@
                     authStatusDisplay.appendChild(logoutButton); // Append the button after setting innerHTML
                     
                     console.log('Auth status display updated.');
+                                        getProfileData(session.user);
                   
                     // Calls to fetch data are COMMENTED OUT for this test, but uncomment if you want to test them next
                     // await fetchUserData(session.user);
