@@ -6,29 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Account</title>
 
-    <!-- Link to your external stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- THE CRITICAL FIX: Using a root-relative path. -->
+    <!-- This tells the browser to look for styles.css in the top-level root of your site. -->
+    <link rel="stylesheet" href="/styles.css">
     
-    <!-- Link to the Supabase JS library -->
-    <script src="js/supabase.min.js"></script>
+    <!-- This assumes your 'js' folder is also at the top-level root. -->
+    <script src="/js/supabase.min.js"></script>
 </head>
 <body>
 
     <!-- This section is the loading screen -->
     <section class="hero" id="loading-section">
         <div class="hero-content">
-            <h1 id="loading-message">Verifying Session...</h1>
+            <h1>Verifying Session...</h1>
         </div>
     </section>
 
-    <!-- This is your main account content -->
-    <!-- THE FIX: It is now hidden using style="display: none;" instead of a class -->
-    <div id="account-content" style="padding: 40px 20px; display: none;">
+    <!-- This is your main account content, hidden by default -->
+    <div id="account-content" style="padding: 40px 20px; display: none; justify-content: center; align-items: center; min-height: 80vh;">
         <div class="account-wrapper">
             <h2>Your Account Dashboard</h2>
             
             <div class="account-info">
-                <p>Welcome! You are successfully logged in. Your user details are shown below.</p>
+                <p>Welcome! You have successfully logged in. Your user details are below.</p>
                 <pre id="user-info"></pre>
             </div>
             
@@ -45,7 +45,7 @@
         );
 
         const accountContent = document.getElementById('account-content');
-        const loadingSection = document.getElementById('loading-section'); // Get the loading section
+        const loadingSection = document.getElementById('loading-section');
         const userInfo = document.getElementById('user-info');
         const signOutButton = document.getElementById('signOutButton');
 
@@ -54,36 +54,36 @@
             if (error) {
                 alert(`Sign out failed: ${error.message}`);
             } else {
-                window.location.href = 'login.html';
+                window.location.href = '/login.html'; // Use root-relative path
             }
         });
 
         async function checkSession() {
-            const { data, error } = await supabaseClient.auth.getSession();
-            
-            if (error) {
-                window.location.href = 'login.html';
-                return;
-            }
+            try {
+                const { data, error } = await supabaseClient.auth.getSession();
+                
+                if (error) {
+                    throw new Error("Error checking session: " + error.message);
+                }
 
-            if (data.session) {
-                // If the user is logged in:
-                // 1. Hide the "Verifying..." loading section
-                loadingSection.style.display = 'none';
-
-                // 2. Show the main account content by changing its display style
-                accountContent.style.display = 'block';
-
-                // 3. Display the user data
-                userInfo.textContent = JSON.stringify(data.session.user, null, 2);
-            } else {
-                // If user is NOT logged in, redirect to login page
-                window.location.href = 'login.html';
+                if (data.session) {
+                    // User is logged in
+                    loadingSection.style.display = 'none';
+                    accountContent.style.display = 'flex'; // Use flex to center the wrapper
+                    userInfo.textContent = JSON.stringify(data.session.user, null, 2);
+                } else {
+                    // User is NOT logged in
+                    window.location.href = '/login.html'; // Use root-relative path
+                }
+            } catch (e) {
+                // If anything in the script fails, show an error message
+                loadingSection.innerHTML = `<div class="hero-content"><h1>Error</h1><p style="color: white; background: #c53030; padding: 10px; border-radius: 5px;">Could not connect to authentication service. Please check the console.</p></div>`;
+                console.error(e);
             }
         }
         
-        // Run the check as soon as the page loads
-        checkSession();
+        // Run the check when the document content is fully loaded
+        document.addEventListener('DOMContentLoaded', checkSession);
     </script>
 
 </body>
