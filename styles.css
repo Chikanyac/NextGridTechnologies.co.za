@@ -2,1241 +2,225 @@
 :root {
   --bg-dark: #020617;
   --bg-dark-2: #0b1220;
-  --bg-light: #f0fdfa;       /* light green tint */
-  --accent: #0ea5e9;         /* blue */
-  --accent-2: #10b981;       /* green */
-  --accent-hover: #0284c7;   /* darker blue */
-  --accent-2-hover: #059669; /* darker green */
+  --bg-light: #f0fdfa;
+  --accent: #0ea5e9;
+  --accent-2: #10b981;
+  --accent-hover: #0284c7;
+  --accent-2-hover: #059669;
   --text: #0f172a;
   --text-light: #cbd5e1;
   --muted: #475569;
 }
 
 /* ========= BASE ========= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Inter', Arial, sans-serif;
   background: var(--bg-dark);
   color: var(--text);
   line-height: 1.6;
 }
-h1, h2, h3 { font-family: 'Poppins', sans-serif; margin-bottom: 10px; }
-.container { width: 90%; max-width: 1100px; margin: auto; }
-section { padding: 60px 20px; text-align: center; }
-.section-intro { max-width: 700px; margin: 0 auto 30px; color: var(--muted); font-size: 17px; }
 
-/* ========= HEADER / NAV ========= */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ========= HEADER (FIXED & IMPROVED) ========= */
 header {
-  position: sticky; top: 0; z-index: 1000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background: var(--bg-dark);
   color: white;
-  padding: 18px 0;
+  padding: 14px 0;
   border-bottom: 2px solid rgba(16,185,129,0.25);
 }
-.header-flex { display: flex; justify-content: space-between; align-items: center; }
-.logo-area { display: flex; align-items: center; gap: 10px; }
-.logo { height: 40px; width: 40px; }
-.logo-text { font-weight: 600; font-size: 18px; color: white; }
 
-.header-contact {
+.header-flex {
   display: flex;
-  gap: 10px;
-  margin-left: auto;
-}
-.btn-phone, .btn-whatsapp {
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: 600;
-  text-decoration: none;
-}
-.btn-phone { background:#0f6cbd; color:#fff; }
-.btn-whatsapp { background:#25D366; color:#fff; }
-@media (max-width:768px){
-  .header-contact { display:none; }
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
 }
 
-/* --- MODIFIED NAV STYLES --- */
+/* Logo */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  white-space: nowrap;
+}
+
+/* NAV */
 nav {
   display: flex;
   align-items: center;
-  flex-direction: row; /* <--- ADD THIS for desktop horizontal alignment */
-  flex-wrap: nowrap; /* Prevent items from wrapping to a new line */
+  gap: 28px;
+  margin-left: 40px;
+  flex: 1;
 }
 
-/* Apply margin to all direct children of nav to create spacing */
-nav > * {
-  margin-left: 20px;
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.95;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-/* Reset margin for the first child if you don't want left margin there */
-nav > *:first-child {
-  margin-left: 0;
+nav a:hover {
+  color: var(--accent-2);
 }
 
-/* Ensure the adminLinkContainer and its child behave like other nav links */
+/* Admin container */
 #adminLinkContainer {
-  display: flex; /* Treat it as a flex container to align its content */
+  display: flex;
   align-items: center;
 }
 
-/* Ensure any anchor inside adminLinkContainer also gets appropriate styling */
-#adminLinkContainer a {
-    text-decoration: none; /* Inherit nav a styling, but ensure this */
-    font-weight: 500;
-    opacity: 0.95;
-    transition: color 0.3s ease;
-}
-
-nav a { /* This remains the same, applies to direct 'a' children of nav */
-  color: white; text-decoration: none;
-  font-weight: 500; opacity: 0.95; transition: color 0.3s ease;
-}
-nav a:hover { color: var(--accent-2); text-decoration: underline; }
-.nav-cta, .btn-small {
+/* CTA */
+.nav-cta {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: var(--bg-dark);
-  padding: 10px 18px; border-radius: 6px; font-weight: 600;
-  transition: all 0.3s ease;
-  white-space: nowrap; /* Prevent text from wrapping inside the button */
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
 }
-.nav-cta:hover, .btn-small:hover {
+
+.nav-cta:hover {
   background: linear-gradient(135deg, var(--accent-hover), var(--accent-2-hover));
   transform: translateY(-2px);
 }
 
-.hamburger {
-  display: none; font-size: 28px; cursor: pointer; color: white; background: none; border: none;
+/* Contact buttons */
+.header-contact {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
 }
+
+.btn-phone,
+.btn-whatsapp {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-phone {
+  background: #0f6cbd;
+  color: #fff;
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+  background: none;
+  border: none;
+}
+
+/* ========= MOBILE ========= */
 @media (max-width: 768px) {
-  /* Hide desktop nav, show mobile nav only when active */
-  nav { display: none; }
+  nav {
+    display: none;
+  }
+
   nav.active {
     display: flex;
-    flex-direction: column; /* <--- This is correct for mobile stacking */
+    flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 60px; /* Adjust based on your header height */
+    top: 70px;
     left: 0;
-    background: var(--bg-dark); /* Mobile menu background */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 999;
-    padding-bottom: 15px; /* Add some padding at the bottom for better look */
+    background: var(--bg-dark);
+    padding: 15px 0;
   }
 
-  /* Adjust spacing for mobile nav items */
-  nav.active > * {
-    margin-left: 0;
-    padding: 12px 20px; /* Add horizontal padding for mobile links */
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-  }
-  nav.active > *:first-child {
-      padding-top: 20px; /* More padding for the very first item */
-  }
-  nav.active > *:last-child {
-      border-bottom: none; /* No border for the last item */
-  }
-
-  /* Specific styles for links inside the active mobile nav */
   nav.active a {
-      display: block; /* Ensure links take full width in mobile menu */
-      text-align: center; /* Center text in mobile menu */
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
-  .hamburger { display: block; }
+  .header-contact {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
 
 /* ========= HERO ========= */
 .hero {
-  position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 100px 20px 80px;
-  background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9)), url("small-server-room.jpg") center/cover no-repeat;
-  color: white; overflow: hidden;
-}
-.services-hero { min-height: 45vh; padding: 90px 20px 60px; background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9)), url("security-screen.jpg") center/cover no-repeat; }
-.hero-video {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  object-fit: cover; z-index: 1; will-change: transform;
-}
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2,6,23,0.6), rgba(16,185,129,0.25)); z-index: 2; }
-.hero-content { position: relative; z-index: 3; max-width: 800px; }
-.hero-content h1 {
-  font-size: 2.8rem;
-  animation: fadeInUp 1s ease forwards;
-  color:#fff;
-  margin-bottom: 12px;
-}
-.hero-sub {
-  font-size: 1.15rem;
-  color: var(--text-light);
-  max-width: 680px;
-  margin: 0 auto 20px;
-  animation: fadeInUp 1s ease 0.2s forwards;
-}
-.hero-benefits {
-  list-style: none;
-  padding: 0;
-  margin: 24px auto 30px;
+  min-height: 70vh;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 18px;
-  max-width: 800px;
-  animation: fadeInUp 1s ease 0.4s forwards;
-}
-.hero-benefits li {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(16,185,129,0.35);
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 0.95rem;
-  color: var(--text-light);
-  white-space: nowrap;
-}
-.hero-note {
-  margin-top: 24px;
-  font-size: 0.9rem;
-  color: var(--text-light);
-  opacity: 0.9;
-  animation: fadeInUp 1s ease 0.6s forwards;
-}
-.hero-buttons {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  animation: fadeInUp 1s ease 0.8s forwards;
-}
-
-.btn-primary, .btn-secondary, .cta-btn, .cta-phone {
-  padding: 12px 28px; border-radius: 6px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;
-}
-.btn-primary, .cta-btn {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: var(--bg-dark);
-  animation: fadeInUp 1s ease 0.8s forwards;
-}
-.btn-primary:hover, .cta-btn:hover {
-  background: linear-gradient(135deg, var(--accent-hover), var(--accent-2-hover));
-  transform: translateY(-2px);
-}
-.btn-secondary, .cta-phone { border: 2px solid var(--accent-2); color: var(--accent-2); }
-.btn-secondary:hover, .cta-phone:hover { background: var(--accent-2); color: var(--bg-dark); }
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ========= GRIDS & CARDS ========= */
-.who-grid, .why-grid, .m365-grid, .trust-grid, .cert-grid, .process-grid, .services-grid, .grid,
-.service-grid, .testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px; margin-top: 30px;
-}
-.who-card, .why-card, .m365-card, .trust-card, .cert-card, .process-card, .card.tech-card {
-  background: white; padding: 1.5rem; border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(2,6,23,0.06);
-  border: 1px solid #e2f5ef;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  text-align: left;
-}
-.who-card:hover, .why-card:hover, .m365-card:hover, .trust-card:hover, .cert-card:hover, .process-card:hover, .card.tech-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(2,6,23,0.1);
-  border-color: var(--accent-2);
-}
-.who-card h3, .why-card h3, .m365-card h3, .trust-card h3, .cert-card h3, .process-card h3, .card.tech-card h3 {
-  color: var(--text);
-}
-.who-card p, .why-card p, .m365-card p, .trust-card p, .cert-card p, .process-card p, .card.tech-card p {
-  color: var(--muted); font-size: 15px;
-}
-.card.tech-card .icon { font-size: 28px; margin-bottom: 10px; }
-.price-tag {
-  margin: 15px 0; font-weight: 700; color: var(--accent-2); font-size: 1.1rem;
-}
-.card.tech-card.highlight {
-  border: 2px solid var(--accent-2);
-  background: linear-gradient(180deg, #ffffff, #ecfdf5);
-}
-.card.tech-card ul {
-  list-style: none; margin: 15px 0; padding: 0; color: var(--muted);
-}
-.card.tech-card ul li { padding: 6px 0; border-bottom: 1px solid #e6f7f2; }
-.card.tech-card ul li:last-child { border-bottom: none; }
-.post-date { font-size: 0.85rem; color: var(--muted); margin: 5px 0 10px; }
-
-/* ========= DARK SECTIONS ========= */
-.m365-section, .trust-section, .process-section, .security-section, .support-section {
-  background: var(--bg-dark-2); color: white;
-}
-.m365-card, .trust-card, .process-card, .security-section .card.tech-card, .support-section .card.tech-card {
-  background: rgba(16,185,129,0.08);
-  border: 1px solid rgba(16,185,129,0.25);
-}
-.m365-card h3, .trust-card h3, .process-card h3, .security-section .card.tech-card h3, .support-section .card.tech-card h3 { color: var(--accent-2); }
-.m365-card p, .trust-card p, .process-card p, .security-section .card.tech-card p, .support-section .card.tech-card p { color: var(--text-light); }
-.security-section .card.tech-card ul li, .support-section .card.tech-card ul li { border-bottom: 1px solid rgba(16,185,129,0.2); }
-
-/* ========= WHY US (TWO COLUMNS) ========= */
-.why-us {
-  background: var(--bg-dark-2);
-  color: #fff;
-  padding: 4rem 1rem;
-}
-
-.why-us h2 { color:#fff; }
-
-.why-us-wrap {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;   /* columns align at top, not same height */
-}
-
-.why-us-text,
-.why-us-side {
-  flex: 1;
-  min-width: 0;
-  text-align: left;
-}
-
-.why-us-side {
-  background: rgba(255,255,255,0.05);
-  padding: 24px;
-  border-radius: 12px;
-}
-
-.why-us-side h3 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  color: var(--accent-2);
-}
-
-.why-us-side h4 {
-  margin: 20px 0 10px;
-  font-size: 1.1rem;
-  color: var(--accent-2);
-}
-
-.why-us-side p {
-  color: var(--text-light);
-  line-height: 1.5;
-}
-
-.why-us-side .btn {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 12px 20px;
-  background: var(--accent-2);
-  color: var(--bg-dark);
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.why-us-side .btn:hover {
-  background: var(--accent-2-hover);
-  transform: translateY(-2px);
-}
-
-.why-note {
-  margin-top: 16px;
-  font-size: 0.95rem;
-  color: var(--text-light);
-  font-style: italic;
-}
-
-.cta-note-small {
-  margin-top: 8px;
-  font-size: 0.85rem;
-  color: var(--text-light);
-  opacity: 0.9;
-}
-
-.check-list {
-  list-style:none;
-  padding:0;
-  margin:2rem 0;
-}
-
-.check-list li {
-  margin:.9rem 0;
-  padding-left:2rem;
-  position:relative;
-  color:#e2e8f0;
-  font-size:1.05rem;
-}
-
-.check-list li::before {
-  content:"✓";
-  position:absolute;
-  left:0;
-  color:var(--accent-2);
-  font-weight:700;
-  font-size:1.2rem;
-}
-
-.check-list li span {
-  display: block;
-  font-size: 0.95rem;
-  color: var(--text-light);
-  margin-top: 4px;
-}
-
-.process-list {
-  list-style: decimal;
-  padding-left: 1.4rem;
-  margin: 0 0 16px;
-  color: var(--text-light);
-}
-
-.process-list li {
-  margin: 6px 0;
-}
-
-.benefits-list {
-  list-style: disc;
-  padding-left: 1.4rem;
-  margin: 0 0 16px;
-  color: var(--text-light);
-}
-
-.benefits-list li {
-  margin: 6px 0;
-}
-
-/* Mobile: stack columns */
-@media (max-width: 800px) {
-  .why-us-wrap {
-    flex-direction: column;
-  }
-}
-
-/* ========= BLOG VALUE SECTION ========= */
-.blog-value {
-  background: var(--bg-light);
-  color: var(--text);
-  padding: 40px 20px;
-}
-.blog-value p {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  color: var(--muted);
-}
-
-/* Blog article readability — applies to all posts */
-.blog-article h2 { color:#111; margin-top: 2rem; }
-.blog-article p, .blog-article li { color:#334155; }
-
-/* ========= PROBLEM / SOLUTION ========= */
-.problems-section, .problem-solution { background: white; }
-.problem-grid, .solution-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px; margin-top: 30px;
-}
-.problem-item, .solution-card {
-  background: #f8fafc; padding: 15px; border-radius: 8px; text-align: left;
-  border-left: 4px solid var(--accent);
-  color: var(--muted);
-}
-.solution-card { background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.solution-card h3 { color: var(--text); margin-bottom: 10px; }
-.problem-warning { margin-top: 20px; color: #dc2626; font-weight: 600; }
-
-/* ========= SERVICE FOCUS (AREAS) ========= */
-.areas {
-  padding: 4rem 1rem;
-  background: #f8fafc;
   text-align: center;
-}
-
-.areas .section-intro {
-  font-weight: 500;
-  color: #475569;
-  max-width: 650px;
-  margin: 0 auto 25px;
-}
-
-.areas-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: 25px auto;
-  max-width: 900px;
-  padding: 0;
-}
-
-.areas-list li {
-  background: white;
-  border: 1px solid #d1fae5;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #065f46;
-  transition: 0.2s ease;
-}
-
-.areas-list li:hover {
-  background: var(--accent-2);
+  padding: 100px 20px;
+  background: linear-gradient(135deg, rgba(2,6,23,0.9), rgba(11,18,32,0.9));
   color: white;
 }
 
-.areas-note {
-  margin-top: 16px;
-  font-size: 0.95rem;
-  color: var(--muted);
-  font-style: italic;
+.hero h1 {
+  font-size: 2.5rem;
 }
 
-/* ========= SUPPORT / CTA SUPPORT ========= */
-.cta-support {
-  text-align: center;
-  margin-top: 2.5rem;
-}
-.support-section .cta-support {
-  background: linear-gradient(135deg, #1f3a5f, #064e3b);
-  color: white; border-radius: 12px;
-  padding: 30px 20px;
-}
-.support-section .section-intro, .cta-support .section-intro { color: #ccfbf1; font-style: italic; }
-.support-section .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 30px; }
-.support-section .card.tech-card {
-  background: #0f2e24; color: white; width: 300px; text-align: left;
-  border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  border: 1px solid rgba(16,185,129,0.3);
-}
-.support-section .card.tech-card .badge {
-  background: var(--accent-2); color: var(--bg-dark);
-  padding: 4px 8px; font-size: 0.8rem; border-radius: 4px;
-  display: inline-block; margin-bottom: 10px;
-}
-.support-section .card.tech-card.highlight { border: 2px solid var(--accent-2); }
-
-/* ========= TESTIMONIALS ========= */
-.testimonials {
-  padding: 4rem 1rem;
-  background: #f8fafc;
-  overflow: hidden;
+/* ========= BUTTONS ========= */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--bg-dark);
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.testimonials .section-intro {
-  max-width: 650px;
-  margin: 0 auto 30px;
-  color: var(--muted);
+.btn-primary:hover {
+  transform: translateY(-2px);
 }
 
-.testimonial-slider {
-  overflow: hidden;
-  position: relative;
-}
-
-.testimonial-track {
-  display: flex;
-  gap: 1.5rem;
-  width: max-content;
-  animation: scroll-left 30s linear infinite;
-}
-
-.testimonial-slider:hover .testimonial-track {
-  animation-play-state: paused;
-}
-
-.testimonial-card {
-  background: #fff;
+/* ========= CARDS ========= */
+.card {
+  background: white;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.05);
-  min-width: 320px;
-  flex-shrink: 0;
-  border: 1px solid #e2f5ef;
-  text-align: left;
 }
-
-.testimonial-card .stars {
-  color: #f59e0b;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
-
-.testimonial-card p {
-  color: #334155;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.testimonial-result {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent-2);
-  margin-bottom: 0.8rem;
-}
-
-.testimonial-card span {
-  color: #64748b;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-@keyframes scroll-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@media (max-width: 768px) {
-  .testimonial-track {
-    animation-duration: 45s;
-  }
-  .hero-content h1 { font-size: 2rem; }
-  .hero-content p { font-size: 1rem; }
-  .hero-buttons { flex-direction: column; gap: 15px; }
-  .hero-benefits {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .hero-benefits li {
-    white-space: normal;
-  }
-  .bottom-nav { gap: 30px; }
-}
-
-/* ========= RESULTS ========= */
-.results {
-  background: linear-gradient(135deg, var(--bg-dark), #042f2e);
-  color: white; padding: 40px 20px;
-}
-.results-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px; text-align: center;
-}
-.results-grid h3 { font-size: 28px; color: var(--accent-2); }
-.results-grid p { color: var(--text-light); font-size: 0.95rem; }
-
-/* ========= CTA ========= */
-.cta-section {
-  background: linear-gradient(135deg, var(--bg-dark), #042f2e);
-  color: white;
-}
-.cta-section p { max-width: 650px; margin: 0 auto 30px; color: var(--text-light); }
-.cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-.cta-note { margin-top: 20px; font-size: 14px; color: var(--text-light); }
-.small-note { margin-top: 20px; font-size: 14px; color: var(--text-light); text-align: center; }
-
-/* ========= TOPICS ========= */
-.topics-section { background: var(--bg-light); }
-.topics-list {
-  list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 25px;
-}
-.topics-list li {
-  background: white; border: 1px solid #d1fae5; padding: 10px 18px; border-radius: 20px;
-  font-size: 14px; transition: 0.2s ease;
-}
-.topics-list li a { color: #065f46; text-decoration: none; }
-.topics-list li:hover { background: var(--accent-2); }
-.topics-list li:hover a { color: white; }
-
-/* ========= CONTACT ========= */
-#contact {
-  background: linear-gradient(135deg, #1f3a5f, #064e3b);
-  color: white; border-radius: 12px;
-}
-.contact-subtext { font-size: 0.9rem; font-style: italic; margin-bottom: 30px; color: #ccfbf1; }
-.contact-form { max-width: 400px; margin: 0 auto; text-align: left; }
-.contact-form input, .contact-form textarea {
-  width: 100%; margin: 10px 0; padding: 12px; border-radius: 6px; border: 1px solid #a7f3d0;
-  background: #f0fdfa; color: var(--text); font-size: 1rem;
-}
-.contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent-2); outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
-
-/* ========= LOGIN / AUTH ========= */
-input::placeholder {
-  color: #a0a0a0; /* A darker, but still subtle grey for placeholders */
-  opacity: 1; /* Ensure full opacity across browsers */
-}
-input::-webkit-input-placeholder { color: #a0a0a0; } /* For older Webkit browsers */
-input:-moz-placeholder { color: #a0a0a0; }         /* For older Firefox */
-input:-ms-input-placeholder { color: #a0a0a0; }    /* For older IE */
-
-.forgot-password-link {
-  color: #87CEEB; /* A clear, visible sky blue. Adjust to your brand's accent if preferred. */
-  text-decoration: underline; /* Classic visual cue for links */
-  font-weight: 500; /* Medium boldness to help it stand out */
-  display: block; /* Makes it take up full width, placing it on its own line */
-  text-align: right; /* Aligns the link to the right within its container */
-  margin-top: 8px; /* Space above the link */
-  margin-bottom: 15px; /* Space below the link, before other elements like a submit button */
-  font-size: 0.9em; /* Slightly smaller text for secondary action */
-}
-
-.forgot-password-link:hover {
-  color: #6495ED; /* A slightly different shade on hover for user feedback */
-  text-decoration: none; /* Remove underline on hover for a subtle effect */
-}
-
-.message-text { /* Use this class on all your message <p> tags, e.g., <p id="message" class="message-text"></p> */
-  font-size: 0.95em;
-  font-weight: 500;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  margin-top: 15px;
-  min-height: 40px; /* Give it some height even when empty to prevent layout shifts */
-  display: flex; /* Use flex to center text vertically if needed */
-  align-items: center;
-  justify-content: center;
-}
-
-.message-text.success {
-  color: #4CAF50; /* Green for success */
-  background-color: rgba(76, 175, 80, 0.1); /* Light green background */
-  border: 1px solid #4CAF50;
-}
-
-.message-text.error {
-  color: #ff4d4d; /* Red for errors */
-  background-color: rgba(255, 77, 77, 0.1); /* Light red background */
-  border: 1px solid #ff4d4d;
-}
-
-.message-text.warning {
-  color: #FFA500; /* Orange for warnings/instructions */
-  background-color: rgba(255, 165, 0, 0.1);
-  border: 1px solid #FFA500;
-}
-
-/* ========= ACCOUNT PAGE SPECIFICS (Previously inline, now here) ========= */
-/* Basic styling for the invoice list */
-/* These were previously in account.html's <style> block, now moved here. */
-.dashboard-content { max-width:900px; margin:auto; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 30px; background: white; } /* Adjusted max-width */
-.dashboard-content h1, .dashboard-content h2 { color: #007bff; margin-top: 0; }
-
-.account-info, .invoice-list, .update-profile-form {
-  margin-top: 40px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.invoice-list h3, .update-profile-form h3 {
-  color: #333;
-  margin-bottom: 20px;
-}
-.invoice-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-}
-.invoice-item:last-child {
-  border-bottom: none;
-}
-.invoice-item .invoice-details-text {
-  flex-grow: 1;
-  margin-right: 15px; /* Spacing for actions */
-}
-.invoice-item .invoice-details-text p {
-  margin: 0;
-  font-size: 14px;
-  color: #555;
-}
-.invoice-item .invoice-details-text strong {
-  color: #333;
-}
-.invoice-item .invoice-actions a {
-  background-color: #007bff;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 13px;
-  transition: background-color 0.2s;
-  white-space: nowrap; /* Prevent button text from wrapping */
-}
-.invoice-item .invoice-actions a:hover {
-  background-color: #0056b3;
-}
-.no-invoices {
-  text-align: center;
-  color: #777;
-  padding: 20px;
-}
-#auth-ui { /* This ID seems to be from an older auth setup, might not be used anymore */
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f8f9fa;
-  text-align: center;
-}
-.btn { /* General button style, ensure it doesn't conflict with .btn-primary etc. */
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-top: 10px;
-  border: none;
-  cursor: pointer;
-}
-.btn:hover { background-color: #0056b3; }
-.btn-secondary { /* Specific style for secondary buttons, like logout */
-  background-color: #6c757d;
-}
-.btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-/* This is the content from your previous `account_specific.css` */
-.account-wrapper {
-  background-color: #e0f2f7; /* A nice light blue */
-  color: var(--text); /* Use your primary dark text color */
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(2,6,23,0.1);
-  text-align: left; /* Align content to the left inside the wrapper */
-}
-
-.account-wrapper h2 {
-  color: var(--accent); /* Your accent blue for headings */
-  margin-bottom: 20px;
-  text-align: center; /* Center the main heading */
-}
-
-.account-info p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  color: var(--text); /* Ensure good contrast for info text */
-}
-
-.account-info strong {
-  color: var(--accent-2); /* Use your green accent for labels */
-  min-width: 100px; /* Give labels some consistent width */
-  display: inline-block;
-}
-
-.update-profile-form {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(16,185,129,0.25);
-}
-
-.update-profile-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--text);
-  font-size: 0.95em;
-}
-
-.update-profile-form input[type="text"],
-.update-profile-form input[type="email"],
-.update-profile-form textarea { /* Added textarea to this selector for consistent styling */
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #a7f3d0;
-  background: #ffffff; /* White background for inputs */
-  color: var(--text); /* Dark text color for input values */
-  font-size: 1rem;
-}
-
-.update-profile-form input[type="text"]:focus,
-.update-profile-form input[type="email"]:focus,
-.update-profile-form textarea:focus {
-  border-color: var(--accent-2);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
-}
-
-/* Ensure placeholder text is visible on the light input backgrounds */
-.update-profile-form input::placeholder,
-.update-profile-form textarea::placeholder { /* Added textarea */
-  color: #888;
-}
-.update-profile-form input::-webkit-input-placeholder,
-.update-profile-form textarea::-webkit-input-placeholder { color: #888; }
-.update-profile-form input:-moz-placeholder,
-.update-profile-form textarea:-moz-placeholder { color: #888; }
-.update-profile-form input:-ms-input-placeholder,
-.update-profile-form textarea:-ms-input-placeholder { color: #888; }
-
-.update-profile-form .btn-primary {
-  width: auto; /* Make button size dynamic */
-  display: inline-block; /* Ensure padding works correctly */
-}
-
-/* Responsive adjustments for account page specific items */
-@media (max-width: 600px) {
-  .invoice-item { flex-direction: column; align-items: flex-start; }
-  .invoice-item .invoice-details-text { margin-right: 0; margin-bottom: 10px; }
-  .dashboard-content { padding: 10px; } /* More padding on small screens */
-  .account-wrapper { padding: 20px; }
-}
-
-/* ========= BOTTOM NAV ========= */
-.bottom-nav {
-  width: 100%; background: var(--bg-dark); display: flex; justify-content: center; gap: 60px;
-  align-items: center; padding: 15px 0; margin-top: 60px;
-  border-top: 1px solid rgba(16,185,129,0.25);
-}
-.bottom-nav a { color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 14px; }
-.bottom-nav span { font-size: 22px; margin-bottom: 4px; }
-.bottom-nav a:hover { color: var(--accent-2); }
-
-/* ========= CHAT WIDGET ========= */
-.chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: Arial, sans-serif; }
-.chat-button {
-  background: var(--accent-2); color: var(--bg-dark); padding: 12px 18px; border-radius: 30px; cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: none; font-size: 16px;
-}
-.chat-button:hover { background: var(--accent-2-hover); transform: translateY(-2px); }
-.chat-box {
-  display: none; width: 300px; background: white; border-radius: 12px; margin-bottom: 10px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2); overflow: hidden; animation: fadeIn 0.3s ease;
-  border: 1px solid #a7f3d0;
-}
-.chat-header { background: var(--accent-2); color: var(--bg-dark); padding: 12px; display: flex; justify-content: space-between; align-items: center; }
-.close-btn { cursor: pointer; background: none; border: none; color: var(--bg-dark); font-size: 18px; }
-.chat-body { padding: 15px; font-size: 14px; color: #333; }
-.chat-footer { padding: 15px; text-align: center; }
-.chat-footer a { background: var(--accent-2); color: var(--bg-dark); padding: 10px 15px; border-radius: 6px; text-decoration: none; display: inline-block; }
-.chat-footer a:hover { background: var(--accent-2-hover); }
-
-/* ========= BACK TO TOP ========= */
-#backToTopBtn {
-  position: fixed; bottom: 90px; right: 20px; display: none; padding: 10px 14px; font-size: 18px;
-  border: none; border-radius: 50%; background: var(--bg-dark-2); color: var(--accent-2); cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999;
-  border: 1px solid rgba(16,185,129,0.4);
-}
-#backToTopBtn:hover { background: #042f2e; color: white; }
 
 /* ========= FOOTER ========= */
-footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding: 20px; font-size: 14px; border-top: 1px solid rgba(16,185,129,0.25); }
-
-/* --- Premium Blog Styling --- */
-.blog-page .support-section {
-  padding: 60px 0;
-  background: #ffffff;
-}
-.blog-page .blog-article {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: left;
-}
-.blog-page .blog-article h2 {
-  font-size: 1.9rem;
-  margin-top: 2.2rem;
-  margin-bottom: 1rem;
-  color: #1e3a8a;
-  border-left: 4px solid #22c55e;
-  padding-left: 12px;
-}
-.blog-page .blog-article ul.tech-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-}
-.blog-page .blog-article ul.tech-list li {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-}
-.blog-page .blog-article ul.tech-list li strong {
-  color: #0f172a;
-  display: block;
-  margin-bottom: 6px;
-}
-
-/* ========= SERVICES PAGE — FINAL OVERRIDE ========= */
-.services-snapshot {
-  padding: 4rem 1rem !important;
-  background: #f8fafc !important;
-  text-align: center !important;
-}
-
-.services-snapshot .section-intro {
-  max-width: 650px;
-  margin: 0 auto 30px;
-  color: #475569 !important;
-}
-
-.services-snapshot .services-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  gap: 24px !important;
-  margin-top: 30px !important;
-}
-
-/* Card base */
-.services-snapshot .service-card {
-  background: #ffffff !important;
-  color: #0f172a !important;
-  padding: 1.8rem !important;
-  border-radius: 12px !important;
-  border: 1px solid #e2f5ef !important;
-  box-shadow: 0 10px 25px rgba(2,6,23,0.06) !important;
-  text-align: left !important;
-}
-
-.services-snapshot .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(2,6,23,0.1);
-  border-color: var(--accent-2);
-}
-
-/* Card text */
-.services-snapshot .service-card h3 {
-  color: #0f172a !important;
-  margin: 10px 0 8px !important;
-  font-size: 1.25rem !important;
-}
-
-.services-snapshot .service-card p {
-  color: #475569 !important;
-  font-size: 0.95rem !important;
-  line-height: 1.5 !important;
-  margin-bottom: 12px !important;
-}
-
-/* Bullet list */
-.services-snapshot .service-features {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: #475569 !important;
-  font-size: 0.9rem !important;
-}
-
-.services-snapshot .service-features li {
-  padding: 6px 0 6px 1.4rem !important;
-  position: relative !important;
-  color: #475569 !important;
-}
-
-.services-snapshot .service-features li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #10b981;
-  font-weight: 700;
-}
-
-/* Icon */
-.services-snapshot .service-icon {
-  width: 60px;
-  height: 60px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  font-size: 28px !important;
-  margin-bottom: 1rem !important;
-  box-shadow: 0 6px 18px rgba(16,185,129,0.25);
-}
-
-/* CTA */
-.services-snapshot .cta-center {
+footer {
+  background: var(--bg-dark);
+  color: #94a3b8;
   text-align: center;
-  margin-top: 2.5rem;
-}
-
-/* ========= SERVICES GRID — EYE-CATCHING LAYOUT ========= */
-.services-snapshot .services-grid {
-  grid-template-columns: repeat(12, 1fr);  /* 12-col grid */
-  gap: 28px;
-}
-
-/* First card spans 2 columns on desktop */
-.services-snapshot .service-card:nth-child(1) {
-  grid-column: span 6;
-}
-
-/* Second card spans 6, third spans 6 */
-.services-snapshot .service-card:nth-child(2),
-.services-snapshot .service-card:nth-child(3) {
-  grid-column: span 6;
-}
-
-/* 4th, 5th, 6th cards each span 4 */
-.services-snapshot .service-card:nth-child(4),
-.services-snapshot .service-card:nth-child(5),
-.services-snapshot .service-card:nth-child(6) {
-  grid-column: span 4;
-}
-
-/* Tablet: 2 per row */
-@media (max-width: 992px) {
-  .services-snapshot .service-card {
-    grid-column: span 6 !important;
-  }
-}
-
-/* Mobile: 1 per row */
-@media (max-width: 600px) {
-  .services-snapshot .service-card {
-    grid-column: span 12 !important;
-  }
-}
-
-/* Accent top bar */
-.services-snapshot .service-card {
-  position: relative;
-  border-top: 4px solid var(--accent-2);
-}
-
-/* Icon in a circle with gradient */
-.services-snapshot .service-icon {
-  width: 60px;
-  height: 60px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  font-size: 28px !important;
-  margin-bottom: 1rem !important;
-  box-shadow: 0 6px 18px rgba(16,185,129,0.25);
-}
-
-/* Hover lift + shadow */
-.services-snapshot .service-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.services-snapshot .service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(2,6,23,0.12);
-}
-
-/* Slight tilt on every second card for visual rhythm */
-.services-snapshot .service-card:nth-child(even) {
-  transform: rotate(0.5deg);
-}
-.services-snapshot .service-card:nth-child(odd) {
-  transform: rotate(-0.5deg);
-}
-.services-snapshot .service-card:hover {
-  transform: translateY(-8px) rotate(0deg);
-}
-/* ========= SERVICES CARD COLOR ========= */
-.services-snapshot .service-card {
-  background: #ecfdf5 !important;   /* light green */
-  color: #0f172a !important;
-  border: 1px solid #bbf7d0 !important;  /* softer green border */
-}
-
-/* Keep the icon circle readable on the light green */
-.services-snapshot .service-card .service-icon {
-  background: #10b981 !important;  /* solid green */
-  color: #fff !important;
-}
-
-/* Add this to styles.css or similar */
-.nav-hidden {
-    display: none !important; /* !important to override other display properties */
-}
-
-
-/* All of your existing styles.css content... */
-/* ... */
-
-/* ========= LOGIN / AUTH / ACCOUNT PAGES (MERGED) ========= */
-.account-wrapper, .form-wrapper {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-  text-align: center;
-  width: 90%;
-  max-width: 500px;
-}
-
-/* Styles specifically for the account page container */
-.account-wrapper {
-  background-color: #f0f9ff; /* A lighter, cleaner blue */
-  color: var(--text);
-  padding: 40px;
-  text-align: left;
-  border-top: 5px solid var(--accent); /* Using main accent blue */
-}
-
-.account-wrapper h2 {
-  color: var(--text);
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.account-wrapper p {
-  font-size: 1.1em;
-  margin-bottom: 15px;
-  color: var(--muted);
-}
-
-/* Styling for the <pre> block that shows user data */
-.account-wrapper pre {
-  background-color: #e2e8f0;
-  color: #1e293b;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: left;
-  white-space: pre-wrap;
-  word-break: break-all;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
-  border: 1px solid #cbd5e1;
-}
-
-/* Form input styling for login page */
-.form-wrapper input[type="text"],
-.form-wrapper input[type="email"],
-.form-wrapper input[type="password"] {
-  width: 100%; margin: 10px 0; padding: 12px; border-radius: 6px; border: 1px solid #ccc;
-  background: #f8fafc; color: var(--text); font-size: 1rem;
-}
-.form-wrapper input:focus {
-  border-color: var(--accent-2); outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
-}
-
-/* All other styles from your original file are assumed to be here */
-/* ===== ACCOUNT PAGE FIXES ===== */
-
-#main-account-dashboard {
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-}
-
-.account-wrapper {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.dashboard-content {
-  width: 100%;
-  margin: 0 auto;
-  text-align: left;
-}
-
-/* Fix section center override */
-section {
-  text-align: unset;
+  padding: 20px;
 }
