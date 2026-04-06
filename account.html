@@ -210,7 +210,7 @@ async function getInvoices(user) {
             div.className = 'invoice-card';
 
             div.innerHTML = `
-                <p><strong>Invoice #:</strong> ${inv.id}</p>
+                <p><strong>Invoice #:</strong> ${inv.invoice_number || inv.id}</p>
                 <p><strong>Amount:</strong> R${inv.amount || '0.00'}</p>
                 <p><strong>Status:</strong> ${inv.status || 'Pending'}</p>
             `;
