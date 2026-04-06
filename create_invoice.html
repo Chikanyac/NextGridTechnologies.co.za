@@ -35,22 +35,29 @@
 
 <div class="container">
   <h1>Create or Edit Invoice</h1>
-
-  <div class="form-group">
-    <label for="editInvoiceSelect">Edit Existing Invoice?</label>
-    <select id="editInvoiceSelect">
-      <option value="new">No, create new</option>
-      <!-- Existing invoices will populate here -->
-    </select>
-  </div>
-
   <form id="invoiceForm">
+    <!-- === Edit Existing Invoice Option === -->
+    <div class="form-group">
+      <label>Do you want to edit an existing invoice?</label>
+      <div>
+        <label><input type="radio" name="editInvoiceOption" value="no" checked> No – Create a New Invoice</label>
+        <label><input type="radio" name="editInvoiceOption" value="yes"> Yes – Edit Existing Invoice</label>
+      </div>
+    </div>
+
     <div class="form-group">
       <label for="clientSelect">Select Client:</label>
       <select id="clientSelect" required>
         <option value="">-- Select a client --</option>
       </select>
       <input type="hidden" id="selectedUserId">
+    </div>
+
+    <div class="form-group" id="existingInvoiceGroup" style="display:none;">
+      <label for="editInvoiceSelect">Select Existing Invoice:</label>
+      <select id="editInvoiceSelect">
+        <option value="">-- Select Invoice --</option>
+      </select>
     </div>
 
     <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
@@ -72,7 +79,6 @@
     <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
     <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
     <div class="form-group"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="4"></textarea></div>
-
     <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
     <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
     <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
@@ -95,193 +101,239 @@
 <script>
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
+  'YOUR_SUPABASE_KEY_HERE',
+  { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
 );
 
-let allClientProfiles = [];
+const invoiceForm = document.getElementById('invoiceForm');
+const messageDiv = document.getElementById('message');
+const lineItemsContainer = document.getElementById('lineItemsContainer');
+let lineItemCount = 0;
+
 const clientSelect = document.getElementById('clientSelect');
 const selectedUserIdInput = document.getElementById('selectedUserId');
 const clientEmailInput = document.getElementById('clientEmail');
 const clientAddressInput = document.getElementById('clientAddress');
 const clientPhoneInput = document.getElementById('clientPhone');
-const lineItemsContainer = document.getElementById('lineItemsContainer');
-let lineItemCount = 0;
 
-// --- UTILITY ---
+const editInvoiceRadios = document.getElementsByName('editInvoiceOption');
+const existingInvoiceGroup = document.getElementById('existingInvoiceGroup');
+const editInvoiceSelect = document.getElementById('editInvoiceSelect');
+
+let allClientProfiles = [];
+let editingInvoiceId = null;
+
 function showMessage(text, type) {
-  const messageDiv = document.getElementById('message');
-  messageDiv.textContent = text;
-  messageDiv.className = `message ${type}`;
-  setTimeout(() => { messageDiv.textContent=''; messageDiv.className='message'; }, 5000);
+    messageDiv.textContent = text;
+    messageDiv.className = `message ${type}`;
+    setTimeout(() => { messageDiv.textContent = ''; messageDiv.className = 'message'; }, 5000);
 }
 
-// --- LINE ITEMS ---
 function addLineItem() {
-  const id = lineItemCount++;
-  const html = `
-    <div class="line-item-section" data-item-id="${id}">
-      <div class="line-item-header">
-        <h3>Line Item #${id+1}</h3>
-        <button type="button" class="remove-line-item-btn" onclick="removeLineItem(this)">Remove</button>
-      </div>
-      <div class="line-item-fields">
-        <div class="form-group"><label for="itemDescription_${id}">Description:</label><input type="text" id="itemDescription_${id}" required></div>
-        <div class="form-group"><label for="itemQty_${id}">Qty:</label><input type="number" id="itemQty_${id}" step="0.01" value="1" min="0" oninput="calculateTotals()"></div>
-        <div class="form-group"><label for="itemRate_${id}">Rate (R):</label><input type="number" id="itemRate_${id}" step="0.01" value="0.00" min="0" oninput="calculateTotals()"></div>
-        <div class="form-group"><label for="itemAmount_${id}">Amount (R):</label><input type="number" id="itemAmount_${id}" step="0.01" value="0.00" readonly></div>
-      </div>
-    </div>
-  `;
-  lineItemsContainer.insertAdjacentHTML('beforeend', html);
+    const newItemId = lineItemCount++;
+    const lineItemHtml = `
+    <div class="line-item-section" data-item-id="${newItemId}">
+        <div class="line-item-header">
+            <h3>Line Item #${newItemId + 1}</h3>
+            <button type="button" class="remove-line-item-btn" onclick="removeLineItem(this)">Remove</button>
+        </div>
+        <div class="line-item-fields">
+            <div class="form-group"><label for="itemDescription_${newItemId}">Description:</label><input type="text" id="itemDescription_${newItemId}" required></div>
+            <div class="form-group"><label for="itemQty_${newItemId}">Qty:</label><input type="number" id="itemQty_${newItemId}" step="0.01" value="1" min="0" oninput="calculateTotals()"></div>
+            <div class="form-group"><label for="itemRate_${newItemId}">Rate (R):</label><input type="number" id="itemRate_${newItemId}" step="0.01" value="0.00" min="0" oninput="calculateTotals()"></div>
+            <div class="form-group"><label for="itemAmount_${newItemId}">Amount (R):</label><input type="number" id="itemAmount_${newItemId}" step="0.01" value="0.00" readonly></div>
+        </div>
+    </div>`;
+    lineItemsContainer.insertAdjacentHTML('beforeend', lineItemHtml);
 }
 
-function removeLineItem(btn) {
-  const section = btn.closest('.line-item-section');
-  if (lineItemsContainer.children.length > 1) {
-    section.remove();
-    calculateTotals();
-  } else showMessage("Cannot remove the last line item.", "error");
+function removeLineItem(button) {
+    const itemSection = button.closest('.line-item-section');
+    if(lineItemsContainer.children.length > 1){
+        itemSection.remove();
+        calculateTotals();
+    } else {
+        showMessage("Cannot remove the last line item.", "error");
+    }
 }
 
 function calculateTotals() {
-  let subtotal = 0;
-  document.querySelectorAll('.line-item-section').forEach(sec=>{
-    const id = sec.dataset.itemId;
-    const qty = parseFloat(document.getElementById(`itemQty_${id}`).value)||0;
-    const rate = parseFloat(document.getElementById(`itemRate_${id}`).value)||0;
-    document.getElementById(`itemAmount_${id}`).value = (qty*rate).toFixed(2);
-    subtotal += qty*rate;
-  });
-  document.getElementById('subtotal').value=subtotal.toFixed(2);
-  const discountRate = parseFloat(document.getElementById('discountRate').value)||0;
-  const vatRate = parseFloat(document.getElementById('vatRate').value)||0;
-  const discountAmount = subtotal*(discountRate/100);
-  const subtotalAfterDiscount = subtotal - discountAmount;
-  const vatAmount = subtotalAfterDiscount*(vatRate/100);
-  document.getElementById('discountAmount').value=discountAmount.toFixed(2);
-  document.getElementById('vatAmount').value=vatAmount.toFixed(2);
-  document.getElementById('totalAmountDue').value=(subtotalAfterDiscount+vatAmount).toFixed(2);
-}
-
-['discountRate','vatRate'].forEach(id=>document.getElementById(id).addEventListener('input', calculateTotals));
-
-// --- CLIENTS ---
-async function fetchClients(){
-  const { data, error } = await supabaseClient.from('profiles').select('user_id, full_name, email, company, address, phone_number').eq('role','client');
-  if(error) { showMessage(error.message, 'error'); return []; }
-  return data || [];
-}
-
-function populateClients(clients){
-  clientSelect.innerHTML = '<option value="">-- Select a client --</option>';
-  allClientProfiles = clients||[];
-  allClientProfiles.forEach(c=>{
-    const opt=document.createElement('option');
-    opt.value=c.user_id;
-    opt.textContent=`${c.company || 'No Company'} – ${c.full_name || c.email}`;
-    clientSelect.appendChild(opt);
-  });
-}
-
-function autofillClientDetails(){
-  const selectedId = clientSelect.value;
-  const client = allClientProfiles.find(c=>c.user_id===selectedId);
-  if(client){
-    selectedUserIdInput.value=client.user_id;
-    clientEmailInput.value=client.email||'';
-    clientAddressInput.value=client.address||'';
-    clientPhoneInput.value=client.phone_number||'';
-  } else {
-    selectedUserIdInput.value='';
-    clientEmailInput.value='';
-    clientAddressInput.value='';
-    clientPhoneInput.value='';
-  }
-}
-
-clientSelect.addEventListener('change', autofillClientDetails);
-
-// --- FORM SUBMISSION ---
-document.getElementById('invoiceForm').addEventListener('submit', async e=>{
-  e.preventDefault();
-  showMessage('Saving invoice...', 'info');
-  try {
-    const invoiceData={
-      user_id:selectedUserIdInput.value,
-      invoice_number:document.getElementById('invoiceNumber').value,
-      invoice_date:document.getElementById('invoiceDate').value,
-      issue_date:document.getElementById('issueDate').value,
-      due_date:document.getElementById('dueDate').value,
-      status:document.getElementById('status').value,
-      client_email:clientEmailInput.value,
-      client_phone:clientPhoneInput.value,
-      subtotal:parseFloat(document.getElementById('subtotal').value),
-      discount_amount:parseFloat(document.getElementById('discountAmount').value),
-      vat_percentage:parseFloat(document.getElementById('vatRate').value),
-      vat_amount:parseFloat(document.getElementById('vatAmount').value),
-      total_amount_due:parseFloat(document.getElementById('totalAmountDue').value),
-      payment_terms:document.getElementById('paymentTerms').value,
-      purchase_order:document.getElementById('purchaseOrder').value || null,
-      payment_instructions:document.getElementById('paymentInstructions').value,
-      currency:'ZAR'
-    };
-    if(!invoiceData.user_id) throw new Error("No client selected.");
-
-    const { data:newInvoice, error:invoiceError } = await supabaseClient.from('invoices').insert(invoiceData).select('id').single();
-    if(invoiceError) throw new Error(invoiceError.message);
-
-    const lineItemsData = Array.from(document.querySelectorAll('.line-item-section')).map(sec=>{
-      const id=sec.dataset.itemId;
-      return {
-        invoice_id:newInvoice.id,
-        description:document.getElementById(`itemDescription_${id}`).value,
-        quantity:parseFloat(document.getElementById(`itemQty_${id}`).value),
-        rate:parseFloat(document.getElementById(`itemRate_${id}`).value),
-        amount:parseFloat(document.getElementById(`itemAmount_${id}`).value)
-      };
+    let subtotal = 0;
+    document.querySelectorAll('.line-item-section').forEach(section => {
+        const itemId = section.dataset.itemId;
+        const qty = parseFloat(document.getElementById(`itemQty_${itemId}`).value) || 0;
+        const rate = parseFloat(document.getElementById(`itemRate_${itemId}`).value) || 0;
+        const amountInput = document.getElementById(`itemAmount_${itemId}`);
+        const itemAmount = qty * rate;
+        amountInput.value = itemAmount.toFixed(2);
+        subtotal += itemAmount;
     });
-    if(lineItemsData.length>0){
-      const { error:itemsError } = await supabaseClient.from('invoice_items').insert(lineItemsData);
-      if(itemsError) throw new Error(itemsError.message);
+    document.getElementById('subtotal').value = subtotal.toFixed(2);
+    const discountRate = parseFloat(document.getElementById('discountRate').value) || 0;
+    const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+    const discountAmount = subtotal * (discountRate/100);
+    const subtotalAfterDiscount = subtotal - discountAmount;
+    const vatAmount = subtotalAfterDiscount * (vatRate/100);
+    const totalAmountDue = subtotalAfterDiscount + vatAmount;
+    document.getElementById('discountAmount').value = discountAmount.toFixed(2);
+    document.getElementById('vatAmount').value = vatAmount.toFixed(2);
+    document.getElementById('totalAmountDue').value = totalAmountDue.toFixed(2);
+}
+
+['discountRate','vatRate'].forEach(id => document.getElementById(id).addEventListener('input', calculateTotals));
+
+async function fetchClientProfiles(){
+    const { data, error } = await supabaseClient.from('profiles').select('user_id, full_name, company, email, address, phone_number').eq('role','client');
+    if(error){ showMessage(error.message,'error'); return []; }
+    return data;
+}
+
+function populateClientDropdown(clients){
+    clientSelect.innerHTML = '<option value="">-- Select a client --</option>';
+    allClientProfiles = clients;
+    clients.forEach(c => {
+        const option = document.createElement('option');
+        option.value = c.user_id;
+        option.textContent = `${c.company || 'N/A'} – ${c.full_name || ''}`;
+        clientSelect.appendChild(option);
+    });
+}
+
+// Autofill client details
+function autofillClientDetails(){
+    const selectedId = clientSelect.value;
+    const client = allClientProfiles.find(c => c.user_id === selectedId);
+    if(client){
+        selectedUserIdInput.value = client.user_id;
+        clientEmailInput.value = client.email || '';
+        clientAddressInput.value = client.address || '';
+        clientPhoneInput.value = client.phone_number || '';
+    } else {
+        selectedUserIdInput.value = '';
+        clientEmailInput.value = '';
+        clientAddressInput.value = '';
+        clientPhoneInput.value = '';
     }
+}
 
-    showMessage('Invoice saved successfully!', 'success');
-    document.getElementById('invoiceForm').reset();
-    addLineItem();
+// Toggle edit invoice option
+function toggleEditInvoiceOption(){
+    const option = document.querySelector('input[name="editInvoiceOption"]:checked').value;
+    if(option==='yes' && clientSelect.value){
+        existingInvoiceGroup.style.display = 'block';
+        populateInvoiceDropdown(clientSelect.value);
+    } else {
+        existingInvoiceGroup.style.display = 'none';
+        editingInvoiceId = null;
+        editInvoiceSelect.value = '';
+        invoiceForm.reset();
+        addLineItem();
+        calculateTotals();
+        autofillClientDetails();
+    }
+}
+
+editInvoiceRadios.forEach(r => r.addEventListener('change', toggleEditInvoiceOption));
+
+clientSelect.addEventListener('change', async () => {
+    autofillClientDetails();
+    const option = document.querySelector('input[name="editInvoiceOption"]:checked').value;
+    if(option==='yes'){
+        existingInvoiceGroup.style.display = 'block';
+        await populateInvoiceDropdown(clientSelect.value);
+    }
+});
+
+editInvoiceSelect.addEventListener('change', async () => {
+    if(editInvoiceSelect.value) await autofillInvoice(editInvoiceSelect.value);
+});
+
+// Populate existing invoices for client
+async function fetchInvoicesByClient(clientId){
+    if(!clientId) return [];
+    const { data, error } = await supabaseClient.from('invoices').select('*').eq('user_id', clientId).order('invoice_date',{ascending:false});
+    if(error){ showMessage(error.message,'error'); return []; }
+    return data || [];
+}
+
+async function populateInvoiceDropdown(clientId){
+    editInvoiceSelect.innerHTML = '<option value="">-- Select Invoice --</option>';
+    const invoices = await fetchInvoicesByClient(clientId);
+    invoices.forEach(inv=>{
+        const opt = document.createElement('option');
+        opt.value = inv.id;
+        opt.textContent = `${inv.invoice_number} – ${inv.invoice_date} – ${inv.status}`;
+        editInvoiceSelect.appendChild(opt);
+    });
+}
+
+async function autofillInvoice(invoiceId){
+    if(!invoiceId) return;
+    editingInvoiceId = invoiceId;
+    const { data: invoice, error } = await supabaseClient.from('invoices').select('*').eq('id',invoiceId).single();
+    if(error){ showMessage(error.message,'error'); return; }
+
+    document.getElementById('invoiceNumber').value = invoice.invoice_number;
+    document.getElementById('invoiceDate').value = invoice.invoice_date;
+    document.getElementById('issueDate').value = invoice.issue_date;
+    document.getElementById('dueDate').value = invoice.due_date;
+    document.getElementById('status').value = invoice.status;
+    document.getElementById('paymentTerms').value = invoice.payment_terms;
+    document.getElementById('purchaseOrder').value = invoice.purchase_order || '';
+    document.getElementById('paymentInstructions').value = invoice.payment_instructions || '';
+    document.getElementById('subtotal').value = invoice.subtotal || 0;
+    document.getElementById('discountAmount').value = invoice.discount_amount || 0;
+    document.getElementById('vatRate').value = invoice.vat_percentage || 15;
+    document.getElementById('vatAmount').value = invoice.vat_amount || 0;
+    document.getElementById('totalAmountDue').value = invoice.total_amount_due || 0;
+
+    // Load line items
+    const { data: items, error: lineError } = await supabaseClient.from('invoice_items').select('*').eq('invoice_id',invoiceId);
+    if(lineError){ showMessage(lineError.message,'error'); return; }
+    lineItemsContainer.innerHTML = '';
+    lineItemCount = 0;
+    items.forEach(item => {
+        addLineItem();
+        const id = lineItemCount-1;
+        document.getElementById(`itemDescription_${id}`).value = item.description;
+        document.getElementById(`itemQty_${id}`).value = item.quantity;
+        document.getElementById(`itemRate_${id}`).value = item.rate;
+        document.getElementById(`itemAmount_${id}`).value = item.amount;
+    });
     calculateTotals();
+}
 
-  } catch(err){ showMessage(err.message,'error'); }
-});
+// Form submit
+invoiceForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    showMessage('Saving invoice...','info');
 
-// --- DOM LOAD ---
-document.addEventListener('DOMContentLoaded', async ()=>{
-  const { data:{ session } } = await supabaseClient.auth.getSession();
-  if(!session) { window.location.href='login.html'; return; }
-  const user = session.user;
-  const { data: profile } = await supabaseClient.from('profiles').select('role').eq('user_id',user.id).single();
-  if(!profile) { showMessage('User profile not found', 'error'); return; }
+    const invoiceData = {
+        user_id:selectedUserIdInput.value,
+        invoice_number:document.getElementById('invoiceNumber').value,
+        invoice_date:document.getElementById('invoiceDate').value,
+        issue_date:document.getElementById('issueDate').value,
+        due_date:document.getElementById('dueDate').value,
+        status:document.getElementById('status').value,
+        client_email:clientEmailInput.value,
+        client_phone:clientPhoneInput.value,
+        subtotal:parseFloat(document.getElementById('subtotal').value),
+        discount_amount:parseFloat(document.getElementById('discountAmount').value),
+        vat_percentage:parseFloat(document.getElementById('vatRate').value),
+        vat_amount:parseFloat(document.getElementById('vatAmount').value),
+        total_amount_due:parseFloat(document.getElementById('totalAmountDue').value),
+        payment_terms:document.getElementById('paymentTerms').value,
+        purchase_order:document.getElementById('purchaseOrder').value || null,
+        payment_instructions:document.getElementById('paymentInstructions').value,
+        currency:'ZAR'
+    };
 
-  if(profile.role==='admin') document.getElementById('adminLinkContainer').innerHTML='<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
-
-  document.getElementById('loginLogoutLink').textContent='Logout';
-  document.getElementById('loginLogoutLink').href='#';
-  document.getElementById('loginLogoutLink').onclick=async e=>{ e.preventDefault(); await supabaseClient.auth.signOut(); window.location.href='login.html'; };
-
-  const clients = await fetchClients();
-  populateClients(clients);
-
-  addLineItem();
-  calculateTotals();
-
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('invoiceDate').value=today;
-  document.getElementById('issueDate').value=today;
-
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.getElementById("navMenu");
-  if(hamburger && navMenu) hamburger.addEventListener("click",()=>navMenu.classList.toggle("active"));
-});
-</script>
-
-</body>
-</html>
+    try{
+        let invoiceId = editingInvoiceId;
+        if(invoiceId){
+            const { error } = await supabaseClient.from('invoices').update(invoiceData).eq('id',invoiceId);
+            if(error) throw error;
+            await supabaseClient.from('invoice_items').delete().eq('invoice_id',invoiceId);
+        } else {
+            const { data: newInv, error } = await supabaseClient.from('invoices').insert(invoiceData).select('id').single();
+            if
