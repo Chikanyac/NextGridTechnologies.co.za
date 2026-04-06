@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 2: Sign-In and Redirect</title>
+    <title>Step 2 (Corrected): Sign-In and Redirect</title>
     <script src="js/supabase.min.js"></script>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; }
@@ -31,10 +30,10 @@
     <p id="message" class="message"></p>
 
     <script>
-        // 1. Initialize Supabase Client
+        // 1. Initialize Supabase Client with the CORRECT API KEY
         const supabaseClient = supabase.createClient(
             'https://tirkqybcedxfusifslim.supabase.co',
-            'eyJhbGciOiJIxzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
         );
 
         // 2. Get HTML elements
@@ -62,9 +61,7 @@
                 messageDiv.textContent = `Login Failed: ${error.message}`;
                 messageDiv.className = 'message error';
             } else {
-                // --- THIS IS THE NEW PART ---
                 // On successful login, check the user's role and redirect.
-
                 messageDiv.textContent = 'Success! Checking your role...';
                 messageDiv.className = 'message success';
 
