@@ -140,49 +140,7 @@
               // ... (Your original updateProfileForm submission code here)
             });
             */
-            // --- NEW FUNCTION TO FETCH AND DISPLAY PROFILE DATA ---
-async function fetchAndDisplayProfile(user) {
-    // 1. Double-check we have a user to prevent errors.
-    if (!user) {
-        console.log("fetchAndDisplayProfile was called without a user.");
-        return;
-    }
-
-    console.log("Attempting to fetch profile for user ID:", user.id);
-
-    try {
-        // 2. Query the 'profiles' table in Supabase.
-        // IMPORTANT: The names inside .select() MUST EXACTLY MATCH your column names in Supabase.
-        const { data: profile, error } = await supabaseClient
-            .from('profiles') // Make sure your table is named 'profiles'
-            .select('full_name, company_name, your_need, information')
-            .eq('id', user.id) // Get the row where the 'id' column matches the logged-in user's ID
-            .single(); // We only expect one result
-
-        // 3. Handle any errors during the fetch.
-        if (error) {
-            console.error("Error fetching profile:", error.message);
-            // This is useful if a user exists in auth but their profile row hasn't been created yet.
-            document.getElementById('accountName').textContent = "Profile data not found.";
-            return; // Stop the function here.
-        }
-
-        // 4. If successful, update the HTML with the fetched data.
-        if (profile) {
-            console.log("Profile data fetched successfully:", profile);
-            document.getElementById('accountName').textContent = profile.full_name || 'Not provided';
-            document.getElementById('accountCompany').textContent = profile.company_name || 'Not provided';
-            document.getElementById('accountNeed').textContent = profile.your_need || 'Not provided';
-            document.getElementById('accountInformation').textContent = profile.information || 'Not provided';
-            document.getElementById('accountEmail').textContent = user.email; // Email comes from the auth user object
-        }
-
-    } catch (e) {
-        console.error("A critical error occurred in fetchAndDisplayProfile:", e);
-    }
-}
-
-            // --- Supabase Auth State Change Listener (Full Logic) ---
+                  // --- Supabase Auth State Change Listener (Full Logic) ---
             supabaseClient.auth.onAuthStateChange(async (event, session) => {
                 console.log('onAuthStateChange fired:', event, session); // Diagnostic log
 
@@ -222,8 +180,7 @@ async function fetchAndDisplayProfile(user) {
                     authStatusDisplay.appendChild(logoutButton); // Append the button after setting innerHTML
                     
                     console.log('Auth status display updated.');
-                    await fetchAndDisplayProfile(session.user);
-
+                  
                     // Calls to fetch data are COMMENTED OUT for this test, but uncomment if you want to test them next
                     // await fetchUserData(session.user);
                     // await fetchUserInvoices(session.user);
