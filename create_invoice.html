@@ -50,6 +50,7 @@
     </div>
 
     <!-- ===== Autofilled Client Info ===== -->
+    <div class="form-group"><label>Client Name:</label><input type="text" id="clientName" readonly></div>
     <div class="form-group"><label>Client Email:</label><input type="email" id="clientEmail" readonly></div>
     <div class="form-group"><label>Client Address:</label><input type="text" id="clientAddress" readonly></div>
     <div class="form-group"><label>Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
@@ -97,7 +98,7 @@
 <script>
 const supabaseClient = supabase.createClient(
   'https://tirkqybcedxfusifslim.supabase.co',
-  'YOUR_ANON_KEY_HERE'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
 );
 
 const invoiceForm = document.getElementById('invoiceForm');
@@ -107,12 +108,14 @@ let lineItemCount = 0;
 
 const clientSelect = document.getElementById('clientSelect');
 const selectedUserIdInput = document.getElementById('selectedUserId');
+const clientNameInput = document.getElementById('clientName');
 const clientEmailInput = document.getElementById('clientEmail');
 const clientAddressInput = document.getElementById('clientAddress');
 const clientPhoneInput = document.getElementById('clientPhone');
 
 let allClientProfiles = [];
 
+// --- Helper Functions ---
 function showMessage(text, type) {
   messageDiv.textContent = text;
   messageDiv.className = `message ${type}`;
@@ -177,7 +180,10 @@ async function fetchClientProfiles() {
   const { data, error } = await supabaseClient.from('profiles')
     .select('user_id, full_name, email, company, address, phone_number')
     .eq('role', 'client');
-  if (error) { showMessage(`Error fetching clients: ${error.message}`, 'error'); return []; }
+  if (error) {
+    showMessage(`Error fetching clients: ${error.message}`, 'error');
+    return [];
+  }
   return data;
 }
 
@@ -197,17 +203,18 @@ function autofillClientDetails() {
   const selectedClient = allClientProfiles.find(client => client.user_id === selectedId);
   if (selectedClient) {
     selectedUserIdInput.value = selectedClient.user_id;
+    clientNameInput.value = selectedClient.full_name || '';
     clientEmailInput.value = selectedClient.email || '';
     clientAddressInput.value = selectedClient.address || '';
     clientPhoneInput.value = selectedClient.phone_number || '';
   } else {
-    [selectedUserIdInput, clientEmailInput, clientAddressInput, clientPhoneInput].forEach(input => input.value = '');
+    [selectedUserIdInput, clientNameInput, clientEmailInput, clientAddressInput, clientPhoneInput].forEach(input => input.value = '');
   }
 }
 
 clientSelect.addEventListener('change', autofillClientDetails);
 
-// --- Form submission ---
+// --- Submission Logic with Update/New Check ---
 invoiceForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   showMessage('Saving invoice...', 'info');
@@ -225,6 +232,7 @@ invoiceForm.addEventListener('submit', async (e) => {
       issue_date: document.getElementById('issueDate').value,
       due_date: document.getElementById('dueDate').value,
       status: document.getElementById('status').value,
+      client_name: clientNameInput.value,
       client_email: clientEmailInput.value,
       client_phone: clientPhoneInput.value,
       subtotal: parseFloat(document.getElementById('subtotal').value),
@@ -238,19 +246,29 @@ invoiceForm.addEventListener('submit', async (e) => {
       currency: 'ZAR'
     };
 
-    const { data: existingInvoice } = await supabaseClient.from('invoices')
-      .select('id').eq('invoice_number', invoiceNumber).single();
+    const { data: existingInvoice } = await supabaseClient
+      .from('invoices')
+      .select('id')
+      .eq('invoice_number', invoiceNumber)
+      .single();
 
     let invoiceId;
     if (existingInvoice) {
-      const { data, error } = await supabaseClient.from('invoices')
-        .update(invoiceData).eq('id', existingInvoice.id).select('id').single();
+      const { data, error } = await supabaseClient
+        .from('invoices')
+        .update(invoiceData)
+        .eq('id', existingInvoice.id)
+        .select('id')
+        .single();
       if (error) throw new Error(`Failed to update invoice: ${error.message}`);
       invoiceId = data.id;
       await supabaseClient.from('invoice_items').delete().eq('invoice_id', invoiceId);
     } else {
-      const { data, error } = await supabaseClient.from('invoices')
-        .insert(invoiceData).select('id').single();
+      const { data, error } = await supabaseClient
+        .from('invoices')
+        .insert(invoiceData)
+        .select('id')
+        .single();
       if (error) throw new Error(`Failed to create invoice: ${error.message}`);
       invoiceId = data.id;
     }
