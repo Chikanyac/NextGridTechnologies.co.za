@@ -1154,77 +1154,64 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 }
 
 
-/* ========= ACCOUNT PAGE SPECIFICS ========= */
-.account-wrapper {
-  background-color: #e0f2f7; /* A nice light blue */
-  color: var(--text); /* Use your primary dark text color */
-  padding: 40px;
+/* All of your existing styles.css content... */
+/* ... */
+
+/* ========= LOGIN / AUTH / ACCOUNT PAGES (MERGED) ========= */
+.account-wrapper, .form-wrapper {
+  background: white;
+  padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(2,6,23,0.1);
-  text-align: left; /* Align content to the left inside the wrapper */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+}
+
+/* Styles specifically for the account page container */
+.account-wrapper {
+  background-color: #f0f9ff; /* A lighter, cleaner blue */
+  color: var(--text);
+  padding: 40px;
+  text-align: left;
+  border-top: 5px solid var(--accent); /* Using main accent blue */
 }
 
 .account-wrapper h2 {
-  color: var(--accent); /* Your accent blue for headings */
-  margin-bottom: 20px;
-  text-align: center; /* Center the main heading */
-}
-
-.account-info p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  color: var(--text); /* Ensure good contrast for info text */
-}
-
-.account-info strong {
-  color: var(--accent-2); /* Use your green accent for labels */
-  min-width: 100px; /* Give labels some consistent width */
-  display: inline-block;
-}
-
-/* Styles for the Update Profile form */
-.update-profile-form {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(16,185,129,0.25);
-}
-
-.update-profile-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
   color: var(--text);
-  font-size: 0.95em;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.update-profile-form input[type="text"],
-.update-profile-form input[type="email"] { /* Use input[type="text"] for name/company */
-  width: 100%;
-  padding: 12px;
+.account-wrapper p {
+  font-size: 1.1em;
   margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #a7f3d0;
-  background: #ffffff; /* White background for inputs */
-  color: var(--text); /* Dark text color for input values */
-  font-size: 1rem;
+  color: var(--muted);
 }
 
-.update-profile-form input[type="text"]:focus,
-.update-profile-form input[type="email"]:focus {
-  border-color: var(--accent-2);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+/* Styling for the <pre> block that shows user data */
+.account-wrapper pre {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
 }
 
-/* Ensure placeholder text is visible on the light input backgrounds */
-.update-profile-form input::placeholder {
-  color: #888;
+/* Form input styling for login page */
+.form-wrapper input[type="text"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="password"] {
+  width: 100%; margin: 10px 0; padding: 12px; border-radius: 6px; border: 1px solid #ccc;
+  background: #f8fafc; color: var(--text); font-size: 1rem;
 }
-.update-profile-form input::-webkit-input-placeholder { color: #888; }
-.update-profile-form input:-moz-placeholder { color: #888; }
-.update-profile-form input:-ms-input-placeholder { color: #888; }
+.form-wrapper input:focus {
+  border-color: var(--accent-2); outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
 
-.update-profile-form .btn-primary {
-  width: auto; /* Make button size dynamic */
-  display: inline-block; /* Ensure padding works correctly */
-}
+/* All other styles from your original file are assumed to be here */
