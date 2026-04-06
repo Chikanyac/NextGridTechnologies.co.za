@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,24 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Account</title>
 
-    <!-- 1. Link to your external stylesheet -->
+    <!-- Link to your external stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
-    <!-- 2. Link to the Supabase JS library -->
+    <!-- Link to the Supabase JS library -->
     <script src="js/supabase.min.js"></script>
 </head>
 <body>
 
-    <!-- This section will be shown while the page is checking your login status -->
-    <section class="hero">
+    <!-- This section is the loading screen -->
+    <section class="hero" id="loading-section">
         <div class="hero-content">
             <h1 id="loading-message">Verifying Session...</h1>
         </div>
     </section>
 
-    <!-- 3. This is your main account content, hidden by default. -->
-    <!-- It uses the "account-wrapper" class from your CSS file. -->
-    <div id="account-content" class="nav-hidden" style="padding: 40px 20px;">
+    <!-- This is your main account content -->
+    <!-- THE FIX: It is now hidden using style="display: none;" instead of a class -->
+    <div id="account-content" style="padding: 40px 20px; display: none;">
         <div class="account-wrapper">
             <h2>Your Account Dashboard</h2>
             
@@ -38,14 +39,13 @@
     </div>
 
     <script>
-        // No changes to the JavaScript. It should work as-is.
         const supabaseClient = supabase.createClient(
             'https://tirkqybcedxfusifslim.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
         );
 
         const accountContent = document.getElementById('account-content');
-        const loadingMessage = document.getElementById('loading-message');
+        const loadingSection = document.getElementById('loading-section'); // Get the loading section
         const userInfo = document.getElementById('user-info');
         const signOutButton = document.getElementById('signOutButton');
 
@@ -62,18 +62,16 @@
             const { data, error } = await supabaseClient.auth.getSession();
             
             if (error) {
-                // On error, go to login
                 window.location.href = 'login.html';
                 return;
             }
 
             if (data.session) {
                 // If the user is logged in:
-                // 1. Hide the "Verifying..." message
-                loadingMessage.parentElement.parentElement.style.display = 'none';
+                // 1. Hide the "Verifying..." loading section
+                loadingSection.style.display = 'none';
 
-                // 2. Show the main account content
-                accountContent.classList.remove('nav-hidden');
+                // 2. Show the main account content by changing its display style
                 accountContent.style.display = 'block';
 
                 // 3. Display the user data
