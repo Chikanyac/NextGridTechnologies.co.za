@@ -92,146 +92,160 @@
         <!-- <button id="logoutButton">Logout</button> -->
 
         <script>
-            // Supabase client initialization
-            const supabaseClient = supabase.createClient(
-                'https://tirkqybcedxfusifslim.supabase.co',
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
-                { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
-            );
+           // Supabase client initialization
+const supabaseClient = supabase.createClient(
+    'https://tirkqybcedxfusifslim.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
+    { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+);
 
-            console.log('ACCOUNT PAGE Supabase Client Object:', supabaseClient); // Diagnostic log
+console.log('ACCOUNT PAGE: Supabase Client Initialized.');
 
-            // DOM elements
-            const adminLinkContainer = document.getElementById('adminLinkContainer');
-            const loginLogoutLink = document.getElementById('loginLogoutLink');
-            const authStatusDisplay = document.getElementById('auth-status-display');
-            const invoicesContainer = document.getElementById('invoicesContainer');
-            const accountInfoDiv = document.querySelector('.account-info');
-            const updateProfileFormDiv = document.querySelector('.update-profile-form');
-            const updateMessage = document.getElementById('updateMessage'); // Ensure this is available
+// --- DOM Elements ---
+const adminLinkContainer = document.getElementById('adminLinkContainer');
+const loginLogoutLink = document.getElementById('loginLogoutLink');
+const authStatusDisplay = document.getElementById('auth-status-display');
+const invoicesContainer = document.getElementById('invoicesContainer');
+const accountInfoDiv = document.querySelector('.account-info');
+const updateProfileForm = document.getElementById('updateProfileForm');
+const updateMessage = document.getElementById('updateMessage');
 
-            // Function to fetch and display user data (STILL COMMENTED OUT, BUT HERE FOR CONTEXT)
-            async function fetchUserData(user) {
-              console.log('Fetching user data for:', user ? user.id : 'no user');
-              // ... (Your original fetchUserData function code here)
-              // For now, these lines below are just placeholders for the UI, not actual data fetches.
-              document.getElementById('accountName').textContent = user.email ? user.email.split('@')[0] : 'Guest';
-              document.getElementById('accountEmail').textContent = user.email || 'N/A';
+// --- Main Data Fetching Function ---
+async function fetchAndDisplayAllUserData(user) {
+    if (!user) return;
+    
+    console.log('Fetching profile data for user ID:', user.id);
+
+    try {
+        const { data: profile, error } = await supabaseClient
+            .from('profiles') // Your table for user data
+            .select('full_name, company_name, your_need, information, role') // Select all needed columns
+            .eq('id', user.id)
+            .single(); // Fetch a single record
+
+        if (error) {
+            // This error is common if a user exists in auth but has no profile row yet.
+            console.error('Error fetching profile:', error.message);
+            document.getElementById('accountName').textContent = 'Profile not set.';
+            document.getElementById('accountCompany').textContent = 'N/A';
+            document.getElementById('accountNeed').textContent = 'N/A';
+            document.getElementById('accountInformation').textContent = 'N/A';
+            document.getElementById('accountEmail').textContent = user.email; // Email always comes from auth
+            return; // Stop further execution for this function
+        }
+
+        if (profile) {
+            console.log('Profile data found:', profile);
+            // Populate the "Your Profile" section
+            document.getElementById('accountName').textContent = profile.full_name || 'Not set';
+            document.getElementById('accountCompany').textContent = profile.company_name || 'Not set';
+            document.getElementById('accountNeed').textContent = profile.your_need || 'Not set';
+            document.getElementById('accountInformation').textContent = profile.information || 'Not set';
+            document.getElementById('accountEmail').textContent = user.email;
+
+            // Populate the "Update Your Information" form with existing data
+            document.getElementById('updateName').value = profile.full_name || '';
+            document.getElementById('updateCompany').value = profile.company_name || '';
+            document.getElementById('updateInformation').value = profile.information || '';
+
+            // Show admin link if the user has the 'admin' role
+            if (profile.role === 'admin') {
+                adminLinkContainer.innerHTML = '<a href="admin.html" class="nav-cta">Admin Dashboard</a>';
+            } else {
+                adminLinkContainer.innerHTML = '';
             }
+        }
+    } catch (e) {
+        console.error('A critical error occurred while fetching data:', e);
+    }
+}
 
-            // Function to fetch and display invoices (STILL COMMENTED OUT, BUT HERE FOR CONTEXT)
-            async function fetchUserInvoices(user) {
-              console.log('Fetching user invoices for:', user ? user.id : 'no user');
-              const invoicesContainer = document.getElementById('invoicesContainer');
-              invoicesContainer.innerHTML = '<p class="no-invoices">Loading invoices...</p>';
-              if (!user) {
-                invoicesContainer.innerHTML = '<p class="no-invoices">Please sign in to view your invoices.</p>';
-              } else {
-                 invoicesContainer.innerHTML = '<p class="no-invoices">Invoice data not yet loaded.</p>'; // Placeholder
-              }
-            }
-            
-            // Handle profile update form submission (STILL COMMENTED OUT)
-            // You will re-enable this later.
-            /*
-            document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
-              e.preventDefault();
-              // ... (Your original updateProfileForm submission code here)
-            });
-            */
+// Placeholder for invoice fetching
+async function fetchUserInvoices(user) {
+    if (!user) return;
+    invoicesContainer.innerHTML = '<p class="no-invoices">No invoices found for your account.</p>';
+}
 
-            // --- Supabase Auth State Change Listener (Full Logic) ---
-            supabaseClient.auth.onAuthStateChange(async (event, session) => {
-                console.log('onAuthStateChange fired:', event, session); // Diagnostic log
+// --- Auth State Change Listener (Main Logic) ---
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    console.log('Auth event:', event);
 
-                if (session && session.user) {
-                    // --- User is Logged In ---
-                    console.log('User is signed in. Session event:', event);
-                    loginLogoutLink.textContent = 'My Account';
-                    loginLogoutLink.href = 'account.html'; // Link to this page
+    const user = session?.user;
 
-                    // Dynamically create and append the logout button
-                    let logoutButton = document.getElementById('dynamicLogoutButton');
-                    if (!logoutButton) { // Create only if it doesn't exist
-                        logoutButton = document.createElement('button');
-                        logoutButton.id = 'dynamicLogoutButton'; // Give it a unique ID
-                        logoutButton.className = 'btn btn-secondary';
-                        logoutButton.textContent = 'Logout';
-                        authStatusDisplay.appendChild(logoutButton);
-                    }
+    if (user) {
+        // --- USER IS LOGGED IN ---
+        loginLogoutLink.textContent = 'Logout';
+        loginLogoutLink.href = '#'; // It's now a button, not a link to another page
+        loginLogoutLink.onclick = async (e) => {
+            e.preventDefault();
+            await supabaseClient.auth.signOut();
+        };
 
-                    logoutButton.onclick = async (e) => {
-                        e.preventDefault();
-                        console.log('Logout button clicked - attempting signOut...'); // Diagnostic log
-                        const { error } = await supabaseClient.auth.signOut();
-                        if (error) {
-                            console.error('Error signing out:', error.message);
-                            // Temporarily using alert as message display is not fully implemented yet
-                            alert('Error signing out: ' + error.message); 
-                        } else {
-                            console.log('Sign out successful, redirecting to login.html'); // Diagnostic log
-                            // The onAuthStateChange listener for SIGNED_OUT will handle the redirect,
-                            // but for immediate feedback/fallback:
-                            window.location.href = 'login.html'; 
-                        }
-                    };
+        authStatusDisplay.innerHTML = `<p>You are logged in as <strong>${user.email}</strong>.</p>`;
+        
+        // **THIS IS THE FIX: Call the function to fetch and display data**
+        await fetchAndDisplayAllUserData(user);
+        await fetchUserInvoices(user);
 
-                    authStatusDisplay.innerHTML = `<p>You are logged in as <strong>${session.user.email}</strong>.</p>`;
-                    authStatusDisplay.appendChild(logoutButton); // Append the button after setting innerHTML
-                    
-                    console.log('Auth status display updated.');
+        // Show the sections that require a user to be logged in
+        accountInfoDiv.style.display = 'block';
+        updateProfileForm.style.display = 'block';
+        invoicesContainer.parentElement.style.display = 'block';
 
-                    // Calls to fetch data are COMMENTED OUT for this test, but uncomment if you want to test them next
-                    // await fetchUserData(session.user);
-                    // await fetchUserInvoices(session.user);
+    } else {
+        // --- USER IS LOGGED OUT or NOT LOGGED IN ---
+        // Redirect to login page if the user is not authenticated
+        console.log('No user session. Redirecting to login page.');
+        window.location.href = 'login.html';
+    }
+});
 
-                    // Show authenticated content sections
-                    accountInfoDiv.style.display = 'block';
-                    updateProfileFormDiv.style.display = 'block';
-                    if (invoicesContainer.parentElement) { // Ensure parent exists
-                        invoicesContainer.parentElement.style.display = 'block'; 
-                    }
+// --- Handle Profile Update Form ---
+updateProfileForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    updateMessage.textContent = 'Saving...';
+    const user = supabaseClient.auth.user();
 
-                    // For this test, we are NOT fetching profile data for admin role.
-                    // This section remains as a placeholder.
-                    // If you need to test admin link behavior, you'd need the full profile fetch.
-                    adminLinkContainer.innerHTML = ''; // Hide admin link for now
+    if (!user) {
+        updateMessage.textContent = 'Error: You are not logged in.';
+        return;
+    }
 
-                } else {
-                    // --- User is Not Logged In (or has just logged out) ---
-                    console.log('User is not signed in or signed out. Session event:', event);
-                    loginLogoutLink.textContent = 'Client Login';
-                    loginLogoutLink.href = 'login.html';
-                    adminLinkContainer.innerHTML = ''; // Hide admin link
+    const updates = {
+        full_name: document.getElementById('updateName').value,
+        company_name: document.getElementById('updateCompany').value,
+        information: document.getElementById('updateInformation').value,
+        updated_at: new Date() // Keep a record of the update time
+    };
 
-                    authStatusDisplay.innerHTML = '<p>You are not logged in. Please <a href="login.html">log in</a> to access your dashboard.</p>';
-                    
-                    // Hide authenticated content sections
-                    accountInfoDiv.style.display = 'none';
-                    updateProfileFormDiv.style.display = 'none';
-                    if (invoicesContainer.parentElement) {
-                        invoicesContainer.parentElement.style.display = 'none';
-                    }
+    const { error } = await supabaseClient
+        .from('profiles')
+        .update(updates)
+        .eq('id', user.id);
 
-                    // Only redirect for initial sessions without a user.
-                    // The SIGNED_OUT event is typically handled by the logout button's direct redirect now.
-                    if (event === 'INITIAL_SESSION' && !session) {
-                      console.log('Redirecting to login.html due to no initial session.'); // Diagnostic log
-                      window.location.href = 'login.html';
-                    }
-                }
-            });
+    if (error) {
+        console.error('Error updating profile:', error.message);
+        updateMessage.textContent = `Error: ${error.message}`;
+        updateMessage.style.color = 'red';
+    } else {
+        console.log('Profile updated successfully.');
+        updateMessage.textContent = 'Your profile has been updated successfully!';
+        updateMessage.style.color = 'green';
+        // Refresh the displayed data
+        await fetchAndDisplayAllUserData(user);
+    }
+});
 
-            // Hamburger menu functionality
-            document.addEventListener('DOMContentLoaded', () => {
-                const hamburger = document.getElementById("hamburger");
-                const navMenu = document.getElementById("navMenu");
-                if (hamburger && navMenu) {
-                    hamburger.addEventListener("click", () => {
-                        navMenu.classList.toggle("active");
-                    });
-                }
-            });
+// --- Hamburger Menu Functionality ---
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("navMenu");
+    if (hamburger && navMenu) {
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+    }
+});
         </script>
     </body>
     </html>
