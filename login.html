@@ -81,14 +81,11 @@
       <h2>Client Sign Up</h2>
       <p class="contact-subtext">Create a new account</p>
       <form id="signupForm" class="contact-form">
-        <!-- ==== NEW FIELDS ADDED HERE ==== -->
         <input type="text" id="signupFullName" placeholder="Your Full Name" required autocomplete="name">
         <input type="text" id="signupCompany" placeholder="Business/Company Name (Optional)" autocomplete="organization">
         <input type="email" id="signupEmail" placeholder="Business Email" required autocomplete="email">
         <input type="tel" id="signupPhone" placeholder="Phone Number (Optional)" autocomplete="tel">
         <input type="password" id="signupPassword" placeholder="Create Password" required autocomplete="new-password">
-        <!-- ============================== -->
-
         <button type="submit" class="btn-primary">Create Account</button>
         <p id="signupMessage" class="message-text"></p>
         <p style="margin-top:10px;font-size:14px;">Already have an account? <span id="switchToLogin" style="color:var(--accent-1); cursor:pointer;">Sign In Here</span></p>
@@ -105,8 +102,16 @@ const supabaseClient = supabase.createClient(
     { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
 );
 
+// --- Get DOM Elements ---
 const messageDiv = document.getElementById('message');
 const signupMessageDiv = document.getElementById('signupMessage');
+const loginContainer = document.getElementById('loginContainer');
+const signupContainer = document.getElementById('signupContainer');
+const showLoginBtn = document.getElementById('showLoginBtn');
+const showSignupBtn = document.getElementById('showSignupBtn');
+const switchToSignupSpan = document.getElementById('switchToSignup');
+const switchToLoginSpan = document.getElementById('switchToLogin');
+const signupForm = document.getElementById('signupForm'); // Added for form reset
 
 function displayMessage(divElement, text, type) {
     divElement.textContent = text;
@@ -115,30 +120,13 @@ function displayMessage(divElement, text, type) {
 
 // --- Global Auth State Listener (Handles redirects after successful login) ---
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
-    const loginLogoutLink = document.getElementById('loginLogoutLink');
-    if (session && session.user) {
-        if (window.location.pathname.endsWith('login.html')) {
-            const { data: profile } = await supabaseClient.from('profiles').select('role').eq('user_id', session.user.id).single();
-            if (profile && profile.role === 'admin') {
-                window.location.href = 'admin_dashboard.html';
-            } else {
-                window.location.href = 'account.html';
-            }
-        }
-    } else {
-        loginLogoutLink.textContent = 'Client Login';
-        loginLogoutLink.href = 'login.html';
+    if (session && session.user && window.location.pathname.includes('login.html')) {
+        const { data: profile } = await supabaseClient.from('profiles').select('role').eq('user_id', session.user.id).single();
+        window.location.href = (profile && profile.role === 'admin') ? 'admin_dashboard.html' : 'account.html';
     }
 });
 
 // --- Form Toggling Logic ---
-const loginContainer = document.getElementById('loginContainer');
-const signupContainer = document.getElementById('signupContainer');
-const showLoginBtn = document.getElementById('showLoginBtn');
-const showSignupBtn = document.getElementById('showSignupBtn');
-const switchToSignupSpan = document.getElementById('switchToSignup');
-const switchToLoginSpan = document.getElementById('switchToLogin');
-
 function showLoginForm() {
     loginContainer.style.display = 'block'; signupContainer.style.display = 'none';
     showLoginBtn.classList.add('active'); showSignupBtn.classList.remove('active');
@@ -163,53 +151,46 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         password: document.getElementById('password').value,
     });
     if (error) displayMessage(messageDiv, `Login failed: ${error.message}`, 'error');
-    // Success is handled by the onAuthStateChange listener
 });
 
-// --- Sign Up Form Submission (UPDATED) ---
-document.getElementById('signupForm').addEventListener('submit', async (e) => {
+// --- Sign Up Form Submission (CORRECTED LOGIC) ---
+signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     displayMessage(signupMessageDiv, 'Creating account...', 'warning');
 
-    // --- Gather all form data ---
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
     const fullName = document.getElementById('signupFullName').value;
     const company = document.getElementById('signupCompany').value;
     const phone = document.getElementById('signupPhone').value;
 
-    // --- Step 1: Create the user in the 'auth' schema ---
+    // Step 1: Create the secure authentication user.
     const { data: authData, error: authError } = await supabaseClient.auth.signUp({ email, password });
 
     if (authError) {
         displayMessage(signupMessageDiv, `Sign up failed: ${authError.message}`, 'error');
         return;
     }
-    if (!authData.user) {
-        displayMessage(signupMessageDiv, 'Account created! Please check your email to verify.', 'success');
-        return;
-    }
-    
-    // --- Step 2: Insert the user's details into the 'profiles' table ---
+
+    // Step 2: Insert the profile, even if verification is needed. authData contains the user's ID.
+    // This will run immediately after Step 1 succeeds.
     const { error: profileError } = await supabaseClient
         .from('profiles')
         .insert({
-            user_id: authData.user.id, // Link to the new auth user
+            user_id: authData.user.id,
             full_name: fullName,
             company: company,
             phone_number: phone,
-            email: email, // Also store email in profiles for convenience
-            role: 'client' // Set default role for all new sign-ups
+            email: email,
+            role: 'client'
         });
 
     if (profileError) {
-        // This is a critical error. The auth user was created but the profile failed.
         displayMessage(signupMessageDiv, `Account created, but profile failed: ${profileError.message}. Please contact support.`, 'error');
     } else {
-        displayMessage(signupMessageDiv, 'Account created! Please check your email to confirm, then you can log in.', 'success');
+        // If both steps succeed, show the final success message.
+        displayMessage(signupMessageDiv, 'Success! Please check your email to confirm your account, then you can log in.', 'success');
         signupForm.reset();
-        // Switch back to login form for a better user experience
-        showLoginForm();
     }
 });
 
@@ -221,7 +202,7 @@ document.getElementById('forgotPasswordLink').addEventListener('click', async (e
 
   displayMessage(messageDiv, 'Sending password reset email...', 'warning');
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://nextgridtechnologies.co.za/reset-password.html', // Make sure this page exists
+    redirectTo: 'https://nextgridtechnologies.co.za/reset-password.html',
   });
   if (error) { displayMessage(messageDiv, error.message, 'error'); } 
   else { displayMessage(messageDiv, 'Password reset email sent! Check your inbox.', 'success'); }
