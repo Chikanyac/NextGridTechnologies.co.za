@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bare Minimum Supabase Sign-In</title>
-    <!-- Include the Supabase JS Library -->
+    <title>Step 2: Sign-In and Redirect</title>
     <script src="js/supabase.min.js"></script>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; }
@@ -17,7 +16,7 @@
 </head>
 <body>
 
-    <h1>Supabase Sign-In Test</h1>
+    <h1>Supabase Sign-In Test (with Redirect)</h1>
 
     <form id="loginForm">
         <label for="email">Email:</label>
@@ -32,47 +31,60 @@
     <p id="message" class="message"></p>
 
     <script>
-        // 1. Initialize the Supabase Client
+        // 1. Initialize Supabase Client
         const supabaseClient = supabase.createClient(
             'https://tirkqybcedxfusifslim.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
+            'eyJhbGciOiJIxzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
         );
 
-        // 2. Get references to the HTML elements
+        // 2. Get HTML elements
         const loginForm = document.getElementById('loginForm');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const messageDiv = document.getElementById('message');
 
-        // 3. Add an event listener to the form
+        // 3. Listen for form submission
         loginForm.addEventListener('submit', async (e) => {
-            // Prevent the form from refreshing the page
             e.preventDefault();
-
-            // Get the email and password from the form
             const email = emailInput.value;
             const password = passwordInput.value;
-
-            // Display a "loading" message
-            messageDiv.textContent = 'Attempting to sign in...';
+            messageDiv.textContent = 'Signing in...';
             messageDiv.className = 'message';
 
-            // 4. Call the Supabase signInWithPassword function
+            // 4. Call Supabase sign-in function
             const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password,
             });
 
-            // 5. Check the result and display a message
             if (error) {
-                // If there was an error, display the error message
+                // Handle login error
                 messageDiv.textContent = `Login Failed: ${error.message}`;
                 messageDiv.className = 'message error';
             } else {
-                // If login was successful, display a success message
-                messageDiv.textContent = 'Success! You are signed in.';
+                // --- THIS IS THE NEW PART ---
+                // On successful login, check the user's role and redirect.
+
+                messageDiv.textContent = 'Success! Checking your role...';
                 messageDiv.className = 'message success';
-                console.log('Successful sign-in data:', data);
+
+                // Get the user's profile from the 'profiles' table
+                const { data: profile, error: profileError } = await supabaseClient
+                    .from('profiles')
+                    .select('role')
+                    .eq('user_id', data.user.id)
+                    .single();
+
+                if (profileError || !profile) {
+                    messageDiv.textContent = 'Login successful, but could not find your user profile. Please contact support.';
+                    messageDiv.className = 'message error';
+                } else if (profile.role === 'admin') {
+                    // If the role is 'admin', redirect to the admin dashboard
+                    window.location.href = 'admin_dashboard.html';
+                } else {
+                    // For any other role (like 'client'), redirect to the account page
+                    window.location.href = 'account.html';
+                }
             }
         });
     </script>
