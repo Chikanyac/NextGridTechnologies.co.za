@@ -164,7 +164,7 @@ async function populateAccountForm(user) {
     try {
         const { data, error } = await supabaseClient
             .from('profiles')
-            .select('full_name, company, phone_number, address, information')
+            .select('full_name, company, phone_number, address, service_request')
             .eq('user_id', user.id)
             .single();
 
@@ -179,7 +179,7 @@ async function populateAccountForm(user) {
         form.querySelector('[name="email"]').value = user.email || '';
         form.querySelector('[name="phone_number"]').value = data?.phone_number || '';
         form.querySelector('[name="address"]').value = data?.address || '';
-        form.querySelector('[name="service_request"]').value = data?.information || '';
+        form.querySelector('[name="service_request"]').value = data?.service_request || '';
         form.querySelector('[name="password"]').value = '';
         form.querySelector('[name="password_confirm"]').value = '';
 
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     delete formData.password_confirm;
     
     if (formData.service_request) {
-      formData.information = formData.service_request;
+      formData.service_request = formData.service_request;
       delete formData.service_request;
     }
 
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
           company: formData.company,
           phone_number: formData.phone_number,
           address: formData.address,
-          information: formData.information,
+          service_request: formData.service_request,
           email: formData.email
         })
         .eq('user_id', user.id);
