@@ -1,0 +1,17 @@
+<!-- signin.html - reusable sign up form -->
+<div class="signin-component">
+  <h2>Request IT Support</h2>
+  <p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
+  <form class="user-form" data-mode="create">
+    <input type="text" name="full_name" placeholder="Your Full Name" required>
+    <input type="text" name="company" placeholder="Company Name" required>
+    <input type="email" name="email" placeholder="Business Email" required>
+    <input type="tel" name="phone_number" placeholder="Phone Number" required>
+    <input type="text" name="address" placeholder="Business Address" required>
+    <textarea name="service_request" placeholder="What kind of service/request are you looking for?" required></textarea>
+    <input type="password" name="password" placeholder="Create Password" required minlength="8">
+    <input type="password" name="password_confirm" placeholder="Confirm Password" required minlength="8">
+    <button type="submit" class="btn-primary">Send Request</button>
+    <p class="form-message" style="margin-top:12px;"></p>
+  </form>
+</div>
