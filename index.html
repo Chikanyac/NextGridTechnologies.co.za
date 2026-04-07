@@ -24,32 +24,6 @@
 <body>
   
 <div id="header"></div>
-<script>
-  fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-      
-      // Hamburger toggle
-      document.getElementById('hamburger')?.addEventListener('click', () => {
-        document.getElementById('navMenu')?.classList.toggle('active');
-      });
-      
-      // Back to top shows after scrolling 300px
-      const scrollBtn = document.getElementById('scrollTopBtn');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          scrollBtn?.classList.add('show');
-        } else {
-          scrollBtn?.classList.remove('show');
-        }
-      });
-      
-      scrollBtn?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-</script>
 
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline loading="lazy">
@@ -66,7 +40,7 @@
       <li>✓ Fixed monthly pricing, no surprise invoices</li>
     </ul>
     <div class="hero-buttons">
-      <a href="#contact" class="btn-primary slide-up">Get a Free Network Assessment</a>
+      <a href="contact.html" class="btn-primary slide-up">Get a Free Network Assessment</a>
       <a href="tel:+27680330794" class="btn-secondary">Book Support Call</a>
     </div>
     <p class="hero-note">Newly established • Built by experienced IT professionals</p>
@@ -219,7 +193,7 @@
         <li>Email spam & phishing protection</li>
       </ul>
       <p class="why-note">We’re a new team built by experienced IT professionals — our focus is reliable support without the enterprise price tag.</p>
-      <a href="#contact" class="btn">Get a Free Consult</a>
+      <a href="contact.html" class="btn">Get a Free Consult</a>
       <p class="cta-note-small">No lock-in contracts. Cancel anytime with 30 days’ notice.</p>
     </div>
   </div>
@@ -291,9 +265,11 @@
 </section>
 
 <!-- Contact / Sign Up -->
-<section id="contact">
-  <div class="container contact-wrapper" style="text-align: center;">
-    <div id="signin-container"></div>
+<section id="contact" style="padding: 80px 20px; text-align: center;">
+  <div class="container">
+    <h2>Ready to Secure Your Business?</h2>
+    <p style="margin: 16px 0 32px; font-size: 18px;">Get a free security audit and see how we can help.</p>
+    <a href="contact.html" class="btn-primary" style="font-size: 18px; padding: 16px 32px;">Request IT Support</a>
   </div>
 </section>
 
@@ -301,7 +277,7 @@
 <a href="index.html"><span>🏠</span><p>Home</p></a>
 <a href="services.html"><span>🛠</span><p>Services</p></a>
 <a href="blog.html"><span>📰</span><p>Blog</p></a>
-<a href="#contact"><span>📞</span><p>Contact</p></a>
+<a href="contact.html"><span>📞</span><p>Contact</p></a>
 </div>
 
 <footer>
@@ -320,71 +296,8 @@
         { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
     );
 
-    // Form handler function - called AFTER signin.html loads
-    function initSigninForm() {
-      document.querySelectorAll('.user-form').forEach(form => {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const messageEl = form.querySelector('.form-message');
-          const formData = Object.fromEntries(new FormData(form).entries());
-          
-          if (formData.password !== formData.password_confirm) {
-            messageEl.textContent = 'Passwords do not match';
-            messageEl.style.color = 'red';
-            return;
-          }
-          if (formData.password.length < 8) {
-            messageEl.textContent = 'Password must be at least 8 characters';
-            messageEl.style.color = 'red';
-            return;
-          }
-          
-          delete formData.password_confirm;
-          
-          if (formData.service_request) {
-            formData.information = formData.service_request;
-            delete formData.service_request;
-          }
-
-          messageEl.textContent = 'Creating account...';
-          messageEl.style.color = 'orange';
-
-          try {
-            const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
-              email: formData.email, 
-              password: formData.password 
-            });
-            if (authError) throw authError;
-            
-            const { error: profileError } = await supabaseClient
-              .from('profiles')
-              .insert({
-                user_id: authData.user.id,
-                full_name: formData.full_name,
-                company: formData.company,
-                email: formData.email,
-                phone_number: formData.phone_number,
-                address: formData.address,
-                information: formData.information,
-                role: 'client'
-              });
-            if (profileError) throw profileError;
-            
-            messageEl.textContent = 'Success! Check your email to confirm, then log in.';
-            messageEl.style.color = 'green';
-            form.reset();
-            
-          } catch (err) {
-            messageEl.textContent = err.message || 'Error saving data';
-            messageEl.style.color = 'red';
-          }
-        });
-      });
-    }
-
     // Initialize header and auth state AFTER header loads
     async function initHeaderAndAuth() {
-      // Check user session
       const { data: { user }, error } = await supabaseClient.auth.getUser();
       
       const adminLinkContainer = document.getElementById('adminLinkContainer');
@@ -446,12 +359,10 @@
           .then(async (data) => {
             document.getElementById('header').innerHTML = data;
             
-            // Hamburger toggle
             document.getElementById('hamburger')?.addEventListener('click', () => {
               document.getElementById('navMenu')?.classList.toggle('active');
             });
             
-            // Back to top shows after scrolling 300px
             const scrollBtn = document.getElementById('scrollTopBtn');
             window.addEventListener('scroll', () => {
               if (window.scrollY > 300) {
@@ -465,23 +376,7 @@
               window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // NOW init auth - header elements exist
             await initHeaderAndAuth();
-          });
-
-        // Load signin.html and THEN initialize the form handler
-        fetch('signin.html')
-          .then(res => {
-            if (!res.ok) throw new Error('signin.html not found');
-            return res.text();
-          })
-          .then(html => {
-            document.getElementById('signin-container').innerHTML = html;
-            initSigninForm(); // Must call AFTER injecting HTML
-          })
-          .catch(err => {
-            console.error('Failed to load signin.html:', err);
-            document.getElementById('signin-container').innerHTML = '<p style="color:red;">Error loading form. Make sure signin.html exists and you are using a local server.</p>';
           });
     });
 </script>
