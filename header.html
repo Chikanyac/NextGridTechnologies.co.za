@@ -15,15 +15,16 @@
       <!-- Placeholder for admin link - will be populated by JS if user is admin -->
       <div id="adminLinkContainer"></div>
       <!-- Login/Logout Link - ID for JS to target -->
-      <!-- This will be "Client Login" or "Logout" based on auth status -->
       <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
     </nav>
 
-    <div class="header-contact">
-      <a href="tel:+27680330794" class="btn-phone">📞 Call</a>
-      <a href="https://wa.me/27680330794" target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
-    </div>
-
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
+  </div>
+
+  <!-- Floating Action Buttons - shows on desktop + mobile -->
+  <div class="fab-container">
+    <a href="tel:+27680330794" class="fab fab-phone" aria-label="Call us">📞</a>
+    <a href="https://wa.me/27680330794" target="_blank" class="fab fab-whatsapp" aria-label="WhatsApp us">💬</a>
+    <button class="fab fab-top" id="scrollTopBtn" aria-label="Back to top">↑</button>
   </div>
 </header>
