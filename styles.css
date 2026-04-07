@@ -33,10 +33,30 @@ header {
   padding: 18px 0;
   border-bottom: 2px solid rgba(16,185,129,0.25);
 }
-.header-flex { display: flex; justify-content: space-between; align-items: center; }
-.logo-area { display: flex; align-items: center; gap: 10px; }
+
+.header-flex { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 40px; /* adds space between logo-area, nav, and header-contact */
+}
+
+.logo-area { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; /* increased from 10px for space between favicon and text */
+  flex-shrink: 0; /* prevents logo from squishing */
+}
+
 .logo { height: 40px; width: 40px; }
-.logo-text { font-weight: 600; font-size: 18px; color: white; }
+
+.logo-text { 
+  font-weight: 600; 
+  font-size: 18px; 
+  color: white; 
+  text-decoration: none; /* removes underline since it's an <a> tag now */
+  white-space: nowrap; /* keeps company name on one line */
+}
 
 .header-contact {
   display: flex;
@@ -54,7 +74,6 @@ header {
 @media (max-width:768px){
   .header-contact { display:none; }
 }
-
 /* --- MODIFIED NAV STYLES --- */
 nav {
   display: flex;
