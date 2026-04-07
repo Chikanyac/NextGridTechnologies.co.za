@@ -134,7 +134,7 @@
       delete formData.password_confirm;
       
       if (formData.service_request) {
-        formData.information = formData.service_request;
+        formData.service_request = formData.service_request;
         delete formData.service_request;
       }
 
@@ -157,7 +157,7 @@
             email: formData.email,
             phone_number: formData.phone_number,
             address: formData.address,
-            information: formData.service_request,
+            service_request: formData.service_request,
             role: 'client'
           });
         if (profileError) throw profileError;
