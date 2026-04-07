@@ -50,12 +50,27 @@ header {
 
 .logo { height: 40px; width: 40px; }
 
+/* UPDATED: 2-line logo styles */
 .logo-text { 
   font-weight: 600; 
   font-size: 18px; 
   color: white; 
-  text-decoration: none; /* removes underline since it's an <a> tag now */
-  white-space: nowrap; /* keeps company name on one line */
+  text-decoration: none;
+  line-height: 1.1; /* changed for tighter stacking */
+  display: flex; /* added to stack spans */
+  flex-direction: column; /* added to stack spans */
+}
+
+/* NEW: added for 2-line logo */
+.logo-line-1 {
+  display: block;
+}
+
+.logo-line-2 {
+  display: block;
+  font-size: 16px;
+  opacity: 0.9;
+  padding-left: 8px; /* indents "Technologies" */
 }
 
 .header-contact {
@@ -106,7 +121,6 @@ nav > * {
 nav > *:first-child {
   margin-left: 0;
 }
-
 /* Ensure the adminLinkContainer and its child behave like other nav links */
 #adminLinkContainer {
   display: flex; /* Treat it as a flex container to align its content */
