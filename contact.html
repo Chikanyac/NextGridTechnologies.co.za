@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,7 +115,7 @@
         if (authNavWrapper) authNavWrapper.classList.remove('nav-hidden');
       });
 
-    // Form handler
+    // Form handler - passes data to trigger via signUp options
     document.querySelector('.user-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const messageEl = document.querySelector('.form-message');
@@ -131,12 +132,9 @@
         return;
       }
       
+      const password = formData.password;
       delete formData.password_confirm;
-      
-      if (formData.service_request) {
-        formData.service_request = formData.service_request;
-        delete formData.service_request;
-      }
+      delete formData.password;
 
       messageEl.textContent = 'Creating account...';
       messageEl.style.color = 'orange';
@@ -144,25 +142,20 @@
       try {
         const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
           email: formData.email, 
-          password: formData.password 
+          password: password,
+          options: {
+            data: {
+              full_name: formData.full_name,
+              company: formData.company,
+              phone_number: formData.phone_number,
+              address: formData.address,
+              service_request: formData.service_request
+            }
+          }
         });
         if (authError) throw authError;
         
-         const { error: profileError } = await supabaseClient
-            .from('profiles')
-            .upsert({
-              user_id: authData.user.id,
-              full_name: formData.full_name,
-              company: formData.company,
-              email: formData.email,
-              phone_number: formData.phone_number,
-              address: formData.address,
-              service_request: formData.information,
-              role: 'client'
-            }, { onConflict: 'user_id' }); // This tells Supabase to update if user_id exists
-          if (profileError) throw profileError;
-        
-        messageEl.textContent = 'Success! Check your email to confirm, then log in.';
+        messageEl.textContent = 'Success! Check your email to confirm your account.';
         messageEl.style.color = 'green';
         e.target.reset();
         
