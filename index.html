@@ -323,19 +323,23 @@
 </section>
 
 <!-- Contact / Sign Up -->
+
 <section id="contact">
 <div class="container contact-wrapper" style="text-align: center;">
     <h2>Request IT Support</h2>
     <p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
 
-    <form id="signupForm" class="contact-form">
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      <input type="text" id="company" name="company" placeholder="Company Name" required>
-      <input type="email" id="email" name="email" placeholder="Business Email" required>
-      <input type="password" id="password" placeholder="Create Password" required>
-      <textarea id="need" name="need" placeholder="What do you need?" required></textarea>
+    <form id="signupForm" class="user-form" data-mode="create">
+      <input type="text" name="full_name" placeholder="Your Full Name" required>
+      <input type="text" name="company" placeholder="Company Name" required>
+      <input type="email" name="email" placeholder="Business Email" required>
+      <input type="tel" name="phone_number" placeholder="Phone Number" required>
+      <input type="text" name="address" placeholder="Business Address" required>
+      <textarea name="service_request" placeholder="What kind of service/request are you looking for?" required></textarea>
+      <input type="password" name="password" placeholder="Create Password" required minlength="8">
+      <input type="password" name="password_confirm" placeholder="Confirm Password" required minlength="8">
       <button type="submit" class="btn-primary">Send Request</button>
-      <p id="message" style="margin-top:12px;"></p>
+      <p class="form-message" style="margin-top:12px;"></p>
     </form>
 </div>
 </section>
@@ -354,77 +358,129 @@
 </footer>
 
 <!-- Supabase library -->
-    <script src="js/supabase.min.js"></script>
-    <script>
-        // Initialize Supabase Client
-        const supabaseClient = supabase.createClient(
-            'https://tirkqybcedxfusifslim.supabase.co', // <-- REPLACE WITH YOUR SUPABASE URL
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8', // <-- REPLACE WITH YOUR SUPABASE ANON KEY
-            { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
-        );
+   <script src="js/supabase.min.js"></script>
+<script>
+    // Initialize Supabase Client
+    const supabaseClient = supabase.createClient(
+        'https://tirkqybcedxfusifslim.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
+        { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+    );
 
-           document.addEventListener('DOMContentLoaded', async () => {
-            const adminLinkContainer = document.getElementById('adminLinkContainer');
-            const loginLogoutLink = document.getElementById('loginLogoutLink');
-            const authNavWrapper = document.getElementById('authNavWrapper'); // Get the new wrapper
+    document.addEventListener('DOMContentLoaded', async () => {
+        const adminLinkContainer = document.getElementById('adminLinkContainer');
+        const loginLogoutLink = document.getElementById('loginLogoutLink');
+        const authNavWrapper = document.getElementById('authNavWrapper');
 
-            // Check user session
-            const { data: { user }, error } = await supabaseClient.auth.getUser();
+        // Check user session
+        const { data: { user }, error } = await supabaseClient.auth.getUser();
 
-            if (user) {
-                // User is logged in
-                loginLogoutLink.textContent = 'Logout';
-                loginLogoutLink.href = '#'; // Make it a button to trigger logout
+        if (user) {
+            loginLogoutLink.textContent = 'Logout';
+            loginLogoutLink.href = '#';
+            loginLogoutLink.onclick = async (e) => {
+                e.preventDefault();
+                await supabaseClient.auth.signOut();
+                window.location.href = 'login.html';
+            };
 
-                loginLogoutLink.onclick = async (e) => {
-                    e.preventDefault();
-                    await supabaseClient.auth.signOut();
-                    window.location.href = 'login.html'; // Redirect to login after logout
-                };
+            const { data: profileData, error: profileError } = await supabaseClient
+               .from('profiles')
+               .select('role')
+               .eq('user_id::uuid', user.id)
+               .single();
 
-                // Fetch user role
-                const { data: profileData, error: profileError } = await supabaseClient
-                   .from('profiles')
-                   .select('role')
-                   .eq('user_id::uuid', user.id) // Explicitly cast 'id' to uuid for the filter
-                   .single();
-
-                if (!profileError && profileData && profileData.role === 'admin') {
-                    // If admin, show the admin link
-                    adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
-                } else {
-                    adminLinkContainer.innerHTML = ''; // Hide admin link for non-admins
-                }
+            if (!profileError && profileData && profileData.role === 'admin') {
+                adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
             } else {
-                // User is not logged in, ensure login link is shown and admin link is hidden
-                loginLogoutLink.textContent = 'Client Login';
-                loginLogoutLink.href = 'login.html';
-                adminLinkContainer.innerHTML = ''; // Hide admin link
-                // Additional redirect for client_dashboard.html if not logged in
-                // (Only for client_dashboard.html and admin restricted pages)
-                if (window.location.pathname.includes('client_dashboard.html') ||
-                    window.location.pathname.includes('admin_dashboard.html') ||
-                    window.location.pathname.includes('create_invoice.html')) {
-                    window.location.href = 'login.html';
-                    return; // Stop further execution
-                }
+                adminLinkContainer.innerHTML = '';
+            }
+        } else {
+            loginLogoutLink.textContent = 'Client Login';
+            loginLogoutLink.href = 'login.html';
+            adminLinkContainer.innerHTML = '';
+            if (window.location.pathname.includes('client_dashboard.html') ||
+                window.location.pathname.includes('admin_dashboard.html') ||
+                window.location.pathname.includes('create_invoice.html')) {
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+
+        if (authNavWrapper) {
+            authNavWrapper.classList.remove('nav-hidden');
+        }
+
+        const hamburger = document.getElementById("hamburger");
+        const navMenu = document.getElementById("navMenu");
+        if (hamburger && navMenu) {
+            hamburger.addEventListener("click", () => {
+                navMenu.classList.toggle("active");
+            });
+        }
+
+        // Form handler for standardized signup form
+        document.querySelectorAll('.user-form').forEach(form => {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageEl = form.querySelector('.form-message');
+            const formData = Object.fromEntries(new FormData(form).entries());
+            
+            if (formData.password !== formData.password_confirm) {
+              messageEl.textContent = 'Passwords do not match';
+              messageEl.style.color = 'red';
+              return;
+            }
+            if (formData.password.length < 8) {
+              messageEl.textContent = 'Password must be at least 8 characters';
+              messageEl.style.color = 'red';
+              return;
+            }
+            
+            delete formData.password_confirm;
+            
+            if (formData.service_request) {
+              formData.information = formData.service_request;
+              delete formData.service_request;
             }
 
-            // After all checks and updates, make the navigation wrapper visible
-            if (authNavWrapper) {
-                authNavWrapper.classList.remove('nav-hidden');
-            }
+            messageEl.textContent = 'Creating account...';
+            messageEl.style.color = 'orange';
 
-            // Hamburger menu functionality (your existing code)
-            const hamburger = document.getElementById("hamburger");
-            const navMenu = document.getElementById("navMenu");
-            if (hamburger && navMenu) {
-                hamburger.addEventListener("click", () => {
-                    navMenu.classList.toggle("active");
+            try {
+              const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
+                email: formData.email, 
+                password: formData.password 
+              });
+              if (authError) throw authError;
+              
+              const { error: profileError } = await supabaseClient
+                .from('profiles')
+                .insert({
+                  user_id: authData.user.id,
+                  full_name: formData.full_name,
+                  company: formData.company,
+                  email: formData.email,
+                  phone_number: formData.phone_number,
+                  address: formData.address,
+                  information: formData.information,
+                  role: 'client'
                 });
+              if (profileError) throw profileError;
+              
+              messageEl.textContent = 'Success! Check your email to confirm, then log in.';
+              messageEl.style.color = 'green';
+              form.reset();
+              
+            } catch (err) {
+              messageEl.textContent = err.message || 'Error saving data';
+              messageEl.style.color = 'red';
             }
+          });
         });
-    </script>
+    });
+</script>
+  
 </body>
 </html>
 
