@@ -121,7 +121,23 @@ header {
 }
 
 @media (max-width:768px){
-  .header-contact { display:none; }
+  .header-contact { 
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #0f172a;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(148,163,184,0.2);
+  }
+  .btn-phone, .btn-whatsapp {
+    font-size: 14px;
+    padding: 10px 16px;
+    text-align: center;
+  }
 }
 /* --- MODIFIED NAV STYLES --- */
 nav {
