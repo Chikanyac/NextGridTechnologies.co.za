@@ -323,25 +323,10 @@
 </section>
 
 <!-- Contact / Sign Up -->
-
 <section id="contact">
-<div class="container contact-wrapper" style="text-align: center;">
-    <h2>Request IT Support</h2>
-    <p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
-
-    <form id="signupForm" class="user-form" data-mode="create">
-      <input type="text" name="full_name" placeholder="Your Full Name" required>
-      <input type="text" name="company" placeholder="Company Name" required>
-      <input type="email" name="email" placeholder="Business Email" required>
-      <input type="tel" name="phone_number" placeholder="Phone Number" required>
-      <input type="text" name="address" placeholder="Business Address" required>
-      <textarea name="service_request" placeholder="What kind of service/request are you looking for?" required></textarea>
-      <input type="password" name="password" placeholder="Create Password" required minlength="8">
-      <input type="password" name="password_confirm" placeholder="Confirm Password" required minlength="8">
-      <button type="submit" class="btn-primary">Send Request</button>
-      <p class="form-message" style="margin-top:12px;"></p>
-    </form>
-</div>
+  <div class="container contact-wrapper" style="text-align: center;">
+    <div id="signin-container"></div>
+  </div>
 </section>
 
 <div class="bottom-nav">
@@ -358,7 +343,7 @@
 </footer>
 
 <!-- Supabase library -->
-   <script src="js/supabase.min.js"></script>
+<script src="js/supabase.min.js"></script>
 <script>
     // Initialize Supabase Client
     const supabaseClient = supabase.createClient(
@@ -366,6 +351,68 @@
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
         { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
     );
+
+    // Form handler function - called AFTER signin.html loads
+    function initSigninForm() {
+      document.querySelectorAll('.user-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const messageEl = form.querySelector('.form-message');
+          const formData = Object.fromEntries(new FormData(form).entries());
+          
+          if (formData.password !== formData.password_confirm) {
+            messageEl.textContent = 'Passwords do not match';
+            messageEl.style.color = 'red';
+            return;
+          }
+          if (formData.password.length < 8) {
+            messageEl.textContent = 'Password must be at least 8 characters';
+            messageEl.style.color = 'red';
+            return;
+          }
+          
+          delete formData.password_confirm;
+          
+          if (formData.service_request) {
+            formData.information = formData.service_request;
+            delete formData.service_request;
+          }
+
+          messageEl.textContent = 'Creating account...';
+          messageEl.style.color = 'orange';
+
+          try {
+            const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
+              email: formData.email, 
+              password: formData.password 
+            });
+            if (authError) throw authError;
+            
+            const { error: profileError } = await supabaseClient
+              .from('profiles')
+              .insert({
+                user_id: authData.user.id,
+                full_name: formData.full_name,
+                company: formData.company,
+                email: formData.email,
+                phone_number: formData.phone_number,
+                address: formData.address,
+                information: formData.information,
+                role: 'client'
+              });
+            if (profileError) throw profileError;
+            
+            messageEl.textContent = 'Success! Check your email to confirm, then log in.';
+            messageEl.style.color = 'green';
+            form.reset();
+            
+          } catch (err) {
+            messageEl.textContent = err.message || 'Error saving data';
+            messageEl.style.color = 'red';
+          }
+        });
+      });
+    }
 
     document.addEventListener('DOMContentLoaded', async () => {
         const adminLinkContainer = document.getElementById('adminLinkContainer');
@@ -419,65 +466,13 @@
             });
         }
 
-        // Form handler for standardized signup form
-        document.querySelectorAll('.user-form').forEach(form => {
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const messageEl = form.querySelector('.form-message');
-            const formData = Object.fromEntries(new FormData(form).entries());
-            
-            if (formData.password !== formData.password_confirm) {
-              messageEl.textContent = 'Passwords do not match';
-              messageEl.style.color = 'red';
-              return;
-            }
-            if (formData.password.length < 8) {
-              messageEl.textContent = 'Password must be at least 8 characters';
-              messageEl.style.color = 'red';
-              return;
-            }
-            
-            delete formData.password_confirm;
-            
-            if (formData.service_request) {
-              formData.information = formData.service_request;
-              delete formData.service_request;
-            }
-
-            messageEl.textContent = 'Creating account...';
-            messageEl.style.color = 'orange';
-
-            try {
-              const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
-                email: formData.email, 
-                password: formData.password 
-              });
-              if (authError) throw authError;
-              
-              const { error: profileError } = await supabaseClient
-                .from('profiles')
-                .insert({
-                  user_id: authData.user.id,
-                  full_name: formData.full_name,
-                  company: formData.company,
-                  email: formData.email,
-                  phone_number: formData.phone_number,
-                  address: formData.address,
-                  information: formData.information,
-                  role: 'client'
-                });
-              if (profileError) throw profileError;
-              
-              messageEl.textContent = 'Success! Check your email to confirm, then log in.';
-              messageEl.style.color = 'green';
-              form.reset();
-              
-            } catch (err) {
-              messageEl.textContent = err.message || 'Error saving data';
-              messageEl.style.color = 'red';
-            }
+        // Load signin.html and THEN initialize the form handler
+        fetch('signin.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('signin-container').innerHTML = html;
+            initSigninForm(); // Must call AFTER injecting HTML
           });
-        });
     });
 </script>
   
