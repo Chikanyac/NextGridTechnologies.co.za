@@ -29,35 +29,33 @@
 <body>
 
 <div id="header"></div>
-<header>
-  <div class="container header-flex">
-    <div class="logo-area">
-      <img src="favicon.ico" alt="NextGrid Technologies Logo" class="logo">
-      <a href="index.html" class="logo-text">
-        <span class="logo-line-1">NextGrid</span>
-        <span class="logo-line-2">Technologies</span>
-      </a>
-    </div>
-
-    <nav id="navMenu">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="blog.html">Blog</a>
-      <!-- Placeholder for admin link - will be populated by JS if user is admin -->
-      <div id="adminLinkContainer"></div>
-      <!-- Login/Logout Link - ID for JS to target -->
-      <!-- This will be "Client Login" or "Logout" based on auth status -->
-      <a href="login.html" class="nav-cta" id="loginLogoutLink">Client Login</a>
-    </nav>
-
-    <div class="header-contact">
-      <a href="tel:+27680330794" class="btn-phone">📞 Call</a>
-      <a href="https://wa.me/27680330794" target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
-    </div>
-
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
-  </div>
-</header>
+<div id="header"></div>
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+      
+      // Hamburger toggle
+      document.getElementById('hamburger')?.addEventListener('click', () => {
+        document.getElementById('navMenu')?.classList.toggle('active');
+      });
+      
+      // Back to top shows after scrolling 300px
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn?.classList.add('show');
+        } else {
+          scrollBtn?.classList.remove('show');
+        }
+      });
+      
+      scrollBtn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+</script>
 
 <section class="hero services-hero">
   <video autoplay muted loop playsinline class="hero-video" loading="lazy">
