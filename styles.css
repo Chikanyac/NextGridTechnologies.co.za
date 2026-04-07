@@ -1253,33 +1253,3 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 .nav-hidden {
     display: none !important; /* !important to override other display properties */
 }
-/* Hide mobile contact on desktop */
-.nav-contact-mobile { 
-  display: none; 
-}
-
-/* Desktop contact visible */
-.header-contact {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-}
-
-@media (max-width:768px){
-  /* Hide desktop contact on mobile */
-  .header-contact { 
-    display: none; 
-  }
-  /* Show mobile contact inside nav */
-  .nav-contact-mobile { 
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 16px;
-    width: 100%;
-  }
-  .nav-contact-mobile .btn-phone,
-  .nav-contact-mobile .btn-whatsapp {
-    text-align: center;
-  }
-}
