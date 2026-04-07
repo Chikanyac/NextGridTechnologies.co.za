@@ -56,9 +56,9 @@ header {
   font-size: 18px; 
   color: white; 
   text-decoration: none;
-  line-height: 1.1; /* changed for tighter stacking */
-  display: flex; /* added to stack spans */
-  flex-direction: column; /* added to stack spans */
+  line-height: 1.1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* NEW: added for 2-line logo */
@@ -101,6 +101,25 @@ header {
 .btn-whatsapp:hover {
   background: #216e46;
 }
+
+/* ADDED BACK: Client Login button - subtle slate */
+.nav-cta {
+  background: #334155;
+  color: #e2e8f0;
+  padding: 10px 18px; 
+  border-radius: 6px; 
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid rgba(148,163,184,0.2);
+}
+.nav-cta:hover {
+  background: #475569;
+  color: #f8fafc;
+  transform: translateY(-1px);
+}
+
 @media (max-width:768px){
   .header-contact { display:none; }
 }
