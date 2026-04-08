@@ -81,73 +81,96 @@
       <h2 style="text-align: center; margin-bottom: 8px;">Create / Edit Invoice</h2>
       <p class="contact-subtext" style="text-align: center;">Generate invoices for your clients</p>
 
-      <form id="invoiceForm" class="user-form">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Do you want to edit an existing invoice?</label>
-            <select id="editExistingInvoice" required>
-              <option value="no" selected>No</option>
-              <option value="yes">Yes</option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label for="clientSelect">Select Client:</label>
-            <select id="clientSelect" required>
-              <option value="">-- Select a client --</option>
-            </select>
-            <input type="hidden" id="selectedUserId">
-          </div>
+<form id="invoiceForm" class="user-form">
 
-          <div class="form-group full-width" id="existingInvoiceSelectGroup" style="display:none;">
-            <label for="existingInvoiceSelect">Select Existing Invoice:</label>
-            <select id="existingInvoiceSelect">
-              <option value="">-- Select Invoice --</option>
-            </select>
-          </div>
+  <fieldset class="form-fieldset">
+    <legend>Invoice Setup</legend>
+    <div class="fieldset-grid">
+      <div class="form-group">
+        <label>Do you want to edit an existing invoice?</label>
+        <select id="editExistingInvoice" required>
+          <option value="no" selected>No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
 
-          <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
-          <div class="form-group"><label for="clientAddress">Client Address:</label><input type="text" id="clientAddress" readonly></div>
-          <div class="form-group"><label for="clientPhone">Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
-          <div class="form-group"><label for="invoiceNumber">Invoice Number:</label><input type="text" id="invoiceNumber" required></div>
+      <div class="form-group">
+        <label for="clientSelect">Select Client:</label>
+        <select id="clientSelect" required>
+          <option value="">-- Select a client --</option>
+        </select>
+        <input type="hidden" id="selectedUserId">
+      </div>
 
-          <div class="form-group"><label for="invoiceDate">Invoice Date:</label><input type="date" id="invoiceDate" required></div>
-          <div class="form-group"><label for="issueDate">Issue Date:</label><input type="date" id="issueDate" required></div>
-          <div class="form-group"><label for="dueDate">Due Date:</label><input type="date" id="dueDate" required></div>
+      <div class="form-group full-width" id="existingInvoiceSelectGroup" style="display:none;">
+        <label for="existingInvoiceSelect">Select Existing Invoice:</label>
+        <select id="existingInvoiceSelect">
+          <option value="">-- Select Invoice --</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
 
-          <div class="form-group">
-            <label for="status">Status:</label>
-            <select id="status" required>
-              <option value="draft">Draft</option>
-              <option value="sent">Sent</option>
-              <option value="paid">Paid</option>
-              <option value="overdue">Overdue</option>
-            </select>
-          </div>
+  <fieldset class="form-fieldset">
+    <legend>Client Details</legend>
+    <div class="fieldset-grid">
+      <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
+      <div class="form-group"><label for="clientPhone">Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
+      <div class="form-group full-width"><label for="clientAddress">Client Address:</label><input type="text" id="clientAddress" readonly></div>
+    </div>
+  </fieldset>
 
-          <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
-          <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
+  <fieldset class="form-fieldset">
+    <legend>Invoice Details</legend>
+    <div class="fieldset-grid">
+      <div class="form-group"><label for="invoiceNumber">Invoice Number:</label><input type="text" id="invoiceNumber" required></div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select id="status" required>
+          <option value="draft">Draft</option>
+          <option value="sent">Sent</option>
+          <option value="paid">Paid</option>
+          <option value="overdue">Overdue</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
+      <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
+      <div class="form-group full-width"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="3"></textarea></div>
+    </div>
+  </fieldset>
 
-          <div class="form-group full-width"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="3"></textarea></div>
+  <fieldset class="form-fieldset">
+    <legend>Dates</legend>
+    <div class="fieldset-grid">
+      <div class="form-group"><label for="invoiceDate">Invoice Date:</label><input type="date" id="invoiceDate" required></div>
+      <div class="form-group"><label for="issueDate">Issue Date:</label><input type="date" id="issueDate" required></div>
+      <div class="form-group"><label for="dueDate">Due Date:</label><input type="date" id="dueDate" required></div>
+    </div>
+  </fieldset>
 
-          <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
-          <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
-          <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
-          <div class="form-group"><label for="vatRate">VAT Rate (%):</label><input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100"></div>
-          <div class="form-group"><label for="vatAmount">VAT Amount (R):</label><input type="number" id="vatAmount" step="0.01" value="0.00" readonly></div>
-          <div class="form-group"><label for="totalAmountDue">Total Amount Due (calculated):</label><input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly></div>
-        </div>
+  <fieldset class="form-fieldset">
+    <legend>Calculations</legend>
+    <div class="fieldset-grid">
+      <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
+      <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
+      <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
+      <div class="form-group"><label for="vatRate">VAT Rate (%):</label><input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100"></div>
+      <div class="form-group"><label for="vatAmount">VAT Amount (R):</label><input type="number" id="vatAmount" step="0.01" value="0.00" readonly></div>
+      <div class="form-group"><label for="totalAmountDue">Total Amount Due (calculated):</label><input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly></div>
+    </div>
+  </fieldset>
 
-        <h3>Line Items</h3>
-        <div id="lineItemsContainer" class="full-width"></div>
-        <button type="button" class="btn-primary add-line-item-btn" onclick="addLineItem()">Add Line Item</button>
+  <h3>Line Items</h3>
+  <div id="lineItemsContainer" class="full-width"></div>
+  <button type="button" class="btn-primary add-line-item-btn" onclick="addLineItem()">Add Line Item</button>
 
-        <div class="button-group">
-          <button type="submit" class="btn-primary">Save Invoice</button>
-          <button type="button" class="btn-secondary" id="emailInvoiceBtn">Email to Client</button>
-        </div>
-        <p id="message" class="form-message"></p>
-      </form>
+  <div class="button-group">
+    <button type="submit" class="btn-primary">Save Invoice</button>
+    <button type="button" class="btn-secondary" id="emailInvoiceBtn">Email to Client</button>
+  </div>
+  <p id="message" class="form-message"></p>
+</form>
     </div>
   </div>
 </section>
