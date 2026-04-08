@@ -1,4 +1,4 @@
-/* General Form Styling (Can be part of your main styles.css or create_invoice.css) */
+/* General Form Styling */
 body {
     font-family: 'Poppins', Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    max-width: 900px; /* bumped from 800px for 2-col */
+    max-width: 1000px; /* wide enough for 2 cols */
     margin: 30px auto;
     padding: 20px;
     background: white;
@@ -28,32 +28,50 @@ h2 {
 h3 {
     text-align: left;
     margin-bottom: 15px;
+    margin-top: 25px;
 }
 
-/* NEW: 2-column grid for the main form */
+/* Main form stacks the fieldsets vertically */
 form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Force these elements to span full width */
-form h3,
-#message,
-.line-item-section,
-.add-line-item-btn,
-.button-group {
-    grid-column: 1 / -1;
+/* Fieldset grouping styles */
+.form-fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px 20px;
+    margin: 0;
+    background: #fafbfc;
+}
+
+.form-fieldset legend {
+    font-weight: 600;
+    font-size: 15px;
+    color: #007bff;
+    padding: 0 8px;
+    margin-left: -8px;
+}
+
+/* 2-column grid inside each fieldset */
+.fieldset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+    gap: 14px 20px;
+    margin-top: 8px;
 }
 
 .form-group {
-    margin-bottom: 0; /* grid gap handles spacing now */
+    margin-bottom: 0;
 }
 
 label {
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 5px;
     display: block;
+    font-size: 14px;
 }
 
 input[type="text"],
@@ -64,11 +82,17 @@ input[type="date"],
 textarea,
 select {
     width: 100%;
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 1em;
+    background: white;
+}
+
+input[readonly] {
+    background: #f5f5f5;
+    cursor: not-allowed;
 }
 
 textarea {
@@ -80,7 +104,7 @@ textarea {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* Primary Button Style */
@@ -116,30 +140,12 @@ textarea {
 }
 
 /* Message Styles */
-.message {
-    margin-top: 15px;
+.form-message {
+    margin-top: 8px;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
     font-weight: bold;
-}
-
-.message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.message.info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
 }
 
 /* Line Item Specific Styles */
@@ -159,10 +165,9 @@ textarea {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
 }
-.line-item-header h3,
 .line-item-header h4 {
     margin: 0;
-    font-size: 1.1em;
+    font-size: 1.05em;
     color: #333;
 }
 
@@ -179,29 +184,14 @@ textarea {
     background-color: #218838;
 }
 
-/* Button for removing line items */
-.remove-line-item-btn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-}
-.remove-line-item-btn:hover {
-    background-color: #c82333;
-}
-
-/* Grid layout for line item fields */
+/* 4-column grid for line item fields */
 .line-item-fields {
     display: grid;
     grid-template-columns: 2fr 0.8fr 1fr 1fr; /* Description, Qty, Rate, Amount */
     gap: 12px;
     align-items: end;
 }
-.line-item-fields .form-group {
+.line-item-fields.form-group {
     margin-bottom: 0;
 }
 .line-item-fields label {
@@ -210,43 +200,43 @@ textarea {
     margin-bottom: 3px;
 }
 
-/* Utility: make any form-group span full width if needed */
+/* Utility: span both columns inside a fieldset */
 .full-width {
     grid-column: 1 / -1;
 }
 
-/* Responsive adjustments */
+/* Responsive: drop to 1 col inside groups on mobile */
 @media (max-width: 768px) {
-    form {
-        grid-template-columns: 1fr; /* back to 1 col on mobile */
-        gap: 15px;
-    }
-    .container {
-        max-width: 800px;
-        margin: 15px auto;
+ .container {
+        max-width: 100%;
+        margin: 15px;
         padding: 15px;
+    }
+ .fieldset-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 }
 
 @media (max-width: 600px) {
-   .line-item-fields {
+.line-item-fields {
         grid-template-columns: 1fr;
     }
-   .line-item-header {
+.line-item-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 }
 
-/* Header Specific Styles (from your original code) */
+/* Header styles - unchanged */
 header {
   background-color: #ffffff;
   padding: 15px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-header .container {
+header.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -260,12 +250,12 @@ header .container {
   align-items: center;
 }
 
-.logo-area .logo {
+.logo-area.logo {
   height: 40px;
   margin-right: 10px;
 }
 
-.logo-area .logo-text {
+.logo-area.logo-text {
   font-size: 1.5em;
   font-weight: 700;
   color: #007bff;
@@ -286,7 +276,7 @@ nav a:hover {
 
 .nav-cta {
   background-color: #007bff;
-  color: white !important;
+  color: white!important;
   padding: 8px 15px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -305,7 +295,6 @@ nav a:hover {
   color: #555;
 }
 
-/* Responsive Navigation */
 @media (max-width: 768px) {
   nav {
     display: none;
@@ -334,7 +323,7 @@ nav a:hover {
     border-bottom: none;
   }
 
- .hamburger {
+.hamburger {
     display: block;
   }
 }
