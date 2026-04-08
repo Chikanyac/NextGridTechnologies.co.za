@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,28 +18,57 @@
 </script>
 <style>
   /* Tighter spacing overrides for invoice form */
-  .signin-component { padding: 30px 25px; }
-  .signin-component h2 { margin-bottom: 4px; }
-  .contact-subtext { margin-bottom: 20px; }
-  .user-form .form-group { margin-bottom: 12px; }
-  .user-form input, .user-form select, .user-form textarea { 
-    margin-bottom: 0; 
+ .signin-component { padding: 30px 25px; }
+ .signin-component h2 { margin-bottom: 4px; }
+ .contact-subtext { margin-bottom: 20px; }
+ .user-form.form-group { margin-bottom: 12px; }
+ .user-form input,.user-form select,.user-form textarea {
+    margin-bottom: 0;
     padding: 10px 12px;
+    width: 100%;
+    box-sizing: border-box;
   }
-  .user-form label { 
-    margin-bottom: 4px; 
+ .user-form label {
+    margin-bottom: 4px;
     font-size: 14px;
+    display: block;
   }
-  .line-item-section { 
-    padding: 12px; 
-    margin-bottom: 12px; 
+ .line-item-section {
+    padding: 12px;
+    margin-bottom: 12px;
   }
-  .line-item-section .form-group { margin-bottom: 8px; }
-  .line-item-header h4 { font-size: 15px; }
+ .line-item-section.form-group { margin-bottom: 8px; }
+ .line-item-header h4 { font-size: 15px; }
   h3 { margin-top: 20px; margin-bottom: 12px; font-size: 18px; }
-  .add-line-item-btn { margin-bottom: 15px; padding: 8px 16px; }
-  .form-message { margin-top: 8px; }
-  .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
+ .add-line-item-btn { margin-bottom: 15px; padding: 8px 16px; }
+ .form-message { margin-top: 8px; }
+ .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* New: 2-column layout */
+ .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+  }
+ .form-grid.full-width {
+    grid-column: 1 / -1;
+  }
+ .line-item-fields {
+    display: grid;
+    grid-template-columns: 2fr 0.8fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* Responsive: back to 1 col on mobile */
+  @media (max-width: 768px) {
+   .form-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+   .line-item-fields {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
@@ -50,63 +80,66 @@
     <div class="signin-component">
       <h2 style="text-align: center; margin-bottom: 8px;">Create / Edit Invoice</h2>
       <p class="contact-subtext" style="text-align: center;">Generate invoices for your clients</p>
-      
+
       <form id="invoiceForm" class="user-form">
-        <div class="form-group">
-          <label>Do you want to edit an existing invoice?</label>
-          <select id="editExistingInvoice" required>
-            <option value="no" selected>No</option>
-            <option value="yes">Yes</option>
-          </select>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Do you want to edit an existing invoice?</label>
+            <select id="editExistingInvoice" required>
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="clientSelect">Select Client:</label>
+            <select id="clientSelect" required>
+              <option value="">-- Select a client --</option>
+            </select>
+            <input type="hidden" id="selectedUserId">
+          </div>
+
+          <div class="form-group full-width" id="existingInvoiceSelectGroup" style="display:none;">
+            <label for="existingInvoiceSelect">Select Existing Invoice:</label>
+            <select id="existingInvoiceSelect">
+              <option value="">-- Select Invoice --</option>
+            </select>
+          </div>
+
+          <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
+          <div class="form-group"><label for="clientAddress">Client Address:</label><input type="text" id="clientAddress" readonly></div>
+          <div class="form-group"><label for="clientPhone">Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
+          <div class="form-group"><label for="invoiceNumber">Invoice Number:</label><input type="text" id="invoiceNumber" required></div>
+
+          <div class="form-group"><label for="invoiceDate">Invoice Date:</label><input type="date" id="invoiceDate" required></div>
+          <div class="form-group"><label for="issueDate">Issue Date:</label><input type="date" id="issueDate" required></div>
+          <div class="form-group"><label for="dueDate">Due Date:</label><input type="date" id="dueDate" required></div>
+
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" required>
+              <option value="draft">Draft</option>
+              <option value="sent">Sent</option>
+              <option value="paid">Paid</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+
+          <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
+          <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
+
+          <div class="form-group full-width"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="3"></textarea></div>
+
+          <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
+          <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
+          <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
+          <div class="form-group"><label for="vatRate">VAT Rate (%):</label><input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100"></div>
+          <div class="form-group"><label for="vatAmount">VAT Amount (R):</label><input type="number" id="vatAmount" step="0.01" value="0.00" readonly></div>
+          <div class="form-group"><label for="totalAmountDue">Total Amount Due (calculated):</label><input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly></div>
         </div>
-
-        <div class="form-group">
-          <label for="clientSelect">Select Client:</label>
-          <select id="clientSelect" required>
-            <option value="">-- Select a client --</option>
-          </select>
-          <input type="hidden" id="selectedUserId">
-        </div>
-
-        <div class="form-group" id="existingInvoiceSelectGroup" style="display:none;">
-          <label for="existingInvoiceSelect">Select Existing Invoice:</label>
-          <select id="existingInvoiceSelect">
-            <option value="">-- Select Invoice --</option>
-          </select>
-        </div>
-
-        <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
-        <div class="form-group"><label for="clientAddress">Client Address:</label><input type="text" id="clientAddress" readonly></div>
-        <div class="form-group"><label for="clientPhone">Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
-
-        <div class="form-group"><label for="invoiceNumber">Invoice Number:</label><input type="text" id="invoiceNumber" required></div>
-        <div class="form-group"><label for="invoiceDate">Invoice Date:</label><input type="date" id="invoiceDate" required></div>
-        <div class="form-group"><label for="issueDate">Issue Date:</label><input type="date" id="issueDate" required></div>
-        <div class="form-group"><label for="dueDate">Due Date:</label><input type="date" id="dueDate" required></div>
-
-        <div class="form-group">
-          <label for="status">Status:</label>
-          <select id="status" required>
-            <option value="draft">Draft</option>
-            <option value="sent">Sent</option>
-            <option value="paid">Paid</option>
-            <option value="overdue">Overdue</option>
-          </select>
-        </div>
-
-        <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
-        <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
-        <div class="form-group"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="3"></textarea></div>
-
-        <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
-        <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
-        <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
-        <div class="form-group"><label for="vatRate">VAT Rate (%):</label><input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100"></div>
-        <div class="form-group"><label for="vatAmount">VAT Amount (R):</label><input type="number" id="vatAmount" step="0.01" value="0.00" readonly></div>
-        <div class="form-group"><label for="totalAmountDue">Total Amount Due (calculated):</label><input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly></div>
 
         <h3>Line Items</h3>
-        <div id="lineItemsContainer"></div>
+        <div id="lineItemsContainer" class="full-width"></div>
         <button type="button" class="btn-primary add-line-item-btn" onclick="addLineItem()">Add Line Item</button>
 
         <div class="button-group">
@@ -142,14 +175,14 @@ const supabaseClient = supabase.createClient(
 
 // Load header
 fetch('header.html')
-  .then(res => res.text())
-  .then(async (data) => {
+ .then(res => res.text())
+ .then(async (data) => {
     document.getElementById('header').innerHTML = data;
-    
+
     document.getElementById('hamburger')?.addEventListener('click', () => {
       document.getElementById('navMenu')?.classList.toggle('active');
     });
-    
+
     const scrollBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
@@ -158,7 +191,7 @@ fetch('header.html')
         scrollBtn?.classList.remove('show');
       }
     });
-    
+
     scrollBtn?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -179,10 +212,10 @@ fetch('header.html')
 
         if (adminLinkContainer) {
           const { data: profileData } = await supabaseClient
-             .from('profiles')
-             .select('role')
-             .eq('user_id', user.id)
-             .single();
+            .from('profiles')
+            .select('role')
+            .eq('user_id', user.id)
+            .single();
 
           if (profileData && profileData.role === 'admin') {
               adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
@@ -219,7 +252,7 @@ const messageDiv = document.getElementById('message');
 // =====================
 function showMessage(msg,type='info'){
   messageDiv.textContent=msg;
-  messageDiv.style.color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'orange';
+  messageDiv.style.color = type === 'error'? 'red' : type === 'success'? 'green' : 'orange';
   setTimeout(()=>{messageDiv.textContent='';},5000);
 }
 
@@ -473,27 +506,27 @@ const invoiceData = {
 document.getElementById('emailInvoiceBtn').addEventListener('click', async () => {
   const invoiceId = existingInvoiceSelect.value;
   const userId = selectedUserIdInput.value;
-  
+
   if (!invoiceId && editExistingInvoiceSelect.value === 'yes') {
     showMessage('Select an invoice first', 'error');
     return;
   }
-  
+
   if (!userId) {
     showMessage('Select a client first', 'error');
     return;
   }
 
   showMessage('Sending invoice...', 'info');
-  
+
   try {
     let idToEmail = invoiceId;
     if (!idToEmail) {
       const { data } = await supabaseClient
-        .from('invoices')
-        .select('id')
-        .eq('invoice_number', invoiceNumberInput.value)
-        .single();
+       .from('invoices')
+       .select('id')
+       .eq('invoice_number', invoiceNumberInput.value)
+       .single();
       idToEmail = data?.id;
     }
 
