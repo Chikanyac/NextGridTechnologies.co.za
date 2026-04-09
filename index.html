@@ -383,20 +383,34 @@
 <script>
 // Wooosh on scroll
 const woooshElements = document.querySelectorAll('.service-card, .process-card, .check-list li, .results-grid > div');
+const testimonialElements = document.querySelectorAll('.testimonial-card');
 
 const woooshObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('animate-wooosh');
-      woooshObserver.unobserve(entry.target); // Only animate once
+      woooshObserver.unobserve(entry.target);
     }
   });
 }, {
-  threshold: 0.2, // Start when 20% visible
-  rootMargin: '0px 0px -50px 0px' // Trigger a bit early
+  threshold: 0.2,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+// Separate observer for testimonials so they actually show
+const testimonialObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-testimonial');
+      testimonialObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1
 });
 
 woooshElements.forEach(el => woooshObserver.observe(el));
-</script>  
+testimonialElements.forEach(el => testimonialObserver.observe(el));
+</script>
 </body>
 </html>
