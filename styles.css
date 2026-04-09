@@ -1533,3 +1533,85 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     animation: none !important;
   }
 }
+/* ========= SERVICE IMAGES FLANKING BOTTOM CARD ========= */
+.service-image-wrap {
+  grid-row: 2; /* Force to second row */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  filter: blur(4px);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(2,6,23,0.1);
+  border: 2px solid #bbf7d0;
+}
+
+.service-image-left {
+  grid-column: 1 / 2;
+}
+
+.service-image-right {
+  grid-column: 3 / 4;
+}
+
+.service-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Green glow overlay on hover */
+.service-image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(14,165,233,0.2));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-image-wrap:hover img {
+  transform: scale(1.08) rotate(1deg);
+}
+
+.service-image-wrap:hover::after {
+  opacity: 1;
+}
+
+/* Make sure the 4th card stays centered */
+.services-snapshot .service-card:nth-child(5) {
+  grid-column: 2 / 3;
+  grid-row: 2;
+}
+
+/* Animation delays for the images so they wooosh after the cards */
+.service-image-left { animation-delay: 0.5s; }
+.service-image-right { animation-delay: 0.6s; }
+
+/* Tablet: images go full width above/below the 2x2 grid */
+@media (max-width: 992px) {
+  .service-image-wrap {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    height: 250px;
+  }
+  .service-image-left {
+    order: 3; /* Puts it after first 2 cards */
+  }
+  .service-image-right {
+    order: 6; /* Puts it at the very end */
+  }
+  .services-snapshot .service-card:nth-child(5) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* Mobile: everything stacks, images 200px tall */
+@media (max-width: 600px) {
+  .service-image-wrap {
+    height: 200px;
+  }
+}
