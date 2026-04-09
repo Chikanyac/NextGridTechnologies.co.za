@@ -380,6 +380,23 @@
           });
     });
 </script>
-  
+<script>
+// Wooosh on scroll
+const woooshElements = document.querySelectorAll('.service-card, .process-card, .check-list li, .results-grid > div');
+
+const woooshObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-wooosh');
+      woooshObserver.unobserve(entry.target); // Only animate once
+    }
+  });
+}, {
+  threshold: 0.2, // Start when 20% visible
+  rootMargin: '0px 0px -50px 0px' // Trigger a bit early
+});
+
+woooshElements.forEach(el => woooshObserver.observe(el));
+</script>  
 </body>
 </html>
