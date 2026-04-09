@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,66 +9,13 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="create_invoice.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-C9DS2C71G6');
 </script>
-<style>
-  /* Tighter spacing overrides for invoice form */
- .signin-component { padding: 30px 25px; }
- .signin-component h2 { margin-bottom: 4px; }
- .contact-subtext { margin-bottom: 20px; }
- .user-form.form-group { margin-bottom: 12px; }
- .user-form input,.user-form select,.user-form textarea {
-    margin-bottom: 0;
-    padding: 10px 12px;
-    width: 100%;
-    box-sizing: border-box;
-  }
- .user-form label {
-    margin-bottom: 4px;
-    font-size: 14px;
-    display: block;
-  }
- .line-item-section {
-    padding: 12px;
-    margin-bottom: 12px;
-  }
- .line-item-section.form-group { margin-bottom: 8px; }
- .line-item-header h4 { font-size: 15px; }
-  h3 { margin-top: 20px; margin-bottom: 12px; font-size: 18px; }
- .add-line-item-btn { margin-bottom: 15px; padding: 8px 16px; }
- .form-message { margin-top: 8px; }
- .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  /* New: 2-column layout */
- .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 24px;
-  }
- .form-grid.full-width {
-    grid-column: 1 / -1;
-  }
- .line-item-fields {
-    display: grid;
-    grid-template-columns: 2fr 0.8fr 1fr 1fr;
-    gap: 8px;
-  }
-
-  /* Responsive: back to 1 col on mobile */
-  @media (max-width: 768px) {
-   .form-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-   .line-item-fields {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 </head>
 <body>
 
@@ -80,7 +26,6 @@
     <div class="signin-component">
       <h2 style="text-align: center; margin-bottom: 8px;">Create / Edit Invoice</h2>
       <p class="contact-subtext" style="text-align: center;">Generate invoices for your clients</p>
-
 
 <form id="invoiceForm" class="user-form">
 
@@ -175,6 +120,76 @@
   </div>
 </section>
 
+<!-- Hidden template for PDF generation -->
+<div id="invoiceTemplate" style="display:none;">
+  <div class="invoice-box" id="invoiceContent">
+    <div class="company-header">
+      <div class="company-name">NEXTGRID TECHNOLOGIES (PTY) LTD</div>
+      <div class="company-details">
+        Registration No: <span id="companyReg">2024/123456/07</span><br>
+        VAT No: <span id="companyVat">4123456789</span> (if registered)<br>
+        Directors: <span id="companyDirectors">J. Smith, A. Naidoo</span><br>
+        Address: Pretoria, Gauteng, South Africa<br>
+        Email: info@nextgridtechnologies.co.za | Tel: <span id="companyTel">012 345 6789</span>
+      </div>
+    </div>
+
+    <div class="invoice-title">TAX INVOICE</div>
+
+    <div class="invoice-meta">
+      <div class="bill-to">
+        <h4>Bill To:</h4>
+        <div>Client Name: <span id="clientName">_____________________</span></div>
+        <div>Address: <span id="clientAddr">_____________________</span></div>
+        <div>VAT No: <span id="clientVat">_____________________</span></div>
+      </div>
+      <div class="invoice-details">
+        <div class="meta-row"><span>Invoice No:</span> <strong id="invNumber">INV-001</strong></div>
+        <div class="meta-row"><span>Date:</span> <span id="invDate">__________</span></div>
+        <div class="meta-row"><span>Due Date:</span> <span id="dueDateInv">__________</span></div>
+      </div>
+    </div>
+
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="itemsBody"></tbody>
+    </table>
+
+    <div class="totals">
+      <div class="totals-row">
+        <span>Subtotal:</span>
+        <span>R <span id="subtotalInv">0.00</span></span>
+      </div>
+      <div class="totals-row" id="discountRow" style="display:none;">
+        <span>Discount:</span>
+        <span>R <span id="discountInv">0.00</span></span>
+      </div>
+      <div class="totals-row">
+        <span>VAT 15%:</span>
+        <span>R <span id="vatInv">0.00</span></span>
+      </div>
+      <div class="totals-row total">
+        <span>TOTAL DUE:</span>
+        <span>R <span id="totalInv">0.00</span></span>
+      </div>
+    </div>
+
+    <div class="banking">
+      <h4>Banking Details:</h4>
+      <div>Bank: <span id="bankName">FNB</span> Account No: <span id="accNo">62345678901</span></div>
+      <div>Branch Code: <span id="branch">250655</span> Account Type: <span id="accType">Cheque</span></div>
+      <div>Reference: Invoice Number</div>
+    </div>
+  </div>
+</div>
+
 <div class="bottom-nav">
 <a href="index.html"><span>🏠</span><p>Home</p></a>
 <a href="services.html"><span>🛠</span><p>Services</p></a>
@@ -201,29 +216,20 @@ fetch('header.html')
  .then(res => res.text())
  .then(async (data) => {
     document.getElementById('header').innerHTML = data;
-
     document.getElementById('hamburger')?.addEventListener('click', () => {
       document.getElementById('navMenu')?.classList.toggle('active');
     });
-
     const scrollBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollBtn?.classList.add('show');
-      } else {
-        scrollBtn?.classList.remove('show');
-      }
+      if (window.scrollY > 300) scrollBtn?.classList.add('show');
+      else scrollBtn?.classList.remove('show');
     });
-
     scrollBtn?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    // Auth state
     const { data: { user } } = await supabaseClient.auth.getUser();
     const adminLinkContainer = document.getElementById('adminLinkContainer');
     const loginLogoutLink = document.getElementById('loginLogoutLink');
-
     if (user && loginLogoutLink) {
         loginLogoutLink.textContent = 'Logout';
         loginLogoutLink.href = '#';
@@ -232,14 +238,8 @@ fetch('header.html')
             await supabaseClient.auth.signOut();
             window.location.href = 'login.html';
         };
-
         if (adminLinkContainer) {
-          const { data: profileData } = await supabaseClient
-            .from('profiles')
-            .select('role')
-            .eq('user_id', user.id)
-            .single();
-
+          const { data: profileData } = await supabaseClient.from('profiles').select('role').eq('user_id', user.id).single();
           if (profileData && profileData.role === 'admin') {
               adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
           }
@@ -252,6 +252,7 @@ fetch('header.html')
 
 let allClients = [];
 let currentLineItemId = 0;
+let insertedInvoiceId = null;
 
 // Elements
 const invoiceForm = document.getElementById('invoiceForm');
@@ -270,9 +271,6 @@ const existingInvoiceSelectGroup = document.getElementById('existingInvoiceSelec
 const existingInvoiceSelect = document.getElementById('existingInvoiceSelect');
 const messageDiv = document.getElementById('message');
 
-// =====================
-// Utility Functions
-// =====================
 function showMessage(msg,type='info'){
   messageDiv.textContent=msg;
   messageDiv.style.color = type === 'error'? 'red' : type === 'success'? 'green' : 'orange';
@@ -325,11 +323,8 @@ function calculateTotals(){
   document.getElementById('totalAmountDue').value=total.toFixed(2);
 }
 
-// =====================
-// Fetch Clients
-// =====================
 async function fetchClientProfiles(){
-  const {data,error}=await supabaseClient.from('profiles').select('user_id,full_name,email,company,address,phone_number').eq('role','client');
+  const {data,error}=await supabaseClient.from('profiles').select('user_id,full_name,email,company,address,phone_number,vat_number').eq('role','client');
   if(error){ showMessage(error.message,"error"); return []; }
   return data||[];
 }
@@ -345,9 +340,6 @@ function populateClients(clients){
   });
 }
 
-// =====================
-// Autofill Client
-// =====================
 function autofillClientDetails(){
   const selectedId=clientSelect.value;
   const client=allClients.find(c=>c.user_id===selectedId);
@@ -361,221 +353,8 @@ function autofillClientDetails(){
   }
 }
 
-// =====================
-// Fetch Existing Invoices
-// =====================
 async function fetchInvoicesForClient(clientId){
   if(!clientId) return [];
   const {data,error}=await supabaseClient.from('invoices').select('*').eq('user_id',clientId);
   if(error){ showMessage(error.message,"error"); return []; }
-  return data||[];
-}
-
-async function populateExistingInvoices(clientId){
-  const invoices=await fetchInvoicesForClient(clientId);
-  existingInvoiceSelect.innerHTML='<option value="">-- Select Invoice --</option>';
-  invoices.forEach(inv=>{
-    const option=document.createElement('option');
-    option.value=inv.id;
-    option.textContent=inv.invoice_number;
-    existingInvoiceSelect.appendChild(option);
-  });
-}
-
-// =====================
-// Invoice Number Generator
-// =====================
-async function generateNextInvoiceNumber(){
-  const {data,error}=await supabaseClient.from('invoices').select('invoice_number').order('id',{ascending:false}).limit(1);
-  if(error){ console.error(error); return 'NGT-2026-0001'; }
-  if(data && data.length>0){
-    const lastNum=parseInt(data[0].invoice_number.split('-')[2]||'0')+1;
-    return 'NGT-2026-'+String(lastNum).padStart(4,'0');
-  }else return 'NGT-2026-0001';
-}
-
-// =====================
-// Event Listeners
-// =====================
-clientSelect.addEventListener('change',async ()=>{
-  autofillClientDetails();
-  if(editExistingInvoiceSelect.value==='yes'){
-    existingInvoiceSelectGroup.style.display='block';
-    await populateExistingInvoices(clientSelect.value);
-  }
-});
-
-editExistingInvoiceSelect.addEventListener('change',async ()=>{
-  if(editExistingInvoiceSelect.value==='yes'){
-    existingInvoiceSelectGroup.style.display='block';
-    if(clientSelect.value) await populateExistingInvoices(clientSelect.value);
-  }else{
-    existingInvoiceSelectGroup.style.display='none';
-    invoiceNumberInput.value=await generateNextInvoiceNumber();
-  }
-});
-
-existingInvoiceSelect.addEventListener('change',async ()=>{
-  const invoiceId=existingInvoiceSelect.value;
-  if(!invoiceId) return;
-  const {data,error}=await supabaseClient.from('invoices').select('*').eq('id',invoiceId).single();
-  if(error) { showMessage(error.message,'error'); return; }
-  const inv=data;
-  invoiceNumberInput.value=inv.invoice_number;
-  invoiceDateInput.value=inv.invoice_date;
-  issueDateInput.value=inv.issue_date;
-  dueDateInput.value=inv.due_date;
-  document.getElementById('status').value=inv.status;
-  document.getElementById('paymentTerms').value=inv.payment_terms||'Net 15';
-  document.getElementById('purchaseOrder').value=inv.purchase_order||'';
-  document.getElementById('paymentInstructions').value=inv.payment_instructions||'';
-  // Load line items
-  const {data:items}=await supabaseClient.from('invoice_items').select('*').eq('invoice_id',invoiceId);
-  lineItemsContainer.innerHTML='';
-  currentLineItemId=0;
-  items.forEach(it=>addLineItem(it.description,it.quantity,it.rate));
-  calculateTotals();
-});
-
-// =====================
-// Submit Invoice
-// =====================
-invoiceForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  showMessage('Saving invoice...','info');
-
-  try{
-   const userId = selectedUserIdInput.value;
-if (!userId) throw new Error('Select a client.');
-
-const selectedClient = allClients.find(c => c.user_id === userId);
-if (!selectedClient) throw new Error('Client not found.');
-
-let invoiceId = null;
-if (editExistingInvoiceSelect.value === 'yes') {
-  invoiceId = existingInvoiceSelect.value || null;
-}
-
-const invNumber = invoiceNumberInput.value || await generateNextInvoiceNumber();
-
-const invoiceData = {
-  user_id: userId,
-  client_name: selectedClient.full_name || selectedClient.company,
-  client_email: selectedClient.email,
-  client_address: selectedClient.address,
-  client_phone: selectedClient.phone_number,
-  invoice_number: invNumber,
-  invoice_date: invoiceDateInput.value,
-  issue_date: issueDateInput.value,
-  due_date: dueDateInput.value,
-  status: document.getElementById('status').value,
-  subtotal: parseFloat(document.getElementById('subtotal').value),
-  discount_amount: parseFloat(document.getElementById('discountAmount').value),
-  vat_percentage: parseFloat(document.getElementById('vatRate').value),
-  vat_amount: parseFloat(document.getElementById('vatAmount').value),
-  total_amount_due: parseFloat(document.getElementById('totalAmountDue').value),
-  payment_terms: document.getElementById('paymentTerms').value,
-  purchase_order: document.getElementById('purchaseOrder').value || null,
-  payment_instructions: document.getElementById('paymentInstructions').value,
-  currency: 'ZAR'
-};
-
-    let insertedInvoice;
-    if(invoiceId){
-      const {data,error}=await supabaseClient.from('invoices').update(invoiceData).eq('id',invoiceId).select('*');
-      if(error) throw new Error(error.message);
-      insertedInvoice=data[0];
-    }else{
-      const {data,error}=await supabaseClient.from('invoices').insert(invoiceData).select('*');
-      if(error) throw new Error(error.message);
-      insertedInvoice=data[0];
-    }
-
-    // Save line items
-    const lineItems=[];
-    document.querySelectorAll('.line-item-section').forEach(section=>{
-      const id=section.dataset.id;
-      lineItems.push({
-        invoice_id:insertedInvoice.id,
-        description:document.getElementById(`itemDescription_${id}`).value,
-        quantity:parseFloat(document.getElementById(`itemQty_${id}`).value),
-        rate:parseFloat(document.getElementById(`itemRate_${id}`).value),
-        amount:parseFloat(document.getElementById(`itemAmount_${id}`).value)
-      });
-    });
-
-    if(lineItems.length>0){
-      if(invoiceId){
-        await supabaseClient.from('invoice_items').delete().eq('invoice_id',invoiceId);
-      }
-      const {error}=await supabaseClient.from('invoice_items').insert(lineItems);
-      if(error) throw new Error(error.message);
-    }
-
-    showMessage('Invoice saved successfully!','success');
-    invoiceForm.reset();
-    lineItemsContainer.innerHTML='';
-    addLineItem();
-    invoiceNumberInput.value=await generateNextInvoiceNumber();
-  }catch(err){
-    console.error(err);
-    showMessage(err.message,'error');
-  }
-});
-
-// =====================
-// Email Invoice
-// =====================
-document.getElementById('emailInvoiceBtn').addEventListener('click', async () => {
-  const invoiceId = existingInvoiceSelect.value;
-  const userId = selectedUserIdInput.value;
-
-  if (!invoiceId && editExistingInvoiceSelect.value === 'yes') {
-    showMessage('Select an invoice first', 'error');
-    return;
-  }
-
-  if (!userId) {
-    showMessage('Select a client first', 'error');
-    return;
-  }
-
-  showMessage('Sending invoice...', 'info');
-
-  try {
-    let idToEmail = invoiceId;
-    if (!idToEmail) {
-      const { data } = await supabaseClient
-       .from('invoices')
-       .select('id')
-       .eq('invoice_number', invoiceNumberInput.value)
-       .single();
-      idToEmail = data?.id;
-    }
-
-    if (!idToEmail) throw new Error('Save the invoice first');
-
-    const { data, error } = await supabaseClient.functions.invoke('email-invoice', {
-      body: { invoice_id: idToEmail }
-    });
-
-    if (error) throw error;
-    showMessage('Invoice emailed successfully!', 'success');
-  } catch (err) {
-    console.error(err);
-    showMessage(err.message || 'Failed to email invoice', 'error');
-  }
-});
-
-// =====================
-// Initialize
-// =====================
-document.addEventListener('DOMContentLoaded',async ()=>{
-  const clients=await fetchClientProfiles();
-  populateClients(clients);
-  addLineItem();
-  invoiceNumberInput.value=await generateNextInvoiceNumber();
-});
-</script>
-</body>
-</html>
+  return data||
