@@ -1133,93 +1133,142 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   margin-bottom: 6px;
 }
 
-/* ========= SERVICES PAGE — FINAL OVERRIDE ========= */
+/* ========= SERVICES GRID - 3x2 WITH IMAGES ========= */
 .services-snapshot {
-  padding: 4rem 1rem !important;
-  background: #f8fafc !important;
-  text-align: center !important;
+  padding: 5rem 1rem;
+  background: #fff;
+}
+
+.services-snapshot h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: var(--text);
+  margin-bottom: 12px;
 }
 
 .services-snapshot .section-intro {
-  max-width: 650px;
-  margin: 0 auto 30px;
-  color: #475569 !important;
+  text-align: center;
+  font-weight: 500;
+  color: var(--muted);
+  max-width: 700px;
+  margin: 0 auto 40px;
 }
 
-.services-snapshot .services-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  gap: 24px !important;
-  margin-top: 30px !important;
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin: 40px auto;
+  max-width: 1100px;
 }
 
-/* Card base */
-.services-snapshot .service-card {
-  background: #ffffff !important;
-  color: #0f172a !important;
-  padding: 1.8rem !important;
-  border-radius: 12px !important;
-  border: 1px solid #e2f5ef !important;
-  box-shadow: 0 10px 25px rgba(2,6,23,0.06) !important;
-  text-align: left !important;
+.service-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2f5ef;
+  box-shadow: 0 10px 25px rgba(2,6,23,0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.services-snapshot .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(2,6,23,0.1);
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(16,185,129,0.15);
   border-color: var(--accent-2);
 }
 
-/* Card text */
-.services-snapshot .service-card h3 {
-  color: #0f172a !important;
-  margin: 10px 0 8px !important;
-  font-size: 1.25rem !important;
+.service-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  background: #f1f5f9;
 }
 
-.services-snapshot .service-card p {
-  color: #475569 !important;
-  font-size: 0.95rem !important;
-  line-height: 1.5 !important;
-  margin-bottom: 12px !important;
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-/* Bullet list */
-.services-snapshot .service-features {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: #475569 !important;
-  font-size: 0.9rem !important;
+.service-card:hover .service-image img {
+  transform: scale(1.1);
 }
 
-.services-snapshot .service-features li {
-  padding: 6px 0 6px 1.4rem !important;
-  position: relative !important;
-  color: #475569 !important;
+.service-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,1));
 }
 
-.services-snapshot .service-features li::before {
-  content: "✓";
+.service-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.service-card h3 {
+  font-size: 1.3rem;
+  color: var(--text);
+  padding: 0 24px;
+  margin: 20px 0 12px 0;
+}
+
+.service-card p {
+  color: var(--muted);
+  padding: 0 24px;
+  margin: 0 0 16px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0 24px 24px 24px;
+  margin: 0;
+  flex: 1;
+}
+
+.service-features li {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.service-features li::before {
+  content: '✓';
   position: absolute;
   left: 0;
-  color: #10b981;
+  color: var(--accent);
   font-weight: 700;
 }
 
-/* Icon */
-.services-snapshot .service-icon {
-  width: 60px;
-  height: 60px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  font-size: 28px !important;
-  margin-bottom: 1rem !important;
-  box-shadow: 0 6px 18px rgba(16,185,129,0.25);
+/* Tablet: 2 columns = 2x3 */
+@media (max-width: 968px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .service-image {
+    height: 160px;
+  }
 }
 
 /* CTA */
