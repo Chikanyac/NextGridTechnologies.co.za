@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M365 Security Checklist 2026: 12 Steps to POPIA Compliance | NextGrid Technologies</title>
+<meta name="description" content="Download the free M365 Security Checklist 2026 for South African businesses. 12 steps to lock down Microsoft 365, stop email hacks, and meet POPIA requirements.">
+<meta name="keywords" content="m365 security south africa, microsoft 365 security checklist, popla compliance m365, office 365 security, secure m365 small business">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
+  fetch('header.html').then(res => res.text()).then(data => {
+    document.getElementById('header').innerHTML = data;
+  });
+</script>
+
+<section class="support-section" style="padding-top:60px;">
+<div class="container">
+<h1>M365 Security Checklist 2026: 12 Steps to POPIA Compliance</h1>
+<p class="post-date">Published April 2026 | 4 min read</p>
+<p>Microsoft 365 is the #1 target for SA cyber attacks. Business Email Compromise cost South African companies R2.2 billion last year, and POPIA fines now reach R10 million. Most breaches we see could’ve been stopped with 30 minutes of settings.</p>
+<p>We secured a 120-user manufacturer’s M365 tenant in 3 days using this exact checklist. Use it to audit your own setup, or send it to your IT guy.</p>
+
+<h2>The 12-Point M365 Lockdown Checklist</h2>
+<ol>
+  <li><strong>Enforce MFA for all users, no exceptions</strong> – Use Microsoft Authenticator app. SMS is not secure. POPIA: You must protect account access.</li>
+  <li><strong>Block legacy authentication</strong> – Old mail apps bypass MFA. Attackers use this daily. Disable in Azure AD.</li>
+  <li><strong>Create separate admin accounts</strong> – Never use your daily email as Global Admin. One breach = total takeover.</li>
+  <li><strong>Set up Conditional Access</strong> – Block logins from Nigeria, Russia, China if you don’t operate there. Require compliant devices.</li>
+  <li><strong>Enable mailbox auditing</strong> – Turned off by default. You need this for POPIA breach investigations.</li>
+  <li><strong>Configure Safe Links & Safe Attachments</strong> – Stops 99% of phishing emails. Part of Defender for Office 365.</li>
+  <li><strong>Disable auto-forwarding to external emails</strong> – Common ex-employee/attacker tactic to steal data silently.</li>
+  <li><strong>Set up data loss prevention (DLP)</strong> – Auto-block ID numbers, bank details, CVs from being emailed externally. POPIA requirement.</li>
+  <li><strong>Review OAuth app permissions</strong> – Revoke “Mail.ReadWrite” access from dodgy apps. Attackers buy access tokens.</li>
+  <li><strong>Enable Unified Audit Log for 1 year</strong> – Default is 90 days. You need 1 year for POPIA compliance.</li>
+  <li><strong>Turn on Alerts: “Elevation of privilege” + “New global admin”</strong> – Get SMS/email if someone makes themselves admin.</li>
+  <li><strong>Immutable cloud backups for Email/OneDrive/SharePoint</strong> – Microsoft 365 recycle bin ≠ backup. Ransomware can delete it. Use third-party backup.</li>
+</ol>
+
+<div class="card tech-card highlight" style="margin:40px 0;">
+  <div class="icon">📥</div>
+  <h3>Get the Printable PDF + Bonus Scripts</h3>
+  <p>Download the 1-page PDF checklist to share with your team. We’ve added PowerShell snippets to check #2, #5, and #7 in 60 seconds.</p>
+  <a href="M365-Security-Checklist-2026-NextGrid.pdf" class="btn-primary" onclick="gtag('event', 'download', {'event_category': 'Lead Magnet', 'event_label': 'M365 Checklist'});">Download Free PDF</a>
+  <p style="font-size:14px; margin-top:10px;">We’ll email you once per month with M365 security updates. Unsubscribe anytime.</p>
+</div>
+
+<h2>What if you fail more than 3?</h2>
+<p>If you’re missing MFA, legacy auth is on, or you have no backups, you’re at high risk. We do a <strong>3-day M365 Hardening Sprint</strong> for Gauteng businesses — zero downtime. <a href="contact.html">Book a 15-min call</a> and we’ll scan your tenant for free.</p>
+
+<p><strong>POPIA note:</strong> This checklist helps meet Section 19 of POPIA: “Secure the integrity and confidentiality of personal information.” But it’s not legal advice. Pair this with staff training and policies.</p>
+</div>
+</section>
+
+<div class="bottom-nav">
+<a href="index.html"><span>🏠</span><p>Home</p></a>
+<a href="services.html"><span>🛠</span><p>Services</p></a>
+<a href="blog.html"><span>📰</span><p>Blog</p></a>
+<a href="contact.html"><span>📞</span><p>Contact</p></a>
+</div>
+
+<footer><div class="container"><p>© 2026 NextGrid Technologies</p></div></footer>
+</body>
+</html>
