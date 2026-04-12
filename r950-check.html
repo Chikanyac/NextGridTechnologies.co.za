@@ -11,11 +11,6 @@
 </head>
 <body>
 <div id="header"></div>
-<script>
-  fetch('header.html').then(res => res.text()).then(data => {
-    document.getElementById('header').innerHTML = data;
-  });
-</script>
 
 <section class="hero services-hero" style="min-height:60vh;">
   <video autoplay muted loop playsinline class="hero-video" loading="lazy">
@@ -81,5 +76,33 @@
 </section>
 
 <footer><div class="container"><p>© 2026 NextGrid Technologies</p></div></footer>
+
+<!-- Header + Hamburger Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+      
+      // Now that header.html is in the DOM, grab the hamburger
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      
+      hamburger?.addEventListener('click', () => {
+        hamburger.classList.toggle('is-active');
+        navMenu?.classList.toggle('active');
+      });
+
+      // Close menu when a nav link is clicked on mobile
+      navMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger?.classList.remove('is-active');
+          navMenu?.classList.remove('active');
+        });
+      });
+    });
+});
+</script>
 </body>
 </html>
