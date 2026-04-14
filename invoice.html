@@ -117,7 +117,7 @@
                 document.body.innerHTML = `<div style="text-align: center; padding: 50px;">
                                               <h1>Error</h1>
                                               <p>No invoice ID was provided in the URL.</p>
-                                              <a href="client_dashboard.html">Go back to your dashboard</a>
+                                              <a href="account.html">Go back to your dashboard</a>
                                            </div>`;
                 return;
             }
@@ -155,7 +155,7 @@
                  if (profile && profile.role === 'admin') {
                      document.getElementById('backLink').href = 'admin_dashboard.html';
                  } else {
-                     document.getElementById('backLink').href = 'client_dashboard.html';
+                     document.getElementById('backLink').href = 'account.html';
                  }
 
                 // Populate Bill To section
@@ -218,7 +218,7 @@
                 document.body.innerHTML = `<div style="text-align: center; padding: 50px;">
                                               <h1>Error</h1>
                                               <p>Could not load the invoice data: ${error.message}</p>
-                                              <a href="client_dashboard.html">Go back to your dashboard</a>
+                                              <a href="account.html">Go back to your dashboard</a>
                                            </div>`;
             }
         });
