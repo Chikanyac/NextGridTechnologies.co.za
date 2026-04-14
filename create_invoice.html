@@ -4,575 +4,280 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create or Edit Invoice - NextGrid Technologies</title>
-<meta name="description" content="Create and manage client invoices for NextGrid Technologies.">
+<title>Create Invoice - NextGrid Technologies</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="create_invoice.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-C9DS2C71G6');
-</script>
+<style>
+    body { font-family: 'Poppins', sans-serif; background: #f4f4f4; margin: 0; }
+    .container { max-width: 1000px; margin: 30px auto; padding: 20px; background: white; border-radius: 8px; }
+    h1 { color: #007bff; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: 600; margin-bottom: 5px; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+    .line-items { margin-top: 30px; }
+    .line-item-row { display: grid; grid-template-columns: 3fr 1fr 1fr 1fr auto; gap: 10px; align-items: end; margin-bottom: 10px; }
+    .btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background: #0056b3; }
+    .btn-danger { background: #dc3545; }
+    .totals { margin-top: 20px; text-align: right; }
+    .totals div { margin: 5px 0; }
+    .total-final { font-size: 1.2em; font-weight: bold; }
+</style>
 </head>
 <body>
 
-<div id="header"></div>
-
-<section style="padding: 40px 20px;">
-  <div class="container" style="max-width: 900px; margin: 0 auto;">
-    <div class="signin-component">
-      <h2 style="text-align: center; margin-bottom: 8px;">Create / Edit Invoice</h2>
-      <p class="contact-subtext" style="text-align: center;">Generate invoices for your clients</p>
-
-<form id="invoiceForm" class="user-form">
-
-  <fieldset class="form-fieldset">
-    <legend>Invoice Setup</legend>
-    <div class="fieldset-grid">
-      <div class="form-group">
-        <label>Do you want to edit an existing invoice?</label>
-        <select id="editExistingInvoice" required>
-          <option value="no" selected>No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="clientSelect">Select Client:</label>
-        <select id="clientSelect" required>
-          <option value="">-- Select a client --</option>
-        </select>
-        <input type="hidden" id="selectedUserId">
-      </div>
-
-      <div class="form-group full-width" id="existingInvoiceSelectGroup" style="display:none;">
-        <label for="existingInvoiceSelect">Select Existing Invoice:</label>
-        <select id="existingInvoiceSelect">
-          <option value="">-- Select Invoice --</option>
-        </select>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-fieldset">
-    <legend>Client Details</legend>
-    <div class="fieldset-grid">
-      <div class="form-group"><label for="clientEmail">Client Email:</label><input type="email" id="clientEmail" readonly></div>
-      <div class="form-group"><label for="clientPhone">Client Phone:</label><input type="tel" id="clientPhone" readonly></div>
-      <div class="form-group full-width"><label for="clientAddress">Client Address:</label><input type="text" id="clientAddress" readonly></div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-fieldset">
-    <legend>Invoice Details</legend>
-    <div class="fieldset-grid">
-      <div class="form-group"><label for="invoiceNumber">Invoice Number:</label><input type="text" id="invoiceNumber" required></div>
-      <div class="form-group">
-        <label for="status">Status:</label>
-        <select id="status" required>
-          <option value="draft">Draft</option>
-          <option value="sent">Sent</option>
-          <option value="paid">Paid</option>
-          <option value="overdue">Overdue</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="paymentTerms">Payment Terms:</label><input type="text" id="paymentTerms" value="Net 15"></div>
-      <div class="form-group"><label for="purchaseOrder">Purchase Order (Optional):</label><input type="text" id="purchaseOrder"></div>
-      <div class="form-group full-width"><label for="paymentInstructions">Payment Instructions:</label><textarea id="paymentInstructions" rows="3"></textarea></div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-fieldset">
-    <legend>Dates</legend>
-    <div class="fieldset-grid">
-      <div class="form-group"><label for="invoiceDate">Invoice Date:</label><input type="date" id="invoiceDate" required></div>
-      <div class="form-group"><label for="issueDate">Issue Date:</label><input type="date" id="issueDate" required></div>
-      <div class="form-group"><label for="dueDate">Due Date:</label><input type="date" id="dueDate" required></div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-fieldset">
-    <legend>Calculations</legend>
-    <div class="fieldset-grid">
-      <div class="form-group"><label for="subtotal">Subtotal (calculated):</label><input type="number" id="subtotal" step="0.01" value="0.00" readonly></div>
-      <div class="form-group"><label for="discountRate">Discount Rate (%):</label><input type="number" id="discountRate" step="0.01" value="0.00" min="0" max="100"></div>
-      <div class="form-group"><label for="discountAmount">Discount Amount (R):</label><input type="number" id="discountAmount" step="0.01" value="0.00" readonly></div>
-      <div class="form-group"><label for="vatRate">VAT Rate (%):</label><input type="number" id="vatRate" step="0.01" value="15.00" min="0" max="100"></div>
-      <div class="form-group"><label for="vatAmount">VAT Amount (R):</label><input type="number" id="vatAmount" step="0.01" value="0.00" readonly></div>
-      <div class="form-group"><label for="totalAmountDue">Total Amount Due (calculated):</label><input type="number" id="totalAmountDue" step="0.01" value="0.00" readonly></div>
-    </div>
-  </fieldset>
-
-  <h3>Line Items</h3>
-  <div id="lineItemsContainer" class="full-width"></div>
-  <button type="button" class="btn-primary add-line-item-btn" onclick="addLineItem()">Add Line Item</button>
-
-  <div class="button-group">
-    <button type="submit" class="btn-primary">Save Invoice</button>
-    <button type="button" class="btn-secondary" id="emailInvoiceBtn">Email to Client</button>
-  </div>
-  <p id="message" class="form-message"></p>
-</form>
-    </div>
-  </div>
-</section>
-
-<!-- Hidden template for PDF generation -->
-<div id="invoiceTemplate" style="display:none;">
-  <div class="invoice-box" id="invoiceContent">
-    <div class="company-header">
-      <div class="company-name">NEXTGRID TECHNOLOGIES (PTY) LTD</div>
-      <div class="company-details">
-        Registration No: <span id="companyReg">2024/123456/07</span><br>
-        VAT No: <span id="companyVat">4123456789</span> (if registered)<br>
-        Directors: <span id="companyDirectors">J. Smith, A. Naidoo</span><br>
-        Address: Pretoria, Gauteng, South Africa<br>
-        Email: info@nextgridtechnologies.co.za | Tel: <span id="companyTel">012 345 6789</span>
-      </div>
-    </div>
-
-    <div class="invoice-title">TAX INVOICE</div>
-
-    <div class="invoice-meta">
-      <div class="bill-to">
-        <h4>Bill To:</h4>
-        <div>Client Name: <span id="clientName">_____________________</span></div>
-        <div>Address: <span id="clientAddr">_____________________</span></div>
-        <div>VAT No: <span id="clientVat">_____________________</span></div>
-      </div>
-      <div class="invoice-details">
-        <div class="meta-row"><span>Invoice No:</span> <strong id="invNumber">INV-001</strong></div>
-        <div class="meta-row"><span>Date:</span> <span id="invDate">__________</span></div>
-        <div class="meta-row"><span>Due Date:</span> <span id="dueDateInv">__________</span></div>
-      </div>
-    </div>
-
-    <table class="items-table">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Qty</th>
-          <th>Rate</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody id="itemsBody"></tbody>
-    </table>
-
-    <div class="totals">
-      <div class="totals-row">
-        <span>Subtotal:</span>
-        <span>R <span id="subtotalInv">0.00</span></span>
-      </div>
-      <div class="totals-row" id="discountRow" style="display:none;">
-        <span>Discount:</span>
-        <span>R <span id="discountInv">0.00</span></span>
-      </div>
-      <div class="totals-row">
-        <span>VAT 15%:</span>
-        <span>R <span id="vatInv">0.00</span></span>
-      </div>
-      <div class="totals-row total">
-        <span>TOTAL DUE:</span>
-        <span>R <span id="totalInv">0.00</span></span>
-      </div>
-    </div>
-
-    <div class="banking">
-      <h4>Banking Details:</h4>
-      <div>Bank: <span id="bankName">FNB</span> Account No: <span id="accNo">62345678901</span></div>
-      <div>Branch Code: <span id="branch">250655</span> Account Type: <span id="accType">Cheque</span></div>
-      <div>Reference: Invoice Number</div>
-    </div>
-  </div>
-</div>
-
-<div class="bottom-nav">
-<a href="index.html"><span>🏠</span><p>Home</p></a>
-<a href="services.html"><span>🛠</span><p>Services</p></a>
-<a href="blog.html"><span>📰</span><p>Blog</p></a>
-<a href="contact.html"><span>📞</span><p>Contact</p></a>
-</div>
-
-<footer>
 <div class="container">
-<p>© 2026 NextGrid Technologies</p>
+    <h1>Create New Invoice</h1>
+    <a href="admin_dashboard.html">&larr; Back to Admin Dashboard</a>
+    
+    <form id="invoiceForm">
+        <h3>1. Select Client</h3>
+        <div class="form-group">
+            <label for="clientSelect">Client</label>
+            <select id="clientSelect" required>
+                <option value="">Loading clients...</option>
+            </select>
+        </div>
+        <div id="clientDetails" style="display:none; background:#f8f9fa; padding:15px; border-radius:5px; margin-bottom:20px;"></div>
+
+        <h3>2. Invoice Details</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Invoice Number</label>
+                <input type="text" id="invoiceNumber" required>
+            </div>
+            <div class="form-group">
+                <label>Due Date</label>
+                <input type="date" id="dueDate" required>
+            </div>
+            <div class="form-group">
+                <label>Payment Terms</label>
+                <input type="text" id="paymentTerms" value="Due on Receipt">
+            </div>
+            <div class="form-group">
+                <label>Purchase Order</label>
+                <input type="text" id="purchaseOrder">
+            </div>
+        </div>
+
+        <h3>3. Line Items</h3>
+        <div class="line-items" id="lineItemsContainer">
+            <!-- Line items added here -->
+        </div>
+        <button type="button" class="btn" onclick="addLineItem()">+ Add Line Item</button>
+
+        <div class="totals">
+            <div>Subtotal: <span id="subtotal">R 0.00</span></div>
+            <div>
+                Discount: R <input type="number" id="discountAmount" value="0" step="0.01" style="width:100px; display:inline;">
+            </div>
+            <div>VAT (15%): <span id="vatAmount">R 0.00</span></div>
+            <div class="total-final">Total: <span id="totalAmount">R 0.00</span></div>
+        </div>
+
+        <h3>4. Payment Instructions</h3>
+        <textarea id="paymentInstructions" rows="4">Bank: FNB
+Account: 123456789
+Branch: 250655
+Ref: Invoice Number</textarea>
+
+        <br><br>
+        <button type="submit" class="btn">Create Invoice</button>
+        <p id="message"></p>
+    </form>
 </div>
-</footer>
 
 <script src="js/supabase.min.js"></script>
 <script>
 const supabaseClient = supabase.createClient(
-  'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8',
-  { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }
+    'https://tirkqybcedxfusifslim.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
 );
 
-// Load header
-fetch('header.html')
-.then(res => res.text())
-.then(async (data) => {
-    document.getElementById('header').innerHTML = data;
-    document.getElementById('hamburger')?.addEventListener('click', () => {
-      document.getElementById('navMenu')?.classList.toggle('active');
-    });
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) scrollBtn?.classList.add('show');
-      else scrollBtn?.classList.remove('show');
-    });
-    scrollBtn?.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+let lineItemCount = 0;
+let selectedClient = null;
+
+// Check admin + load clients
+document.addEventListener('DOMContentLoaded', async () => {
     const { data: { user } } = await supabaseClient.auth.getUser();
-    const adminLinkContainer = document.getElementById('adminLinkContainer');
-    const loginLogoutLink = document.getElementById('loginLogoutLink');
-    if (user && loginLogoutLink) {
-        loginLogoutLink.textContent = 'Logout';
-        loginLogoutLink.href = '#';
-        loginLogoutLink.onclick = async (e) => {
-            e.preventDefault();
-            await supabaseClient.auth.signOut();
-            window.location.href = 'login.html';
-        };
-        if (adminLinkContainer) {
-          const { data: profileData } = await supabaseClient.from('profiles').select('role').eq('user_id', user.id).single();
-          if (profileData && profileData.role === 'admin') {
-              adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
-          }
+    if (!user) return window.location.href = 'login.html';
+    
+    const { data: profile } = await supabaseClient.from('profiles').select('role').eq('user_id', user.id).single();
+    if (!profile || profile.role !== 'admin') {
+        document.body.innerHTML = '<h1>Access Denied</h1><p>Admin only.</p>';
+        return;
+    }
+    
+    loadClients();
+    addLineItem(); // Start with one line item
+    generateInvoiceNumber();
+});
+
+async function loadClients() {
+    const { data: clients, error } = await supabaseClient
+        .from('profiles')
+        .select('user_id, full_name, company, email, address, phone_number, vat_number')
+        .neq('role', 'admin') // Don't show admins as clients
+        .order('full_name');
+    
+    const select = document.getElementById('clientSelect');
+    if (error) {
+        select.innerHTML = '<option value="">Error loading clients</option>';
+        return;
+    }
+    
+    select.innerHTML = '<option value="">-- Select a Client --</option>';
+    clients.forEach(c => {
+        select.innerHTML += `<option value="${c.user_id}">${c.full_name} - ${c.company || c.email}</option>`;
+    });
+    
+    select.onchange = () => {
+        selectedClient = clients.find(c => c.user_id === select.value);
+        const details = document.getElementById('clientDetails');
+        if (selectedClient) {
+            details.style.display = 'block';
+            details.innerHTML = `
+                <strong>${selectedClient.full_name}</strong><br>
+                ${selectedClient.company || ''}<br>
+                ${selectedClient.email}<br>
+                ${selectedClient.phone_number || ''}<br>
+                ${selectedClient.address || ''}<br>
+                ${selectedClient.vat_number ? 'VAT: ' + selectedClient.vat_number : ''}
+            `;
+        } else {
+            details.style.display = 'none';
         }
-    } else if (loginLogoutLink) {
-        loginLogoutLink.textContent = 'Client Login';
-        loginLogoutLink.href = 'login.html';
-    }
-  });
-
-let allClients = [];
-let currentLineItemId = 0;
-let insertedInvoiceId = null;
-
-// Elements
-const invoiceForm = document.getElementById('invoiceForm');
-const clientSelect = document.getElementById('clientSelect');
-const selectedUserIdInput = document.getElementById('selectedUserId');
-const clientEmailInput = document.getElementById('clientEmail');
-const clientAddressInput = document.getElementById('clientAddress');
-const clientPhoneInput = document.getElementById('clientPhone');
-const invoiceNumberInput = document.getElementById('invoiceNumber');
-const invoiceDateInput = document.getElementById('invoiceDate');
-const issueDateInput = document.getElementById('issueDate');
-const dueDateInput = document.getElementById('dueDate');
-const lineItemsContainer = document.getElementById('lineItemsContainer');
-const editExistingInvoiceSelect = document.getElementById('editExistingInvoice');
-const existingInvoiceSelectGroup = document.getElementById('existingInvoiceSelectGroup');
-const existingInvoiceSelect = document.getElementById('existingInvoiceSelect');
-const messageDiv = document.getElementById('message');
-
-function showMessage(msg,type='info'){
-  messageDiv.textContent=msg;
-  messageDiv.style.color = type === 'error'? 'red' : type === 'success'? 'green' : 'orange';
-  setTimeout(()=>{messageDiv.textContent='';},5000);
-}
-
-function addLineItem(description='',qty=1,rate=0){
-  const id=currentLineItemId++;
-  const html=`<div class="line-item-section" data-id="${id}" style="border:1px solid #ddd;padding:12px;border-radius:6px;margin-bottom:12px;">
-    <div class="line-item-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <h4 style="margin:0;font-size:15px;">Line Item #${id+1}</h4>
-      <button type="button" onclick="removeLineItem(this)" style="background:#dc3545;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:13px;">Remove</button>
-    </div>
-    <div class="line-item-fields">
-      <div class="form-group"><label>Description:</label><input type="text" id="itemDescription_${id}" value="${description}" required></div>
-      <div class="form-group"><label>Qty:</label><input type="number" id="itemQty_${id}" value="${qty}" step="0.01" min="0" oninput="calculateTotals()"></div>
-      <div class="form-group"><label>Rate (R):</label><input type="number" id="itemRate_${id}" value="${rate}" step="0.01" min="0" oninput="calculateTotals()"></div>
-      <div class="form-group"><label>Amount (R):</label><input type="number" id="itemAmount_${id}" value="0.00" step="0.01" readonly></div>
-    </div>
-  </div>`;
-  lineItemsContainer.insertAdjacentHTML('beforeend',html);
-  calculateTotals();
-}
-
-function removeLineItem(btn){
-  const section=btn.closest('.line-item-section');
-  if(lineItemsContainer.children.length>1){ section.remove(); calculateTotals();}
-  else showMessage("Cannot remove last line item","error");
-}
-
-function calculateTotals(){
-  let subtotal=0;
-  document.querySelectorAll('.line-item-section').forEach(section=>{
-    const id=section.dataset.id;
-    const qty=parseFloat(document.getElementById(`itemQty_${id}`).value)||0;
-    const rate=parseFloat(document.getElementById(`itemRate_${id}`).value)||0;
-    const amount=qty*rate;
-    document.getElementById(`itemAmount_${id}`).value=amount.toFixed(2);
-    subtotal+=amount;
-  });
-  document.getElementById('subtotal').value=subtotal.toFixed(2);
-  const discountRate=parseFloat(document.getElementById('discountRate').value)||0;
-  const vatRate=parseFloat(document.getElementById('vatRate').value)||0;
-  const discount=subtotal*(discountRate/100);
-  const subtotalAfter=subtotal-discount;
-  const vat=subtotalAfter*(vatRate/100);
-  const total=subtotalAfter+vat;
-  document.getElementById('discountAmount').value=discount.toFixed(2);
-  document.getElementById('vatAmount').value=vat.toFixed(2);
-  document.getElementById('totalAmountDue').value=total.toFixed(2);
-}
-
-async function fetchClientProfiles(){
-  const {data,error}=await supabaseClient.from('profiles').select('user_id,full_name,email,company,address,phone_number,vat_number').eq('role','client');
-  if(error){ showMessage(error.message,"error"); return []; }
-  return data||[];
-}
-
-function populateClients(clients){
-  clientSelect.innerHTML='<option value="">-- Select a client --</option>';
-  allClients=clients;
-  clients.forEach(c=>{
-    const option=document.createElement('option');
-    option.value=c.user_id;
-    option.textContent=`${c.company} - ${c.full_name}`;
-    clientSelect.appendChild(option);
-  });
-}
-
-function autofillClientDetails(){
-  const selectedId=clientSelect.value;
-  const client=allClients.find(c=>c.user_id===selectedId);
-  if(client){
-    selectedUserIdInput.value=client.user_id;
-    clientEmailInput.value=client.email||'';
-    clientAddressInput.value=client.address||'';
-    clientPhoneInput.value=client.phone_number||'';
-  }else{
-    [selectedUserIdInput,clientEmailInput,clientAddressInput,clientPhoneInput].forEach(i=>i.value='');
-  }
-}
-
-async function fetchInvoicesForClient(clientId){
-  if(!clientId) return [];
-  const {data,error}=await supabaseClient.from('invoices').select('*').eq('user_id',clientId);
-  if(error){ showMessage(error.message,"error"); return []; }
-  return data||[];
-}
-
-async function populateExistingInvoices(clientId){
-  const invoices=await fetchInvoicesForClient(clientId);
-  existingInvoiceSelect.innerHTML='<option value="">-- Select Invoice --</option>';
-  invoices.forEach(inv=>{
-    const option=document.createElement('option');
-    option.value=inv.id;
-    option.textContent=inv.invoice_number;
-    existingInvoiceSelect.appendChild(option);
-  });
-}
-
-async function generateNextInvoiceNumber(){
-  const {data,error}=await supabaseClient.from('invoices').select('invoice_number').order('id',{ascending:false}).limit(1);
-  if(error){ console.error(error); return 'NGT-2026-0001'; }
-  if(data && data.length>0){
-    const lastNum=parseInt(data[0].invoice_number.split('-')[2]||'0')+1;
-    return 'NGT-2026-'+String(lastNum).padStart(4,'0');
-  }else return 'NGT-2026-0001';
-}
-
-clientSelect.addEventListener('change',async ()=>{
-  autofillClientDetails();
-  if(editExistingInvoiceSelect.value==='yes'){
-    existingInvoiceSelectGroup.style.display='block';
-    await populateExistingInvoices(clientSelect.value);
-  }
-});
-
-editExistingInvoiceSelect.addEventListener('change',async ()=>{
-  if(editExistingInvoiceSelect.value==='yes'){
-    existingInvoiceSelectGroup.style.display='block';
-    if(clientSelect.value) await populateExistingInvoices(clientSelect.value);
-  }else{
-    existingInvoiceSelectGroup.style.display='none';
-    invoiceNumberInput.value=await generateNextInvoiceNumber();
-  }
-});
-
-existingInvoiceSelect.addEventListener('change',async ()=>{
-  const invoiceId=existingInvoiceSelect.value;
-  if(!invoiceId) return;
-  const {data,error}=await supabaseClient.from('invoices').select('*').eq('id',invoiceId).single();
-  if(error) { showMessage(error.message,'error'); return; }
-  const inv=data;
-  invoiceNumberInput.value=inv.invoice_number;
-  invoiceDateInput.value=inv.invoice_date;
-  issueDateInput.value=inv.issue_date;
-  dueDateInput.value=inv.due_date;
-  document.getElementById('status').value=inv.status;
-  document.getElementById('paymentTerms').value=inv.payment_terms||'Net 15';
-  document.getElementById('purchaseOrder').value=inv.purchase_order||'';
-  document.getElementById('paymentInstructions').value=inv.payment_instructions||'';
-  const {data:items}=await supabaseClient.from('invoice_items').select('*').eq('invoice_id',invoiceId);
-  lineItemsContainer.innerHTML='';
-  currentLineItemId=0;
-  items.forEach(it=>addLineItem(it.description,it.quantity,it.rate));
-  calculateTotals();
-});
-
-async function saveInvoice() {
-  const userId = selectedUserIdInput.value;
-  if (!userId) throw new Error('Select a client.');
-  const selectedClient = allClients.find(c => c.user_id === userId);
-  if (!selectedClient) throw new Error('Client not found.');
-  let invoiceId = null;
-  if (editExistingInvoiceSelect.value === 'yes') {
-    invoiceId = existingInvoiceSelect.value || null;
-  }
-  const invNumber = invoiceNumberInput.value || await generateNextInvoiceNumber();
-  const invoiceData = {
-    user_id: userId,
-    client_name: selectedClient.full_name || selectedClient.company,
-    client_email: selectedClient.email,
-    client_address: selectedClient.address,
-    client_phone: selectedClient.phone_number,
-    invoice_number: invNumber,
-    invoice_date: invoiceDateInput.value,
-    issue_date: issueDateInput.value,
-    due_date: dueDateInput.value,
-    status: document.getElementById('status').value,
-    subtotal: parseFloat(document.getElementById('subtotal').value),
-    discount_amount: parseFloat(document.getElementById('discountAmount').value),
-    vat_percentage: parseFloat(document.getElementById('vatRate').value),
-    vat_amount: parseFloat(document.getElementById('vatAmount').value),
-    total_amount_due: parseFloat(document.getElementById('totalAmountDue').value),
-    payment_terms: document.getElementById('paymentTerms').value,
-    purchase_order: document.getElementById('purchaseOrder').value || null,
-    payment_instructions: document.getElementById('paymentInstructions').value,
-    currency: 'ZAR'
-  };
-  let insertedInvoice;
-  if (invoiceId) {
-    const { data, error } = await supabaseClient.from('invoices').update(invoiceData).eq('id', invoiceId).select('*');
-    if (error) throw new Error(error.message);
-    insertedInvoice = data[0];
-  } else {
-    const { data, error } = await supabaseClient.from('invoices').insert(invoiceData).select('*');
-    if (error) throw new Error(error.message);
-    insertedInvoice = data[0];
-  }
-  const lineItems = [];
-  document.querySelectorAll('.line-item-section').forEach(section => {
-    const id = section.dataset.id;
-    lineItems.push({
-      invoice_id: insertedInvoice.id,
-      description: document.getElementById(`itemDescription_${id}`).value,
-      quantity: parseFloat(document.getElementById(`itemQty_${id}`).value),
-      rate: parseFloat(document.getElementById(`itemRate_${id}`).value),
-      amount: parseFloat(document.getElementById(`itemAmount_${id}`).value)
-    });
-  });
-  if (lineItems.length > 0) {
-    if (invoiceId) {
-      await supabaseClient.from('invoice_items').delete().eq('invoice_id', invoiceId);
-    }
-    const { error } = await supabaseClient.from('invoice_items').insert(lineItems);
-    if (error) throw new Error(error.message);
-  }
-  insertedInvoiceId = insertedInvoice.id;
-  return insertedInvoice;
-}
-
-function populateInvoiceTemplate() {
-  const doc = document.getElementById('invoiceTemplate');
-  const selectedClient = allClients.find(c => c.user_id === selectedUserIdInput.value);
-  doc.querySelector('#clientName').textContent = selectedClient?.full_name || selectedClient?.company || '';
-  doc.querySelector('#clientAddr').textContent = clientAddressInput.value || '';
-  doc.querySelector('#clientVat').textContent = selectedClient?.vat_number || 'N/A';
-  doc.querySelector('#invNumber').textContent = invoiceNumberInput.value;
-  doc.querySelector('#invDate').textContent = invoiceDateInput.value;
-  doc.querySelector('#dueDateInv').textContent = dueDateInput.value;
-  const itemsBody = doc.querySelector('#itemsBody');
-  itemsBody.innerHTML = '';
-  document.querySelectorAll('.line-item-section').forEach(section => {
-    const id = section.dataset.id;
-    const desc = document.getElementById(`itemDescription_${id}`).value;
-    const qty = document.getElementById(`itemQty_${id}`).value;
-    const rate = parseFloat(document.getElementById(`itemRate_${id}`).value).toFixed(2);
-    const amt = parseFloat(document.getElementById(`itemAmount_${id}`).value).toFixed(2);
-    itemsBody.insertAdjacentHTML('beforeend', `<tr><td>${desc}</td><td>${qty}</td><td>R ${rate}</td><td>R ${amt}</td></tr>`);
-  });
-  const discountAmt = parseFloat(document.getElementById('discountAmount').value);
-  doc.querySelector('#subtotalInv').textContent = parseFloat(document.getElementById('subtotal').value).toFixed(2);
-  doc.querySelector('#vatInv').textContent = parseFloat(document.getElementById('vatAmount').value).toFixed(2);
-  doc.querySelector('#totalInv').textContent = parseFloat(document.getElementById('totalAmountDue').value).toFixed(2);
-  if (discountAmt > 0) {
-    doc.querySelector('#discountRow').style.display = 'flex';
-    doc.querySelector('#discountInv').textContent = discountAmt.toFixed(2);
-  } else {
-    doc.querySelector('#discountRow').style.display = 'none';
-  }
-}
-
-invoiceForm.addEventListener('submit', async e => {
-  e.preventDefault();
-  showMessage('Saving invoice...', 'info');
-  try {
-    await saveInvoice();
-    showMessage('Invoice saved successfully!', 'success');
-    invoiceForm.reset();
-    lineItemsContainer.innerHTML = '';
-    addLineItem();
-    invoiceNumberInput.value = await generateNextInvoiceNumber();
-  } catch (err) {
-    console.error(err);
-    showMessage(err.message, 'error');
-  }
-});
-
-document.getElementById('emailInvoiceBtn').addEventListener('click', async () => {
-  const userId = selectedUserIdInput.value;
-  if (!userId) {
-    showMessage('Select a client first', 'error');
-    return;
-  }
-  showMessage('Generating invoice PDF...', 'info');
-  try {
-    await saveInvoice();
-    if (!insertedInvoiceId) throw new Error('Could not save invoice.');
-    populateInvoiceTemplate();
-    const element = document.getElementById('invoiceTemplate');
-    const opt = {
-      margin: 10,
-      filename: `${invoiceNumberInput.value}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-    showMessage('Creating PDF...', 'info');
-    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
-    const fileName = `invoices/${invoiceNumberInput.value}_${Date.now()}.pdf`;
-    const { data: uploadData, error: uploadError } = await supabaseClient.storage.from('invoice-pdfs').upload(fileName, pdfBlob, { contentType: 'application/pdf' });
-    if (uploadError) throw uploadError;
-    const { data: { publicUrl } } = supabaseClient.storage.from('invoice-pdfs').getPublicUrl(fileName);
-    showMessage('Sending email...', 'info');
-    const { data, error } = await supabaseClient.functions.invoke('email-invoice', {
-      body: { invoice_id: insertedInvoiceId, pdf_url: publicUrl }
-    });
-    if (error) throw error;
-    showMessage('Invoice emailed successfully!', 'success');
-  } catch (err) {
-    console.error(err);
-    showMessage(err.message || 'Failed to email invoice', 'error');
-  }
-});
+}
 
-document.addEventListener('DOMContentLoaded',async ()=>{
-  const clients=await fetchClientProfiles();
-  populateClients(clients);
-  addLineItem();
-  invoiceNumberInput.value=await generateNextInvoiceNumber();
-});
+function generateInvoiceNumber() {
+    const date = new Date();
+    const num = `INV-${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2,'0')}-${Math.floor(Math.random()*9000)+1000}`;
+    document.getElementById('invoiceNumber').value = num;
+}
+
+function addLineItem() {
+    lineItemCount++;
+    const div = document.createElement('div');
+    div.className = 'line-item-row';
+    div.id = `lineItem${lineItemCount}`;
+    div.innerHTML = `
+        <div><label>Description</label><input type="text" class="item-desc" required></div>
+        <div><label>Qty</label><input type="number" class="item-qty" value="1" min="0" step="0.01" required></div>
+        <div><label>Rate</label><input type="number" class="item-rate" value="0" min="0" step="0.01" required></div>
+        <div><label>Amount</label><input type="text" class="item-amount" value="R 0.00" readonly></div>
+        <div><button type="button" class="btn btn-danger" onclick="removeLineItem(${lineItemCount})">X</button></div>
+    `;
+    document.getElementById('lineItemsContainer').appendChild(div);
+    
+    // Add listeners to recalc
+    div.querySelector('.item-qty').oninput = calculateTotals;
+    div.querySelector('.item-rate').oninput = calculateTotals;
+}
+
+function removeLineItem(id) {
+    document.getElementById(`lineItem${id}`).remove();
+    calculateTotals();
+}
+
+function calculateTotals() {
+    let subtotal = 0;
+    document.querySelectorAll('.line-item-row').forEach(row => {
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+        const amount = qty * rate;
+        row.querySelector('.item-amount').value = `R ${amount.toFixed(2)}`;
+        subtotal += amount;
+    });
+    
+    const discount = parseFloat(document.getElementById('discountAmount').value) || 0;
+    const vat = (subtotal - discount) * 0.15;
+    const total = subtotal - discount + vat;
+    
+    document.getElementById('subtotal').textContent = `R ${subtotal.toFixed(2)}`;
+    document.getElementById('vatAmount').textContent = `R ${vat.toFixed(2)}`;
+    document.getElementById('totalAmount').textContent = `R ${total.toFixed(2)}`;
+}
+
+document.getElementById('discountAmount').oninput = calculateTotals;
+
+document.getElementById('invoiceForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('message');
+    if (!selectedClient) {
+        msg.textContent = 'Please select a client';
+        msg.style.color = 'red';
+        return;
+    }
+    
+    msg.textContent = 'Creating invoice...';
+    msg.style.color = 'orange';
+    
+    // Collect line items
+    const items = [];
+    document.querySelectorAll('.line-item-row').forEach(row => {
+        const desc = row.querySelector('.item-desc').value;
+        const qty = parseFloat(row.querySelector('.item-qty').value);
+        const rate = parseFloat(row.querySelector('.item-rate').value);
+        if (desc && qty > 0) {
+            items.push({ description: desc, quantity: qty, rate: rate });
+        }
+    });
+    
+    if (items.length === 0) {
+        msg.textContent = 'Add at least one line item';
+        msg.style.color = 'red';
+        return;
+    }
+    
+    const subtotal = parseFloat(document.getElementById('subtotal').textContent.replace('R ', ''));
+    const discount = parseFloat(document.getElementById('discountAmount').value) || 0;
+    const vat = parseFloat(document.getElementById('vatAmount').textContent.replace('R ', ''));
+    const total = parseFloat(document.getElementById('totalAmount').textContent.replace('R ', ''));
+    
+    try {
+        // Insert invoice
+        const { data: invoice, error: invError } = await supabaseClient
+            .from('invoices')
+            .insert({
+                invoice_number: document.getElementById('invoiceNumber').value,
+                user_id: selectedClient.user_id,
+                client_name: selectedClient.full_name,
+                client_email: selectedClient.email,
+                client_phone: selectedClient.phone_number,
+                client_address: selectedClient.address,
+                client_vat_number: selectedClient.vat_number,
+                due_date: document.getElementById('dueDate').value,
+                payment_terms: document.getElementById('paymentTerms').value,
+                purchase_order: document.getElementById('purchaseOrder').value,
+                subtotal: subtotal,
+                discount_amount: discount,
+                vat_percentage: 15.00,
+                vat_amount: vat,
+                total_amount_due: total,
+                payment_instructions: document.getElementById('paymentInstructions').value,
+                status: 'Sent'
+            })
+            .select()
+            .single();
+        
+        if (invError) throw invError;
+        
+        // Insert line items
+        const itemsToInsert = items.map(i => ({ ...i, invoice_id: invoice.id }));
+        const { error: itemsError } = await supabaseClient.from('invoice_items').insert(itemsToInsert);
+        if (itemsError) throw itemsError;
+        
+        msg.textContent = 'Invoice created!';
+        msg.style.color = 'green';
+        setTimeout(() => window.location.href = `invoice.html?id=${invoice.id}`, 1000);
+        
+    } catch (error) {
+        msg.textContent = 'Error: ' + error.message;
+        msg.style.color = 'red';
+    }
+};
 </script>
 </body>
 </html>
