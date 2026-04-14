@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - NextGrid Technologies</title>
+    <title>Login - NextGrid Technologies</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -45,7 +44,7 @@
             min-height: calc(100vh - 70px);
             padding: 40px 24px;
         }
-        .auth-box {
+        .login-container {
             background: white;
             padding: 40px;
             border-radius: 8px;
@@ -53,12 +52,12 @@
             width: 100%;
             max-width: 420px;
         }
-        .auth-box h1 { 
+        h1 { 
             margin: 0 0 8px 0; 
             text-align: center;
             color: #1e293b;
         }
-        .auth-box p.subtitle {
+        .subtitle {
             text-align: center;
             color: #64748b;
             margin: 0 0 24px 0;
@@ -80,7 +79,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background: #28a745;
+            background: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -89,37 +88,24 @@
             font-weight: 600;
             margin-top: 8px;
         }
-        button:hover { background: #218838; }
-        button:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-        }
-        .login-link {
+        button:hover { background: #0056b3; }
+        .signup-link {
             text-align: center;
             margin-top: 20px;
             color: #6c757d;
         }
-        .login-link a { 
+        .signup-link a { 
             color: #007bff; 
             text-decoration: none;
             font-weight: 500;
         }
-        .login-link a:hover { text-decoration: underline; }
+        .signup-link a:hover { text-decoration: underline; }
         #error { 
             color: #dc3545; 
             text-align: center; 
             margin-bottom: 16px;
             padding: 10px;
             background: #f8d7da;
-            border-radius: 5px;
-            display: none;
-        }
-        #success { 
-            color: #0f5132; 
-            text-align: center; 
-            margin-bottom: 16px;
-            padding: 10px;
-            background: #d1e7dd;
             border-radius: 5px;
             display: none;
         }
@@ -137,26 +123,24 @@
             </div>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
             </nav>
         </div>
     </header>
 
-    <!-- Signup Form -->
+    <!-- Login Form -->
     <div class="auth-container">
-        <div class="auth-box">
-            <h1>Create Account</h1>
-            <p class="subtitle">Join NextGrid Technologies</p>
+        <div class="login-container">
+            <h1>Login</h1>
+            <p class="subtitle">Access your admin dashboard</p>
             <div id="error"></div>
-            <div id="success"></div>
-            <form id="signupForm">
-                <input type="text" id="fullName" placeholder="Full Name" required>
+            <form id="loginForm">
                 <input type="email" id="email" placeholder="Email Address" required>
-                <input type="password" id="password" placeholder="Password (min 6 characters)" required minlength="6">
-                <button type="submit" id="submitBtn">Create Account</button>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
             </form>
-            <div class="login-link">
-                Already have an account? <a href="login.html">Login here</a>
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign up here</a>
             </div>
         </div>
     </div>
@@ -168,30 +152,17 @@
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
         );
 
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('error');
-            const successDiv = document.getElementById('success');
-            const submitBtn = document.getElementById('submitBtn');
-            
+
             errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating...';
 
-            const { data, error } = await supabaseClient.auth.signUp({
-                email, 
-                password,
-                options: {
-                    data: { full_name: fullName }
-                }
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email, password
             });
-
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Create Account';
 
             if (error) {
                 errorDiv.textContent = error.message;
@@ -199,9 +170,7 @@
                 return;
             }
 
-            successDiv.textContent = 'Account created! Check your email to confirm, then login.';
-            successDiv.style.display = 'block';
-            document.getElementById('signupForm').reset();
+            window.location.href = 'admin.html';
         });
     </script>
 </body>
