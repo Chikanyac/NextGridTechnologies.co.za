@@ -26,6 +26,63 @@
   
 <div id="header"></div>
 
+<div id="header"></div>
+<!-- your page content -->
+
+<script src="js/supabase.min.js"></script>
+<script>
+const supabaseClient = supabase.createClient(
+    'https://tirkqybcedxfusifslim.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
+);
+
+async function initHeader() {
+    const res = await fetch('header.html');
+    const data = await res.text();
+    document.getElementById('header').innerHTML = data;
+
+    // Now that header is in DOM, run the logic
+    document.getElementById('hamburger')?.addEventListener('click', () => {
+        document.getElementById('navMenu')?.classList.toggle('active');
+    });
+
+    document.getElementById('scrollTopBtn')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    const adminLinkContainer = document.getElementById('adminLinkContainer');
+    const loginLogoutLink = document.getElementById('loginLogoutLink');
+
+    if (user && loginLogoutLink) {
+        loginLogoutLink.textContent = 'Sign Out';
+        loginLogoutLink.href = '#';
+        loginLogoutLink.onclick = async (e) => {
+            e.preventDefault();
+            await supabaseClient.auth.signOut();
+            window.location.href = 'login.html';
+        };
+
+        if (adminLinkContainer) {
+            const { data: profileData } = await supabaseClient
+                .from('profiles')
+                .select('role')
+                .eq('user_id', user.id)
+                .single();
+
+            if (profileData && profileData.role === 'admin') {
+                adminLinkContainer.innerHTML = '<a href="admin_dashboard.html">Admin Portal</a>';
+            }
+        }
+    } else if (loginLogoutLink) {
+        loginLogoutLink.textContent = 'Client Login';
+        loginLogoutLink.href = 'login.html';
+    }
+}
+
+initHeader();
+</script>
+  
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline loading="lazy">
     <source src="small-server-room.mp4" type="video/mp4">
