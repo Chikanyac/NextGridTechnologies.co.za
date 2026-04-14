@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +26,7 @@
         <textarea name="service_request" placeholder="What kind of service/request are you looking for?" required></textarea>
         <input type="password" name="password" placeholder="Create Password" required minlength="8">
         <input type="password" name="password_confirm" placeholder="Confirm Password" required minlength="8">
-        <button type="submit" class="btn-primary">Send Request</button>
+        <button type="submit" class="btn-primary" id="submitBtn">Send Request</button>
         <p class="form-message" style="margin-top:12px;"></p>
       </form>
       <p style="text-align: center; margin-top: 20px; font-size: 14px;">
@@ -76,7 +75,7 @@
               const { data: profileData } = await supabaseClient
                  .from('profiles')
                  .select('role')
-                 .eq('user_id', user.id) // FIXED: profiles uses user_id
+                 .eq('user_id', user.id)
                  .maybeSingle();
 
               if (profileData && profileData.role === 'admin') {
@@ -92,6 +91,7 @@
     document.querySelector('.user-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const messageEl = document.querySelector('.form-message');
+      const submitBtn = document.getElementById('submitBtn');
       const formData = Object.fromEntries(new FormData(e.target).entries());
       
       if (formData.password !== formData.password_confirm) {
@@ -111,30 +111,52 @@
 
       messageEl.textContent = 'Creating account...';
       messageEl.style.color = 'orange';
+      submitBtn.disabled = true;
 
       try {
+        // 1. Create auth user
         const { data: authData, error: authError } = await supabaseClient.auth.signUp({ 
           email: formData.email, 
           password: password,
           options: {
             data: {
-              full_name: formData.full_name,
-              company: formData.company,
-              phone_number: formData.phone_number,
-              address: formData.address,
-              service_request: formData.service_request
+              full_name: formData.full_name
             }
           }
         });
         if (authError) throw authError;
+        
+        console.log('Auth user created:', authData.user.id);
+
+        // 2. Insert into profiles table with all custom fields
+        const { error: profileError } = await supabaseClient
+          .from('profiles')
+          .insert({
+            user_id: authData.user.id,
+            email: formData.email,
+            full_name: formData.full_name,
+            company: formData.company,
+            phone_number: formData.phone_number,
+            address: formData.address,
+            service_request: formData.service_request,
+            role: 'client'
+          });
+
+        if (profileError) {
+          console.error('Profile insert error:', profileError);
+          throw new Error('Account created but profile save failed: ' + profileError.message);
+        }
         
         messageEl.textContent = 'Success! Check your email to confirm your account.';
         messageEl.style.color = 'green';
         e.target.reset();
         
       } catch (err) {
+        console.error('Signup error:', err);
         messageEl.textContent = err.message || 'Error saving data';
         messageEl.style.color = 'red';
+      } finally {
+        submitBtn.disabled = false;
       }
     });
 </script>
