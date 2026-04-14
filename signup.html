@@ -133,7 +133,8 @@ document.querySelector('.user-form').addEventListener('submit', async (e) => {
         company: formData.company,
         phone_number: formData.phone_number,
         address: formData.address,
-        service_request: formData.service_request
+        service_request: formData.service_request,
+        request_status: 'pending'
       })
       .eq('user_id', authData.user.id);
 
