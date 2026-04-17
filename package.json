@@ -1,0 +1,15 @@
+{
+  "name": "nextgridtechnologies",
+  "version": "1.0.0",
+  "description": "NextGrid Technologies website with Vercel Speed Insights",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.1.0"
+  }
+}
