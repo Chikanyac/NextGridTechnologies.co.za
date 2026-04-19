@@ -2072,11 +2072,11 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   }
 }
 
-/* === POPIA CHECKLIST CARD - 1 LINE + 2 LINES === */
+/* === POPIA CHECKLIST CARD - CENTERED 1 + 2 LINES === */
 .support-section {
   padding: 60px 20px;
 }
-.support-section.container {
+.support-section .container {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -2084,37 +2084,36 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   background: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
   border: 2px solid #10b981;
   border-radius: 16px;
-  padding: 40px 48px;
+  padding: 48px 60px;
   color: #fff;
   box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
   width: 100%;
   box-sizing: border-box;
+  text-align: center; /* Center everything */
 }
 .checklist-row {
   display: block;
 }
 .checklist-col h2 {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   line-height: 1.2;
   margin: 0 0 16px 0;
   color: #fff;
   white-space: nowrap;
-  text-align: center; /* Add this */
 }
 .checklist-col p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
-  margin: 0 auto 28px auto; /* Change to margin: 0 auto */
+  margin: 0 auto 32px auto;
   color: #fff;
   opacity: 0.95;
-  max-width: 650px;
-  text-align: center; /* Add this */
+  /* Remove max-width so it uses full card width */
 }
 .cta-center {
-  text-align: center; /* Change from left to center */
+  text-align: center;
 }
-.cta-center.btn-primary {
+.cta-center .btn-primary {
   display: inline-block;
   background: linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
   color: #fff;
@@ -2125,7 +2124,7 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   text-decoration: none;
   transition: transform 0.1s, box-shadow 0.2s;
 }
-.cta-center.btn-primary:hover {
+.cta-center .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(2, 121, 255, 0.4);
 }
@@ -2134,9 +2133,6 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
  .checklist-col h2 {
     white-space: normal;
     font-size: 26px;
-  }
- .checklist-col p {
-    max-width: 100%; /* Full width on smaller screens */
   }
 }
 /* Mobile */
