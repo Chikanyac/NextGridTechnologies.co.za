@@ -2147,3 +2147,73 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     font-size: 15px;
   }
 }
+
+/* === POPIA CHECKLIST CARD - FINAL WORKING VERSION === */
+.support-section {
+  padding: 60px 20px;
+  background: var(--bg-dark-2);
+}
+.support-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.support-section .tech-card.highlight {
+  background: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
+  border: 2px solid #10b981;
+  border-radius: 16px;
+  padding: 48px 40px;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+.support-section .checklist-row {
+  display: block;
+}
+.support-section .checklist-col h2 {
+  font-size: clamp(24px, 2.5vw, 30px); /* Auto-scales: 24px min, 30px max */
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+  color: #fff;
+  /* REMOVED white-space: nowrap - clamp handles it */
+}
+.support-section .checklist-col p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 auto 32px auto;
+  color: #fff;
+  opacity: 0.95;
+  max-width: 750px; /* This + 17px font = ~2 lines */
+}
+.support-section .cta-center {
+  text-align: center;
+}
+.support-section .cta-center .btn-primary {
+  display: inline-block;
+  background: linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+.support-section .cta-center .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(2, 121, 255, 0.4);
+}
+/* Mobile */
+@media (max-width: 600px) {
+ .support-section .tech-card.highlight {
+    padding: 32px 24px;
+  }
+ .support-section .checklist-col h2 {
+    font-size: 22px;
+  }
+ .support-section .checklist-col p {
+    font-size: 15px;
+  }
+}
