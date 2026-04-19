@@ -1899,3 +1899,175 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     font-size: 22px;
   }
 }
+
+
+/* --- Zoho Integration Styles for NextGrid --- */
+
+.hero-form-wrap {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 440px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.hero-form-wrap h3 {
+  color: #fff;
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.hero-form-wrap p {
+  color: #e2e8f0;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+}
+
+.hero-form-wrap input,
+.hero-form-wrap select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+  background: #fff;
+  color: #1e293b;
+}
+
+.hero-form-wrap input[type="submit"] {
+  background: #dc2626;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+
+.hero-form-wrap input[type="submit"]:hover {
+  background: #b91c1c;
+}
+
+.hero-form-note {
+  color: #e2e8f0;
+  font-size: 13px;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.hero-form-note a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 90px;
+  left: 20px;
+  background: #25D366;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 999;
+  transition: transform 0.2s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.05);
+}
+
+.whatsapp-float img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Clean up launch offer section */
+.launch-offer {
+  padding: 60px 20px;
+  background: #f8fafc;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.launch-badge {
+  display: inline-block;
+  background: #dc2626;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.launch-offer h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.launch-offer p {
+  font-size: 18px;
+  max-width: 700px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.btn-large {
+  font-size: 18px;
+  padding: 16px 32px;
+}
+
+.launch-fineprint {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #64748b;
+}
+
+/* Final CTA section */
+.final-cta {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.final-cta h2 {
+  margin-bottom: 16px;
+}
+
+.final-cta p {
+  margin: 16px 0 32px;
+  font-size: 18px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+ .hero-form-wrap {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+ .whatsapp-float {
+    bottom: 80px;
+    left: 16px;
+    width: 56px;
+    height: 56px;
+  }
+
+ .whatsapp-float img {
+    width: 28px;
+    height: 28px;
+  }
+
+ .launch-offer h2 {
+    font-size: 26px;
+  }
+}
