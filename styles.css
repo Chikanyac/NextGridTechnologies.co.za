@@ -2217,3 +2217,58 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     font-size: 15px;
   }
 }
+
+/* ===== HERO FORM FIX ===== */
+
+.hero-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Center the form block */
+.hero-form-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Kill Zoho's left alignment */
+#crmWebToEntityForm {
+  text-align: left !important;
+  margin: 0 auto !important;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Fix Zoho float layout */
+#crmWebToEntityForm .zcwf_row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Inputs full width */
+#crmWebToEntityForm input,
+#crmWebToEntityForm select,
+#crmWebToEntityForm textarea {
+  width: 100% !important;
+}
+
+/* Labels spacing */
+#crmWebToEntityForm .zcwf_col_lab {
+  width: 100% !important;
+  margin-bottom: 5px;
+}
+
+#crmWebToEntityForm .zcwf_col_fld {
+  width: 100% !important;
+}
+
+/* Buttons nicer */
+#crmWebToEntityForm .formsubmit {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+}
