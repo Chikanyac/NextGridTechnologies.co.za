@@ -1,4 +1,6 @@
 
+We don't need 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
   gtag('js', new Date());
   gtag('config', 'G-C9DS2C71G6');
 </script>
-  
+
 <title>NextGrid Technologies: Pro IT Security & Microsoft 365 Support in South Africa</title>
 <meta name="description" content="Secure your small business with expert Microsoft 365 protection, rapid IT support, cloud backups, and network security. Local service in Pretoria & Gauteng.">
 <meta name="keywords" content="Microsoft 365 security, IT support South Africa, small business IT, Office 365 protection, managed IT services South Africa, cybersecurity South Africa">
@@ -23,7 +25,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
+
 <div id="header"></div>
 <!-- your page content -->
 
@@ -75,10 +77,10 @@ async function initHeader() {
 
         if (adminLinkContainer) {
             const { data: profileData } = await supabaseClient
-                .from('profiles')
-                .select('role')
-                .eq('user_id', user.id)
-                .single();
+              .from('profiles')
+              .select('role')
+              .eq('user_id', user.id)
+              .single();
 
             if (profileData && profileData.role === 'admin') {
                 adminLinkContainer.innerHTML = '<a href="admin_dashboard.html">Admin Portal</a>';
@@ -92,7 +94,7 @@ async function initHeader() {
 
 initHeader();
 </script>
-  
+
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline loading="lazy">
     <source src="small-server-room.mp4" type="video/mp4">
@@ -107,33 +109,55 @@ initHeader();
       <li>✓ 24/7 monitoring & automated cloud backups</li>
       <li>✓ Fixed monthly pricing, no surprise invoices</li>
     </ul>
+
+    <!-- ZOHO HERO FORM -->
+    <div class="hero-form-wrap slide-up">
+      <h3>Get IT Fixed Today</h3>
+      <p>Local engineer responds in under 1 hour</p>
+
+      <!-- PASTE ZOHO CRM WEBFORM CODE HERE -->
+      <!-- Zoho CRM → Setup → Developer Space → Webforms → New → Copy Embed Code -->
+      <!-- Fields: Full Name, Company, Mobile, "What’s the biggest IT issue?" dropdown -->
+      <!-- Dropdown options in priority order:
+           1. Our team needs daily IT help / slow computers
+           2. Worried about viruses, backups, or security risks
+           3. Need to lock down Microsoft 365 / email security
+           4. Just comparing options for now
+           Hidden: Lead Source = Homepage Hero
+      -->
+      <div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm'>
+        <!-- Your Zoho form embed will go here -->
+        <p style="color:#fff;font-size:13px;">[Zoho form will appear here once you paste the code]</p>
+      </div>
+
+      <p class="hero-form-note">
+        Or <a href="https://wa.me/27680330794?text=Hi NextGrid, I need IT support">WhatsApp us now</a> • No lock-in
+      </p>
+    </div>
+
     <div class="hero-buttons">
-      <a href="contact.html" class="btn-primary slide-up">Get a Free Network Assessment</a>
       <a href="r950-check.html" class="btn-secondary">See What’s Included – R950 Check</a>
     </div>
     <p class="hero-note">Secured M365 for 60-user manufacturer in 3 days • Built by experienced IT professionals</p>
   </div>
 </section>
-  
+
 <!-- Launch Special: R950 IT Health Check -->
-<section class="launch-offer" style="padding: 60px 20px; background: #f8fafc; text-align: center; border-bottom: 1px solid #e2e8f0;">
+<section class="launch-offer">
   <div class="container">
-    <div style="display: inline-block; background: #dc2626; color: white; padding: 6px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; margin-bottom: 16px;">
-      LAUNCH SPECIAL THIS WEEK
-    </div>
-    <h2 style="font-size: 32px; margin-bottom: 16px;">Business IT Health Check – R950</h2>
-    <p style="font-size: 18px; max-width: 700px; margin: 0 auto 24px; line-height: 1.6;">
+    <div class="launch-badge">LAUNCH SPECIAL THIS WEEK</div>
+    <h2>Business IT Health Check – R950</h2>
+    <p>
       Stop IT disasters before they happen. In 2 hours on-site, we secure your WiFi, remove viruses slowing you down, verify backups actually work, install critical updates, and speed up your computers. No fix = no fee on existing issues.
     </p>
-    <a href="https://wa.me/27680330794?text=Hi NextGrid, I want to book the R950 IT Health Check" 
-       class="btn-primary" 
-       style="font-size: 18px; padding: 16px 32px;">
+    <a href="https://wa.me/27680330794?text=Hi NextGrid, I want to book the R950 IT Health Check"
+       class="btn-primary btn-large">
        Book My R950 Check – WhatsApp Us
     </a>
-    <p style="font-size: 14px; margin-top: 12px; color: #64748b;">*First 2 clients this week: R750</p>
+    <p class="launch-fineprint">*First 2 clients this week: R750</p>
   </div>
 </section>
-  
+
 <section class="process-section">
   <div class="container">
     <h2>How We Secure Your Business</h2>
@@ -154,7 +178,7 @@ initHeader();
     </div>
   </div>
 </section>
-  
+
 <section class="results">
   <div class="container">
     <div class="results-grid">
@@ -178,18 +202,21 @@ initHeader();
   </div>
 </section>
 
-<section class="support-section" style="background:#f8fafc; padding:60px 0;">
+<section class="support-section">
 <div class="container">
-  <div class="card tech-card highlight" style="width:100%;">
+  <div class="card tech-card highlight">
     <div class="checklist-row">
       <div class="checklist-col">
-        <h2 style="margin-top:0;">Is Your Microsoft 365 POPIA Compliant?</h2>
+        <h2>Is Your Microsoft 365 POPIA Compliant?</h2>
       </div>
       <div class="checklist-col">
-        <p style="margin-top:0;">We secured a 60-user M365 tenant in 3 days. Download the exact 12-point checklist we use to stop email hacks and data loss.</p>
+        <p>We secured a 60-user M365 tenant in 3 days. Download the exact 12-point checklist we use to stop email hacks and data loss.</p>
       </div>
     </div>
-    <div style="text-align:center; margin-top:32px;">
+    <div class="cta-center">
+      <!-- ZOHO FORM FOR CHECKLIST LEAD MAGNET -->
+      <!-- Create separate Zoho Webform: Name, Email, Company → On submit: email PDF + tag Lead "M365 Checklist" -->
+      <!-- PASTE ZOHO FORM CODE HERE OR KEEP LINK IF YOU PREFER -->
       <a href="m365-security-checklist.html" class="btn-primary">Get Free M365 Checklist</a>
     </div>
   </div>
@@ -357,7 +384,7 @@ initHeader();
     </div>
   </div>
 </section>
-  
+
 <!-- Service Focus -->
 <section class="areas">
   <div class="container">
@@ -412,11 +439,11 @@ initHeader();
 </section>
 
 <!-- Contact / Sign Up -->
-<section id="contact" style="padding: 80px 20px; text-align: center;">
+<section id="contact" class="final-cta">
   <div class="container">
     <h2>Ready to Secure Your Business?</h2>
-    <p style="margin: 16px 0 32px; font-size: 18px;">Get a free security audit and see how we can help.</p>
-    <a href="contact.html" class="btn-primary" style="font-size: 18px; padding: 16px 32px;">Request IT Support</a>
+    <p>Get a free security audit and see how we can help.</p>
+    <a href="contact.html" class="btn-primary btn-large">Request IT Support</a>
   </div>
 </section>
 
@@ -424,6 +451,11 @@ initHeader();
 <button id="scrollTopBtn" class="back-to-top" aria-label="Back to top">
   ↑
 </button>
+
+<!-- ZOHO WHATSAPP STICKY BUTTON -->
+<a href="https://wa.me/27680330794?text=Hi NextGrid, I need IT support" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
 
 <div class="bottom-nav">
 <a href="index.html"><span>🏠</span><p>Home</p></a>
@@ -462,10 +494,10 @@ initHeader();
 
           if (adminLinkContainer) {
             const { data: profileData } = await supabaseClient
-               .from('profiles')
-               .select('role')
-               .eq('user_id', user.id) // FIXED: matches your schema
-               .single();
+             .from('profiles')
+             .select('role')
+             .eq('user_id', user.id)
+             .single();
 
             if (profileData && profileData.role === 'admin') {
                 adminLinkContainer.innerHTML = '<a href="admin_dashboard.html" class="nav-cta">Admin Panel</a>';
@@ -482,8 +514,8 @@ initHeader();
 
     document.addEventListener('DOMContentLoaded', async () => {
         fetch('header.html')
-          .then(res => res.text())
-          .then(async (data) => {
+        .then(res => res.text())
+        .then(async (data) => {
             document.getElementById('header').innerHTML = data;
             document.getElementById('hamburger')?.addEventListener('click', () => {
               document.getElementById('navMenu')?.classList.toggle('active');
@@ -494,7 +526,7 @@ initHeader();
 </script>
 <script>
 document.documentElement.classList.add('js-wooosh-enabled');
-const woooshElements = document.querySelectorAll('.service-card, .process-card, .check-list li, .results-grid > div, .service-image-wrap, .area-card');
+const woooshElements = document.querySelectorAll('.service-card,.process-card,.check-list li,.results-grid > div,.service-image-wrap,.area-card');
 const testimonialElements = document.querySelectorAll('.testimonial-card');
 
 const woooshObserver = new IntersectionObserver((entries) => {
@@ -518,5 +550,16 @@ const testimonialObserver = new IntersectionObserver((entries) => {
 woooshElements.forEach(el => woooshObserver.observe(el));
 testimonialElements.forEach(el => testimonialObserver.observe(el));
 </script>
+
+<!-- ZOHO SALESIQ LIVE CHAT -->
+<!-- PASTE ZOHO SALESIQ CODE HERE -->
+<!-- Get from: Zoho SalesIQ → Settings → Websites → Add Website → Copy Embed Code -->
+<!-- Example structure:
+<script type="text/javascript">
+var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"YOUR_WIDGET_CODE", values:{},ready:function(){}};
+var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);
+</script>
+-->
+
 </body>
 </html>
