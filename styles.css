@@ -2072,11 +2072,11 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   }
 }
 
-/* === POPIA CHECKLIST CARD - FINAL FIX === */
+/* === POPIA CHECKLIST CARD - 1 LINE + 2 LINES === */
 .support-section {
   padding: 60px 20px;
 }
-.support-section .container {
+.support-section.container {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -2088,13 +2088,13 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   color: #fff;
   box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
   width: 100%;
-  box-sizing: border-box; /* This stops overflow */
+  box-sizing: border-box;
 }
 .checklist-row {
   display: block;
 }
 .checklist-col h2 {
-  font-size: 30px; /* Dropped to 30px to fit 1200px container */
+  font-size: 28px; /* Reduced to guarantee 1 line */
   font-weight: 800;
   line-height: 1.2;
   margin: 0 0 16px 0;
@@ -2102,17 +2102,17 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   white-space: nowrap;
 }
 .checklist-col p {
-  font-size: 16px;
+  font-size: 18px; /* Larger font = fewer words per line */
   line-height: 1.6;
   margin: 0 0 28px 0;
   color: #fff;
   opacity: 0.95;
-  max-width: 900px; /* Wider so it's ~3 lines */
+  max-width: 650px; /* This width forces ~2 lines for your text */
 }
 .cta-center {
   text-align: left;
 }
-.cta-center .btn-primary {
+.cta-center.btn-primary {
   display: inline-block;
   background: linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
   color: #fff;
@@ -2123,26 +2123,29 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   text-decoration: none;
   transition: transform 0.1s, box-shadow 0.2s;
 }
-.cta-center .btn-primary:hover {
+.cta-center.btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(2, 121, 255, 0.4);
 }
-/* Below 1100px allow heading to wrap so it never spills */
-@media (max-width: 1100px) {
-  .checklist-col h2 {
+/* Below 1050px allow heading to wrap */
+@media (max-width: 1050px) {
+ .checklist-col h2 {
     white-space: normal;
-    font-size: 28px;
+    font-size: 26px;
+  }
+ .checklist-col p {
+    max-width: 100%; /* Full width on smaller screens */
   }
 }
 /* Mobile */
 @media (max-width: 600px) {
-  .tech-card.highlight {
+ .tech-card.highlight {
     padding: 32px 24px;
   }
-  .checklist-col h2 {
-    font-size: 24px;
+ .checklist-col h2 {
+    font-size: 22px;
   }
-  .checklist-col p {
+ .checklist-col p {
     font-size: 15px;
   }
 }
