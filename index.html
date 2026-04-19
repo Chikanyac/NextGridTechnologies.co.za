@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,112 +20,11 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<style>
-  /* HERO 2-COLUMN LAYOUT */
-.hero {
-    position: relative;
-    padding: 80px 20px;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-  }
-.hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.85) 100%);
-    z-index: 1;
-  }
-.hero.container {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 60px;
-    flex-wrap: wrap;
-  }
-.hero-content {
-    flex: 1;
-    min-width: 300px;
-    color: #fff;
-  }
-.hero-content h1 {
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 0 0 16px 0;
-  }
-.hero-sub {
-    font-size: 18px;
-    opacity: 0.9;
-    margin: 0 0 24px 0;
-  }
-.hero-benefits {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 32px 0;
-  }
-.hero-benefits li {
-    margin-bottom: 12px;
-    padding-left: 28px;
-    position: relative;
-    font-size: 16px;
-  }
-.hero-benefits li:before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #00A3F3;
-    font-weight: 700;
-  }
-.hero-form {
-    flex: 0 0 540px;
-    max-width: 100%;
-  }
-.hero-note {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-top: 16px;
-  }
-.hero-form-note {
-    font-size: 13px;
-    text-align: center;
-    margin-top: 12px;
-    color: #fff;
-  }
-.hero-form-note a {
-    color: #00A3F3;
-    font-weight: 600;
-  }
-  @media (max-width: 968px) {
- .hero.container {
-      flex-direction: column;
-    }
- .hero-content h1 {
-      font-size: 32px;
-    }
- .hero-form {
-      flex: 1 1 100%;
-    }
-  }
-</style>
 </head>
 <body>
 
 <div id="header"></div>
+<!-- your page content -->
 
 <script src="js/supabase.min.js"></script>
 <script>
@@ -140,10 +38,12 @@ async function initHeader() {
     const data = await res.text();
     document.getElementById('header').innerHTML = data;
 
+    // Now that header is in DOM, run the logic
     document.getElementById('hamburger')?.addEventListener('click', () => {
         document.getElementById('navMenu')?.classList.toggle('active');
     });
 
+    // Back to top button logic
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
         scrollTopBtn.addEventListener('click', () => {
@@ -174,10 +74,10 @@ async function initHeader() {
 
         if (adminLinkContainer) {
             const { data: profileData } = await supabaseClient
-           .from('profiles')
-           .select('role')
-           .eq('user_id', user.id)
-           .single();
+              .from('profiles')
+              .select('role')
+              .eq('user_id', user.id)
+              .single();
 
             if (profileData && profileData.role === 'admin') {
                 adminLinkContainer.innerHTML = '<a href="admin_dashboard.html">Admin Portal</a>';
@@ -198,281 +98,287 @@ initHeader();
     Your browser does not support the video tag.
   </video>
   <div class="hero-overlay"></div>
-  <div class="container">
+  <div class="hero-content">
+    <h1 class="fade-in">IT Security & Support for Small Businesses in South Africa</h1>
+    <p class="fade-in hero-sub">We protect your Microsoft 365, devices and network — and keep your team working with local, plain-English support.</p>
+    <ul class="hero-benefits">
+      <li>✓ On-site support in Pretoria & Gauteng</li>
+      <li>✓ 24/7 monitoring & automated cloud backups</li>
+      <li>✓ Fixed monthly pricing, no surprise invoices</li>
+    </ul>
 
-    <!-- LEFT: VALUE PROP -->
-    <div class="hero-content">
-      <h1 class="fade-in">IT Security & Support for Small Businesses in South Africa</h1>
-      <p class="fade-in hero-sub">We protect your Microsoft 365, devices and network — and keep your team working with local, plain-English support.</p>
-      <ul class="hero-benefits">
-        <li>On-site support in Pretoria & Gauteng</li>
-        <li>24/7 monitoring & automated cloud backups</li>
-        <li>Fixed monthly pricing, no surprise invoices</li>
-      </ul>
-      <p class="hero-note">Secured M365 for 60-user manufacturer in 3 days • Built by experienced IT professionals</p>
-    </div>
-
-    <!-- RIGHT: ZOHO FORM -->
-    <div class="hero-form">
-      <!-- Note :
-         - You can modify the font style and form style to suit your website.
-         - Code lines with comments Do not remove this code are required for the form to work properly, make sure that you do not remove these lines of code.
-         - The Mandatory check script can modified as to suit your business needs.
-         - It is important that you test the modified form before going live.-->
-      <div id='crmWebToEntityForm' class='nextgrid-form-wrapper'>
-      	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-      	<META HTTP-EQUIV='content-type' CONTENT='text/html;charset=UTF-8'>
-      	<form id='webform7375442000000750502' action='https://crm.zoho.com/crm/WebToLeadForm' name=WebToLeads7375442000000750502 method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory7375442000000750502()' accept-charset='UTF-8'>
-      		<input type='text' style='display:none;' name='xnQsjsdp' value='58ada5f86b2e8b710517211fb25651c256971f00f554039c25e73222fb9aeffd'>
-      		<input type='hidden' name='zc_gad' id='zc_gad' value=''>
-      		<input type='text' style='display:none;' name='xmIwtLD' value='66fda56928994c6ad4bfca85c27ee385d9621df792ab6be4068a0c7c02fb79b61b633ad367cc325b08180e064a23c025'>
-      		<input type='text' style='display:none;' name='actionType' value='TGVhZHM='>
-      		<input type='text' style='display:none;' name='returnURL' value='https&#x3a;&#x2f;&#x2f;www.nextgridtechnologies.co.za&#x2f;thank-you.html'>
-      		<!-- Do not remove this code. -->
-      		
-      		<!-- HIDDEN FIELDS -->
-      		<input type='hidden' name='Lead Source' value='Online Store'>
-      		<input type='text' type='hidden' style='display: none;' name='aG9uZXlwb3Q' value=''/>
-      		
-      		<style>
-      			/* === NEXTGRID FORM STYLES === */
-      			.nextgrid-form-wrapper {
-      				background: #ffffff;
-      				border-radius: 8px;
-      				padding: 32px;
-      				max-width: 540px;
-      				width: 100%;
-      				margin: 0 auto;
-      				box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      			}
-      			.nextgrid-form-wrapper * {
-      				box-sizing: border-box;
-      			}
-      			.nextgrid-form-title {
-      				font-size: 24px;
-      				font-weight: 700;
-      				color: #1a1a1a;
-      				margin: 0 0 8px 0;
-      				text-align: center;
-      			}
-      			.nextgrid-form-subtitle {
-      				font-size: 14px;
-      				color: #666;
-      				text-align: center;
-      				margin: 0 0 24px 0;
-      			}
-      			.zcwf_row {
-      				margin-bottom: 18px;
-      			}
-      			.zcwf_row.zcwf_two_col {
-      				display: grid;
-      				grid-template-columns: 1fr 1fr;
-      				gap: 16px;
-      			}
-      			.zcwf_col_lab {
-      				display: block;
-      				font-size: 14px;
-      				font-weight: 600;
-      				color: #333;
-      				margin-bottom: 6px;
-      			}
-      			.zcwf_col_lab.required {
-      				color: #e74c3c;
-      			}
-      			.zcwf_col_fld input[type=text],
-      			.zcwf_col_fld select {
-      				width: 100%;
-      				padding: 12px 14px;
-      				font-size: 15px;
-      				border: 1px solid #d1d5db;
-      				border-radius: 6px;
-      				background: #fff;
-      				transition: border 0.2s;
-      			}
-      			.zcwf_col_fld input:focus,
-      			.zcwf_col_fld select:focus {
-      				outline: none;
-      				border-color: #0279FF;
-      				box-shadow: 0 0 0 3px rgba(2, 121, 255, 0.1);
-      			}
-      			.zcwf_col_fld_slt {
-      				appearance: none;
-      				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-      				background-repeat: no-repeat;
-      				background-position: right 14px center;
-      				padding-right: 40px;
-      			}
-      			.formsubmit.zcwf_button {
-      				width: 100%;
-      				background: linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
-      				color: #fff!important;
-      				font-size: 16px;
-      				font-weight: 700;
-      				padding: 14px 20px;
-      				border: none;
-      				border-radius: 6px;
-      				cursor: pointer;
-      				transition: transform 0.1s, box-shadow 0.2s;
-      				margin-top: 8px;
-      			}
-      			.formsubmit.zcwf_button:hover {
-      				background: linear-gradient(0deg, #006be4 0%, #02acff 100%);
-      				box-shadow: 0 4px 12px rgba(2, 121, 255, 0.3);
-      				transform: translateY(-1px);
-      			}
-      			.formsubmit.zcwf_button:disabled {
-      				opacity: 0.6;
-      				cursor: not-allowed;
-      			}
-      			.zcwf_privacy_note {
-      				font-size: 12px;
-      				color: #6b7280;
-      				text-align: center;
-      				margin-top: 12px;
-      			}
-      			.zcwf_button[name='reset'],.zcwf_title {
-      				display: none!important;
-      			}
-      			@media all and (max-width: 600px) {
-      				.zcwf_row.zcwf_two_col {
-      					grid-template-columns: 1fr;
-      				}
-      				.nextgrid-form-wrapper {
-      					padding: 24px 20px;
-      				}
-      			}
-      		</style>
-      		
-      		<div class='nextgrid-form-title'>Get IT Fixed Today</div>
-      		<div class='nextgrid-form-subtitle'>Local engineer responds in under 1 hour</div>
-      		
-      		<div class='zcwf_row'>
-      			<div class='zcwf_col_lab'>
-      				<label for='Company'>Company Name <span class='required'>*</span></label>
-      			</div>
-      			<div class='zcwf_col_fld'>
-      				<input type='text' id='Company' aria-required='true' aria-label='Company' name='Company' maxlength='200' placeholder='Your company name'>
-      			</div>
-      		</div>
-      		
-      		<div class='zcwf_row zcwf_two_col'>
-      			<div>
-      				<div class='zcwf_col_lab'>
-      					<label for='First_Name'>First Name <span class='required'>*</span></label>
-      				</div>
-      				<div class='zcwf_col_fld'>
-      					<input type='text' id='First_Name' aria-required='true' aria-label='First Name' name='First Name' maxlength='40' placeholder='John'>
-      				</div>
-      			</div>
-      			<div>
-      				<div class='zcwf_col_lab'>
-      					<label for='Last_Name'>Last Name <span class='required'>*</span></label>
-      				</div>
-      				<div class='zcwf_col_fld'>
-      					<input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' maxlength='80' placeholder='Smith'>
-      				</div>
-      			</div>
-      		</div>
-      		
-      		<div class='zcwf_row'>
-      			<div class='zcwf_col_lab'>
-      				<label for='LEADCF4'>What’s the biggest IT issue right now? <span class='required'>*</span></label>
-      			</div>
-      			<div class='zcwf_col_fld'>
-      				<select class='zcwf_col_fld_slt' role='combobox' aria-expanded='false' aria-haspopup='listbox' id='LEADCF4' onChange='addAriaSelected7375442000000750502()' aria-required='true' aria-label='LEADCF4' name='LEADCF4'>
-      					<option value='-None-'>Select your main issue...</option>
-      					<option value='Our team needs daily IT help / slow computers'>Our team needs daily IT help / slow computers</option>
-      					<option value='Worried about viruses, backups, or security risks'>Worried about viruses, backups, or security risks</option>
-      					<option value='Need to lock down Microsoft 365 / email security'>Need to lock down Microsoft 365 / email security</option>
-      					<option value='Just comparing options for now'>Just comparing options for now</option>
-      				</select>
-      			</div>
-      		</div>
-      		
-      		<div class='zcwf_row'>
-      			<div class='zcwf_col_fld'>
-      				<input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Get My Free Network Assessment' aria-label='Submit' title='Submit'>
-      				<input type='reset' class='zcwf_button' role='button' name='reset' value='Reset' aria-label='Reset' title='Reset'>
-      			</div>
-      		</div>
-      		
-      		<div class='zcwf_privacy_note'>We respect your privacy. No spam, ever.</div>
-      		
-      		<script>
-      			function addAriaSelected7375442000000750502(){
-      				var optionElem = event.target;
-      				var previousSelectedOption = optionElem.querySelector('[aria-selected=true]');
-      				if (previousSelectedOption) {
-      					previousSelectedOption.removeAttribute('aria-selected');
-      				}
-      				optionElem.querySelectorAll('option')[optionElem.selectedIndex].ariaSelected = 'true';
-      			}
-      			function checkMandatory7375442000000750502(){
-      				var mndFileds = new Array('Company', 'First Name', 'Last Name', 'LEADCF4');
-      				var fldLangVal = new Array('Company', 'First\x20Name', 'Last\x20Name', 'What\u2019s\x20the\x20biggest\x20IT\x20issue\x20right\x20now\x3F');
-      				for (i = 0; i < mndFileds.length; i++) {
-      					var fieldObj = document.forms['WebToLeads7375442000000750502'][mndFileds[i]];
-      					if (fieldObj) {
-      						if(((fieldObj.value).replace(/^\s+|\s+$/g,'')).length == 0) {
-      							if (fieldObj.type == 'file') {
-      								alert('Please select a file to upload.');
-      								fieldObj.focus();
-      								return false;
-      							}
-      							alert(fldLangVal[i] + ' cannot be empty.');
-      							fieldObj.focus();
-      							return false;
-      						} else if (fieldObj.nodeName == 'SELECT') {
-      							if (fieldObj.options[fieldObj.selectedIndex].value == '-None-') {
-      								alert('Please select ' + fldLangVal[i]);
-      								fieldObj.focus();
-      								return false;
-      							}
-      						} else if (fieldObj.type == 'checkbox') {
-      							if (fieldObj.checked == false) {
-      								alert('Please accept ' + fldLangVal[i]);
-      								fieldObj.focus();
-      								return false;
-      							}
-      						try{
-      							if (fieldObj.name == 'Last Name') {
-      								name = fieldObj.value;
-      							}
-      						} catch (e){}
-      					}
-      				}
-      				var urlparams = new URLSearchParams(window.location.search);
-      				if (urlparams.has('service') && (urlparams.get('service') === 'smarturl')) {
-      					var webform = document.getElementById('webform7375442000000750502');
-      					var service = urlparams.get('service');
-      					var smarturlfield = document.createElement('input');
-      					smarturlfield.setAttribute('type', 'hidden');
-      					smarturlfield.setAttribute('value', service);
-      					smarturlfield.setAttribute('name', 'service');
-      					webform.appendChild(smarturlfield);
-      				}
-      				document.querySelector('.crmWebToEntityForm.formsubmit').setAttribute('disabled', true);
-      			}
-      			function tooltipShow7375442000000750502(el){
-      				var tooltip = el.nextElementSibling;
-      				var tooltipDisplay = tooltip.style.display;
-      				if (tooltipDisplay == 'none') {
-      					var allTooltip = document.getElementsByClassName('zcwf_tooltip_over');
-      					for (i = 0; i < allTooltip.length; i++) {
-      						allTooltip[i].style.display = 'none';
-      					}
-      					tooltip.style.display = 'block';
-      				} else {
-      					tooltip.style.display = 'none';
-      				}
-      			}
-      		</script>
-      		<!-- Do not remove this --- Analytics Tracking code starts -->
-      		<script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=9b9648a5c86c78869217c1d930065d85ca262fe264a489434b65a69254aedfc675b00e7914f6b11afd463a1be61ed305gidcc7e3a46d44f5aabb8e4a3110937c2043c52af657ea8b777fe47d42994f40ec1gidf7d6e24d6e67e41652db34d7861b65f61ff759c9370386908a6629fb348e7ee5gidaf498b4744e9fbb5a073e78bb5bcd0a11cfa89f4c32b07723e0d8b7f5ba0c2d3&tw=afcf59e6cb078ad7c7aa489851e149cf545a8b283852aafc1fe20261ac3b78e5'>
-      		</script>
-      		<!-- Do not remove this --- Analytics Tracking code ends. -->
-      	</form>
+    <!-- ZOHO HERO FORM -->
+   <!-- Note :
+   - You can modify the font style and form style to suit your website. 
+   - Code lines with comments Do not remove this code are required for the form to work properly, make sure that you do not remove these lines of code. 
+   - The Mandatory check script can modified as to suit your business needs. 
+   - It is important that you test the modified form before going live.-->
+<div id='crmWebToEntityForm' class='nextgrid-form-wrapper'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<META HTTP-EQUIV='content-type' CONTENT='text/html;charset=UTF-8'>
+	<form id='webform7375442000000750502' action='https://crm.zoho.com/crm/WebToLeadForm' name=WebToLeads7375442000000750502 method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory7375442000000750502()' accept-charset='UTF-8'>
+		<input type='text' style='display:none;' name='xnQsjsdp' value='58ada5f86b2e8b710517211fb25651c256971f00f554039c25e73222fb9aeffd'>
+		<input type='hidden' name='zc_gad' id='zc_gad' value=''>
+		<input type='text' style='display:none;' name='xmIwtLD' value='66fda56928994c6ad4bfca85c27ee385d9621df792ab6be4068a0c7c02fb79b61b633ad367cc325b08180e064a23c025'>
+		<input type='text' style='display:none;' name='actionType' value='TGVhZHM='>
+		<input type='text' style='display:none;' name='returnURL' value='https&#x3a;&#x2f;&#x2f;www.nextgridtechnologies.co.za&#x2f;thank-you.html'>
+		<!-- Do not remove this code. -->
+		
+		<!-- HIDDEN FIELDS -->
+		<input type='hidden' name='Lead Source' value='Online Store'>
+		<input type='text' type='hidden' style='display: none;' name='aG9uZXlwb3Q' value=''/>
+		
+		<style>
+			/* === NEXTGRID FORM STYLES === */
+			.nextgrid-form-wrapper {
+				background: #ffffff;
+				border-radius: 8px;
+				padding: 32px;
+				max-width: 540px;
+				margin: 0 auto;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+			}
+			.nextgrid-form-wrapper * {
+				box-sizing: border-box;
+			}
+			.nextgrid-form-title {
+				font-size: 24px;
+				font-weight: 700;
+				color: #1a1a1a;
+				margin: 0 0 8px 0;
+				text-align: center;
+			}
+			.nextgrid-form-subtitle {
+				font-size: 14px;
+				color: #666;
+				text-align: center;
+				margin: 0 0 24px 0;
+			}
+			.zcwf_row {
+				margin-bottom: 18px;
+			}
+			.zcwf_row.zcwf_two_col {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 16px;
+			}
+			.zcwf_col_lab {
+				display: block;
+				font-size: 14px;
+				font-weight: 600;
+				color: #333;
+				margin-bottom: 6px;
+			}
+			.zcwf_col_lab.required {
+				color: #e74c3c;
+			}
+			.zcwf_col_fld input[type=text],
+			.zcwf_col_fld input[type=password],
+			.zcwf_col_fld select,
+			.zcwf_col_fld textarea {
+				width: 100%;
+				padding: 12px 14px;
+				font-size: 15px;
+				border: 1px solid #d1d5db;
+				border-radius: 6px;
+				background: #fff;
+				transition: border 0.2s;
+			}
+			.zcwf_col_fld input:focus,
+			.zcwf_col_fld select:focus,
+			.zcwf_col_fld textarea:focus {
+				outline: none;
+				border-color: #0279FF;
+				box-shadow: 0 0 0 3px rgba(2, 121, 255, 0.1);
+			}
+			.zcwf_col_fld_slt {
+				appearance: none;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				background-position: right 14px center;
+				padding-right: 40px;
+			}
+			.formsubmit.zcwf_button {
+				width: 100%;
+				background: linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
+				color: #fff!important;
+				font-size: 16px;
+				font-weight: 700;
+				padding: 14px 20px;
+				border: none;
+				border-radius: 6px;
+				cursor: pointer;
+				transition: transform 0.1s, box-shadow 0.2s;
+				margin-top: 8px;
+			}
+			.formsubmit.zcwf_button:hover {
+				background: linear-gradient(0deg, #006be4 0%, #02acff 100%);
+				box-shadow: 0 4px 12px rgba(2, 121, 255, 0.3);
+				transform: translateY(-1px);
+			}
+			.formsubmit.zcwf_button:disabled {
+				opacity: 0.6;
+				cursor: not-allowed;
+			}
+			.zcwf_privacy_note {
+				font-size: 12px;
+				color: #6b7280;
+				text-align: center;
+				margin-top: 12px;
+			}
+			/* Hide the reset button and default title */
+			.zcwf_button[name='reset'],.zcwf_title {
+				display: none!important;
+			}
+			/* Mobile: stack columns */
+			@media all and (max-width: 600px) {
+				.zcwf_row.zcwf_two_col {
+					grid-template-columns: 1fr;
+				}
+				.nextgrid-form-wrapper {
+					padding: 24px 20px;
+				}
+			}
+		</style>
+		
+		<div class='nextgrid-form-title'>Get IT Fixed Today</div>
+		<div class='nextgrid-form-subtitle'>Local engineer responds in under 1 hour</div>
+		
+		<div class='zcwf_row'>
+			<div class='zcwf_col_lab'>
+				<label for='Company'>Company Name <span class='required'>*</span></label>
+			</div>
+			<div class='zcwf_col_fld'>
+				<input type='text' id='Company' aria-required='true' aria-label='Company' name='Company' maxlength='200' placeholder='Your company name'>
+			</div>
+		</div>
+		
+		<div class='zcwf_row zcwf_two_col'>
+			<div>
+				<div class='zcwf_col_lab'>
+					<label for='First_Name'>First Name <span class='required'>*</span></label>
+				</div>
+				<div class='zcwf_col_fld'>
+					<input type='text' id='First_Name' aria-required='true' aria-label='First Name' name='First Name' maxlength='40' placeholder='John'>
+				</div>
+			</div>
+			<div>
+				<div class='zcwf_col_lab'>
+					<label for='Last_Name'>Last Name <span class='required'>*</span></label>
+				</div>
+				<div class='zcwf_col_fld'>
+					<input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' maxlength='80' placeholder='Smith'>
+				</div>
+			</div>
+		</div>
+		
+		<div class='zcwf_row'>
+			<div class='zcwf_col_lab'>
+				<label for='LEADCF4'>What’s the biggest IT issue right now? <span class='required'>*</span></label>
+			</div>
+			<div class='zcwf_col_fld'>
+				<select class='zcwf_col_fld_slt' role='combobox' aria-expanded='false' aria-haspopup='listbox' id='LEADCF4' onChange='addAriaSelected7375442000000750502()' aria-required='true' aria-label='LEADCF4' name='LEADCF4'>
+					<option value='-None-'>Select your main issue...</option>
+					<option value='Our team needs daily IT help / slow computers'>Our team needs daily IT help / slow computers</option>
+					<option value='Worried about viruses, backups, or security risks'>Worried about viruses, backups, or security risks</option>
+					<option value='Need to lock down Microsoft 365 / email security'>Need to lock down Microsoft 365 / email security</option>
+					<option value='Just comparing options for now'>Just comparing options for now</option>
+				</select>
+			</div>
+		</div>
+		
+		<!-- Lead Source is now hidden and set to 'Online Store' above -->
+		
+		<div class='zcwf_row'>
+			<div class='zcwf_col_fld'>
+				<input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Get My Free Network Assessment' aria-label='Submit' title='Submit'>
+				<input type='reset' class='zcwf_button' role='button' name='reset' value='Reset' aria-label='Reset' title='Reset'>
+			</div>
+		</div>
+		
+		<div class='zcwf_privacy_note'>We respect your privacy. No spam, ever.</div>
+		
+		<script>
+			function addAriaSelected7375442000000750502(){
+				var optionElem = event.target;
+				var previousSelectedOption = optionElem.querySelector('[aria-selected=true]');
+				if (previousSelectedOption) {
+					previousSelectedOption.removeAttribute('aria-selected');
+				}
+				optionElem.querySelectorAll('option')[optionElem.selectedIndex].ariaSelected = 'true';
+			}
+			function checkMandatory7375442000000750502(){
+				var mndFileds = new Array('Company', 'First Name', 'Last Name', 'LEADCF4');
+				var fldLangVal = new Array('Company', 'First\x20Name', 'Last\x20Name', 'What\u2019s\x20the\x20biggest\x20IT\x20issue\x20right\x20now\x3F');
+				for (i = 0; i < mndFileds.length; i++) {
+					var fieldObj = document.forms['WebToLeads7375442000000750502'][mndFileds[i]];
+					if (fieldObj) {
+						if(((fieldObj.value).replace(/^\s+|\s+$/g,'')).length == 0) {
+							if (fieldObj.type == 'file') {
+								alert('Please select a file to upload.');
+								fieldObj.focus();
+								return false;
+							}
+							alert(fldLangVal[i] + ' cannot be empty.');
+							fieldObj.focus();
+							return false;
+						} else if (fieldObj.nodeName == 'SELECT') {
+							if (fieldObj.options[fieldObj.selectedIndex].value == '-None-') {
+								alert('Please select ' + fldLangVal[i]);
+								fieldObj.focus();
+								return false;
+							}
+						} else if (fieldObj.type == 'checkbox') {
+							if (fieldObj.checked == false) {
+								alert('Please accept ' + fldLangVal[i]);
+								fieldObj.focus();
+								return false;
+							}
+						}
+						try{
+							if (fieldObj.name == 'Last Name') {
+								name = fieldObj.value;
+							}
+						} catch (e){}
+					}
+				}
+				var urlparams = new URLSearchParams(window.location.search);
+				if (urlparams.has('service') && (urlparams.get('service') === 'smarturl')) {
+					var webform = document.getElementById('webform7375442000000750502');
+					var service = urlparams.get('service');
+					var smarturlfield = document.createElement('input');
+					smarturlfield.setAttribute('type', 'hidden');
+					smarturlfield.setAttribute('value', service);
+					smarturlfield.setAttribute('name', 'service');
+					webform.appendChild(smarturlfield);
+				}
+				document.querySelector('.crmWebToEntityForm.formsubmit').setAttribute('disabled', true);
+			}
+			function tooltipShow7375442000000750502(el){
+				var tooltip = el.nextElementSibling;
+				var tooltipDisplay = tooltip.style.display;
+				if (tooltipDisplay == 'none') {
+					var allTooltip = document.getElementsByClassName('zcwf_tooltip_over');
+					for (i = 0; i < allTooltip.length; i++) {
+						allTooltip[i].style.display = 'none';
+					}
+					tooltip.style.display = 'block';
+				} else {
+					tooltip.style.display = 'none';
+				}
+			}
+		</script>
+		<!-- Do not remove this --- Analytics Tracking code starts -->
+		<script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=9b9648a5c86c78869217c1d930065d85ca262fe264a489434b65a69254aedfc675b00e7914f6b11afd463a1be61ed305gidcc7e3a46d44f5aabb8e4a3110937c2043c52af657ea8b777fe47d42994f40ec1gidf7d6e24d6e67e41652db34d7861b65f61ff759c9370386908a6629fb348e7ee5gidaf498b4744e9fbb5a073e78bb5bcd0a11cfa89f4c32b07723e0d8b7f5ba0c2d3&tw=afcf59e6cb078ad7c7aa489851e149cf545a8b283852aafc1fe20261ac3b78e5'>
+		</script>
+		<!-- Do not remove this --- Analytics Tracking code ends. -->
+	</form>
+</div>
+		
+      <div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm'>
+       
+       
       </div>
 
       <p class="hero-form-note">
@@ -480,6 +386,10 @@ initHeader();
       </p>
     </div>
 
+    <div class="hero-buttons">
+      <a href="r950-check.html" class="btn-secondary">See What’s Included – R950 Check</a>
+    </div>
+    <p class="hero-note">Secured M365 for 60-user manufacturer in 3 days • Built by experienced IT professionals</p>
   </div>
 </section>
 
@@ -555,6 +465,9 @@ initHeader();
       </div>
     </div>
     <div class="cta-center">
+      <!-- ZOHO FORM FOR CHECKLIST LEAD MAGNET -->
+      <!-- Create separate Zoho Webform: Name, Email, Company → On submit: email PDF + tag Lead "M365 Checklist" -->
+      <!-- PASTE ZOHO FORM CODE HERE OR KEEP LINK IF YOU PREFER -->
       <a href="m365-security-checklist.html" class="btn-primary">Get Free M365 Checklist</a>
     </div>
   </div>
@@ -674,6 +587,7 @@ initHeader();
     </div>
   </div>
 </section>
+
 <!-- Testimonials -->
 <section class="testimonials">
   <div class="container">
