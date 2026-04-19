@@ -2072,7 +2072,7 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   }
 }
 
-/* === POPIA CHECKLIST CARD - CENTERED COLUMN === */
+/* === POPIA CHECKLIST CARD - WIDE HORIZONTAL === */
 .support-section {
   padding: 60px 20px;
 }
@@ -2084,36 +2084,33 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   background: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
   border: 2px solid #10b981;
   border-radius: 16px;
-  padding: 48px 40px;
+  padding: 40px 48px;
   color: #fff;
   box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%; /* Full width of container */
 }
 .checklist-row {
-  display: block; /* Changed from grid to block */
-  margin-bottom: 0;
+  display: block;
+  text-align: left; /* Left align instead of center */
 }
 .checklist-col h2 {
-  font-size: 36px;
+  font-size: 32px; /* Slightly smaller to fit one line */
   font-weight: 800;
   line-height: 1.2;
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   color: #fff;
+  white-space: nowrap; /* Forces heading onto one line */
 }
 .checklist-col p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
-  margin: 0 0 32px 0;
-  opacity: 0.95;
+  margin: 0 0 28px 0;
   color: #fff;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  opacity: 0.95;
+  max-width: 800px; /* Controls width so it wraps to ~3 lines */
 }
 .cta-center {
-  text-align: center;
+  text-align: left;
 }
 .cta-center .btn-primary {
   display: inline-block;
@@ -2130,15 +2127,22 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(2, 121, 255, 0.4);
 }
+/* Tablet */
+@media (max-width: 900px) {
+  .checklist-col h2 {
+    white-space: normal; /* Allow wrap on smaller screens */
+    font-size: 28px;
+  }
+}
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .tech-card.highlight {
     padding: 32px 24px;
   }
   .checklist-col h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
   .checklist-col p {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
