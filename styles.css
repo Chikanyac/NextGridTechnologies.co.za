@@ -2345,3 +2345,30 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     grid-template-columns: 1fr !important;
   }
 }
+/* ========= FIX READ MORE BUTTON OVERLAP ========= */
+.blog-page .card.tech-card,
+.blog-page .service-card,
+.blog-page .article-card {
+  display: flex !important;
+  flex-direction: column !important;
+  padding-bottom: 28px !important; /* makes room for button */
+}
+
+/* Make the paragraph grow and push the button to the bottom */
+.blog-page .card.tech-card p,
+.blog-page .service-card p,
+.blog-page .article-card p {
+  margin-bottom: 20px !important;
+  flex-grow: 1; /* takes up extra space so button sits at bottom */
+}
+
+/* Kill absolute positioning if it exists */
+.blog-page .btn-primary,
+.blog-page .btn-secondary,
+.blog-page .cta-btn,
+.blog-page a[href*="blog"] {
+  position: relative !important;
+  bottom: auto !important;
+  margin-top: auto !important; /* sticks to bottom of flex card */
+  align-self: center; /* keeps button centered */
+}
