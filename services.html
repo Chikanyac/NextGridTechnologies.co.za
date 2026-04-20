@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +25,11 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-  
+
 <style>
-/* NUCLEAR OVERRIDE - MUST BE LAST IN HEAD */
+/* ========= SERVICES PAGE OVERRIDES - LOAD LAST ========= */
+
+/* Process Section Fixes */
 section.process-section {
   display: block !important;
   visibility: visible !important;
@@ -74,16 +77,10 @@ section.process-section .process-card {
   padding: 28px 24px !important;
   visibility: visible !important;
   opacity: 1 !important;
-  filter: none !important; /* ADD THIS */
-  backdrop-filter: none !important; /* ADD THIS */
-  -webkit-filter: none !important; /* ADD THIS for Safari */
-  transform: none !important; /* ADD THIS */
-}
-  section.process-section,
-section.process-section * {
   filter: none !important;
   backdrop-filter: none !important;
   -webkit-filter: none !important;
+  transform: none !important;
 }
 
 section.process-section .process-card h3 {
@@ -99,7 +96,15 @@ section.process-section .process-card p {
   margin: 0 !important;
   line-height: 1.6 !important;
 }
-  /* ========= PRICING CARD BUTTON OVERLAP FIX ========= */
+
+section.process-section,
+section.process-section * {
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Pricing Card Button Overlap Fix */
 #pricing .m365-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
@@ -112,7 +117,7 @@ section.process-section .process-card p {
   background: #0f172a !important;
   border: 1px solid rgba(56, 189, 248, 0.2) !important;
   border-radius: 16px !important;
-  padding: 28px 24px 32px 24px !important; /* extra bottom padding */
+  padding: 28px 24px 32px 24px !important;
   filter: none !important;
   backdrop-filter: none !important;
 }
@@ -123,15 +128,15 @@ section.process-section .process-card p {
 }
 
 #pricing .m365-card ul {
-  flex-grow: 1 !important; /* pushes button to bottom */
-  margin-bottom: 24px !important; /* space above button */
+  flex-grow: 1 !important;
+  margin-bottom: 24px !important;
 }
 
 #pricing .m365-card .btn-primary,
 #pricing .m365-card .btn-small {
   position: relative !important;
   bottom: auto !important;
-  margin-top: auto !important; /* pins to bottom */
+  margin-top: auto !important;
   align-self: stretch !important;
   text-align: center !important;
   display: block !important;
@@ -147,7 +152,6 @@ section.process-section .process-card p {
   color: #cbd5e1 !important;
 }
 </style>
-</head>
 </head>
 <body>
 
@@ -382,24 +386,24 @@ section.process-section .process-card p {
   </div>
 </section>
 
-<!-- PROCESS TIMELINE WITH INLINE STYLES FOR TESTING -->
-<section class="process-section" style="background: #0b1220; padding: 80px 0;">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-    <h2 style="color: #ffffff; text-align: center; font-size: 2rem; margin-bottom: 16px;">What Happens After You Sign Up</h2>
-    <p class="section-intro" style="color: #cbd5e1; text-align: center; max-width: 600px; margin: 0 auto 40px;">No surprises. Here's your first 90 days.</p>
+<!-- PROCESS TIMELINE -->
+<section class="process-section">
+  <div class="container">
+    <h2>What Happens After You Sign Up</h2>
+    <p class="section-intro">No surprises. Here's your first 90 days.</p>
     
-    <div class="process-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-      <div class="process-card" style="background: #1e293b; border: 1px solid #38bdf8; border-radius: 16px; padding: 28px 24px;">
-        <h3 style="color: #38bdf8; font-size: 1.25rem; margin: 0 0 12px 0;">Day 0-7: Onboarding</h3>
-        <p style="color: #cbd5e1; margin: 0; line-height: 1.6;">We run the R950 audit, deploy monitoring agents, secure M365, fix red-flag items. You get admin access to everything.</p>
+    <div class="process-grid">
+      <div class="process-card">
+        <h3>Day 0-7: Onboarding</h3>
+        <p>We run the R950 audit, deploy monitoring agents, secure M365, fix red-flag items. You get admin access to everything.</p>
       </div>
-      <div class="process-card" style="background: #1e293b; border: 1px solid #38bdf8; border-radius: 16px; padding: 28px 24px;">
-        <h3 style="color: #38bdf8; font-size: 1.25rem; margin: 0 0 12px 0;">Day 8-30: Stabilize</h3>
-        <p style="color: #cbd5e1; margin: 0; line-height: 1.6;">Patch all devices, document passwords in encrypted vault, test backups, set up helpdesk. Goal: zero preventable downtime.</p>
+      <div class="process-card">
+        <h3>Day 8-30: Stabilize</h3>
+        <p>Patch all devices, document passwords in encrypted vault, test backups, set up helpdesk. Goal: zero preventable downtime.</p>
       </div>
-      <div class="process-card" style="background: #1e293b; border: 1px solid #38bdf8; border-radius: 16px; padding: 28px 24px;">
-        <h3 style="color: #38bdf8; font-size: 1.25rem; margin: 0 0 12px 0;">Day 31-90: Optimize</h3>
-        <p style="color: #cbd5e1; margin: 0; line-height: 1.6;">First quarterly business review. We show you tickets resolved, backup status, and recommend next security upgrades.</p>
+      <div class="process-card">
+        <h3>Day 31-90: Optimize</h3>
+        <p>First quarterly business review. We show you tickets resolved, backup status, and recommend next security upgrades.</p>
       </div>
     </div>
   </div>
@@ -479,7 +483,7 @@ section.process-section .process-card p {
 <!-- CREDIBILITY STRIP -->
 <section class="cert-section">
   <div class="container">
-    <p class="section-intro">| Microsoft 365 Certified | Experienced MSP Professionals |</p>
+    <p class="section-intro">Microsoft 365 Certified | Mimecast Partner | Fortinet Partner | Cyber Insurance Approved</p>
   </div>
 </section>
 
@@ -496,18 +500,11 @@ section.process-section .process-card p {
   </div>
 </section>
 
-<!-- STICKY BOTTOM CTA -->
-<div class="bottom-nav" style="position: sticky; bottom: 0; z-index: 998; background: var(--bg-dark); border-top: 2px solid var(--accent-2);">
+<!-- STICKY BOTTOM CTA - ONLY BAR ON SERVICES PAGE -->
+<div class="bottom-nav" style="position: sticky; bottom: 0; z-index: 998; background: #020617; border-top: 2px solid #38bdf8;">
   <a href="r950-check.html" style="flex-direction: row; gap: 10px; font-weight: 600;"><span>🔍</span><p>R950 Check</p></a>
   <a href="https://wa.me/27680330794" style="flex-direction: row; gap: 10px; font-weight: 600;"><span>💬</span><p>WhatsApp</p></a>
   <a href="tel:+27680330794" style="flex-direction: row; gap: 10px; font-weight: 600;"><span>📞</span><p>Call</p></a>
-</div>
-
-<div class="bottom-nav">
-<a href="index.html"><span>🏠</span><p>Home</p></a>
-<a href="services.html"><span>🛠</span><p>Services</p></a>
-<a href="blog.html"><span>📰</span><p>Blog</p></a>
-<a href="zoho.html"><span>📞</span><p>Contact</p></a>
 </div>
 
 <footer>
