@@ -1,0 +1,120 @@
+
+
+Ask Meta AI...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-C9DS2C71G6');</script>
+
+<title>Zero Trust for Small Business: What Actually Matters | NextGrid</title>
+<meta name="description" content="Forget the buzzwords. Zero Trust for SMEs means 3 things: MFA everywhere, device compliance, least privilege access. How to implement in 1 week.">
+<link rel="canonical" href="https://www.nextgridtechnologies.co.za/zero-trust-small-business.html">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Zero Trust for Small Business: What Actually Matters",
+  "author": {"@type": "Organization", "name": "NextGrid Technologies"},
+  "datePublished": "2026-03-10",
+  "description": "Zero Trust for SMEs: MFA everywhere, device compliance, least privilege. Implementation guide."
+}
+</script>
+
+<style>
+.article-hero{padding:100px 0 40px;background:linear-gradient(180deg,#020617 0%,#0b1220 100%)}
+.article-hero h1{font-size:2.5rem;margin-bottom:16px;color:#fff}
+.article-meta{color:#94a3b8;margin-bottom:24px;font-size:0.95rem}
+.article-content{max-width:800px;margin:0 auto;padding:60px 24px}
+.article-content p{color:#cbd5e1;line-height:1.8;margin-bottom:24px;font-size:1.05rem}
+.article-content h2{color:#fff;margin:48px 0 24px;font-size:1.75rem}
+.article-content h3{color:#38bdf8;margin:32px 0 16px;font-size:1.25rem}
+.pillar-card{background:#1e293b;border:1px solid rgba(56,189,248,0.3);border-radius:16px;padding:28px;margin:32px 0}
+.pillar-card h3{margin-top:0;color:#38bdf8}
+.pillar-card ul{color:#cbd5e1;line-height:1.8;padding-left:20px}
+.pillar-card ul li{margin-bottom:12px}
+.myth-box{background:rgba(239,68,68,0.05);border-left:4px solid #ef4444;padding:20px;margin:24px 0;border-radius:8px}
+.myth-box strong{color:#f87171}
+.cta-box{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:2px solid #38bdf8;border-radius:16px;padding:40px 32px;text-align:center;margin:48px 0}
+@media (max-width:600px){.article-hero h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div id="header"></div>
+<script>fetch('header.html').then(res=>res.text()).then(data=>{document.getElementById('header').innerHTML=data;document.getElementById('hamburger')?.addEventListener('click',()=>{document.getElementById('navMenu')?.classList.toggle('active');});});</script>
+
+<section class="article-hero"><div class="container">
+<h1>Zero Trust for Small Business: What Actually Matters</h1>
+<p class="article-meta">Published March 2026 | 6 min read | No buzzwords</p>
+</div></section>
+
+<article class="article-content">
+<p><strong>“Zero Trust” sounds like enterprise fluff.</strong> 500-page frameworks, SASE, ZTNA, identity fabrics.</p>
+<p>For a 20-person business in Pretoria, it means 3 things. Ignore the rest.</p>
+
+<div class="myth-box">
+<strong>Myth:</strong> Zero Trust means buying 6 new security tools.<br>
+<strong>Reality:</strong> If you have Microsoft 365 Business Premium, you already own 90% of it. You just haven’t turned it on.
+</div>
+
+<h2>The Only 3 Pillars That Matter for SMEs</h2>
+
+<div class="pillar-card">
+<h3>1. MFA Everywhere (Identity)</h3>
+<p><strong>Zero Trust rule:</strong> Never trust, always verify. A password is not verification.</p>
+<ul>
+<li><strong>What to do:</strong> Enforce MFA on M365, VPN, firewall, accounting software. No exceptions for “it’s annoying”.</li>
+<li><strong>How:</strong> Azure AD > Security > Conditional Access > Require MFA for all users. 10 minutes.</li>
+<li><strong>SA context:</strong> SAPS reports 80% of BEC cases had no MFA. POPIA fines apply if you didn’t take “reasonable steps”.</li>
+</ul>
+</div>
+
+<div class="pillar-card">
+<h3>2. Device Compliance (Device)</h3>
+<p><strong>Zero Trust rule:</strong> Don’t let infected personal laptops access company data.</p>
+<ul>
+<li><strong>What to do:</strong> Only allow email/SharePoint access from devices with: BitLocker on, antivirus updated, OS patched.</li>
+<li><strong>How:</strong> Intune (included in Business Premium) > Compliance policies > Mark non-compliant devices > Block access.</li>
+<li><strong>SA context:</strong> Load shedding = staff work from home on old personal PCs. This is your #1 risk.</li>
+</ul>
+</div>
+
+<div class="pillar-card">
+<h3>3. Least Privilege Access (Access)</h3>
+<p><strong>Zero Trust rule:</strong> Staff only access what they need. No “admin for everyone”.</p>
+<ul>
+<li><strong>What to do:</strong> Remove Global Admin from daily accounts. Finance can’t see HR folders. Sales can’t export all customers.</li>
+<li><strong>How:</strong> M365 Admin > Active Users > Remove admin roles. SharePoint > Site permissions > Break inheritance.</li>
+<li><strong>SA context:</strong> Disgruntled employee/ex-employee theft is 30% of data breaches. Limit damage radius.</li>
+</ul>
+</div>
+
+<h2>What to Ignore (For Now)</h2>
+<p><strong>Microsegmentation, SDP, CASB, SWG.</strong> These are for 500+ user enterprises. You’ll spend R50k on tools and still get phished if MFA is off.</p>
+<p>Get the 3 pillars right first. Audit in 6 months. Add complexity only if you need it.</p>
+
+<h2>1-Week Implementation Plan</h2>
+<p><strong>Day 1-2:</strong> Enable MFA for all users. Use number matching. Send staff 2-min video.<br>
+<strong>Day 3-4:</strong> Enroll devices in Intune. Set compliance policy. Block non-compliant.<br>
+<strong>Day 5:</strong> Audit admin roles. Remove Global Admin from 90% of staff. Document who has what.<br>
+<strong>Day 6-7:</strong> Test. Try logging in from personal phone without MFA. Should fail. Try accessing HR folder as sales. Should fail.</p>
+
+<div class="cta-box">
+<h3 style="color:#fff;margin:0 0 12px;">Want Us to Do This For You?</h3>
+<p style="color:#cbd5e1;margin-bottom:24px;">Our R950 IT Health Check includes a full Zero Trust audit. We check MFA, device compliance, and privilege creep. You get a 1-page report + we fix it same-day if you want.</p>
+<a href="r950-check.html" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Post3 R950'});">Book R950 Check</a>
+</div>
+
+<p>Still confused? <a href="m365-security-checklist-2026.html" style="color:#38bdf8;">Download the M365 checklist</a> — it covers pillars 1 and 3. Or <a href="https://wa.me/27680330794?text=Hi NextGrid, explain zero trust to me" style="color:#38bdf8;">WhatsApp us</a> and we’ll voice note it in 2 mins.</p>
+</article>
+
+<div class="bottom-nav"><a href="index.html"><span>🏠</span><p>Home</p></a><a href="services.html"><span>🛠</span><p>Services</p></a><a href="blog.html"><span>📰</span><p>Blog</p></a><a href="contact.html"><span>📞</span><p>Contact</p></a></div>
+<footer><div class="container"><p>© 2026 NextGrid Technologies</p></div></footer>
+</body>
+</html>
