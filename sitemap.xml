@@ -1,36 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Entry for your homepage -->
+  
+  <!-- Homepage -->
   <url>
     <loc>https://www.nextgridtechnologies.co.za/index.html</loc>
-    <lastmod>2026-03-31</lastmod> <!-- Last modification date (YYYY-MM-DD) -->
-    <changefreq>monthly</changefreq> <!-- How frequently the page is likely to change -->
-    <priority>1.0</priority> <!-- Priority of this URL relative to other URLs on your site (0.0 to 1.0) -->
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
-  <!-- Entry for your Services page -->
+  <!-- Services -->
   <url>
     <loc>https://www.nextgridtechnologies.co.za/services.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pricing -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/pricing.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- R950 Check -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/r950-check.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/contact.html</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Entry for your Blog page -->
+  <!-- Blog Hub -->
   <url>
     <loc>https://www.nextgridtechnologies.co.za/blog.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Post: M365 Checklist -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/m365-security-checklist-2026.html</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Add more <url> blocks for each of your other pages -->
-	<!-- Entry for your Login page -->
-    <url>
+  <!-- Blog Post: Managed IT vs Break-Fix -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/managed-it-vs-break-fix-cost.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Post: Cybersecurity Threats -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/cybersecurity-threats-sa-2026.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Post: Zero Trust -->
+  <url>
+    <loc>https://www.nextgridtechnologies.co.za/zero-trust-small-business.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Login -->
+  <url>
     <loc>https://www.nextgridtechnologies.co.za/login.html</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.3</priority>
   </url>
 
 </urlset>
