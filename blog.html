@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,204 +14,302 @@ gtag('js', new Date());
 gtag('config', 'G-C9DS2C71G6');
 </script>
 
-<title>IT Security Blog for Small Business | NextGrid Technologies</title>
-
-<meta name="description" content="Stay updated on Microsoft 365 security, cybersecurity trends, and IT support tips for small businesses in Pretoria.">
-<meta name="keywords" content="IT security blog, Microsoft 365 security, small business cybersecurity">
+<title>IT Blog | Microsoft 365 Security & SME Cybersecurity Tips | NextGrid</title>
+<meta name="description" content="Practical IT advice for SA businesses. Learn to secure Microsoft 365, stop ransomware, fix slow Wi-Fi, and protect backups. Updated weekly.">
+<meta name="keywords" content="Microsoft 365 security, small business cybersecurity, IT support Pretoria, ransomware prevention">
 <meta name="author" content="NextGrid Technologies">
 
 <link rel="icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ========= BLOG SPECIFIC ========= */
+.blog-section {
+  padding: 80px 0;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin: 40px 0;
+}
+.blog-card {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+.blog-card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-4px);
+}
+.blog-card-img {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+.blog-card-content {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.blog-category {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+.blog-card h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.blog-card p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+}
+.blog-date {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+.blog-read {
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.blog-read:hover {
+  text-decoration: underline;
+}
+.featured-post {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: center;
+  background: #0f172a;
+  border: 2px solid #38bdf8;
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+.featured-post .blog-card-img {
+  height: 280px;
+  border-radius: 12px;
+}
+.featured-badge {
+  background: #38bdf8;
+  color: #020617;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.blog-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #cbd5e1;
+}
+@media (max-width: 768px) {
+  .featured-post {
+    grid-template-columns: 1fr;
+  }
+  .featured-post .blog-card-img {
+    height: 200px;
+  }
+}
+</style>
 </head>
-
 <body>
-
-<!-- HEADER -->
 <div id="header"></div>
 
 <script>
 fetch('header.html')
 .then(res => res.text())
 .then(data => {
-document.getElementById('header').innerHTML = data;
-
-// Menu toggle
-document.getElementById('hamburger')?.addEventListener('click', () => {
-document.getElementById('navMenu')?.classList.toggle('active');
-});
-
-// Scroll button
-const scrollBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => {
-if (window.scrollY > 300) scrollBtn?.classList.add('show');
-else scrollBtn?.classList.remove('show');
-});
-
-scrollBtn?.addEventListener('click', () => {
-window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+  document.getElementById('header').innerHTML = data;
+  document.getElementById('hamburger')?.addEventListener('click', () => {
+    document.getElementById('navMenu')?.classList.toggle('active');
+  });
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) scrollBtn?.classList.add('show');
+    else scrollBtn?.classList.remove('show');
+  });
+  scrollBtn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
 </script>
 
 <!-- HERO -->
 <section class="hero services-hero">
-<video autoplay muted loop playsinline class="hero-video">
-<source src="computer-repair.mp4" type="video/mp4">
-</video>
-
-<div class="hero-overlay"></div>
-
-<div class="container hero-content">
-<h1>IT Security & Support for Small Businesses</h1>
-<p class="section-intro">Tips, guides, and help to keep your business safe.</p>
-
-<div class="hero-buttons">
-<a href="zoho.html" class="btn-primary">Request IT Support</a>
-<a href="zoho.html" class="btn-secondary">Book Support Call</a>
-</div>
-
-<p style="margin-top:10px;">
-Or <a href="https://wa.me/27680330794?text=Hi NextGrid, I need IT support">
-WhatsApp us instantly
-</a>
-</p>
-
-</div>
+  <video autoplay muted loop playsinline class="hero-video">
+    <source src="computer-repair.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1>IT Security Blog</h1>
+    <p class="section-intro">Practical guides to secure Microsoft 365, stop ransomware, and reduce IT costs.</p>
+    <div class="hero-buttons">
+      <a href="r950-check.html" class="btn-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Blog Hero R950'});">Get Your R950 Security Check</a>
+      <a href="zoho.html" class="btn-secondary">Request IT Support</a>
+    </div>
+  </div>
 </section>
 
 <!-- BLOG VALUE -->
-<section class="blog-value">
-<div class="container">
-<p>
-Learn how to protect your business from cyber threats, improve Microsoft 365 security, 
-and reduce IT risks with practical guides.
-</p>
-</div>
-</section>
+<section class="blog-section">
+  <div class="container">
+    <p class="blog-intro">
+      Written for SA business owners, not techies. Every post includes a checklist or action you can take today.
+    </p>
 
-<!-- ARTICLES -->
-<section class="support-section">
-<div class="container">
-<h2>Recent Articles</h2>
-<p class="section-intro">
-Explore our latest guides and insights to keep your business secure.
-</p>
+    <!-- FEATURED POST -->
+    <div class="featured-post">
+      <div class="blog-card-img">✅</div>
+      <div>
+        <span class="featured-badge">MOST POPULAR</span>
+        <span class="blog-category">Microsoft 365 Security</span>
+        <h3 style="color:#fff; font-size:1.75rem; margin:12px 0;">M365 Security Checklist 2026: 12 Settings You're Missing</h3>
+        <p style="color:#cbd5e1; margin-bottom:20px;">MFA is just step 1. We audit 50+ tenants per year and these 12 settings are disabled in 90% of them. Download the free checklist + see if your business is exposed.</p>
+        <div class="blog-meta" style="border:none; padding:0;">
+          <span class="blog-date">Updated April 2026 · 8 min read</span>
+          <a href="m365-security-checklist.html" class="btn-primary">Read Full Guide</a>
+        </div>
+      </div>
+    </div>
 
-<div class="grid">
+    <!-- RECENT ARTICLES -->
+    <h2 style="text-align:center; margin:60px 0 20px;">Recent Articles</h2>
+    <div class="blog-grid">
 
-<div class="card tech-card highlight">
-<div class="icon">✅</div>
-<h3>M365 Security Checklist 2026</h3>
-<p class="post-date">Published April 2026</p>
-<p>Use this 12-point checklist to lock down MFA, admin access, backups, and data sharing.</p>
-<a href="m365-security-checklist.html" class="btn-primary">Read More</a>
-</div>
+      <article class="blog-card">
+        <div class="blog-card-img">🛡️</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Cybersecurity</span>
+          <h3>Top 3 Ransomware Attacks Hitting SA SMEs in 2026</h3>
+          <p>Phishing, RDP brute-force, and fake invoices. Here's how to block each one in under 30 minutes.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="post2.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
 
-<div class="card tech-card">
-<div class="icon">📝</div>
-<h3>Why Every Small Business Needs Managed IT Support</h3>
-<p class="post-date">Published March 2026</p>
-<p>Managed IT helps reduce downtime and protect against cyber threats.</p>
-<a href="post1.html" class="btn-primary">Read More</a>
-</div>
+      <article class="blog-card">
+        <div class="blog-card-img">💻</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Managed IT</span>
+          <h3>Why “Break-Fix” IT Costs You 3x More Than Managed Support</h3>
+          <p>We ran the numbers on 20 Pretoria businesses. Break-fix averages R18k/year in downtime. Managed: R5k.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="post1.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
 
-<div class="card tech-card highlight">
-<div class="icon">🔐</div>
-<h3>Top Cybersecurity Threats in 2026</h3>
-<p class="post-date">Published March 2026</p>
-<p>Learn how to prevent phishing, ransomware and modern cyber risks.</p>
-<a href="post2.html" class="btn-primary">Read More</a>
-</div>
+      <article class="blog-card">
+        <div class="blog-card-img">🔐</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Zero Trust</span>
+          <h3>Zero-Trust for Small Business: What It Actually Means</h3>
+          <p>Forget the buzzwords. Here's the 3 changes that matter: MFA everywhere, device compliance, least privilege.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="post3.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
 
-<div class="card tech-card">
-<div class="icon">💻</div>
-<h3>Zero-Trust for Small Business</h3>
-<p class="post-date">Published March 2026</p>
-<p>Understand why “never trust, always verify” is critical today.</p>
-<a href="post3.html" class="btn-primary">Read More</a>
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
 <!-- CTA -->
 <section id="contact">
-<div class="container contact-wrapper">
-<h2>Request Services</h2>
-<p class="contact-subtext">Tell us what you need — we’ll reply fast.</p>
-
-<a href="zoho.html" class="btn-primary" style="margin-top:20px;">
-Send Request
-</a>
-
-<p style="margin-top:10px;">
-Or <a href="https://wa.me/27680330794?text=Hi NextGrid, I need IT support">
-WhatsApp us instantly
-</a>
-</p>
-
-</div>
+  <div class="container contact-wrapper">
+    <h2>Need Help With This?</h2>
+    <p class="contact-subtext">Stop reading about security. Get a R950 audit and we’ll fix it for you.</p>
+    <a href="r950-check.html" class="btn-primary" style="margin-top:20px;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Blog Footer R950'});">Book R950 Check</a>
+    <p style="margin-top:10px;">
+      Or <a href="https://wa.me/27680330794?text=Hi NextGrid, I read your blog and need IT help">WhatsApp us instantly</a>
+    </p>
+  </div>
 </section>
 
 <!-- NAV -->
 <div class="bottom-nav">
-<a href="index.html"><span>🏠</span><p>Home</p></a>
-<a href="services.html"><span>🛠</span><p>Services</p></a>
-<a href="blog.html"><span>📰</span><p>Blog</p></a>
-<a href="zoho.html"><span>📞</span><p>Contact</p></a>
+  <a href="index.html"><span>🏠</span><p>Home</p></a>
+  <a href="services.html"><span>🛠</span><p>Services</p></a>
+  <a href="blog.html"><span>📰</span><p>Blog</p></a>
+  <a href="zoho.html"><span>📞</span><p>Contact</p></a>
 </div>
 
-<!-- FOOTER -->
 <footer>
-<div class="container">
-<p>© 2026 NextGrid Technologies</p>
-</div>
+  <div class="container">
+    <p>© 2026 NextGrid Technologies</p>
+  </div>
 </footer>
 
 <!-- SUPABASE AUTH -->
 <script src="js/supabase.min.js"></script>
 <script>
 const supabaseClient = supabase.createClient(
-'https://tirkqybcedxfusifslim.supabase.co',
-'YOUR_PUBLIC_ANON_KEY',
-{ auth: { persistSession: true } }
+  'https://tirkqybcedxfusifslim.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY',
+  { auth: { persistSession: true } }
 );
-
 document.addEventListener('DOMContentLoaded', async () => {
-
-const adminLinkContainer = document.getElementById('adminLinkContainer');
-const loginLogoutLink = document.getElementById('loginLogoutLink');
-
-const { data: { user } } = await supabaseClient.auth.getUser();
-
-if (user) {
-loginLogoutLink.textContent = 'Logout';
-loginLogoutLink.onclick = async (e) => {
-e.preventDefault();
-await supabaseClient.auth.signOut();
-location.reload();
-};
-
-const { data } = await supabaseClient
-.from('profiles')
-.select('role')
-.eq('user_id', user.id)
-.single();
-
-if (data?.role === 'admin') {
-adminLinkContainer.innerHTML = '<a href="admin_dashboard.html">Admin Panel</a>';
-}
-
-} else {
-loginLogoutLink.textContent = 'Client Login';
-loginLogoutLink.href = 'login.html';
-adminLinkContainer.innerHTML = '';
-}
-
+  const adminLinkContainer = document.getElementById('adminLinkContainer');
+  const loginLogoutLink = document.getElementById('loginLogoutLink');
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (user) {
+    loginLogoutLink.textContent = 'Logout';
+    loginLogoutLink.onclick = async (e) => {
+      e.preventDefault();
+      await supabaseClient.auth.signOut();
+      location.reload();
+    };
+    const { data } = await supabaseClient.from('profiles').select('role').eq('user_id', user.id).single();
+    if (data?.role === 'admin') {
+      adminLinkContainer.innerHTML = '<a href="admin_dashboard.html">Admin Panel</a>';
+    }
+  } else {
+    loginLogoutLink.textContent = 'Client Login';
+    loginLogoutLink.href = 'login.html';
+    adminLinkContainer.innerHTML = '';
+  }
 });
 </script>
-<body class="blog-page">
 </body>
 </html>
