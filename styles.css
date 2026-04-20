@@ -2384,3 +2384,31 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 .process-section p {
   color: var(--text-light);
 }
+
+/* ========= PROCESS CARDS VISIBILITY FIX ========= */
+.process-section .process-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 24px !important;
+  margin-top: 40px !important;
+}
+
+.process-section .process-card {
+  background: #1e293b !important; /* solid slate, not transparent */
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.process-section .process-card h3 {
+  color: #38bdf8 !important; /* your accent blue */
+  font-size: 1.25rem !important;
+  margin-bottom: 12px !important;
+}
+
+.process-section .process-card p {
+  color: #cbd5e1 !important; /* light grey text */
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
