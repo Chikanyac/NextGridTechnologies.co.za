@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +15,12 @@
 </script>
     
 <!-- Refined Title Tag -->
-<title>IT Support & Microsoft 365 Security | NextGrid Technologies Pretoria</title>
+<title>Managed IT Services & M365 Security | NextGrid Technologies Pretoria</title>
 
 <!-- Refined Meta Description -->
-<meta name="description" content="Expert IT support, Microsoft 365 security, server room setup, computer repair, network solutions, and cloud backup for businesses in South Africa.">
+<meta name="description" content="Stop losing R18,000/year to IT downtime. Fixed-cost IT support, Microsoft 365 security, cloud backup & network solutions for Gauteng SMEs. No contracts. Start with R950 Check.">
 
-<meta name="keywords" content="IT support Pretoria, Microsoft 365 security, server room setup, computer repair South Africa, cloud backup South Africa, network security solutions, business IT services">
+<meta name="keywords" content="managed IT services Pretoria, IT support Gauteng, Microsoft 365 security, business IT support, cloud backup South Africa, network security solutions">
 <meta name="author" content="NextGrid Technologies">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -102,6 +103,13 @@ section.process-section * {
   backdrop-filter: none !important;
   -webkit-filter: none !important;
 }
+
+/* Break-fix comparison mobile fix */
+@media (max-width: 768px) {
+  .comparison-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -141,11 +149,44 @@ section.process-section * {
   <div class="hero-overlay"></div>
 
   <div class="container hero-content">
-    <h1>IT Security & Support for Small Businesses</h1>
-    <p class="section-intro">Protect email, devices, and data with proven security.</p>
+    <h1>Stop Losing R18,000/Year to IT Downtime</h1>
+    <p class="section-intro">Gauteng businesses waste 47 hours per employee per year on “break-fix” IT. We give you fixed-cost support, 30-min response, and POPIA compliance. No contracts.</p>
     <div class="hero-buttons">
-      <a href="pricing.html" class="btn-primary">See Pricing</a>
-      <a href="r950-check.html" class="btn-secondary">Start with R950 Check</a>
+      <a href="r950-check.html" class="btn-primary">Start with R950 Health Check</a>
+      <a href="pricing.html" class="btn-secondary">See Monthly Plans</a>
+    </div>
+    <p style="font-size:0.9rem;color:#94a3b8;margin-top:12px;">✓ No setup fees ✓ Cancel anytime ✓ We speak to your accountant</p>
+  </div>
+</section>
+
+<!-- BREAK-FIX VS MANAGED COMPARISON -->
+<section style="padding:80px 0;background:#0f172a;">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:48px;">Break-Fix IT Costs 3x More</h2>
+    <div class="comparison-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
+      <div style="background:#1e293b;padding:32px;border-radius:12px;border:1px solid #334155;">
+        <h3 style="color:#ef4444;">❌ Break-Fix “R0/Month”</h3>
+        <ul style="color:#cbd5e1;line-height:2;">
+          <li>R3,500 emergency callouts</li>
+          <li>6+ hours downtime per incident</li>
+          <li>No backups tested until it’s too late</li>
+          <li>POPIA fines are your problem</li>
+          <li>Avg cost: R18,000/year</li>
+        </ul>
+      </div>
+      <div style="background:#1e293b;padding:32px;border-radius:12px;border:2px solid #38bdf8;">
+        <h3 style="color:#38bdf8;">✓ Managed IT from R1,999/mo</h3>
+        <ul style="color:#cbd5e1;line-height:2;">
+          <li>Unlimited support, 30-min response</li>
+          <li>Proactive monitoring 24/7</li>
+          <li>Tested backups + M365 hardening</li>
+          <li>We sign POPIA Operator Agreement</li>
+          <li>Avg cost: R5,000/year total issues</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="managed-it-vs-break-fix-cost.html" class="btn-secondary">Read Full Cost Breakdown →</a>
     </div>
   </div>
 </section>
@@ -363,6 +404,16 @@ section.process-section * {
     <p class="section-intro">| Microsoft 365 Certified |</p>
       </div>
 </section>
+
+<!-- R950 CTA PRE-FOOTER -->
+<section style="padding:60px 0;background:linear-gradient(135deg,#1e40af,#1e3a8a);">
+  <div class="container" style="text-align:center;">
+    <h2 style="color:white;">Not Ready for Monthly? Start Here.</h2>
+    <p style="color:#bfdbfe;margin:16px auto 32px;max-width:600px;">Our R950 IT Health Check finds your 3 biggest risks in 48 hours. No obligation to continue. If we don’t find anything, we tell you and part as friends.</p>
+    <a href="r950-check.html" class="btn-primary" style="background:white;color:#1e40af;">Book R950 Check</a>
+  </div>
+</section>
+
 <section style="padding:60px 0;background:#0f172a;">
   <div class="container" style="text-align:center;">
     <h2 style="margin-bottom:20px;">Not Sure What You Need?</h2>
@@ -373,6 +424,7 @@ section.process-section * {
     </div>
   </div>
 </section>
+
 <!-- FINAL CTA -->
 <section class="cta-section final-cta">
   <div class="container">
