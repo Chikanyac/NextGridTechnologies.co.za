@@ -2275,6 +2275,7 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
 
 
 /* ========= BLOG QUICK OVERRIDE: 3 TOP + 1 BOTTOM ========= */
+/* ========= BLOG QUICK OVERRIDE: 3 TOP + 1 CENTERED BOTTOM ========= */
 .blog-page .grid,
 .blog-page .services-grid,
 .blog-page .service-grid {
@@ -2292,13 +2293,13 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   box-sizing: border-box !important;
 }
 
-/* Force the 4th card to span all 3 columns */
+/* Put the 4th card in the middle column only */
 .blog-page .card.tech-card:nth-child(4),
 .blog-page .service-card:nth-child(4) {
-  grid-column: 1 / -1 !important; /* span from first to last column */
+  grid-column: 2 / 3 !important; /* middle column of 3 */
 }
 
-/* Tablet: 2 top + 1 bottom */
+/* Tablet: 2 columns, center the 3rd and 4th cards */
 @media (max-width: 968px) {
   .blog-page .grid,
   .blog-page .services-grid,
@@ -2306,12 +2307,12 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
     grid-template-columns: repeat(2, 1fr) !important;
   }
   
-  /* 3rd card goes full width on tablet */
+  /* On 2-col layout, can't center a single card, so make them stack */
   .blog-page .card.tech-card:nth-child(3),
   .blog-page .service-card:nth-child(3),
   .blog-page .card.tech-card:nth-child(4),
   .blog-page .service-card:nth-child(4) {
-    grid-column: 1 / -1 !important;
+    grid-column: auto !important;
   }
 }
 
@@ -2321,12 +2322,5 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   .blog-page .services-grid,
   .blog-page .service-grid {
     grid-template-columns: 1fr !important;
-  }
-  
-  .blog-page .card.tech-card:nth-child(3),
-  .blog-page .service-card:nth-child(3),
-  .blog-page .card.tech-card:nth-child(4),
-  .blog-page .service-card:nth-child(4) {
-    grid-column: auto !important;
   }
 }
