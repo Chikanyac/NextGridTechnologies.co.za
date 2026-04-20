@@ -2372,3 +2372,15 @@ footer { background: var(--bg-dark); color: #94a3b8; text-align: center; padding
   margin-top: auto !important; /* sticks to bottom of flex card */
   align-self: center; /* keeps button centered */
 }
+/* ========= PROCESS SECTION TEXT FIX ========= */
+.process-section h2 {
+  color: #fff !important;
+}
+
+.process-section .section-intro {
+  color: var(--text-light) !important; /* #cbd5e1 light grey */
+}
+
+.process-section p {
+  color: var(--text-light);
+}
