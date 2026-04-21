@@ -397,9 +397,21 @@ body .process-section {
         <input type="text" id="domain" name="domain" placeholder="yourcompany.co.za">
       </div>
       <div class="form-group">
-        <label for="concern">Biggest IT Concern Right Now</label>
-        <textarea id="concern" name="concern" rows="3" placeholder="e.g. Worried about ransomware, email hacks, slow internet..."></textarea>
-      </div>
+  <label for="concern">Biggest IT Concern Right Now *</label>
+  <select id="concern" name="concern" required>
+    <option value="">Select your main concern...</option>
+    <option value="Ransomware / Cyber attack">Ransomware / Cyber attack</option>
+    <option value="Email hacks / Phishing">Email hacks / Phishing</option>
+    <option value="No backups or unsure if they work">No backups or unsure if they work</option>
+    <option value="Slow internet / Wi-Fi issues">Slow internet / Wi-Fi issues</option>
+    <option value="Staff devices infected / slow">Staff devices infected / slow</option>
+    <option value="POPIA compliance worry">POPIA compliance worry</option>
+    <option value="Microsoft 365 not secure">Microsoft 365 not secure</option>
+    <option value="No IT support / current guy unreliable">No IT support / current guy unreliable</option>
+    <option value="Shared passwords / too many admins">Shared passwords / too many admins</option>
+    <option value="General health check / peace of mind">General health check / peace of mind</option>
+  </select>
+</div>
       <button type="submit" class="btn-primary btn-large" style="width:100%;" onclick="gtag('event', 'submit', {'event_category': 'Form', 'event_label': 'R950 Booking'});">Send to WhatsApp & Book Slot</button>
       <p class="cta-note-small" style="text-align:center; margin-top:16px;">Pay R950 after we confirm your slot. EFT or card.</p>
     </form>
