@@ -304,6 +304,53 @@
       </tbody>
     </table>
 
+<!-- HARDWARE QUOTE FORM -->
+<div class="booking-form" id="hardwareQuote" style="margin-top: 40px;">
+  <h3>Request a Hardware Quote</h3>
+  <p style="text-align:center; color:#cbd5e1; margin-bottom:24px;">Tell us what you need. We’ll email a quote with setup included in 2 hours.</p>
+  
+  <form id="hardwareForm">
+    <div class="form-group">
+      <label for="hw-name">Full Name *</label>
+      <input type="text" id="hw-name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-company">Company Name *</label>
+      <input type="text" id="hw-company" name="company" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-email">Email *</label>
+      <input type="email" id="hw-email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-phone">Phone / WhatsApp</label>
+      <input type="tel" id="hw-phone" name="phone" placeholder="068 033 0794">
+    </div>
+    <div class="form-group">
+      <label for="hw-product">What do you need? *</label>
+      <select id="hw-product" name="product" required>
+        <option value="">Select...</option>
+        <option value="Business Laptops">Business Laptops</option>
+        <option value="Servers / NAS">Servers / NAS</option>
+        <option value="Wi-Fi / Networking">Wi-Fi / Networking</option>
+        <option value="Monitors & Docks">Monitors & Docks</option>
+        <option value="Microsoft 365 Licenses">Microsoft 365 Licenses</option>
+        <option value="Full Office Setup">Full Office Setup</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="hw-qty">Quantity</label>
+      <input type="number" id="hw-qty" name="qty" min="1" placeholder="1">
+    </div>
+    <div class="form-group">
+      <label for="hw-notes">Notes / Specific Model</label>
+      <textarea id="hw-notes" name="notes" rows="3" placeholder="e.g. Need 5x Dell Latitude for new staff, with docking stations"></textarea>
+    </div>
+    <button type="submit" class="btn-primary btn-large" style="width:100%;" onclick="gtag('event', 'submit', {'event_category': 'Form', 'event_label': 'Hardware Quote'});">Get My Quote</button>
+    <p class="cta-note-small" style="text-align:center; margin-top:16px;">We’ll reply via email in ~2 hours during business hours.</p>
+  </form>
+</div>
     <div class="cta-center" style="margin-top: 32px;">
       <a href="https://wa.me/27680330794?text=Hi%20NextGrid,%20send%20me%20your%20full%20hardware%20price%20list" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hardware Price List'});">Request Full Price List</a>
       <a href="https://wa.me/27680330794?text=Hi%20NextGrid,%20do%20you%20have%20stock%20of..." class="btn-secondary">WhatsApp for Stock Check</a>
@@ -408,6 +455,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+});
+  // Hardware quote form handler
+const hwForm = document.getElementById('hardwareForm');
+hwForm?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('hw-name').value;
+  const company = document.getElementById('hw-company').value;
+  const email = document.getElementById('hw-email').value;
+  const phone = document.getElementById('hw-phone').value || 'Not provided';
+  const product = document.getElementById('hw-product').value;
+  const qty = document.getElementById('hw-qty').value || '1';
+  const notes = document.getElementById('hw-notes').value || 'None';
+  
+  // Build message for WhatsApp fallback or email
+  const message = `Hardware Quote Request\n\nName: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nProduct: ${product}\nQty: ${qty}\nNotes: ${notes}`;
+  
+  gtag('event', 'conversion', {'send_to': 'G-C9DS2C71G6/hardware_quote'});
+  
+  // Option 1: Send to WhatsApp as fallback
+  const whatsappUrl = `https://wa.me/27680330794?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+  
+  // Option 2: If you have Formspree/Netlify Forms, replace above with:
+  // fetch('https://formspree.io/f/YOUR_ID', { method: 'POST', body: new FormData(hwForm) })
+  
+  hwForm.reset();
+  alert('Thanks! We got your request. Check WhatsApp or your email shortly.');
 });
 </script>
 </body>
