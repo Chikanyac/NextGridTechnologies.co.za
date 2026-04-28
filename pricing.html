@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Support Pricing Pretoria | Managed IT from R1,200/mo | NextGrid</title>
+<meta name="description" content="Transparent IT support pricing for Pretoria SMEs. Managed IT from R1,200/mo, R950 Health Check, and hardware sales. No contracts. No surprises.">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C9DS2C71G6');
+</script>
+
+<style>
+/* ========= PRICING PAGE SPECIFIC ========= */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin: 48px 0;
+}
+.price-card {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.price-card:hover {
+  transform: translateY(-8px);
+  border-color: #38bdf8;
+}
+.price-card.featured {
+  border: 2px solid #38bdf8;
+  transform: scale(1.05);
+}
+.price-card.featured::before {
+  content: "MOST POPULAR";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #38bdf8;
+  color: #020617;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.price-tier {
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+.price-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.price-amount span {
+  font-size: 1rem;
+  color: #94a3b8;
+  font-weight: 400;
+}
+.price-desc {
+  color: #cbd5e1;
+  margin-bottom: 32px;
+  min-height: 48px;
+}
+.price-features {
+  text-align: left;
+  margin: 32px 0;
+}
+.price-features li {
+  color: #e2e8f0;
+  margin-bottom: 12px;
+  padding-left: 28px;
+  position: relative;
+  list-style: none;
+}
+.price-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #38bdf8;
+  font-weight: 700;
+}
+.price-features li.disabled {
+  color: #64748b;
+}
+.price-features li.disabled::before {
+  content: "—";
+  color: #64748b;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 48px 0;
+  background: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.compare-table th {
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+}
+.compare-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+  color: #e2e8f0;
+}
+.compare-table tr:last-child td {
+  border-bottom: none;
+}
+.check-yes { color: #38bdf8; font-weight: 600; }
+.check-no { color: #64748b; }
+@media (max-width: 768px) {
+  .price-card.featured { transform: scale(1); }
+  .compare-table { font-size: 0.9rem; }
+  .compare-table th, .compare-table td { padding: 12px 8px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Managed IT Support",
+  "description": "Managed IT support for SMEs in Pretoria and Centurion",
+  "brand": {
+    "@type": "Brand",
+    "name": "NextGrid Technologies"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "1200",
+    "highPrice": "2500",
+    "priceCurrency": "ZAR",
+    "offerCount": "3"
+  }
+}
+</script>
+</head>
+<body>
+<div id="header"></div>
+
+<section class="hero services-hero" style="min-height:70vh;">
+  <video autoplay muted loop playsinline class="hero-video" loading="lazy">
+    <source src="computer-repair.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1>Simple IT Pricing. No Surprises.</h1>
+    <p class="section-intro">Choose your plan. All include remote + on-site support in Pretoria/Centurion. Cancel anytime.</p>
+    <div class="hero-buttons">
+      <a href="#plans" class="btn-primary btn-large">See Plans</a>
+      <a href="r950-check.html" class="btn-secondary">Start with R950 Audit</a>
+    </div>
+  </div>
+</section>
+
+<section class="services-snapshot" id="plans">
+  <div class="container">
+    <h2>Managed IT Support Plans</h2>
+    <p class="section-intro">Per user per month. Includes Windows, Microsoft 365, backups, and security. Hardware extra.</p>
+    
+    <div class="pricing-grid">
+      <!-- Essential -->
+      <div class="price-card">
+        <div class="price-tier">Essential</div>
+        <div class="price-amount">R1,200<span>/user/mo</span></div>
+        <p class="price-desc">For teams 1-10 that need basics covered</p>
+        <ul class="price-features">
+          <li>24/7 monitoring & alerts</li>
+          <li>Remote support Mon-Fri 8am-5pm</li>
+          <li>Microsoft 365 backup daily</li>
+          <li>Antivirus + patch management</li>
+          <li>Monthly health report</li>
+          <li class="disabled">On-site support</li>
+          <li class="disabled">After-hours support</li>
+        </ul>
+        <a href="zoho.html" class="btn-secondary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Essential'});">Get Started</a>
+      </div>
+
+      <!-- Business -->
+      <div class="price-card featured">
+        <div class="price-tier">Business</div>
+        <div class="price-amount">R1,800<span>/user/mo</span></div>
+        <p class="price-desc">For teams 10-30 who can't afford downtime</p>
+        <ul class="price-features">
+          <li>Everything in Essential, plus:</li>
+          <li>Priority remote support</li>
+          <li>4 hours on-site included /mo</li>
+          <li>After-hours emergency line</li>
+          <li>Quarterly security audit</li>
+          <li>User onboarding/offboarding</li>
+          <li>Wi-Fi & network management</li>
+        </ul>
+        <a href="zoho.html" class="btn-primary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Business'});">Most Popular</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-amount">R2,500<span>/user/mo</span></div>
+        <p class="price-desc">For teams 30+ with compliance needs</p>
+        <ul class="price-features">
+          <li>Everything in Business, plus:</li>
+          <li>Unlimited on-site support</li>
+          <li>Dedicated account manager</li>
+          <li>POPIA compliance reporting</li>
+          <li>vCIO strategy sessions</li>
+          <li>Hardware lifecycle management</li>
+          <li>Custom SLA</li>
+        </ul>
+        <a href="zoho.html" class="btn-secondary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Enterprise'});">Contact Sales</a>
+      </div>
+    </div>
+
+    <p style="text-align:center; color:#94a3b8; margin-top:24px;">All plans: 30-day notice to cancel. No setup fees. Prices ex VAT.</p>
+  </div>
+</section>
+
+<!-- R950 CALLOUT -->
+<section style="background:#0b1220; padding:60px 0;">
+  <div class="container" style="text-align:center;">
+    <h2>Not Ready For Monthly?</h2>
+    <p class="section-intro">Start with our R950 IT Health Check. 23-point Microsoft 365 audit in 90 minutes. No obligation.</p>
+    <a href="r950-check.html" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing to R950'});">Book R950 Audit →</a>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="services-snapshot">
+  <div class="container">
+    <h2>Break-Fix vs Managed IT</h2>
+    <p class="section-intro">The real cost of "call when it breaks" vs pro-active support.</p>
+    
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Break-Fix</th>
+          <th>Managed IT R1,800/mo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cost per year for 10 users</td>
+          <td>~R4,600 avg*</td>
+          <td class="check-yes">R21,600 fixed</td>
+        </tr>
+        <tr>
+          <td>Emergency call-out fee</td>
+          <td>R850/hour</td>
+          <td class="check-yes">R0 included</td>
+        </tr>
+        <tr>
+          <td>After-hours support</td>
+          <td class="check-no">R1,200/hour</td>
+          <td class="check-yes">Included</td>
+        </tr>
+        <tr>
+          <td>Backups tested monthly</td>
+          <td class="check-no">No</td>
+          <td class="check-yes">Yes</td>
+        </tr>
+        <tr>
+          <td>Security monitoring</td>
+          <td class="check-no">No</td>
+          <td class="check-yes">24/7</td>
+        </tr>
+        <tr>
+          <td>Ransomware recovery</td>
+          <td>R15k - R80k</td>
+          <td class="check-yes">Included</td>
+        </tr>
+        <tr>
+          <td>Predictable budgeting</td>
+          <td class="check-no">No</td>
+          <td class="check-yes">Yes</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="text-align:center; color:#64748b; font-size:0.9rem;">*Based on average 2.5 callouts/year at R850/hr + 1 emergency at R1,200/hr for 10-user SME</p>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section class="services-snapshot" style="background:#0b1220;">
+  <div class="container">
+    <h2>Hardware Sales & Setup</h2>
+    <p class="section-intro">We supply business-grade laptops, servers, Wi-Fi, and Microsoft 365 licenses. Setup included when you buy from us.</p>
+    
+    <div class="trust-grid">
+      <div class="trust-card">
+        <h3>Business Laptops</h3>
+        <p><strong>From R14,999</strong><br>Dell/Lenovo i5, 16GB, 512GB SSD, 3yr warranty. Configured + shipped to user.</p>
+      </div>
+      <div class="trust-card">
+        <h3>Wi-Fi 6 for Office</h3>
+        <p><strong>From R3,500</strong><br>Ubiquiti AP, PoE, cloud controller. Covers ~150m². Installed + tested.</p>
+      </div>
+      <div class="trust-card">
+        <h3>Microsoft 365 Business</h3>
+        <p><strong>R120/user/mo</strong><br>Business Premium: Office, Email, Teams, 1TB OneDrive, Defender. We migrate you.</p>
+      </div>
+    <div class="cta-center" style="margin-top:40px;">
+      <a href="zoho.html" class="btn-primary">Request Hardware Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="topics-section">
+  <div class="container">
+    <h2>Pricing FAQ</h2>
+    <div class="grid" style="max-width: 900px; margin: 30px auto 0;">
+      <div class="card tech-card">
+        <h3>What counts as a "user"?</h3>
+        <p>Any staff member with a PC/laptop + email account. Shared PCs count as 1 user. We don’t charge for printers or phones.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>Can I cancel anytime?</h3>
+        <p>Yes. 30 days notice. No penalties. We’ll export all your passwords, docs, and configs on exit.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>What if I have 7 users?</h3>
+        <p>You pay 7 × R1,800 = R12,600/mo on Business plan. Minimum is 5 users for managed plans. Fewer than 5? Use R950 check + break-fix.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>Do you support Mac?</h3>
+        <p>Yes. +R200/user/mo for Mac management via Jamf/Mosyle. We’ll tell you upfront if we can’t support it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section final-cta">
+  <div class="container">
+    <h2>Stop Paying For Downtime</h2>
+    <p>Flat monthly fee. Fast response. No surprise bills. Cancel anytime.</p>
+    <div class="cta-buttons">
+      <a href="zoho.html" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Final'});">Get My Quote</a>
+      <a href="r950-check.html" class="btn-secondary">Start with R950 Audit</a>
+    </div>
+    <p class="cta-note">First 3 clients this month: R750 audit. 2 slots left.</p>
+  </div>
+</section>
+
+<div class="bottom-nav">
+  <a href="index.html"><span>🏠</span><p>Home</p></a>
+  <a href="services.html"><span>🛠</span><p>Services</p></a>
+  <a href="blog.html"><span>📰</span><p>Blog</p></a>
+  <a href="zoho.html"><span>📞</span><p>Contact</p></a>
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 NextGrid Technologies | POPIA & GDPR Compliant</p>
+  </div>
+</footer>
+
+<script>
+fetch('header.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('header').innerHTML = data;
+    document.getElementById('hamburger')?.addEventListener('click', () => {
+      document.getElementById('navMenu')?.classList.toggle('active');
+    });
+  });
+</script>
+</body>
+</html>
