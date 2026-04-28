@@ -543,7 +543,15 @@ hwForm?.addEventListener('submit', function(e) {
   alert('Thanks! We got your request. Check WhatsApp or your email shortly.');
 });
 </script>
-  <!-- Zoho Bookings Script - must load before button is clicked -->
-<script src="https://bookings.nextgridtechnologies.co.za/#/4935963000000034005"></script>
+<script src="https://bookings.nimbuspop.com/assets/embed.js"></script>
+<script>
+	Bookings.buttonModal({
+		url: "https://bookings.nextgridtechnologies.co.za/#/4935963000000034005",
+		text: "Book now",
+		color: "#5646A5",
+		textColor: "#ffffff",
+		position: "bottom-right"
+	});
+</script>
 </body>
 </html>
