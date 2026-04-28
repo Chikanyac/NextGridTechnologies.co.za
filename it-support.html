@@ -1,118 +1,549 @@
+can you update this script for me so I can you the Zoho Bookings for my site
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Managed IT Support & Hardware Sales | NextGrid Technologies</title>
-
-<link rel="stylesheet" href="styles.css">
+<title>Managed IT Support & Hardware Sales Pretoria | Laptops, Servers, Microsoft 365 | NextGrid</title>
+<meta name="description" content="Full-service IT support for Pretoria & Centurion SMEs. Managed 365, on-site support, laptops, servers & Wi-Fi. Flat monthly fee from R1,200. Same-day response. WhatsApp us.">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 
-<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-C9DS2C71G6');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C9DS2C71G6');
 </script>
 
 <style>
-/* Keep your existing styles unchanged */
+/* ========= IT SUPPORT PAGE SPECIFIC ========= */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 40px 0;
+}
+.support-card {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 28px;
+}
+.support-card h3 {
+  color: #38bdf8;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.support-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.support-card li {
+  color: #cbd5e1;
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.support-card li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #38bdf8;
+  font-weight: 700;
+}
+.price-strip {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  color: #020617;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 40px 0;
+}
+.price-strip h3 {
+  font-size: 1.8rem;
+  margin: 0 0 8px 0;
+  color: #020617;
+}
+.price-strip p {
+  margin: 0;
+  font-weight: 500;
+}
+.hardware-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0;
+  background: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.hardware-table th {
+  background: #0f172a;
+  color: #38bdf8;
+  text-align: left;
+  padding: 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.hardware-table td {
+  padding: 16px;
+  border-top: 1px solid #334155;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+}
+.hardware-table tr:hover {
+  background: rgba(56, 189, 248, 0.05);
+}
+.hardware-table .price {
+  color: #38bdf8;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin: 40px 0;
+}
+.benefit-card {
+  background: #1e293b;
+  border-left: 3px solid #38bdf8;
+  border-radius: 8px;
+  padding: 24px;
+}
+.benefit-card h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.benefit-card p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .hardware-table {
+    font-size: 0.85rem;
+  }
+  .hardware-table th, .hardware-table td {
+    padding: 12px 8px;
+  }
+}
+/* ========= FORM FIX ========= */
+.booking-form {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  margin: 40px auto;
+}
+.booking-form h3 {
+  color: #38bdf8;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-align: left;
+}
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.btn-large {
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Managed IT Support",
+  "description": "Flat-fee managed IT support, Microsoft 365 management, and business hardware sales for SMEs in Pretoria and Centurion",
+  "brand": {
+    "@type": "Brand",
+    "name": "NextGrid Technologies"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "1200",
+    "priceCurrency": "ZAR",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "1200",
+      "priceCurrency": "ZAR",
+      "unitText": "MONTH"
+    },
+    "availability": "https://schema.org/InStock",
+    "areaServed": [
+      {"@type": "City", "name": "Pretoria"},
+      {"@type": "City", "name": "Centurion"},
+      {"@type": "City", "name": "Johannesburg"}
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "12"
+  }
+}
+</script>
 </head>
-
 <body>
-
 <div id="header"></div>
 
-<!-- HERO -->
 <section class="hero services-hero" style="min-height:70vh;">
-  <video autoplay muted loop playsinline class="hero-video">
+  <video autoplay muted loop playsinline class="hero-video" loading="lazy">
     <source src="computer-repair.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
-
   <div class="container hero-content">
     <h1>IT Support & Equipment Sales for Pretoria Businesses</h1>
-    <p class="section-intro">
-      Stop calling 3 suppliers. Get everything from one team.
-    </p>
-
+    <p class="section-intro">Stop calling 3 suppliers. Get your Microsoft 365, laptops, Wi-Fi, backups and on-site support from one team. Flat monthly fee. Same-day response in Pretoria & Centurion.</p>
     <div class="hero-buttons">
-      <a href="#quote" class="btn-primary btn-large">Get Support Quote</a>
-      <a href="#hardware" class="btn-secondary">Browse Hardware</a>
+      <a href="#quote" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'IT Support Hero Quote'});">Get Support Quote</a>
+      <a href="#hardware" class="btn-secondary">Browse Laptops & Servers</a>
+    </div>
+    <p class="hero-note">✓ No contracts. 30-day cancellation. ✓ 15-min response time SLA. ✓ We answer our phones.</p>
+  </div>
+</section>
+
+<!-- MANAGED IT SUPPORT -->
+<section class="services-snapshot">
+  <div class="container">
+    <h2>One Team. Every IT Problem Solved.</h2>
+    <p class="section-intro">R1,200/user/month covers 95% of what breaks in a normal SME. No hourly bills.</p>
+    
+    <div class="support-grid">
+      <div class="support-card">
+        <h3>🔒 Microsoft 365 Managed</h3>
+        <ul>
+          <li>24/7 monitoring + security alerts</li>
+          <li>User setup/leaver in 1 hour</li>
+          <li>Email, Teams, SharePoint support</li>
+          <li>MFA, Conditional Access, DLP policies</li>
+          <li>Monthly security score report</li>
+          <li>License optimization — stop paying for unused</li>
+        </ul>
+      </div>
+      <div class="support-card">
+        <h3>🛠️ On-Site & Remote Support</h3>
+        <ul>
+          <li>Same-day callout Pretoria/Centurion/JHB</li>
+          <li>Unlimited remote support 7am-6pm</li>
+          <li>PC setups, virus removal, printer fixes</li>
+          <li>New staff onboarding kits</li>
+          <li>Loan laptop if yours dies</li>
+          <li>Wi-Fi surveys + optimization</li>
+        </ul>
+      </div>
+      <div class="support-card">
+        <h3>☁️ Backup & Security</h3>
+        <ul>
+          <li>Daily immutable cloud backups</li>
+          <li>Ransomware protection + EDR</li>
+          <li>Tested restores every quarter</li>
+          <li>POPIA compliance assistance</li>
+          <li>Dark web monitoring for your domain</li>
+          <li>BitLocker key escrow to Azure AD</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="price-strip">
+      <h3>From R1,200 per user / month</h3>
+      <p>No contracts. 30-day cancellation. Hardware, projects & licenses billed separately.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= CTA SECTION ================= -->
+<!-- HARDWARE SALES -->
+<section class="services-snapshot" id="hardware" style="background:#0b1220;">
+  <div class="container">
+    <h2>Buy Laptops, Servers & Wi-Fi From Your IT Team</h2>
+    <p class="section-intro">Why buy from us vs Takealot? We set it up, we warranty it, and we support it. No blame game.</p>
+    
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <h3>We Set It Up</h3>
+        <p>Every laptop arrives with M365, security, backups, and your line-of-business apps ready. Turn on and work.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>No Blame Game</h3>
+        <p>If the laptop fails, you call us. We handle Dell/Lenovo warranty. You don’t fight with call centers.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Business Grade Only</h3>
+        <p>Dell Latitude, Lenovo ThinkPad, Ubiquiti Wi-Fi. No consumer junk that dies in 14 months.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Lease Option Available</h3>
+        <p>R350/mo per laptop instead of R15k upfront. Includes support + 3-year warranty.</p>
+      </div>
+    </div>
+
+    <table class="hardware-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Why we recommend it</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dell Latitude 3440</strong><br>i5 / 16GB / 512GB SSD</td>
+          <td class="price">R13,999</td>
+          <td>3-year ProSupport warranty. Runs M365 perfectly. Dock-ready for office.</td>
+        </tr>
+        <tr>
+          <td><strong>Lenovo ThinkPad E14 Gen 5</strong><br>i5 / 16GB / 512GB SSD</td>
+          <td class="price">R15,500</td>
+          <td>Spill-resistant keyboard. Best for finance/admin. MIL-STD tested.</td>
+        </tr>
+        <tr>
+          <td><strong>Ubiquiti U6-LR Wi-Fi 6 AP</strong></td>
+          <td class="price">R3,200</td>
+          <td>Covers 200m² office. Cloud managed by us. Zero dead zones.</td>
+        </tr>
+        <tr>
+          <td><strong>Synology DS224+ NAS 4TB</strong></td>
+          <td class="price">R9,800</td>
+          <td>On-site backup + Microsoft 365 backup. We configure + monitor.</td>
+        </tr>
+        <tr>
+          <td><strong>Dell PowerEdge T150 Server</strong></td>
+          <td class="price">From R22,000</td>
+          <td>For Pastel, custom apps that can’t go cloud. We install + maintain.</td>
+        </tr>
+      </tbody>
+    </table>
+
+<!-- HARDWARE QUOTE FORM -->
+<div class="booking-form" id="hardwareQuote" style="margin-top: 40px;">
+  <h3>Request a Hardware Quote</h3>
+  <p style="text-align:center; color:#cbd5e1; margin-bottom:24px;">Tell us what you need. We’ll email a quote with setup included in 2 hours.</p>
+  
+  <form id="hardwareForm">
+    <div class="form-group">
+      <label for="hw-name">Full Name *</label>
+      <input type="text" id="hw-name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-company">Company Name *</label>
+      <input type="text" id="hw-company" name="company" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-email">Email *</label>
+      <input type="email" id="hw-email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="hw-phone">Phone / WhatsApp</label>
+      <input type="tel" id="hw-phone" name="phone" placeholder="068 033 0794">
+    </div>
+    <div class="form-group">
+      <label for="hw-product">What do you need? *</label>
+      <select id="hw-product" name="product" required>
+        <option value="">Select...</option>
+        <option value="Business Laptops">Business Laptops</option>
+        <option value="Servers / NAS">Servers / NAS</option>
+        <option value="Wi-Fi / Networking">Wi-Fi / Networking</option>
+        <option value="Monitors & Docks">Monitors & Docks</option>
+        <option value="Microsoft 365 Licenses">Microsoft 365 Licenses</option>
+        <option value="Full Office Setup">Full Office Setup</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="hw-qty">Quantity</label>
+      <input type="number" id="hw-qty" name="qty" min="1" placeholder="1">
+    </div>
+    <div class="form-group">
+      <label for="hw-notes">Notes / Specific Model</label>
+      <textarea id="hw-notes" name="notes" rows="3" placeholder="e.g. Need 5x Dell Latitude for new staff, with docking stations"></textarea>
+    </div>
+    <button type="submit" class="btn-primary btn-large" style="width:100%;" onclick="gtag('event', 'submit', {'event_category': 'Form', 'event_label': 'Hardware Quote'});">Get My Quote</button>
+    <p class="cta-note-small" style="text-align:center; margin-top:16px;">We’ll reply via email in ~2 hours during business hours.</p>
+  </form>
+</div>
+    <div class="cta-center" style="margin-top: 32px;">
+      <a href="https://wa.me/27680330794?text=Hi%20NextGrid,%20send%20me%20your%20full%20hardware%20price%20list" class="btn-primary btn-large" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hardware Price List'});">Request Full Price List</a>
+      <a href="https://wa.me/27680330794?text=Hi%20NextGrid,%20do%20you%20have%20stock%20of..." class="btn-secondary">WhatsApp for Stock Check</a>
+      <p class="cta-note-small">Prices include setup. Delivery free in Pretoria/Centurion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NEXTGRID -->
+<section class="services-snapshot">
+  <div class="container">
+    <h2>We’re Not Just Another IT Company</h2>
+    <p class="section-intro">Pretoria SMEs switch to NextGrid because we do what others promise.</p>
+    
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <h3>15-Min Response SLA</h3>
+        <p>WhatsApp us. We reply in 15 min during business hours or that month is free. We track it.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>We Answer Our Phones</h3>
+        <p>068 033 0794. No call center. Richard or our techs pick up. Try it.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Flat Fee = No Bill Shock</h3>
+        <p>R1,200 covers everything except projects. You’ll never see “after hours rate” or “travel fee”.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>We Document Everything</h3>
+        <p>Every password, license, Wi-Fi key in a client portal. Leave us, take it all. No hostage data.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Local + Remote</h3>
+        <p>Server down in Montana? We’re there in 45 min. Printer issue? We remote in now.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Proactive, Not Reactive</h3>
+        <p>We patch, monitor, and report before things break. 80% of issues fixed before you notice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="topics-section" style="background:#0b1220;">
+  <div class="container">
+    <h2>Common Questions</h2>
+    <div class="grid" style="max-width: 900px; margin: 30px auto 0;">
+      <div class="card tech-card">
+        <h3>Do I have to buy hardware from you?</h3>
+        <p>No. We support anything with a plug. But if you buy from us, we guarantee compatibility, handle all warranty claims, and pre-configure it free.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>What if I only need break-fix?</h3>
+        <p>We do R950/hour ad-hoc support. But 90% of clients switch to Managed after 2 callouts. Break-fix averaged R4,600/year. Managed is R5,000/year with zero emergencies.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>Do you support Mac?</h3>
+        <p>Yes. We manage 20+ MacBooks for design and legal firms. Same R1,200/user fee. We handle MDM + updates via Intune.</p>
+      </div>
+      <div class="card tech-card">
+        <h3>What’s not included in R1,200?</h3>
+        <p>New projects: server migrations, office moves, new Wi-Fi installs. Microsoft licenses. Hardware. Everything else — support, monitoring, security — is included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
 <section class="cta-section final-cta" id="quote">
   <div class="container">
-    <h2>Book Your Free IT Assessment</h2>
-    <p>15-minute call. We audit your setup and give you a fixed monthly cost.</p>
-
+    <h2>Get Your IT Fixed, Then Kept Fixed</h2>
+    <p>Book a 15-min call. We’ll audit your current setup free and quote exact monthly cost + hardware.</p>
     <div class="cta-buttons">
-
-      <!-- ✅ ZOHO BOOKINGS BUTTON -->
-      <a href="javascript:void(0);" 
-         class="btn-primary btn-large"
-         onclick="openBooking();">
-         Book Free 15-min Call
-      </a>
-
-      <a href="mailto:info@nextgridtechnologies.co.za" class="btn-secondary">
-        Email Us
-      </a>
-
+<script src="https://bookings.nextgridtechnologies.co.za/#/4935963000000034005"></script>
+<a onclick="Bookings.showModal('...')">Book</a>  <!-- Bookings exists now -->
+      <a href="mailto:info@nextgridtechnologies.co.za" class="btn-secondary">Email: info@nextgridtechnologies.co.za</a>
     </div>
-
-    <p class="cta-note">
-      Instant booking • No back-and-forth emails
-    </p>
-
+    <p class="cta-note">Or start with our R950 Health Check: <a href="r950-check.html" style="color:#38bdf8;">23-point audit in 90 minutes →</a></p>
   </div>
 </section>
 
-<footer>
-  <div class="container">
-    <p>© 2026 NextGrid Technologies | South Africa</p>
-  </div>
-</footer>
+<footer><div class="container"><p>© 2026 NextGrid Technologies | South Africa</p></div></footer>
 
-<!-- ================= HEADER SCRIPT ================= -->
+<!-- Header + Hamburger Script -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // Load header
   fetch('header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header').innerHTML = data;
-
       const hamburger = document.getElementById('hamburger');
       const navMenu = document.getElementById('navMenu');
-
       hamburger?.addEventListener('click', () => {
         hamburger.classList.toggle('is-active');
         navMenu?.classList.toggle('active');
       });
+      navMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger?.classList.remove('is-active');
+          navMenu?.classList.remove('active');
+        });
+      });
     });
 });
+  // Hardware quote form handler
+const hwForm = document.getElementById('hardwareForm');
+hwForm?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('hw-name').value;
+  const company = document.getElementById('hw-company').value;
+  const email = document.getElementById('hw-email').value;
+  const phone = document.getElementById('hw-phone').value || 'Not provided';
+  const product = document.getElementById('hw-product').value;
+  const qty = document.getElementById('hw-qty').value || '1';
+  const notes = document.getElementById('hw-notes').value || 'None';
+  
+  // Build message for WhatsApp fallback or email
+  const message = `Hardware Quote Request\n\nName: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nProduct: ${product}\nQty: ${qty}\nNotes: ${notes}`;
+  
+  gtag('event', 'conversion', {'send_to': 'G-C9DS2C71G6/hardware_quote'});
+  
+  // Option 1: Send to WhatsApp as fallback
+  const whatsappUrl = `https://wa.me/27680330794?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+  
+  // Option 2: If you have Formspree/Netlify Forms, replace above with:
+  // fetch('https://formspree.io/f/YOUR_ID', { method: 'POST', body: new FormData(hwForm) })
+  
+  hwForm.reset();
+  alert('Thanks! We got your request. Check WhatsApp or your email shortly.');
+});
 </script>
-
-<!-- ================= ZOHO BOOKINGS SCRIPT ================= -->
+  <!-- Zoho Bookings Script - must load before button is clicked -->
 <script src="https://bookings.nextgridtechnologies.co.za/#/4935963000000034005"></script>
-
-<script>
-function openBooking() {
-  Bookings.showModal('https://bookings.nextgridtechnologies.co.za/#/4935963000000034005');
-
-  // ✅ Google tracking
-  gtag('event', 'generate_lead', {
-    event_category: 'Booking',
-    event_label: 'Zoho Booking Opened'
-  });
-}
-</script>
-
 </body>
 </html>
