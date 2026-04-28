@@ -483,14 +483,11 @@
     <div class="cta-buttons">
 
       <!-- ✅ FIXED ZOHO BUTTON -->
-      <a href="javascript:void(0);" 
-         class="btn-primary btn-large"
-         onclick="Bookings.showModal({
-           url: 'https://bookings.nextgridtechnologies.co.za/portal-embed#/4935963000000034005'
-         });
-         gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Book Call'});">
-         Book a 15-min Call
-      </a>
+    <a href="javascript:void(0);" 
+   id="zoho-book-btn"
+   class="btn-primary btn-large">
+   Book a 15-min Call
+</a>
 
       <a href="mailto:info@nextgridtechnologies.co.za" class="btn-secondary">
         Email: info@nextgridtechnologies.co.za
@@ -558,13 +555,48 @@ hwForm?.addEventListener('submit', function(e) {
 });
 </script>
   
+<script src="https://bookings.nimbuspop.com/assets/embed.js"></script>
+
 <script>
-Bookings.buttonModal({
-  url: "https://bookings.nextgridtechnologies.co.za/portal-embed#/4935963000000034005",
-  text: "Book now",
-  color: "#5646A5",
-  textColor: "#ffffff",
-  position: "bottom-right"
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 🔹 Floating button (fixed)
+  if (typeof Bookings !== "undefined") {
+    Bookings.buttonModal({
+      url: "https://bookings.nextgridtechnologies.co.za/portal-embed#/4935963000000034005",
+      text: "Book now",
+      color: "#5646A5",
+      textColor: "#ffffff",
+      position: "bottom-right"
+    });
+  }
+
+  // 🔹 Button click handler (THIS is the fix)
+  const btn = document.getElementById("zoho-book-btn");
+
+  if (btn) {
+    btn.addEventListener("click", function () {
+
+      if (typeof Bookings !== "undefined") {
+        Bookings.showModal({
+          url: "https://bookings.nextgridtechnologies.co.za/portal-embed#/4935963000000034005"
+        });
+
+        // Track click
+        if (typeof gtag === "function") {
+          gtag('event', 'click', {
+            event_category: 'CTA',
+            event_label: 'Book Call'
+          });
+        }
+
+      } else {
+        alert("Booking system is still loading. Please try again in a second.");
+      }
+
+    });
+  }
+
 });
 </script>
 </body>
