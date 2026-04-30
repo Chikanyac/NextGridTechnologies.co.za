@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Clicked a Phishing Link? 10-Step Response Plan | NextGrid</title>
+<meta name="description" content="Staff member entered password on fake Microsoft login. Don't panic. Follow this 10-step checklist to contain, reset, and report. Free PDF download.">
+<link rel="icon" href="../favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C9DS2C71G6"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-C9DS2C71G6');</script>
+<style>
+.post-container{max-width:800px;margin:0 auto;padding:80px 24px;color:#e2e8f0}
+.post-container h1{font-size:2.5rem;color:#fff;margin-bottom:16px;line-height:1.2}
+.post-meta{color:#94a3b8;font-size:0.95rem;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid rgba(56,189,248,0.2)}
+.post-container h2{color:#38bdf8;font-size:1.75rem;margin:48px 0 20px}
+.post-container p{line-height:1.8;margin-bottom:20px;color:#cbd5e1}
+.post-container ol{margin:20px 0 20px 20px;color:#cbd5e1}
+.post-container li{margin-bottom:16px;line-height:1.7}
+.post-container strong{color:#fff}
+.checklist{background:#1e293b;border:1px solid rgba(56,189,248,0.3);padding:32px;border-radius:16px;margin:32px 0}
+.checklist h3{color:#38bdf8;margin-top:0}
+.cta-box{background:linear-gradient(135deg,#38bdf8 0%,#0ea5e9 100%);color:#020617;padding:32px;border-radius:16px;text-align:center;margin:48px 0}
+.cta-box h3{color:#020617;margin:0 0 12px 0}
+</style>
+</head>
+<body>
+<div id="header"></div>
+<article class="post-container">
+  <h1>Staff Clicked a Phishing Link? Do This in the Next 30 Minutes</h1>
+  <div class="post-meta">February 2026 · 7 min read · Email Security</div>
+
+  <p>"I've been hacked" Slack message at 3pm. Here's the exact 10-step playbook we use for 30+ SMEs in Pretoria when credentials are compromised.</p>
+
+  <div class="checklist">
+    <h3>First 5 Minutes: Contain the Breach</h3>
+    <ol>
+      <li><strong>Isolate device:</strong> Unplug ethernet cable, disable Wi-Fi. Don't shut down — you need logs.</li>
+      <li><strong>Force sign-out all sessions:</strong> Azure AD > Users > [User] > "Revoke sessions". Kills access on all devices.</li>
+      <li><strong>Reset password:</strong> Use a different, clean device. Make it 16+ characters. No variations of old password.</li>
+      <li><strong>Enable MFA if not already:</strong> SMS codes can be intercepted. Use Authenticator app with number matching.</li>
+      <li><strong>Check for inbox rules:</strong> Outlook > Rules > Look for "forward to external" or "delete". Attackers hide here.</li>
+    </ol>
+  </div>
+
+  <div class="checklist">
+    <h3>Next 25 Minutes: Investigate Damage</h3>
+    <ol start="6">
+      <li><strong>Audit sign-in logs:</strong> Azure AD > Sign-ins > Filter "Failure" + look for IPs from Nigeria, Russia, China.</li>
+      <li><strong>Check mailbox audit:</strong> Did they send mail? Compliance > Audit > Search "Sent Items" for last 24h.</li>
+      <li><strong>Scan device:</strong> Full EDR scan with SentinelOne/Defender. Don't reconnect to network until clean.</li>
+      <li><strong>Review Safe Links:</strong> Defender > Submissions > Check if malicious URL was clicked. Block domain tenant-wide.</li>
+      <li><strong>Document timeline:</strong> Who clicked, when, what they entered. Needed for POPIA breach report if data leaked.</li>
+    </ol>
+  </div>
+
+  <h2>Next 24 Hours: Report + Harden</h2>
+  <ul>
+    <li><strong>Notify bank:</strong> If finance/payroll was accessed, alert bank to watch for fraudulent payments.</li>
+    <li><strong>POPIA:</strong> Report to Information Regulator within 72hrs if personal info was accessed.</li>
+    <li><strong>Retrain staff:</strong> Share screenshot of the phishing email. Run KnowBe4 training.</li>
+    <li><strong>Add domain to blocklist:</strong> Defender > Tenant Allow/Block Lists > Block the sender domain.</li>
+  </ul>
+
+  <h2>Prevention: 3 Settings to Change Today</h2>
+  <ul>
+    <li><strong>Disable legacy auth:</strong> Azure AD > Security > Conditional Access. Blocks 99% of password spray attacks.</li>
+    <li><strong>Enable MFA number matching:</strong> Stops MFA fatigue attacks where users approve random prompts.</li>
+    <li><strong>Safe Attachments:</strong> Defender > Policies > Safe Attachments > Turn on for all mailboxes. Sandboxes files.</li>
+  </ul>
+
+  <div class="cta-box">
+    <h3>Download 1-Page PDF Checklist</h3>
+    <p style="color:#020617;opacity:0.9;margin-bottom:20px;">Print it. Stick it on your IT wall. Give to all staff.</p>
+    <a href="#" class="btn-primary" style="background:#020617;color:#38bdf8;" onclick="alert('PDF download coming soon. Book R950 audit and we check all 10 for you.')">Download PDF</a>
+  </div>
+</article>
+<div class="bottom-nav">
+  <a href="../index.html"><span>🏠</span><p>Home</p></a>
+  <a href="../services.html"><span>🛠</span><p>Services</p></a>
+  <a href="../blog.html"><span>📰</span><p>Blog</p></a>
+  <a href="../zoho.html"><span>📞</span><p>Contact</p></a>
+</div>
+<script>
+fetch('../header.html').then(res=>res.text()).then(data=>{
+  document.getElementById('header').innerHTML=data;
+  document.getElementById('hamburger')?.addEventListener('click',()=>{document.getElementById('navMenu')?.classList.toggle('active')});
+});
+</script>
+</body>
+</html>
