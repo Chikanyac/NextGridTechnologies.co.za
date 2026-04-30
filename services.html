@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,8 +25,10 @@
 /* ========= DESIGN SYSTEM ========= */
 :root {
   --bg-dark: #020617;
+  --bg-section: #0b1220;
+  --bg-section-alt: #0f172a;
   --bg-card: #1e293b;
-  --bg-card-glass: rgba(30, 41, 59, 0.7);
+  --bg-card-solid: #1e293b;
   --accent: #38bdf8;
   --accent-glow: rgba(56, 189, 248, 0.15);
   --text: #e2e8f0;
@@ -87,12 +88,6 @@ h3 {
               radial-gradient(at 80% 70%, #1e3a8a 0px, transparent 50%),
               var(--bg-dark);
   overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 }
 .hero-video {
   position: absolute;
@@ -169,10 +164,9 @@ h3 {
   font-size: 0.95rem;
 }
 
-/* ========= GLASSMORPHISM CARDS ========= */
+/* ========= CARDS - SOLID NOT BLURRED ========= */
 .glass-card {
-  background: var(--bg-card-glass);
-  backdrop-filter: blur(12px);
+  background: var(--bg-card-solid);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 40px;
@@ -234,7 +228,10 @@ h3 {
   border-radius: 8px;
 }
 
-/* ========= PROCESS SECTION ========= */
+/* ========= PROCESS SECTION - FIXED CONTRAST ========= */
+.process-section {
+  background: var(--bg-section) !important;
+}
 .process-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -243,16 +240,29 @@ h3 {
 }
 .process-card {
   position: relative;
-  padding-top: 60px;
+  padding: 60px 32px;
+  background: var(--bg-card-solid) !important;
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
 .process-number {
   position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 5rem;
+  top: 20px;
+  left: 32px;
+  font-size: 4rem;
   font-weight: 700;
-  color: rgba(56, 189, 248, 0.1);
+  color: rgba(56, 189, 248, 0.2);
   line-height: 1;
+}
+.process-card h3 {
+  color: var(--accent) !important;
+  position: relative;
+  z-index: 1;
+}
+.process-card p {
+  color: var(--text) !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* ========= COMPARISON GRID ========= */
@@ -264,8 +274,7 @@ h3 {
   margin: 48px auto;
 }
 .comparison-card {
-  background: var(--bg-card-glass);
-  backdrop-filter: blur(12px);
+  background: var(--bg-card-solid);
   padding: 40px;
   border-radius: 16px;
   border: 1px solid var(--border);
@@ -275,13 +284,42 @@ h3 {
   box-shadow: 0 0 40px var(--accent-glow);
 }
 
-/* ========= SCROLL REVEAL ========= */
+/* ========= FAQ - FIXED CONTRAST ========= */
+.topics-section {
+  background: var(--bg-section-alt) !important;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.faq-grid .tech-card {
+  background: var(--bg-card-solid) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  padding: 32px 24px !important;
+}
+.faq-grid .tech-card h3 {
+  color: var(--accent) !important;
+  margin-bottom: 16px !important;
+}
+.faq-grid .tech-card p {
+  color: var(--text) !important;
+  line-height: 1.7 !important;
+}
+
+/* ========= SCROLL REVEAL - SAFER ========= */
 .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.js .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.reveal.active {
+.js .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
@@ -300,14 +338,6 @@ h3 {
 .dual-cta-card .container {
   max-width: 600px;
   padding: 0 40px;
-}
-
-/* ========= FAQ ========= */
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 24px;
-  margin-top: 48px;
 }
 
 /* ========= MOBILE ========= */
@@ -334,6 +364,8 @@ a:focus-visible, button:focus-visible {
 </style>
 </head>
 <body>
+
+<script>document.documentElement.classList.add('js');</script>
 
 <div id="header"></div>
 <script>
@@ -379,7 +411,7 @@ a:focus-visible, button:focus-visible {
         <span class="stat-label">Months zero incidents avg</span>
       </div>
       <div class="reveal">
-        <span class="stat-number">R<span data-count="1.0">0</span>M</span>
+        <span class="stat-number">R<span data-count="2.4">0</span>M</span>
         <span class="stat-label">Client downtime prevented</span>
       </div>
     </div>
@@ -387,7 +419,7 @@ a:focus-visible, button:focus-visible {
 </section>
 
 <!-- COMPARISON -->
-<section class="section" style="background:#0f172a;">
+<section class="section" style="background:var(--bg-section-alt);">
   <div class="container">
     <h2 style="text-align:center;">Break-Fix IT Costs 3x More</h2>
     <p class="section-intro">You're not saving money with "R0/month". You're paying in downtime.</p>
@@ -399,7 +431,7 @@ a:focus-visible, button:focus-visible {
           <li>⏱️ 6+ hours downtime per incident</li>
           <li>💾 No backups tested until it's too late</li>
           <li>⚖️ POPIA fines are your problem</li>
-          <li>📊 Avg cost: R1,500/month</li>
+          <li>📊 Avg cost: R18,000/year</li>
         </ul>
       </div>
       <div class="comparison-card featured reveal">
@@ -488,7 +520,7 @@ a:focus-visible, button:focus-visible {
 </section>
 
 <!-- PROCESS -->
-<section class="section" style="background:#0b1220;">
+<section class="section process-section">
   <div class="container">
     <h2 style="text-align:center;">Your First 90 Days</h2>
     <p class="section-intro">No surprises. Here's exactly what happens after you sign up.</p>
@@ -512,32 +544,32 @@ a:focus-visible, button:focus-visible {
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- FAQ - FIXED COLORS -->
 <section class="section topics-section">
   <div class="container">
     <h2>Common Questions</h2>
     <div class="faq-grid">
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>Do I have to sign a 12-month contract?</h3>
         <p>No. Month-to-month after first 90 days. We earn your business monthly. The R950 check has zero obligation.</p>
       </div>
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>What if we already have an IT guy?</h3>
         <p>Perfect. Our Co-Managed plan covers security + M365 + backups so he can focus on staff and projects. We escalate to each other.</p>
       </div>
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>How fast is support?</h3>
         <p>8-5 helpdesk: <1hr first response. Critical outages: 15min. Pro plan includes after-hours. We track every ticket.</p>
       </div>
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>Do you support Mac?</h3>
         <p>Yes. We manage Macs via Jamf. 90% of our clients are Microsoft, but we'll tell you upfront if we're not a fit.</p>
       </div>
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>Is the R950 deductible?</h3>
         <p>The R950 report is yours forever, even if you never use us again. 7/10 businesses ask us to fix what we find, but zero pressure.</p>
       </div>
-      <div class="glass-card tech-card reveal">
+      <div class="tech-card reveal">
         <h3>Can you work remotely?</h3>
         <p>Yes. Pretoria & Centurion we come onsite. Anywhere else in SA: secure remote session. 90% of issues are fixed remotely anyway.</p>
       </div>
@@ -594,14 +626,14 @@ a:focus-visible, button:focus-visible {
   <a href="tel:+27680330794" style="display:flex;flex-direction:row;gap:10px;font-weight:600;color:var(--text);text-decoration:none;"><span>📞</span><p>Call</p></a>
 </div>
 
-<footer style="background:#0b1220;padding:40px 0;text-align:center;">
+<footer style="background:var(--bg-section);padding:40px 0;text-align:center;">
   <div class="container">
     <p style="color:var(--text-muted);">© 2026 NextGrid Technologies | POPIA Compliant</p>
   </div>
 </footer>
 
 <script>
-// Scroll Reveal
+// Scroll Reveal - Only runs if JS enabled
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -641,12 +673,6 @@ const countObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
-
-// Supabase auth
-const supabaseClient = supabase.createClient(
-  'https://tirkqybcedxfusifslim.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmtxeWJjZWR4ZnVzaWZzbGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjA4NDcsImV4cCI6MjA5MDQzNjg0N30.EQufAux8VmjAzDeIj8MrmqXaIDBfsCpbj2FUS60e5-8'
-);
 </script>
 <script src="js/supabase.min.js"></script>
 </body>
