@@ -27,7 +27,7 @@ gtag('config', 'G-C9DS2C71G6');
 .blog-toolbar{display:flex;gap:20px;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap}
 .search-box{position:relative;flex:1;max-width:400px}
 .search-box input{width:100%;padding:12px 16px 12px 44px;background:#1e293b;border:1px solid rgba(56,189,248,0.3);border-radius:8px;color:#fff;font-family:'Poppins';box-sizing:border-box}
-.search-box input:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,0.1)}
+.search-box input:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 3px rgba(56,189,248,0.1)}
 .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:0.5}
 .blog-filters{display:flex;gap:12px;flex-wrap:wrap}
 .filter-btn{background:#1e293b;border:1px solid rgba(56,189,248,0.3);color:#cbd5e1;padding:10px 20px;border-radius:20px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.3s}
@@ -45,6 +45,7 @@ gtag('config', 'G-C9DS2C71G6');
 
 /* ========= BLOG CARDS ========= */
 .blog-list{display:flex;flex-direction:column;gap:24px}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px}
 .blog-card{background:#1e293b;border:1px solid rgba(56,189,248,0.2);border-radius:16px;overflow:hidden;transition:all 0.3s ease;display:flex;flex-direction:column}
 .blog-card:hover{border-color:#38bdf8;transform:translateY(-4px)}
 .blog-list-item{flex-direction:row !important;gap:24px}
@@ -70,6 +71,15 @@ gtag('config', 'G-C9DS2C71G6');
 .featured-badge{background:#38bdf8;color:#020617;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:700;display:inline-block;margin-bottom:16px}
 .blog-intro{text-align:center;max-width:700px;margin:0 auto 40px;color:#cbd5e1}
 
+/* ========= START HERE ROW ========= */
+.start-here{margin:60px 0}
+.start-here h2{text-align:center;color:#fff;margin-bottom:32px}
+.start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.start-card{background:#0f172a;border:2px solid #38bdf8;border-radius:16px;padding:28px;transition:all 0.3s}
+.start-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(56,189,248,0.2)}
+.start-card h3{color:#38bdf8;margin:0 0 12px 0}
+.start-card p{color:#cbd5e1;margin:0 0 20px 0;line-height:1.6}
+
 /* ========= SIDEBAR ========= */
 .blog-sidebar{display:flex;flex-direction:column;gap:32px}
 .sidebar-widget{background:#1e293b;border:1px solid rgba(56,189,248,0.2);border-radius:16px;padding:24px}
@@ -85,15 +95,6 @@ gtag('config', 'G-C9DS2C71G6');
 .tag-cloud button{background:#0f172a;border:1px solid rgba(56,189,248,0.3);color:#94a3b8;padding:6px 12px;border-radius:16px;font-size:0.85rem;cursor:pointer;font-family:'Poppins'}
 .tag-cloud button:hover{border-color:#38bdf8;color:#38bdf8}
 .newsletter-sticky input{width:100%;padding:12px 16px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-family:'Poppins';box-sizing:border-box;margin-bottom:12px}
-
-/* ========= START HERE ROW ========= */
-.start-here{margin:60px 0}
-.start-here h2{text-align:center;color:#fff;margin-bottom:32px}
-.start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.start-card{background:#0f172a;border:2px solid #38bdf8;border-radius:16px;padding:28px;transition:all 0.3s}
-.start-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(56,189,248,0.2)}
-.start-card h3{color:#38bdf8;margin:0 0 12px 0}
-.start-card p{color:#cbd5e1;margin:0 0 20px 0;line-height:1.6}
 
 /* ========= MOBILE ========= */
 @media(max-width:1024px){
