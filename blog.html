@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,151 +23,90 @@ gtag('config', 'G-C9DS2C71G6');
 <link rel="stylesheet" href="styles.css">
 
 <style>
-  /* ========= BLOG FILTERS ========= */
-.filter-btn {
-  background: #1e293b;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #cbd5e1;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
+/* ========= BLOG TOOLBAR ========= */
+.blog-toolbar{display:flex;gap:20px;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap}
+.search-box{position:relative;flex:1;max-width:400px}
+.search-box input{width:100%;padding:12px 16px 12px 44px;background:#1e293b;border:1px solid rgba(56,189,248,0.3);border-radius:8px;color:#fff;font-family:'Poppins';box-sizing:border-box}
+.search-box input:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,0.1)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:0.5}
+.blog-filters{display:flex;gap:12px;flex-wrap:wrap}
+.filter-btn{background:#1e293b;border:1px solid rgba(56,189,248,0.3);color:#cbd5e1;padding:10px 20px;border-radius:20px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.3s}
+.filter-btn:hover{border-color:#38bdf8;color:#38bdf8}
+.filter-btn.active{background:#38bdf8;color:#020617;border-color:#38bdf8}
 
-.filter-btn:hover {
-  border-color: #38bdf8;
-  color: #38bdf8;
-}
+/* ========= BLOG LAYOUT ========= */
+.blog-section{padding:80px 0}
+.blog-layout{display:grid;grid-template-columns:1fr 340px;gap:48px;margin-top:60px}
+.blog-main{min-width:0}
+.list-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.list-header h2{color:#fff;font-size:1.75rem;margin:0}
+.view-toggle{background:#1e293b;border:1px solid rgba(56,189,248,0.3);color:#cbd5e1;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Poppins';font-weight:500}
+.view-toggle:hover{border-color:#38bdf8;color:#38bdf8}
 
-.filter-btn.active {
-  background: #38bdf8;
-  color: #020617;
-  border-color: #38bdf8;
+/* ========= BLOG CARDS ========= */
+.blog-list{display:flex;flex-direction:column;gap:24px}
+.blog-card{background:#1e293b;border:1px solid rgba(56,189,248,0.2);border-radius:16px;overflow:hidden;transition:all 0.3s ease;display:flex;flex-direction:column}
+.blog-card:hover{border-color:#38bdf8;transform:translateY(-4px)}
+.blog-list-item{flex-direction:row !important;gap:24px}
+.blog-list-item .blog-card-img{width:200px;height:140px;flex-shrink:0}
+.blog-card-img{width:100%;height:180px;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);display:flex;align-items:center;justify-content:center;font-size:3rem;border-radius:12px}
+.blog-card-content{padding:24px;flex-grow:1;display:flex;flex-direction:column}
+.blog-list-item .blog-card-content{padding:0}
+.post-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.blog-category{display:inline-block;background:rgba(56,189,248,0.1);color:#38bdf8;padding:4px 12px;border-radius:12px;font-size:0.8rem;font-weight:600;width:fit-content}
+.read-count{color:#64748b;font-size:0.85rem}
+.tag-related{background:rgba(16,185,129,0.1);color:#10b981;padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600}
+.fix-time{background:rgba(16,185,129,0.1);color:#10b981;padding:4px 10px;border-radius:12px;font-size:0.8rem;font-weight:600}
+.blog-card h3{color:#fff;font-size:1.25rem;margin-bottom:12px;line-height:1.4}
+.blog-card p{color:#cbd5e1;font-size:0.95rem;line-height:1.6;margin-bottom:20px;flex-grow:1}
+.blog-meta{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid rgba(56,189,248,0.1)}
+.blog-date{color:#94a3b8;font-size:0.85rem}
+.blog-read{color:#38bdf8;font-weight:600;font-size:0.9rem;text-decoration:none}
+.blog-read:hover{text-decoration:underline}
+
+/* ========= FEATURED POST ========= */
+.featured-post{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:center;background:#0f172a;border:2px solid #38bdf8;padding:40px;border-radius:16px;margin-bottom:20px}
+.featured-post .blog-card-img{height:280px;border-radius:12px}
+.featured-badge{background:#38bdf8;color:#020617;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:700;display:inline-block;margin-bottom:16px}
+.blog-intro{text-align:center;max-width:700px;margin:0 auto 40px;color:#cbd5e1}
+
+/* ========= SIDEBAR ========= */
+.blog-sidebar{display:flex;flex-direction:column;gap:32px}
+.sidebar-widget{background:#1e293b;border:1px solid rgba(56,189,248,0.2);border-radius:16px;padding:24px}
+.sidebar-widget h3{color:#fff;font-size:1.1rem;margin:0 0 16px 0}
+.sidebar-link{display:block;padding:12px 0;border-bottom:1px solid rgba(56,189,248,0.1);text-decoration:none;color:#cbd5e1;transition:color 0.3s}
+.sidebar-link:hover{color:#38bdf8}
+.sidebar-link strong{display:block;color:#fff;margin-bottom:4px}
+.sidebar-link span{font-size:0.85rem;color:#94a3b8}
+.sidebar-link:last-child{border-bottom:none}
+.views{float:right;color:#64748b;font-size:0.8rem}
+.newsletter-sticky{position:sticky;top:100px}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.tag-cloud button{background:#0f172a;border:1px solid rgba(56,189,248,0.3);color:#94a3b8;padding:6px 12px;border-radius:16px;font-size:0.85rem;cursor:pointer;font-family:'Poppins'}
+.tag-cloud button:hover{border-color:#38bdf8;color:#38bdf8}
+.newsletter-sticky input{width:100%;padding:12px 16px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-family:'Poppins';box-sizing:border-box;margin-bottom:12px}
+
+/* ========= START HERE ROW ========= */
+.start-here{margin:60px 0}
+.start-here h2{text-align:center;color:#fff;margin-bottom:32px}
+.start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.start-card{background:#0f172a;border:2px solid #38bdf8;border-radius:16px;padding:28px;transition:all 0.3s}
+.start-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(56,189,248,0.2)}
+.start-card h3{color:#38bdf8;margin:0 0 12px 0}
+.start-card p{color:#cbd5e1;margin:0 0 20px 0;line-height:1.6}
+
+/* ========= MOBILE ========= */
+@media(max-width:1024px){
+  .blog-layout{grid-template-columns:1fr}
+  .newsletter-sticky{position:static}
+  .featured-post{grid-template-columns:1fr}
+  .featured-post .blog-card-img{height:200px}
 }
-/* ========= BLOG SPECIFIC ========= */
-.blog-section {
-  padding: 80px 0;
-}
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-  margin: 40px 0;
-}
-.blog-card {
-  background: #1e293b;
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.blog-card:hover {
-  border-color: #38bdf8;
-  transform: translateY(-4px);
-}
-.blog-card-img {
-  width: 100%;
-  height: 180px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-.blog-card-content {
-  padding: 24px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-.blog-category {
-  display: inline-block;
-  background: rgba(56, 189, 248, 0.1);
-  color: #38bdf8;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  width: fit-content;
-}
-.blog-card h3 {
-  color: #fff;
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-.blog-card p {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  flex-grow: 1;
-}
-.blog-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid rgba(56, 189, 248, 0.1);
-}
-.blog-date {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
-.blog-read {
-  color: #38bdf8;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-.blog-read:hover {
-  text-decoration: underline;
-}
-.featured-post {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 32px;
-  align-items: center;
-  background: #0f172a;
-  border: 2px solid #38bdf8;
-  padding: 40px;
-  border-radius: 16px;
-  margin-bottom: 20px;
-}
-.featured-post .blog-card-img {
-  height: 280px;
-  border-radius: 12px;
-}
-.featured-badge {
-  background: #38bdf8;
-  color: #020617;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  display: inline-block;
-  margin-bottom: 16px;
-}
-.blog-intro {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 40px;
-  color: #cbd5e1;
-}
-@media (max-width: 768px) {
-  .featured-post {
-    grid-template-columns: 1fr;
-  }
-  .featured-post .blog-card-img {
-    height: 200px;
-  }
+@media(max-width:768px){
+  .blog-toolbar{flex-direction:column;align-items:stretch}
+  .search-box{max-width:100%}
+  .blog-list-item{flex-direction:column !important}
+  .blog-list-item .blog-card-img{width:100%;height:180px}
 }
 </style>
 </head>
@@ -217,20 +155,26 @@ fetch('header.html')
       Written for SA business owners, not techies. Every post includes a checklist or action you can take today.
     </p>
 
-    <!-- CATEGORY FILTER -->
-    <div class="blog-filters" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;">
-      <button class="filter-btn active" onclick="filterPosts('all')">All Posts</button>
-      <button class="filter-btn" onclick="filterPosts('security')">M365 Security</button>
-      <button class="filter-btn" onclick="filterPosts('ransomware')">Ransomware</button>
-      <button class="filter-btn" onclick="filterPosts('backup')">Backup</button>
-      <button class="filter-btn" onclick="filterPosts('stories')">Client Stories</button>
+    <!-- SEARCH + FILTERS BAR -->
+    <div class="blog-toolbar">
+      <div class="search-box">
+        <input type="text" id="blogSearch" placeholder="Search: ransomware, backup, POPIA..." onkeyup="searchPosts()">
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="blog-filters">
+        <button class="filter-btn active" onclick="filterPosts('all')">All</button>
+        <button class="filter-btn" onclick="filterPosts('security')">Security</button>
+        <button class="filter-btn" onclick="filterPosts('ransomware')">Ransomware</button>
+        <button class="filter-btn" onclick="filterPosts('backup')">Backup</button>
+        <button class="filter-btn" onclick="filterPosts('stories')">Case Studies</button>
+      </div>
     </div>
 
     <!-- FEATURED POST -->
     <div class="featured-post">
       <div class="blog-card-img">✅</div>
       <div>
-        <span class="featured-badge">MOST POPULAR</span>
+        <span class="featured-badge">MOST POPULAR · 3.2k Pretoria owners</span>
         <span class="blog-category">Microsoft 365 Security</span>
         <h3 style="color:#fff; font-size:1.75rem; margin:12px 0;">M365 Security Checklist 2026: 12 Settings You're Missing</h3>
         <p style="color:#cbd5e1; margin-bottom:20px;">MFA is just step 1. We audit 50+ tenants per year and these 12 settings are disabled in 90% of them. Download the free checklist + see if your business is exposed.</p>
@@ -241,150 +185,267 @@ fetch('header.html')
       </div>
     </div>
 
-    <!-- RECENT ARTICLES -->
-    <h2 style="text-align:center; margin:60px 0 20px;">Recent Articles</h2>
-    <div class="blog-grid" id="blog-grid">
+    <!-- START HERE ROW -->
+    <div class="start-here">
+      <h2>🚀 Start Here</h2>
+      <div class="start-grid">
+        <div class="start-card">
+          <h3>1. Check Your Security Score</h3>
+          <p>12 settings 90% of SMEs miss. Free checklist + video walkthrough.</p>
+          <a href="m365-security-checklist.html" class="btn-secondary">Get Checklist →</a>
+        </div>
+        <div class="start-card">
+          <h3>2. Book R950 Health Check</h3>
+          <p>We test backups, MFA, licenses. 90-min audit with report. No obligation.</p>
+          <a href="r950-check.html" class="btn-secondary">Book Audit →</a>
+        </div>
+        <div class="start-card">
+          <h3>3. See a Recovery Story</h3>
+          <p>Law firm hit by ransomware. Back online in 2hrs, zero ransom paid.</p>
+          <a href="law-firm-ransomware-recovery.html" class="btn-secondary">Read Case Study →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN 2-COLUMN LAYOUT -->
+    <div class="blog-layout">
       
-      <!-- Post 1 -->
-      <article class="blog-card" data-category="managed-it">
-        <div class="blog-card-img">💻</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Managed IT</span>
-          <h3>Why “Break-Fix” IT Costs You 3x More Than Managed Support</h3>
-          <p>We ran the numbers on 20 Pretoria businesses. Break-fix averages R18k/year in downtime. Managed: R5k.</p>
-          <div class="blog-meta">
-            <span class="blog-date">March 2026</span>
-            <a href="managed-it-vs-break-fix-cost.html" class="blog-read">Read More →</a>
+      <!-- LEFT: ARTICLES LIST -->
+      <div class="blog-main">
+        <div class="list-header">
+          <h2>Latest Articles</h2>
+          <button class="view-toggle" onclick="toggleView()">📋 List View</button>
+        </div>
+        
+        <div class="blog-list" id="blog-grid">
+          
+          <!-- Post 1 -->
+          <article class="blog-card blog-list-item" data-category="managed-it" data-title="break fix managed support cost">
+            <div class="blog-card-img">💻</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Managed IT</span>
+                <span class="read-count">👁️ 1,842 reads</span>
+              </div>
+              <h3>Why “Break-Fix” IT Costs You 3x More Than Managed Support</h3>
+              <p>We ran the numbers on 20 Pretoria businesses. Break-fix averages R18k/year in downtime. Managed: R5k.</p>
+              <div class="blog-meta">
+                <span class="blog-date">March 2026</span>
+                <span class="fix-time">⚡ 5 min read</span>
+                <a href="managed-it-vs-break-fix-cost.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="blog-card blog-list-item" data-category="security ransomware" data-title="ransomware attacks sa sme 2026">
+            <div class="blog-card-img">🛡️</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Cybersecurity</span>
+                <span class="read-count">👁️ 2,103 reads</span>
+              </div>
+              <h3>Top 3 Ransomware Attacks Hitting SA SMEs in 2026</h3>
+              <p>Phishing, RDP brute-force, and fake invoices. Here's how to block each one in under 30 minutes.</p>
+              <div class="blog-meta">
+                <span class="blog-date">March 2026</span>
+                <span class="fix-time">⚡ 30 min fix</span>
+                <a href="cybersecurity-threats-sa-2026.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="blog-card blog-list-item" data-category="security" data-title="zero trust small business">
+            <div class="blog-card-img">🔐</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Zero Trust</span>
+                <span class="read-count">👁️ 987 reads</span>
+              </div>
+              <h3>Zero-Trust for Small Business: What It Actually Means</h3>
+              <p>Forget the buzzwords. Here's the 3 changes that matter: MFA everywhere, device compliance, least privilege.</p>
+              <div class="blog-meta">
+                <span class="blog-date">March 2026</span>
+                <span class="fix-time">⚡ 1 hour setup</span>
+                <a href="zero-trust-small-business.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 4 -->
+          <article class="blog-card blog-list-item" data-category="stories backup" data-title="law firm ransomware recovery">
+            <div class="blog-card-img">⚡</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Client Story</span>
+                <span class="tag-related">Related to R950 Audit</span>
+              </div>
+              <h3>We Recovered This Law Firm From Ransomware in 2 Hours</h3>
+              <p>Saturday 2am: Crypto-locker hit. Monday 9am: Back online, zero ransom paid. Here's the exact backup setup that saved them.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Feb 2026</span>
+                <span class="fix-time">⚡ 2 hr recovery</span>
+                <a href="law-firm-ransomware-recovery.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 5 -->
+          <article class="blog-card blog-list-item" data-category="security" data-title="phishing incident response email">
+            <div class="blog-card-img">📧</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Email Security</span>
+                <span class="read-count">👁️ 1,456 reads</span>
+              </div>
+              <h3>Your Staff Clicked a Phishing Link. Now What?</h3>
+              <p>Step-by-step incident response: isolate, reset, check forwarding rules, audit logs. Save this checklist.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Feb 2026</span>
+                <span class="fix-time">⚡ 30 min response</span>
+                <a href="phishing-incident-response.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 6 -->
+          <article class="blog-card blog-list-item" data-category="backup" data-title="onedrive not backup">
+            <div class="blog-card-img">💾</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Backup</span>
+                <span class="tag-related">Related to R950 Audit</span>
+              </div>
+              <h3>OneDrive is NOT a Backup. Here's Proof</h3>
+              <p>Deleted files, ransomware, departing staff. 3 ways OneDrive fails. What to use instead for R120/user.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Feb 2026</span>
+                <span class="fix-time">⚡ 15 min read</span>
+                <a href="onedrive-not-backup.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 7 -->
+          <article class="blog-card blog-list-item" data-category="security popia" data-title="popia audit checklist sars">
+            <div class="blog-card-img">🇿🇦</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">POPIA Compliance</span>
+                <span class="tag-related">Related to R950 Audit</span>
+              </div>
+              <h3>POPIA Audit Checklist: 7 Things SARS Actually Checks</h3>
+              <p>Not legal advice. Real IT controls: encryption, access logs, breach notification. Copy-paste template included.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Jan 2026</span>
+                <span class="fix-time">⚡ 45 min audit</span>
+                <a href="popia-it-checklist.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 8 -->
+          <article class="blog-card blog-list-item" data-category="stories managed-it" data-title="accounting firm downtime zero">
+            <div class="blog-card-img">📶</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Client Story</span>
+                <span class="read-count">👁️ 1,234 reads</span>
+              </div>
+              <h3>Accounting Firm: From 5 Hours Downtime/Month to Zero</h3>
+              <p>Old IT guy = "reboot it". We fixed root cause: failing switch + no monitoring. 6 months, zero outages.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Jan 2026</span>
+                <span class="fix-time">⚡ 90 day fix</span>
+                <a href="accounting-firm-uptime-case-study.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 9 -->
+          <article class="blog-card blog-list-item" data-category="security passwords" data-title="stop using excel passwords">
+            <div class="blog-card-img">🔑</div>
+            <div class="blog-card-content">
+              <div class="post-top">
+                <span class="blog-category">Passwords</span>
+                <span class="tag-related">Related to R950 Audit</span>
+              </div>
+              <h3>Stop Using Excel for Passwords. Do This Instead</h3>
+              <p>Free password manager setup guide for teams. MFA, sharing, offboarding. 15-min setup.</p>
+              <div class="blog-meta">
+                <span class="blog-date">Jan 2026</span>
+                <span class="fix-time">⚡ 15 min setup</span>
+                <a href="password-manager-setup.html" class="blog-read">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: SIDEBAR -->
+      <aside class="blog-sidebar">
+        
+        <!-- START HERE -->
+        <div class="sidebar-widget">
+          <h3>🚀 Start Here</h3>
+          <a href="m365-security-checklist.html" class="sidebar-link">
+            <strong>M365 Security Checklist</strong>
+            <span>12 settings 90% of SMEs miss</span>
+          </a>
+          <a href="r950-check.html" class="sidebar-link">
+            <strong>Book R950 Audit</strong>
+            <span>We check all 23 points for you</span>
+          </a>
+        </div>
+
+        <!-- POPULAR THIS MONTH -->
+        <div class="sidebar-widget">
+          <h3>🔥 Popular This Month</h3>
+          <a href="cybersecurity-threats-sa-2026.html" class="sidebar-link">
+            <span>1. Ransomware Attacks in SA</span>
+            <span class="views">2.1k views</span>
+          </a>
+          <a href="law-firm-ransomware-recovery.html" class="sidebar-link">
+            <span>2. Law Firm Recovery Story</span>
+            <span class="views">1.8k views</span>
+          </a>
+          <a href="managed-it-vs-break-fix-cost.html" class="sidebar-link">
+            <span>3. Break-Fix vs Managed Cost</span>
+            <span class="views">1.8k views</span>
+          </a>
+        </div>
+
+        <!-- NEWSLETTER - STICKY -->
+        <div class="sidebar-widget newsletter-sticky">
+          <h3>📧 1 Tip Every Monday</h3>
+          <p>No spam. Just 1 actionable M365 security tip.</p>
+          <form onsubmit="event.preventDefault(); alert('Thanks! Check your email.'); gtag('event','subscribe',{'event_category':'Newsletter'});">
+            <input type="email" placeholder="your@company.co.za" required>
+            <button type="submit" class="btn-primary" style="width:100%;margin-top:12px;">Subscribe</button>
+          </form>
+          <p style="font-size:0.8rem;color:#64748b;margin-top:12px;">Join 340+ SA business owners</p>
+        </div>
+
+        <!-- TAGS -->
+        <div class="sidebar-widget">
+          <h3>Browse by Topic</h3>
+          <div class="tag-cloud">
+            <button onclick="filterPosts('security')">#M365Security</button>
+            <button onclick="filterPosts('ransomware')">#Ransomware</button>
+            <button onclick="filterPosts('backup')">#Backup</button>
+            <button onclick="filterPosts('stories')">#CaseStudy</button>
+            <button onclick="filterPosts('popia')">#POPIA</button>
+            <button onclick="filterPosts('passwords')">#Passwords</button>
           </div>
         </div>
-      </article>
 
-      <!-- Post 2 -->
-      <article class="blog-card" data-category="security ransomware">
-        <div class="blog-card-img">🛡️</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Cybersecurity</span>
-          <h3>Top 3 Ransomware Attacks Hitting SA SMEs in 2026</h3>
-          <p>Phishing, RDP brute-force, and fake invoices. Here's how to block each one in under 30 minutes.</p>
-          <div class="blog-meta">
-            <span class="blog-date">March 2026</span>
-            <a href="cybersecurity-threats-sa-2026.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 3 -->
-      <article class="blog-card" data-category="security">
-        <div class="blog-card-img">🔐</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Zero Trust</span>
-          <h3>Zero-Trust for Small Business: What It Actually Means</h3>
-          <p>Forget the buzzwords. Here's the 3 changes that matter: MFA everywhere, device compliance, least privilege.</p>
-          <div class="blog-meta">
-            <span class="blog-date">March 2026</span>
-            <a href="zero-trust-small-business.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 4: NEW -->
-      <article class="blog-card" data-category="stories backup">
-        <div class="blog-card-img">⚡</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Client Story</span>
-          <h3>We Recovered This Law Firm From Ransomware in 2 Hours</h3>
-          <p>Saturday 2am: Crypto-locker hit. Monday 9am: Back online, zero ransom paid. Here's the exact backup setup that saved them.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Feb 2026</span>
-            <a href="law-firm-ransomware-recovery.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 5: NEW -->
-      <article class="blog-card" data-category="security">
-        <div class="blog-card-img">📧</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Email Security</span>
-          <h3>Your Staff Clicked a Phishing Link. Now What?</h3>
-          <p>Step-by-step incident response: isolate, reset, check forwarding rules, audit logs. Save this checklist.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Feb 2026</span>
-            <a href="phishing-incident-response.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 6: NEW -->
-      <article class="blog-card" data-category="backup">
-        <div class="blog-card-img">💾</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Backup</span>
-          <h3>OneDrive is NOT a Backup. Here's Proof</h3>
-          <p>Deleted files, ransomware, departing staff. 3 ways OneDrive fails. What to use instead for R120/user.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Feb 2026</span>
-            <a href="onedrive-not-backup.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 7: NEW -->
-      <article class="blog-card" data-category="security">
-        <div class="blog-card-img">🇿🇦</div>
-        <div class="blog-card-content">
-          <span class="blog-category">POPIA Compliance</span>
-          <h3>POPIA Audit Checklist: 7 Things SARS Actually Checks</h3>
-          <p>Not legal advice. Real IT controls: encryption, access logs, breach notification. Copy-paste template included.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Jan 2026</span>
-            <a href="popia-it-checklist.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 8: NEW -->
-      <article class="blog-card" data-category="stories managed-it">
-        <div class="blog-card-img">📶</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Client Story</span>
-          <h3>Accounting Firm: From 5 Hours Downtime/Month to Zero</h3>
-          <p>Old IT guy = "reboot it". We fixed root cause: failing switch + no monitoring. 6 months, zero outages.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Jan 2026</span>
-            <a href="accounting-firm-uptime-case-study.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 9: NEW -->
-      <article class="blog-card" data-category="security">
-        <div class="blog-card-img">🔑</div>
-        <div class="blog-card-content">
-          <span class="blog-category">Passwords</span>
-          <h3>Stop Using Excel for Passwords. Do This Instead</h3>
-          <p>Free password manager setup guide for teams. MFA, sharing, offboarding. 15-min setup.</p>
-          <div class="blog-meta">
-            <span class="blog-date">Jan 2026</span>
-            <a href="password-manager-setup.html" class="blog-read">Read More →</a>
-          </div>
-        </div>
-      </article>
-
+      </aside>
     </div>
-
-    <!-- NEWSLETTER SIGNUP -->
-    <div style="background:#1e293b; border:2px solid #38bdf8; border-radius:16px; padding:40px; text-align:center; margin:80px auto 0; max-width:700px;">
-      <h3 style="color:#fff; font-size:1.5rem; margin-bottom:12px;">Get 1 Security Tip Every Monday</h3>
-      <p style="color:#cbd5e1; margin-bottom:24px;">No spam. Just 1 actionable M365 tip. Unsubscribe anytime.</p>
-      <form style="display:flex; gap:12px; max-width:500px; margin:0 auto;" onsubmit="event.preventDefault(); alert('Thanks! Check your email.');">
-        <input type="email" placeholder="your@company.co.za" required style="flex:1; padding:14px 16px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:#fff; font-family:'Poppins';">
-        <button type="submit" class="btn-primary" style="white-space:nowrap;">Subscribe</button>
-      </form>
-    </div>
-
   </div>
 </section>
+
 <!-- CTA -->
 <section id="contact">
   <div class="container contact-wrapper">
@@ -440,15 +501,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     adminLinkContainer.innerHTML = '';
   }
 });
-</script>
-  // ========= BLOG FILTER =========
+
+// ========= BLOG FILTER + SEARCH =========
 function filterPosts(category) {
-  const cards = document.querySelectorAll('.blog-card');
+  const cards = document.querySelectorAll('.blog-list-item');
   const buttons = document.querySelectorAll('.filter-btn');
-  
   buttons.forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
-  
   cards.forEach(card => {
     if (category === 'all' || card.dataset.category.includes(category)) {
       card.style.display = 'flex';
@@ -457,5 +516,30 @@ function filterPosts(category) {
     }
   });
 }
+
+function searchPosts() {
+  const query = document.getElementById('blogSearch').value.toLowerCase();
+  const cards = document.querySelectorAll('.blog-list-item');
+  cards.forEach(card => {
+    const title = card.dataset.title.toLowerCase();
+    const text = card.textContent.toLowerCase();
+    card.style.display = (title.includes(query) || text.includes(query)) ? 'flex' : 'none';
+  });
+}
+
+function toggleView() {
+  const grid = document.getElementById('blog-grid');
+  const btn = document.querySelector('.view-toggle');
+  if (grid.classList.contains('blog-grid')) {
+    grid.classList.remove('blog-grid');
+    grid.classList.add('blog-list');
+    btn.textContent = '🔲 Grid View';
+  } else {
+    grid.classList.add('blog-grid');
+    grid.classList.remove('blog-list');
+    btn.textContent = '📋 List View';
+  }
+}
+</script>
 </body>
 </html>
