@@ -109,6 +109,43 @@ section.process-section * {
     grid-template-columns: 1fr !important;
   }
 }
+  /* ========= DUAL CTA SIDE BY SIDE ========= */
+.dual-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.dual-cta-card {
+  padding: 80px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.dual-cta-card .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.dual-cta-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0;
+}
+
+/* Mobile: Stack them */
+@media (max-width: 968px) {
+  .dual-cta-grid {
+    grid-template-columns: 1fr;
+  }
+  .dual-cta-card {
+    padding: 60px 0;
+  }
+  .dual-cta-card h2 {
+    font-size: 1.5rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -404,22 +441,32 @@ section.process-section * {
       </div>
 </section>-->
 
-<!-- R950 CTA PRE-FOOTER -->
-<section style="padding:60px 0;background:linear-gradient(135deg,#1e40af,#1e3a8a);">
-  <div class="container" style="text-align:center;">
-    <h2 style="color:white;">Not Ready for Monthly? Start Here.</h2>
-    <p style="color:#bfdbfe;margin:16px auto 32px;max-width:600px;">Our R950 IT Health Check finds your 3 biggest risks in 48 hours. No obligation to continue. If we don’t find anything, we tell you and part as friends.</p>
-    <a href="r950-check.html" class="btn-primary" style="background:white;color:#1e40af;">Book R950 Check</a>
-  </div>
-</section>
+<!-- DUAL CTA - SIDE BY SIDE -->
+<section style="padding: 0;">
+  <div class="dual-cta-grid">
+    <!-- Left: R950 CTA -->
+    <div class="dual-cta-card" style="background: linear-gradient(135deg, #1e40af, #1e3a8a);">
+      <div class="container">
+        <h2 style="color: white;">Not Ready for Monthly? Start Here.</h2>
+        <p style="color: #bfdbfe; margin: 16px auto 32px; max-width: 500px;">
+          Our R950 IT Health Check finds your 3 biggest risks in 48 hours. No obligation to continue. If we don’t find anything, we tell you and part as friends.
+        </p>
+        <a href="r950-check.html" class="btn-primary" style="background: white; color: #1e40af;">Book R950 Check</a>
+      </div>
+    </div>
 
-<section style="padding:60px 0;background:#0f172a;">
-  <div class="container" style="text-align:center;">
-    <h2 style="margin-bottom:20px;">Not Sure What You Need?</h2>
-    <p style="color:#cbd5e1;margin-bottom:32px;">Read our guides on M365 security and managed IT costs.</p>
-    <div class="hero-buttons">
-      <a href="m365-security-checklist.html" class="btn-secondary">M365 Security Guide</a>
-      <a href="managed-it-vs-break-fix-cost.html" class="btn-secondary">Managed IT Cost Breakdown</a>
+    <!-- Right: Guides CTA -->
+    <div class="dual-cta-card" style="background: #0f172a;">
+      <div class="container">
+        <h2 style="color: white;">Not Sure What You Need?</h2>
+        <p style="color: #cbd5e1; margin: 16px auto 32px; max-width: 500px;">
+          Read our guides on M365 security and managed IT costs.
+        </p>
+        <div class="hero-buttons" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="m365-security-checklist.html" class="btn-secondary">M365 Security Guide</a>
+          <a href="managed-it-vs-break-fix-cost.html" class="btn-secondary">Managed IT Cost Breakdown</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
