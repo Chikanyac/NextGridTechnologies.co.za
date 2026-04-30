@@ -193,6 +193,15 @@ fetch('header.html')
       Written for SA business owners, not techies. Every post includes a checklist or action you can take today.
     </p>
 
+    <!-- CATEGORY FILTER -->
+    <div class="blog-filters" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:40px;">
+      <button class="filter-btn active" onclick="filterPosts('all')">All Posts</button>
+      <button class="filter-btn" onclick="filterPosts('security')">M365 Security</button>
+      <button class="filter-btn" onclick="filterPosts('ransomware')">Ransomware</button>
+      <button class="filter-btn" onclick="filterPosts('backup')">Backup</button>
+      <button class="filter-btn" onclick="filterPosts('stories')">Client Stories</button>
+    </div>
+
     <!-- FEATURED POST -->
     <div class="featured-post">
       <div class="blog-card-img">✅</div>
@@ -210,54 +219,148 @@ fetch('header.html')
 
     <!-- RECENT ARTICLES -->
     <h2 style="text-align:center; margin:60px 0 20px;">Recent Articles</h2>
-    <div class="blog-grid">
-    <!-- Card 1: Managed IT vs Break-Fix -->
-<article class="blog-card">
-  <div class="blog-card-img">💻</div>
-  <div class="blog-card-content">
-    <span class="blog-category">Managed IT</span>
-    <h3>Why “Break-Fix” IT Costs You 3x More Than Managed Support</h3>
-    <p>We ran the numbers on 20 Pretoria businesses. Break-fix averages R18k/year in downtime. Managed: R5k.</p>
-    <div class="blog-meta">
-      <span class="blog-date">March 2026</span>
-      <a href="managed-it-vs-break-fix-cost.html" class="blog-read">Read More →</a>
-    </div>
-  </div>
-</article>
-
-<!-- Card 2: Cybersecurity Threats -->
-<article class="blog-card">
-  <div class="blog-card-img">🛡️</div>
-  <div class="blog-card-content">
-    <span class="blog-category">Cybersecurity</span>
-    <h3>Top 3 Ransomware Attacks Hitting SA SMEs in 2026</h3>
-    <p>Phishing, RDP brute-force, and fake invoices. Here's how to block each one in under 30 minutes.</p>
-    <div class="blog-meta">
-      <span class="blog-date">March 2026</span>
-      <a href="cybersecurity-threats-sa-2026.html" class="blog-read">Read More →</a>
-    </div>
-  </div>
-</article>
-
-<!-- Card 3: Zero Trust -->
-<article class="blog-card">
-  <div class="blog-card-img">🔐</div>
-  <div class="blog-card-content">
-    <span class="blog-category">Zero Trust</span>
-    <h3>Zero-Trust for Small Business: What It Actually Means</h3>
-    <p>Forget the buzzwords. Here's the 3 changes that matter: MFA everywhere, device compliance, least privilege.</p>
-    <div class="blog-meta">
-      <span class="blog-date">March 2026</span>
-      <a href="zero-trust-small-business.html" class="blog-read">Read More →</a>
-    </div>
-  </div>
-</article>
+    <div class="blog-grid" id="blog-grid">
       
+      <!-- Post 1 -->
+      <article class="blog-card" data-category="managed-it">
+        <div class="blog-card-img">💻</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Managed IT</span>
+          <h3>Why “Break-Fix” IT Costs You 3x More Than Managed Support</h3>
+          <p>We ran the numbers on 20 Pretoria businesses. Break-fix averages R18k/year in downtime. Managed: R5k.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="managed-it-vs-break-fix-cost.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="blog-card" data-category="security ransomware">
+        <div class="blog-card-img">🛡️</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Cybersecurity</span>
+          <h3>Top 3 Ransomware Attacks Hitting SA SMEs in 2026</h3>
+          <p>Phishing, RDP brute-force, and fake invoices. Here's how to block each one in under 30 minutes.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="cybersecurity-threats-sa-2026.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="blog-card" data-category="security">
+        <div class="blog-card-img">🔐</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Zero Trust</span>
+          <h3>Zero-Trust for Small Business: What It Actually Means</h3>
+          <p>Forget the buzzwords. Here's the 3 changes that matter: MFA everywhere, device compliance, least privilege.</p>
+          <div class="blog-meta">
+            <span class="blog-date">March 2026</span>
+            <a href="zero-trust-small-business.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 4: NEW -->
+      <article class="blog-card" data-category="stories backup">
+        <div class="blog-card-img">⚡</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Client Story</span>
+          <h3>We Recovered This Law Firm From Ransomware in 2 Hours</h3>
+          <p>Saturday 2am: Crypto-locker hit. Monday 9am: Back online, zero ransom paid. Here's the exact backup setup that saved them.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Feb 2026</span>
+            <a href="law-firm-ransomware-recovery.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 5: NEW -->
+      <article class="blog-card" data-category="security">
+        <div class="blog-card-img">📧</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Email Security</span>
+          <h3>Your Staff Clicked a Phishing Link. Now What?</h3>
+          <p>Step-by-step incident response: isolate, reset, check forwarding rules, audit logs. Save this checklist.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Feb 2026</span>
+            <a href="phishing-incident-response.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 6: NEW -->
+      <article class="blog-card" data-category="backup">
+        <div class="blog-card-img">💾</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Backup</span>
+          <h3>OneDrive is NOT a Backup. Here's Proof</h3>
+          <p>Deleted files, ransomware, departing staff. 3 ways OneDrive fails. What to use instead for R120/user.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Feb 2026</span>
+            <a href="onedrive-not-backup.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 7: NEW -->
+      <article class="blog-card" data-category="security">
+        <div class="blog-card-img">🇿🇦</div>
+        <div class="blog-card-content">
+          <span class="blog-category">POPIA Compliance</span>
+          <h3>POPIA Audit Checklist: 7 Things SARS Actually Checks</h3>
+          <p>Not legal advice. Real IT controls: encryption, access logs, breach notification. Copy-paste template included.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Jan 2026</span>
+            <a href="popia-it-checklist.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 8: NEW -->
+      <article class="blog-card" data-category="stories managed-it">
+        <div class="blog-card-img">📶</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Client Story</span>
+          <h3>Accounting Firm: From 5 Hours Downtime/Month to Zero</h3>
+          <p>Old IT guy = "reboot it". We fixed root cause: failing switch + no monitoring. 6 months, zero outages.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Jan 2026</span>
+            <a href="accounting-firm-uptime-case-study.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 9: NEW -->
+      <article class="blog-card" data-category="security">
+        <div class="blog-card-img">🔑</div>
+        <div class="blog-card-content">
+          <span class="blog-category">Passwords</span>
+          <h3>Stop Using Excel for Passwords. Do This Instead</h3>
+          <p>Free password manager setup guide for teams. MFA, sharing, offboarding. 15-min setup.</p>
+          <div class="blog-meta">
+            <span class="blog-date">Jan 2026</span>
+            <a href="password-manager-setup.html" class="blog-read">Read More →</a>
+          </div>
+        </div>
+      </article>
 
     </div>
+
+    <!-- NEWSLETTER SIGNUP -->
+    <div style="background:#1e293b; border:2px solid #38bdf8; border-radius:16px; padding:40px; text-align:center; margin:80px auto 0; max-width:700px;">
+      <h3 style="color:#fff; font-size:1.5rem; margin-bottom:12px;">Get 1 Security Tip Every Monday</h3>
+      <p style="color:#cbd5e1; margin-bottom:24px;">No spam. Just 1 actionable M365 tip. Unsubscribe anytime.</p>
+      <form style="display:flex; gap:12px; max-width:500px; margin:0 auto;" onsubmit="event.preventDefault(); alert('Thanks! Check your email.');">
+        <input type="email" placeholder="your@company.co.za" required style="flex:1; padding:14px 16px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:#fff; font-family:'Poppins';">
+        <button type="submit" class="btn-primary" style="white-space:nowrap;">Subscribe</button>
+      </form>
+    </div>
+
   </div>
 </section>
-
 <!-- CTA -->
 <section id="contact">
   <div class="container contact-wrapper">
