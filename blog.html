@@ -24,6 +24,30 @@ gtag('config', 'G-C9DS2C71G6');
 <link rel="stylesheet" href="styles.css">
 
 <style>
+  /* ========= BLOG FILTERS ========= */
+.filter-btn {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #cbd5e1;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-btn:hover {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.filter-btn.active {
+  background: #38bdf8;
+  color: #020617;
+  border-color: #38bdf8;
+}
 /* ========= BLOG SPECIFIC ========= */
 .blog-section {
   padding: 80px 0;
@@ -417,5 +441,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 </script>
+  // ========= BLOG FILTER =========
+function filterPosts(category) {
+  const cards = document.querySelectorAll('.blog-card');
+  const buttons = document.querySelectorAll('.filter-btn');
+  
+  buttons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  cards.forEach(card => {
+    if (category === 'all' || card.dataset.category.includes(category)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
 </body>
 </html>
