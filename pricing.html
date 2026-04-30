@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,14 @@
 </script>
 
 <style>
+/* ========= GLOBAL SECTION SPACING ========= */
+section {
+  padding: 80px 0;
+}
+.services-snapshot + .services-snapshot {
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+}
+
 /* ========= PRICING PAGE SPECIFIC ========= */
 .pricing-grid {
   display: grid;
@@ -34,6 +43,8 @@
   text-align: center;
   position: relative;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 .price-card:hover {
   transform: translateY(-8px);
@@ -81,6 +92,7 @@
 .price-features {
   text-align: left;
   margin: 32px 0;
+  flex-grow: 1;
 }
 .price-features li {
   color: #e2e8f0;
@@ -103,6 +115,15 @@
   content: "—";
   color: #64748b;
 }
+.price-card .btn-primary,
+.price-card .btn-secondary {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  padding: 12px 24px;
+}
+
+/* ========= COMPARISON TABLE ========= */
 .compare-table {
   width: 100%;
   border-collapse: collapse;
@@ -128,7 +149,48 @@
 }
 .check-yes { color: #38bdf8; font-weight: 600; }
 .check-no { color: #64748b; }
+
+/* ========= HARDWARE CARDS ========= */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin: 48px 0;
+}
+.trust-card {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.trust-card:hover {
+  transform: translateY(-4px);
+  border-color: #38bdf8;
+}
+.trust-card h3 {
+  color: #fff;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+.trust-card p {
+  color: #cbd5e1;
+  margin-bottom: 24px;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+.trust-card .btn-secondary {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  padding: 12px 24px;
+}
+
+/* ========= MOBILE ========= */
 @media (max-width: 768px) {
+  section { padding: 60px 0; }
   .price-card.featured { transform: scale(1); }
   .compare-table { font-size: 0.9rem; }
   .compare-table th, .compare-table td { padding: 12px 8px; }
@@ -193,7 +255,7 @@
           <li class="disabled">On-site support</li>
           <li class="disabled">After-hours support</li>
         </ul>
-        <a href="zoho.html" class="btn-secondary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Essential'});">Get Started</a>
+        <a href="zoho.html" class="btn-secondary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Essential'});">Get Started</a>
       </div>
 
       <!-- Business -->
@@ -210,7 +272,7 @@
           <li>User onboarding/offboarding</li>
           <li>Wi-Fi & network management</li>
         </ul>
-        <a href="zoho.html" class="btn-primary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Business'});">Most Popular</a>
+        <a href="zoho.html" class="btn-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Business'});">Most Popular</a>
       </div>
 
       <!-- Enterprise 
@@ -227,17 +289,16 @@
           <li>Hardware lifecycle management</li>
           <li>Custom SLA</li>
         </ul>
-        <a href="zoho.html" class="btn-secondary" style="width:100%;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Enterprise'});">Contact Sales</a>
+        <a href="zoho.html" class="btn-secondary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Pricing Enterprise'});">Contact Sales</a>
       </div>
-    </div>-->
-</div>
-    <div
+      -->
+    </div>
     <p style="text-align:center; color:#94a3b8; margin-top:24px;">All plans: 30-day notice to cancel. No setup fees. Prices ex VAT.</p>
   </div>
 </section>
 
 <!-- R950 CALLOUT -->
-<section style="background:#0b1220; padding:60px 0;">
+<section style="background:#0b1220;">
   <div class="container" style="text-align:center;">
     <h2>Not Ready For Monthly?</h2>
     <p class="section-intro">Start with our R950 IT Health Check. 23-point Microsoft 365 audit in 90 minutes. No obligation.</p>
@@ -301,7 +362,7 @@
   </div>
 </section>
 
-  <!-- HARDWARE -->
+<!-- HARDWARE -->
 <section class="services-snapshot" style="background:#0b1220;">
   <div class="container">
     <h2>Hardware Sales & Setup</h2>
@@ -327,9 +388,8 @@
            class="btn-secondary" target="_blank">Get Quote</a>
       </div>
     </div>
-
-    <section class="topics-section">
-    </section>
+  </div>
+</section>
 
 <!-- FAQ -->
 <section class="topics-section">
@@ -391,9 +451,6 @@ fetch('header.html')
       document.getElementById('navMenu')?.classList.toggle('active');
     });
   });
-  
 </script>
 </body>
 </html>
-
-
