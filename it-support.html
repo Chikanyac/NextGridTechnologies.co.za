@@ -192,6 +192,43 @@
   font-size: 1.1rem;
   font-weight: 600;
 }
+  /* ========= UNIFIED GRID SYSTEM ========= */
+.services-grid,
+.process-grid,
+.trust-grid,
+.grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 32px !important;
+  margin: 48px 0 !important;
+}
+
+/* Make FAQ cards match the dark style of other sections */
+.topics-section .tech-card {
+  background: #1e293b;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+  padding: 32px 24px;
+  color: #e2e8f0;
+}
+
+.topics-section .tech-card h3 {
+  color: #38bdf8;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.topics-section .tech-card p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+/* Center the FAQ section heading */
+.topics-section h2 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 16px;
+}
 </style>
 
 <script type="application/ld+json">
